@@ -1,0 +1,184 @@
+# ----------------------------------------------------------------------
+# |
+# |  Copyright (c) 2024 Scientific Software Engineering Center at Georgia Tech
+# |  Distributed under the MIT License.
+# |
+# ----------------------------------------------------------------------
+name: "Standard"
+
+run-name: ${{ github.run_number }} [${{ github.actor }}] on ${{ github.ref_name }}
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: '0 0 * * *' # Once a day at 12am UTC
+  workflow_dispatch:
+
+jobs:
+  # ----------------------------------------------------------------------
+  action_contexts:
+    name: "Display GitHub Action Contexts"
+    uses: davidbrownell/dbrownell_DevTools/.github/workflows/callable_display_action_contexts.yaml@CI-v0.15.2
+
+  # ----------------------------------------------------------------------
+  validate:
+    strategy:
+      fail-fast: false
+
+      matrix:
+        os:
+          - macos-latest
+          - ubuntu-latest
+          - windows-latest
+
+        python_version:
+          - "3.12"
+          - "3.11"
+          - "3.10"
+          # - "3.9"  # Not supported
+          # - "3.8"  # Not supported
+
+    name: Validate
+
+    uses: davidbrownell/dbrownell_DevTools/.github/workflows/callable_validate_python.yaml@CI-v0.15.2
+    with:
+      operating_system: ${{ matrix.os }}
+      python_version: ${{ matrix.python_version }}
+
+  # ----------------------------------------------------------------------
+  package_coverage:
+    needs: validate
+
+    name: Postprocess Coverage Info
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+
+    uses: davidbrownell/dbrownell_DevTools/.github/workflows/callable_package_python_coverage.yaml@CI-v0.15.2
+    with:
+      gist_id: 2f9d770d13e3a148424f374f74d41f4b
+      gist_filename: RepoAuditor_coverage.json
+    secrets:
+      GIST_TOKEN: ${{ secrets.GIST_TOKEN }}
+
+  # ----------------------------------------------------------------------
+  create_package:
+    needs: validate
+
+    strategy:
+      fail-fast: false
+
+      matrix:
+        os:
+          - macos-latest
+          - ubuntu-latest
+          - windows-latest
+
+        python_version:
+          - "3.12"
+          - "3.11"
+          - "3.10"
+          # - "3.9"  # Not supported
+          # - "3.8"  # Not supported
+
+    name: Create Package
+
+    uses: davidbrownell/dbrownell_DevTools/.github/workflows/callable_create_python_package.yaml@CI-v0.15.2
+    with:
+      operating_system: ${{ matrix.os }}
+      python_version: ${{ matrix.python_version }}
+
+  # ----------------------------------------------------------------------
+  validate_package:
+    needs: create_package
+
+    strategy:
+      fail-fast: false
+
+      matrix:
+        os:
+          - macos-latest
+          - ubuntu-latest
+          - windows-latest
+
+        python_version:
+          - "3.12"
+          - "3.11"
+          - "3.10"
+          # - "3.9"  # Not supported
+          # - "3.8"  # Not supported
+
+    name: Validate Package
+
+    uses: davidbrownell/dbrownell_DevTools/.github/workflows/callable_validate_python_package.yaml@CI-v0.15.2
+    with:
+      operating_system: ${{ matrix.os }}
+      python_version: ${{ matrix.python_version }}
+      validation_command: python -c "from RepoAuditor import __version__; print(__version__)"
+
+  # ----------------------------------------------------------------------
+  create_binary:
+    needs: validate
+
+    strategy:
+      fail-fast: false
+
+      matrix:
+        os:
+          - macos-latest
+          - ubuntu-latest
+          - windows-latest
+
+        python_version:
+          - "3.11"
+
+    name: Create Binary
+
+    uses: davidbrownell/dbrownell_DevTools/.github/workflows/callable_create_python_binary.yaml@CI-v0.15.2
+    with:
+      operating_system: ${{ matrix.os }}
+      python_version: ${{ matrix.python_version }}
+
+  # ----------------------------------------------------------------------
+  validate_binary:
+    needs: create_binary
+
+    strategy:
+      fail-fast: false
+
+      matrix:
+        os:
+          - macos-latest
+          - ubuntu-latest
+          - windows-latest
+
+        python_version:
+          - "3.11"
+
+    name: Validate Binary
+
+    uses: davidbrownell/dbrownell_DevTools/.github/workflows/callable_validate_python_binary.yaml@CI-v0.15.2
+    with:
+      operating_system: ${{ matrix.os }}
+      python_version: ${{ matrix.python_version }}
+      validation_command: RepoAuditor Version
+
+
+
+  # ----------------------------------------------------------------------
+  publish:
+    needs:
+      - validate_package
+      - validate_binary
+
+
+    name: Publish
+
+    uses: davidbrownell/dbrownell_DevTools/.github/workflows/callable_publish_python.yaml@CI-v0.15.2
+    with:
+      release_sources_configuration_filename: .github/release_sources.yaml
+    secrets:
+      PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}

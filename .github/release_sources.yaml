@@ -1,0 +1,5 @@
+# Changes to any file or a file within a directory will trigger a release.
+src:
+  - 'src/**'
+  - 'pyproject.toml'
+  - 'README.md'

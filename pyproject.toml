@@ -1,0 +1,172 @@
+# ----------------------------------------------------------------------
+# |
+# |  Copyright (c) 2024 Scientific Software Engineering Center at Georgia Tech
+# |  Distributed under the MIT License.
+# |
+# ----------------------------------------------------------------------
+# https://packaging.python.org/en/latest/specifications/declaring-project-metadata/
+
+[build-system]
+requires = ["setuptools >= 63.0"]
+build-backend = "setuptools.build_meta"
+
+# ----------------------------------------------------------------------
+# |
+# |  Project
+# |
+# ----------------------------------------------------------------------
+[project]
+name = "RepoAuditor"
+description = "Audits repositories for best practices."
+
+license = { text = "MIT" }
+
+authors = [
+    { name = "Scientific Software Engineering Center at Georgia Tech", email = "sse-center@gatech.edu" },
+]
+
+keywords = [
+    # TODO
+]
+
+# https://pypi.org/classifiers/
+classifiers = [
+    # TODO
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: MacOS",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+
+dependencies = [
+    # TODO
+    "typer ~= 0.9"
+]
+
+dynamic = [
+    "version",
+]
+
+readme = "README.md"
+
+[project.optional-dependencies]
+dev = [
+    "dbrownell_DevTools",
+]
+
+package = [
+    "build == 1.*",
+    "cx_Freeze == 6.*",
+    "twine == 4.*",
+]
+
+[project.urls]
+Homepage = "https://github.com/gt-sse-center/RepoAuditor"
+Documentation = "https://github.com/gt-sse-center/RepoAuditor"
+Repository = "https://github.com/gt-sse-center/RepoAuditor"
+
+[project.scripts]
+RepoAuditor = "RepoAuditor:EntryPoint.app"
+
+
+# ----------------------------------------------------------------------
+# |
+# |  black
+# |
+# ----------------------------------------------------------------------
+[tool.black]
+line-length = 100
+
+# ----------------------------------------------------------------------
+# |
+# |  pylint
+# |
+# ----------------------------------------------------------------------
+[tool.pylint.basic]
+class-const-naming-style = "any"
+function-naming-style = "PascalCase"
+good-names = [
+    "i",
+    "j",
+    "k",
+    "ex",
+    "Run",
+    "_",
+    "dm",                                   # added
+    "f",                                    # added
+]
+method-naming-style = "any"
+module-naming-style = "PascalCase"
+
+[tool.pylint.design]
+max-args = 10
+max-parents = 15
+
+[tool.pylint.main]
+ignore-paths = [
+    # Note that the pylint vscode extension has trouble with wrapping these patterns in quotes
+    # (which is required to parse the file correctly). Because of this, each pattern must be
+    # converted to a glob pattern and specified in the pylint vscode settings as well.
+    "^.+?Tests/.*$",
+]
+
+[tool.pylint."messages control"]
+disable = [
+    "raw-checker-failed",
+    "bad-inline-option",
+    "locally-disabled",
+    "file-ignored",
+    "suppressed-message",
+    "useless-suppression",
+    "deprecated-pragma",
+    "use-symbolic-message-instead",
+    "assignment-from-no-return",            # added
+    "broad-except",                         # added
+    "broad-exception-raised",               # added
+    "cell-var-from-loop",                   # added
+    "consider-using-f-string",              # added
+    "import-outside-toplevel",              # added
+    "line-too-long",                        # added
+    "missing-function-docstring",           # added
+    "subprocess-run-check",                 # added
+    "super-with-arguments",                 # added
+    "too-few-public-methods",               # added
+    "unnecessary-lambda-assignment",        # added
+    "unspecified-encoding",                 # added
+]
+
+# ----------------------------------------------------------------------
+# |
+# |  pyright
+# |
+# ----------------------------------------------------------------------
+[tool.pyright]
+exclude = [
+    "**/*Tests/*",
+    "**/Generated/*",
+]
+
+reportMissingImports = true
+reportMissingTypeStubs = false
+
+# ----------------------------------------------------------------------
+# |
+# |  pytest
+# |
+# ----------------------------------------------------------------------
+[tool.pytest.ini_options]
+python_files = [
+    "**/*Test.py",
+]
+
+# ----------------------------------------------------------------------
+# |
+# |  setuptools
+# |
+# ----------------------------------------------------------------------
+[tool.setuptools.dynamic]
+version = { attr = "RepoAuditor.__version__" }

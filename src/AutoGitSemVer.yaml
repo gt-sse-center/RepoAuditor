@@ -1,0 +1,6 @@
+# This file is used by AutoGitSemVer to configure the semantic version of the RepoAuditor package.
+# It indicates that AutoGitSemVer should only look at changes in this directory, its descendants, and files specified in
+# additional_dependencies when calculating the semantic version for the package.
+additional_dependencies:
+  - "../pyproject.toml"
+  - "../README.md"
