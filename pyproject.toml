@@ -43,7 +43,8 @@ classifiers = [
 ]
 
 dependencies = [
-    # TODO
+    "dbrownell_Common",
+    "pluggy == 1.*",
     "typer ~= 0.9"
 ]
 
@@ -72,7 +73,6 @@ Repository = "https://github.com/gt-sse-center/RepoAuditor"
 [project.scripts]
 RepoAuditor = "RepoAuditor:EntryPoint.app"
 
-
 # ----------------------------------------------------------------------
 # |
 # |  black
@@ -80,6 +80,16 @@ RepoAuditor = "RepoAuditor:EntryPoint.app"
 # ----------------------------------------------------------------------
 [tool.black]
 line-length = 100
+
+# ----------------------------------------------------------------------
+# |
+# |  coverage
+# |
+# ----------------------------------------------------------------------
+[tool.coverage.run]
+omit = [
+    "*/Impl/*",
+]
 
 # ----------------------------------------------------------------------
 # |
