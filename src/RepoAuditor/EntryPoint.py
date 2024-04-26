@@ -12,7 +12,7 @@ import typer
 
 from typer.core import TyperGroup  # type: ignore [import-untyped]
 
-from RepoAuditor import Math, __version__
+from RepoAuditor import __version__
 
 
 # ----------------------------------------------------------------------
@@ -34,47 +34,10 @@ app = typer.Typer(
 
 
 # ----------------------------------------------------------------------
-@app.command("Add")
-def Add(
-    x: int,
-    y: int,
-) -> None:
-    """Adds 2 values."""
-
-    sys.stdout.write(str(Math.Add(x, y)))
-
-
-# ----------------------------------------------------------------------
-@app.command("Sub")
-def Sub(
-    x: int,
-    y: int,
-) -> None:
-    """Subtracts 2 values."""
-
-    sys.stdout.write(str(Math.Sub(x, y)))
-
-
-# ----------------------------------------------------------------------
-@app.command("Mult")
-def Mult(
-    x: int,
-    y: int,
-) -> None:
-    """Multiplies 2 values."""
-
-    sys.stdout.write(str(Math.Mult(x, y)))
-
-
-# ----------------------------------------------------------------------
-@app.command("Div")
-def Div(
-    x: int,
-    y: int,
-) -> None:
-    """Divides 1 value by another."""
-
-    sys.stdout.write(str(Math.Div(x, y)))
+@app.command("Placeholder")
+def Placeholder() -> None:
+    """This is a placeholder command that should be removed once actual functionality is added."""
+    pass
 
 
 # ----------------------------------------------------------------------
