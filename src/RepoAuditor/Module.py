@@ -12,12 +12,13 @@ from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from typing import Any, Optional
 
+from dbrownell_Common.TyperEx import TypeDefinitionItemType  # type: ignore[import-untyped]
+
 from .Impl.ParallelSequentialProcessor import ParallelSequentialProcessor
 from .Query import EvaluateResult, ExecutionStyle, OnStatusFunc, Query, StatusInfo
 
 
 # ----------------------------------------------------------------------
-@dataclass(frozen=True)
 class Module(ABC):
     """A collection of Queries that operate on a consistent set of data."""
 
@@ -34,37 +35,82 @@ class Module(ABC):
 
     # ----------------------------------------------------------------------
     # |
-    # |  Public Data
-    # |
-    # ----------------------------------------------------------------------
-    name: str
-    description: str
-    style: ExecutionStyle
-
-    queries: list[Query]
-
-    # ----------------------------------------------------------------------
-    # |
     # |  Public Methods
     # |
+    # ----------------------------------------------------------------------
+    def __init__(
+        self,
+        name: str,
+        description: str,
+        style: ExecutionStyle,
+        queries: list[Query],
+    ) -> None:
+        self.name = name
+        self.description = description
+        self.style = style
+        self.queries = queries
+
     # ----------------------------------------------------------------------
     def GetNumRequirements(self) -> int:
         return sum(len(query.requirements) for query in self.queries)
 
     # ----------------------------------------------------------------------
+    def RemoveRequirements(
+        self,
+        requirement_names: set[str],
+    ) -> None:
+        query_index = 0
+
+        while query_index < len(self.queries):
+            query = self.queries[query_index]
+
+            requirement_index = 0
+
+            while requirement_index < len(query.requirements):
+                requirement = query.requirements[requirement_index]
+
+                if requirement.name in requirement_names:
+                    query.requirements.pop(requirement_index)
+                    continue
+
+                requirement_index += 1
+
+            if not query.requirements:
+                self.queries.pop(query_index)
+                continue
+
+            query_index += 1
+
+    # ----------------------------------------------------------------------
+    @abstractmethod
+    def GetDynamicArgDefinitions(self) -> dict[str, TypeDefinitionItemType]:
+        """Returns information about dynamic arguments that the module can consume (often from the command line)."""
+
+        raise Exception("Abstract method")  # pragma: no cover
+
+    # ----------------------------------------------------------------------
+    @abstractmethod
+    def GenerateInitialData(
+        self,
+        dynamic_args: dict[str, Any],
+    ) -> Optional[dict[str, Any]]:
+        """\
+        Augments data beyond data initially encountered (for example, on the command line).
+
+        Return None to indicate that the Module cannot be evaluated. Raise an
+        exception to indicate that the command line data is invalid.
+        """
+
+        raise Exception("Abstract method")  # pragma: no cover
+
+    # ----------------------------------------------------------------------
     def Evaluate(
         self,
+        module_data: dict[str, Any],
         status_func: OnStatusFunc,
         *,
         max_num_threads: Optional[int] = None,
     ) -> list[list["Module.EvaluateInfo"]]:
-        num_requirements = self.GetNumRequirements()
-
-        module_data = self._GetData()
-        if module_data is None:
-            status_func(num_requirements, 0, 0, 0, num_requirements)
-            return []
-
         status_info = StatusInfo()
         status_info_lock = threading.Lock()
 
@@ -148,12 +194,3 @@ class Module(ABC):
             EvaluateQuery,
             max_num_threads=max_num_threads,
         )
-
-    # ----------------------------------------------------------------------
-    # |
-    # |  Private Methods
-    # |
-    # ----------------------------------------------------------------------
-    @abstractmethod
-    def _GetData(self) -> Optional[dict[str, Any]]:
-        """Returns the data required by Queries associated with this Module."""

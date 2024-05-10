@@ -4,11 +4,12 @@
 # |                     Distributed under the MIT License.                      |
 # |                                                                             |
 # -------------------------------------------------------------------------------
-"""Executes one or more Modules"""
+"""Contains functionality to execute multiple Modules"""
 
 import sys
 
-from typing import Any, Callable, Optional
+from dataclasses import dataclass
+from typing import Any, Callable, cast, Optional
 
 from dbrownell_Common import ExecuteTasks  # type: ignore[import-untyped]
 from dbrownell_Common.InflectEx import inflect  # type: ignore[import-untyped]
@@ -16,38 +17,80 @@ from dbrownell_Common.Streams.Capabilities import Capabilities  # type: ignore[i
 from dbrownell_Common.Streams.DoneManager import DoneManager  # type: ignore[import-untyped]
 from rich.progress import Progress, TimeElapsedColumn
 
-from .Module import EvaluateResult, ExecutionStyle, Module
+from .Module import EvaluateResult, ExecutionStyle, Module, OnStatusFunc
 
 
 # ----------------------------------------------------------------------
+# |
+# |  Public Types
+# |
+# ----------------------------------------------------------------------
+@dataclass(frozen=True)
+class ModuleInfo:
+    module: Module
+    dynamic_args: dict[str, Any]
+
+
+# ----------------------------------------------------------------------
+# |
+# |  Public Functions
+# |
+# ----------------------------------------------------------------------
 def Execute(
     dm: DoneManager,
-    modules: list[Module],
-    *,
+    module_infos: list[ModuleInfo],
     warnings_as_errors_module_names: Optional[set[str]] = None,
     ignore_warnings_module_names: Optional[set[str]] = None,
-    max_num_threads: Optional[int] = None,
+    *,
+    single_threaded: bool = False,
 ) -> None:
+    if not module_infos:
+        dm.WriteWarning("There are no modules to process.\n")
+        return
+
     warnings_as_errors_module_names = warnings_as_errors_module_names or set()
     ignore_warnings_module_names = ignore_warnings_module_names or set()
+    max_num_threads = 1 if single_threaded else None
 
-    with dm.Nested("Processing {}...".format(inflect.no("module", len(modules)))) as modules_dm:
-        parallel: list[tuple[int, Module]] = []
-        sequential: list[tuple[int, Module]] = []
+    with dm.Nested(
+        "Processing {}...".format(inflect.no("module", len(module_infos)))
+    ) as modules_dm:
+        # Organize the modules into those that can be run in parallel and those that must be run
+        # sequentially.
+        parallel: list[tuple[int, ModuleInfo]] = []
+        sequential: list[tuple[int, ModuleInfo]] = []
 
-        for index, module in enumerate(modules):
-            if module.style == ExecutionStyle.Parallel:
-                parallel.append((index, module))
-            elif module.style == ExecutionStyle.Sequential:
-                sequential.append((index, module))
+        for index, module_info in enumerate(module_infos):
+            if module_info.module.style == ExecutionStyle.Parallel:
+                parallel.append((index, module_info))
+            elif module_info.module.style == ExecutionStyle.Sequential:
+                sequential.append((index, module_info))
             else:
-                assert False, module.style  # pragma: no cover
+                assert False, module_info.module.style  # pragma: no cover
+
+        if len(parallel) == 1:
+            sequential.append(parallel[0])
+            parallel = []
 
         # Calculate the results
 
         # ----------------------------------------------------------------------
+        def Evaluate(
+            module_info: ModuleInfo,
+            on_status_func: OnStatusFunc,
+        ) -> list[list[Module.EvaluateInfo]]:
+            module_data = module_info.module.GenerateInitialData(module_info.dynamic_args)
+            if module_data is None:
+                return []
+
+            return module_info.module.Evaluate(
+                module_data,
+                on_status_func,
+                max_num_threads=max_num_threads,
+            )
+
+        # ----------------------------------------------------------------------
         def CreateStatusString(
-            num_completed: int,  # pylint: disable=unused-argument
             num_success: int,
             num_error: int,
             num_warning: int,
@@ -57,18 +100,21 @@ def Execute(
 
         # ----------------------------------------------------------------------
         def CalcResultInfo(
-            module: Module,
-            eval_infos: list[list[Module.EvaluateInfo]],
+            all_eval_infos: list[list[Module.EvaluateInfo]],
         ) -> tuple[int, str]:
             return_code = 0
 
-            for eval_info_items in eval_infos:
-                for eval_info in eval_info_items:
+            if not all_eval_infos:
+                return 0, "module does not apply"
+
+            for eval_infos in all_eval_infos:
+                for eval_info in eval_infos:
                     result = eval_info.result
+
                     if result == EvaluateResult.Warning:
-                        if module.name in warnings_as_errors_module_names:
+                        if eval_info.module.name in warnings_as_errors_module_names:
                             result = EvaluateResult.Error
-                        elif module.name in ignore_warnings_module_names:
+                        elif eval_info.module.name in ignore_warnings_module_names:
                             continue
 
                     if result == EvaluateResult.Error:
@@ -80,7 +126,7 @@ def Execute(
 
         # ----------------------------------------------------------------------
 
-        results: list[Optional[list[list[Module.EvaluateInfo]]]] = [None] * len(modules)
+        all_results: list[Optional[list[list[Module.EvaluateInfo]]]] = [None] * len(module_infos)
 
         if parallel:
             # ----------------------------------------------------------------------
@@ -88,60 +134,63 @@ def Execute(
                 context: Any,
                 on_simple_status_func: Callable[[str], None],  # pylint: disable=unused-argument
             ) -> tuple[int, ExecuteTasks.TransformTasksExTypes.TransformFuncType]:
-                module = context
+                module_info = cast(ModuleInfo, context)
                 del context
 
                 # ----------------------------------------------------------------------
                 def Transform(
                     status: ExecuteTasks.Status,
                 ) -> ExecuteTasks.TransformResultComplete:
-
                     # ----------------------------------------------------------------------
                     def OnStatus(num_completed: int, *args, **kwargs):
                         status.OnProgress(
-                            num_completed, CreateStatusString(num_completed, *args, **kwargs)
+                            num_completed,
+                            CreateStatusString(*args, **kwargs),
                         )
 
                     # ----------------------------------------------------------------------
 
-                    result: list[list[Module.EvaluateInfo]] = module.Evaluate(
-                        OnStatus,
-                        max_num_threads=max_num_threads,
+                    evaluate_results = Evaluate(module_info, OnStatus)
+
+                    result_code, result_status = CalcResultInfo(evaluate_results)
+
+                    return ExecuteTasks.TransformResultComplete(
+                        evaluate_results, result_code, result_status
                     )
-
-                    result_code, result_status = CalcResultInfo(module, result)
-
-                    return ExecuteTasks.TransformResultComplete(result, result_code, result_status)
 
                 # ----------------------------------------------------------------------
 
-                return module.GetNumRequirements(), Transform
+                return module_info.module.GetNumRequirements(), Transform
 
             # ----------------------------------------------------------------------
 
-            for (results_index, _), result in zip(
+            for (all_results_index, _), transformed_results in zip(
                 parallel,
                 ExecuteTasks.TransformTasksEx(
                     modules_dm,
                     "Processing parallel modules...",
-                    [ExecuteTasks.TaskData(module.name, module) for _, module in parallel],
+                    [
+                        ExecuteTasks.TaskData(module_info.module.name, module_info)
+                        for _, module_info in parallel
+                    ],
                     Prepare,
                     max_num_threads=max_num_threads,
                 ),
             ):
-                assert results[results_index] is None
-                assert isinstance(result, list), result
+                assert all_results[all_results_index] is None
+                assert isinstance(transformed_results, list), transformed_results
 
-                results[results_index] = result
+                all_results[all_results_index] = transformed_results
 
-        for index, (results_index, module) in enumerate(sequential):
+        for index, (all_results_index, module_info) in enumerate(sequential):
             with modules_dm.Nested(
                 "Processing '{}' ({} of {})...".format(
-                    module.name,
+                    module_info.module.name,
                     index + 1 + len(parallel),
-                    len(modules),
+                    len(module_infos),
                 ),
             ) as this_module_dm:
+                # rich.progress needs to output to sys.stdout
                 with this_module_dm.YieldStdout() as stdout_context:
                     stdout_context.persist_content = False
 
@@ -166,7 +215,7 @@ def Execute(
                         progress_bar_task_id = progress_bar.add_task(
                             stdout_context.line_prefix,
                             status="",
-                            total=module.GetNumRequirements(),
+                            total=module_info.module.GetNumRequirements(),
                             visible=True,
                         )
 
@@ -182,7 +231,6 @@ def Execute(
                                 progress_bar_task_id,
                                 completed=num_completed,
                                 status=CreateStatusString(
-                                    num_completed,
                                     num_success,
                                     num_error,
                                     num_warning,
@@ -192,12 +240,9 @@ def Execute(
 
                         # ----------------------------------------------------------------------
 
-                        this_results: list[list[Module.EvaluateInfo]] = module.Evaluate(
-                            OnStatus,
-                            max_num_threads=max_num_threads,
-                        )
+                        evaluate_results = Evaluate(module_info, OnStatus)
 
-                        assert results[results_index] is None
-                        results[results_index] = this_results
+                        assert all_results[all_results_index] is None
+                        all_results[all_results_index] = evaluate_results
 
-                        this_module_dm.result = CalcResultInfo(module, this_results)[0]
+                        this_module_dm.result = CalcResultInfo(evaluate_results)[0]
