@@ -34,9 +34,19 @@ class MyModule(Module):
 
 
 # ----------------------------------------------------------------------
-@dataclass(frozen=True)
 class MyQuery(Query):
-    produce_data: bool = field(kw_only=True)
+    # ----------------------------------------------------------------------
+    def __init__(
+        self,
+        name: str,
+        style: ExecutionStyle,
+        requirements: list[Requirement],
+        *,
+        produce_data: bool,
+    ) -> None:
+        super(MyQuery, self).__init__(name, style, requirements)
+
+        self.produce_data = produce_data
 
     # ----------------------------------------------------------------------
     @override
@@ -48,6 +58,7 @@ class MyQuery(Query):
             return None
 
         module_data["query_data"] = self.name
+
         return module_data
 
 
@@ -171,7 +182,6 @@ requirementB4 = MyRequirement(
 
 queryA = MyQuery(
     "QueryA",
-    "The first query",
     ExecutionStyle.Parallel,
     [requirementA1, requirementA2, requirementA3, requirementA4],
     produce_data=True,
@@ -179,7 +189,6 @@ queryA = MyQuery(
 
 queryB = MyQuery(
     "QueryB",
-    "The second query",
     ExecutionStyle.Parallel,
     [requirementB1, requirementB2, requirementB3, requirementB4],
     produce_data=True,
@@ -187,7 +196,6 @@ queryB = MyQuery(
 
 queryC = MyQuery(
     "QueryC",
-    "The third query",
     ExecutionStyle.Sequential,
     [requirementA1, requirementA2, requirementA3],
     produce_data=False,

@@ -29,7 +29,6 @@ class OnStatusFunc(Protocol):
 
 
 # ----------------------------------------------------------------------
-@dataclass(frozen=True)
 class Query(ABC):
     """A collection of Requirements that operate on a consistent set of data."""
 
@@ -46,19 +45,19 @@ class Query(ABC):
 
     # ----------------------------------------------------------------------
     # |
-    # |  Public Data
-    # |
-    # ----------------------------------------------------------------------
-    name: str
-    description: str
-    style: ExecutionStyle
-
-    requirements: list[Requirement]
-
-    # ----------------------------------------------------------------------
-    # |
     # |  Public Methods
     # |
+    # ----------------------------------------------------------------------
+    def __init__(
+        self,
+        name: str,
+        style: ExecutionStyle,
+        requirements: list[Requirement],
+    ) -> None:
+        self.name = name
+        self.style = style
+        self.requirements = requirements
+
     # ----------------------------------------------------------------------
     @abstractmethod
     def GetData(
