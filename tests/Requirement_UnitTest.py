@@ -6,7 +6,6 @@
 # -------------------------------------------------------------------------------
 """Unit tests for Requirement.py"""
 
-from dataclasses import dataclass, field
 from unittest.mock import Mock
 
 from dbrownell_Common.Types import override
@@ -15,10 +14,24 @@ from RepoAuditor.Requirement import *
 
 
 # ----------------------------------------------------------------------
-@dataclass(frozen=True)
 class MyRequirement(Requirement):
-    expected_result: EvaluateResult
-    context: Optional[str] = field(default=None)
+    # ----------------------------------------------------------------------
+    def __init__(
+        self,
+        name: str,
+        description: str,
+        style: ExecutionStyle,
+        resolution_template: str,
+        rationale_template: str,
+        expected_result: EvaluateResult,
+        context: Optional[str] = None,
+    ) -> None:
+        super(MyRequirement, self).__init__(
+            name, description, style, resolution_template, rationale_template
+        )
+
+        self.expected_result = expected_result
+        self.context = context
 
     # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------

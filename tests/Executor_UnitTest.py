@@ -41,9 +41,21 @@ class MyQuery(Query):
 
 
 # ----------------------------------------------------------------------
-@dataclass(frozen=True)
 class MyRequirement(Requirement):
-    result: EvaluateResult
+    # ----------------------------------------------------------------------
+    def __init__(
+        self,
+        name: str,
+        description: str,
+        style: ExecutionStyle,
+        resolution_template: str,
+        rationale_template: str,
+        result: EvaluateResult,
+    ) -> None:
+        super(MyRequirement, self).__init__(
+            name, description, style, resolution_template, rationale_template
+        )
+        self.result = result
 
     # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------

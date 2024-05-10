@@ -26,7 +26,6 @@ class EvaluateResult(Enum):
 
 
 # ----------------------------------------------------------------------
-@dataclass(frozen=True)
 class Requirement(ABC):
     """A single requirement that can be evaluated against a set of data."""
 
@@ -49,20 +48,24 @@ class Requirement(ABC):
 
     # ----------------------------------------------------------------------
     # |
-    # |  Public Data
-    # |
-    # ----------------------------------------------------------------------
-    name: str
-    description: str
-    style: ExecutionStyle
-
-    resolution_template: str
-    rationale_template: str
-
-    # ----------------------------------------------------------------------
-    # |
     # |  Public Methods
     # |
+    # ----------------------------------------------------------------------
+    def __init__(
+        self,
+        name: str,
+        description: str,
+        style: ExecutionStyle,
+        resolution_template: str,
+        rationale_template: str,
+    ) -> None:
+        self.name = name
+        self.description = description
+        self.style = style
+
+        self.resolution_template = resolution_template
+        self.rationale_template = rationale_template
+
     # ----------------------------------------------------------------------
     def Evaluate(
         self,
