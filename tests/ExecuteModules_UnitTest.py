@@ -7,22 +7,52 @@
 """Unit test for Executor.py"""
 
 import sys
+import textwrap
 import time
 
-from dataclasses import dataclass
+from typing import cast
+from unittest.mock import Mock
 
 import pytest
 
 from dbrownell_Common.Types import override
+from dbrownell_Common.TestHelpers.StreamTestHelpers import GenerateDoneManagerAndContent
 
-from RepoAuditor.Executor import *
+from RepoAuditor.ExecuteModules import *
 from RepoAuditor.Module import *
 from RepoAuditor.Requirement import *
 
 
 # ----------------------------------------------------------------------
-@dataclass(frozen=True)
 class MyModule(Module):
+    # ----------------------------------------------------------------------
+    def __init__(
+        self,
+        *args,
+        no_initial_data: bool = False,
+        **kwargs,
+    ) -> None:
+        super(MyModule, self).__init__(*args, **kwargs)
+        self.no_initial_data = no_initial_data
+
+    # ----------------------------------------------------------------------
+    @override
+    def GetDynamicArgDefinitions(self) -> dict[str, TypeDefinitionItemType]:
+        return {}
+
+    # ----------------------------------------------------------------------
+    @override
+    def GenerateInitialData(self, dynamic_args: dict[str, Any]) -> Optional[dict[str, Any]]:
+        assert not dynamic_args
+
+        if self.no_initial_data:
+            return None
+
+        return {"module_name": self.name}
+
+    # ----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     @override
     def _GetData(self) -> Optional[dict[str, Any]]:
         return {"module_name": self.name}
@@ -30,6 +60,7 @@ class MyModule(Module):
 
 # ----------------------------------------------------------------------
 class MyQuery(Query):
+    # ----------------------------------------------------------------------
     @override
     def GetData(
         self,
@@ -42,18 +73,9 @@ class MyQuery(Query):
 # ----------------------------------------------------------------------
 class MyRequirement(Requirement):
     # ----------------------------------------------------------------------
-    def __init__(
-        self,
-        name: str,
-        description: str,
-        style: ExecutionStyle,
-        resolution_template: str,
-        rationale_template: str,
-        result: EvaluateResult,
-    ) -> None:
-        super(MyRequirement, self).__init__(
-            name, description, style, resolution_template, rationale_template
-        )
+    def __init__(self, result: EvaluateResult, *args) -> None:
+        super(MyRequirement, self).__init__(*args)
+
         self.result = result
 
     # ----------------------------------------------------------------------
@@ -90,12 +112,12 @@ def test_Successful(single_threaded):
             for requirement_index in range(5):
                 requirements.append(
                     MyRequirement(
+                        EvaluateResult.Success,
                         f"Requirement-{module_index}-{query_index}-{requirement_index}",
                         "",
                         GetExecutionStyle(requirement_index),
                         "",
                         "",
-                        EvaluateResult.Success,
                     ),
                 )
 
@@ -119,8 +141,8 @@ def test_Successful(single_threaded):
     with DoneManager.Create(sys.stdout, "", line_prefix="") as dm:
         Execute(
             dm,
-            modules,
-            max_num_threads=1 if single_threaded else None,
+            [ModuleInfo(module, {}) for module in modules],
+            single_threaded=single_threaded,
         )
 
         assert dm.result == 0
@@ -156,12 +178,12 @@ def test_NotSuccess(data):
             for requirement_index in range(5):
                 requirements.append(
                     MyRequirement(
+                        (test_result if requirement_index % 3 == 0 else EvaluateResult.Success),
                         f"Requirement-{module_index}-{query_index}-{requirement_index}",
                         "",
                         GetExecutionStyle(requirement_index),
                         "",
                         "",
-                        (test_result if requirement_index % 3 == 0 else EvaluateResult.Success),
                     ),
                 )
 
@@ -185,7 +207,7 @@ def test_NotSuccess(data):
     with DoneManager.Create(sys.stdout, "", line_prefix="") as dm:
         Execute(
             dm,
-            modules,
+            [ModuleInfo(module, {}) for module in modules],
             warnings_as_errors_module_names=(
                 set() if not warnings_as_errors else {module.name for module in modules}
             ),
@@ -195,3 +217,59 @@ def test_NotSuccess(data):
         )
 
         assert dm.result == expected_result
+
+
+# ----------------------------------------------------------------------
+def test_NoModules():
+    dm_and_content = GenerateDoneManagerAndContent()
+
+    dm = cast(DoneManager, next(dm_and_content))
+
+    Execute(dm, [])
+
+    assert dm.result > 0, dm.result
+
+    assert cast(str, next(dm_and_content)) == textwrap.dedent(
+        """\
+        Heading...
+          WARNING: There are no modules to process.
+        DONE! (1, <scrubbed duration>)
+        """,
+    )
+
+
+# ----------------------------------------------------------------------
+def test_SingleParallel():
+    dm_and_content = GenerateDoneManagerAndContent()
+
+    Execute(
+        cast(DoneManager, next(dm_and_content)),
+        [ModuleInfo(MyModule("MyModule", "", ExecutionStyle.Parallel, []), {})],
+    )
+
+
+# ----------------------------------------------------------------------
+def test_NoInitialData():
+    dm_and_content = GenerateDoneManagerAndContent()
+
+    Execute(
+        cast(DoneManager, next(dm_and_content)),
+        [
+            ModuleInfo(
+                MyModule("MyModule", "", ExecutionStyle.Sequential, [], no_initial_data=True), {}
+            )
+        ],
+    )
+
+    assert cast(str, next(dm_and_content)) == textwrap.dedent(
+        """\
+        Heading...
+          Processing 1 module...
+            Processing 'MyModule' (1 of 1)...
+
+
+            DONE! (0, <scrubbed duration>)
+          DONE! (0, <scrubbed duration>)
+        DONE! (0, <scrubbed duration>)
+        """,
+    )

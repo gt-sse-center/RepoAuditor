@@ -6,7 +6,8 @@
 # -------------------------------------------------------------------------------
 """Unit test for Module.py"""
 
-from dataclasses import dataclass, field
+import copy
+
 from unittest.mock import Mock
 
 import pytest
@@ -18,19 +19,45 @@ from RepoAuditor.Requirement import EvaluateResult, Requirement
 
 
 # ----------------------------------------------------------------------
-@dataclass(frozen=True)
 class MyModule(Module):
-    produce_data: bool = field(kw_only=True)
+    # ----------------------------------------------------------------------
+    def __init__(
+        self,
+        name: str,
+        description: str,
+        style: ExecutionStyle,
+        queries: list[Query],
+        *,
+        produce_data: bool,
+    ) -> None:
+        super(MyModule, self).__init__(name, description, style, queries)
 
-    # ----------------------------------------------------------------------
-    # ----------------------------------------------------------------------
+        self.produce_data = produce_data
+
     # ----------------------------------------------------------------------
     @override
-    def _GetData(self) -> Optional[dict[str, Any]]:
-        if self.produce_data:
-            return {"one": 1, "two": 2, "three": 3, "four": 4, "module_data": self.name}
+    def GetDynamicArgDefinitions(self) -> dict[str, TypeDefinitionItemType]:
+        return {}
 
-        return None
+    # ----------------------------------------------------------------------
+    @override
+    def GenerateInitialData(
+        self,
+        dynamic_args: dict[str, Any],
+    ) -> Optional[dict[str, Any]]:
+        if self.produce_data is False:
+            return None
+
+        assert not dynamic_args
+
+        dynamic_args["produce_data"] = self.produce_data
+        dynamic_args["one"] = 1
+        dynamic_args["two"] = 2
+        dynamic_args["three"] = 3
+        dynamic_args["four"] = 4
+        dynamic_args["module_data"] = self.name
+
+        return dynamic_args
 
 
 # ----------------------------------------------------------------------
@@ -49,7 +76,6 @@ class MyQuery(Query):
         self.produce_data = produce_data
 
     # ----------------------------------------------------------------------
-    @override
     def GetData(
         self,
         module_data: dict[str, Any],
@@ -77,6 +103,7 @@ class MyRequirement(Requirement):
         super(MyRequirement, self).__init__(
             name, description, style, resolution_template, rationale_template
         )
+
         self.evaluate_result = evaluate_result
 
     # ----------------------------------------------------------------------
@@ -215,7 +242,11 @@ def test_Module(single_threaded):
 
     status_func = Mock()
 
+    initial_data = module.GenerateInitialData({})
+    assert initial_data is not None
+
     results = module.Evaluate(
+        initial_data,
         status_func,
         max_num_threads=1 if single_threaded else None,
     )
@@ -322,9 +353,31 @@ def test_ModuleNoData():
         produce_data=False,
     )
 
-    status_func = Mock()
+    initial_data = module.GenerateInitialData({})
+    assert initial_data is None
 
-    results = module.Evaluate(status_func)
 
-    assert results == []
-    assert [call_args.args for call_args in status_func.call_args_list] == [(11, 0, 0, 0, 11)]
+# ----------------------------------------------------------------------
+def test_ModuleRemoveRequirements():
+    module = MyModule(
+        "MyModule",
+        "",
+        ExecutionStyle.Sequential,
+        [copy.deepcopy(queryA)],
+        produce_data=False,
+    )
+
+    assert module.GetNumRequirements() == 4
+    assert module.queries
+
+    module.RemoveRequirements({"RequirementA2"})
+    assert module.GetNumRequirements() == 3
+    assert module.queries
+
+    module.RemoveRequirements({"RequirementA1", "RequirementA4"})
+    assert module.GetNumRequirements() == 1
+    assert module.queries
+
+    module.RemoveRequirements({"RequirementA3"})
+    assert module.GetNumRequirements() == 0
+    assert not module.queries
