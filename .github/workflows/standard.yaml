@@ -164,7 +164,7 @@ jobs:
     with:
       operating_system: ${{ matrix.os }}
       python_version: ${{ matrix.python_version }}
-      validation_command: RepoAuditor Version
+      validation_command: RepoAuditor --version
 
 
 
