@@ -29,7 +29,6 @@ class MyModule(Module):
 
 
 # ----------------------------------------------------------------------
-@dataclass(frozen=True)
 class MyQuery(Query):
     @override
     def GetData(
@@ -103,7 +102,6 @@ def test_Successful(single_threaded):
             queries.append(
                 MyQuery(
                     f"Query-{module_index}-{query_index}",
-                    "",
                     GetExecutionStyle(query_index),
                     requirements,
                 ),
@@ -170,7 +168,6 @@ def test_NotSuccess(data):
             queries.append(
                 MyQuery(
                     f"Query-{module_index}-{query_index}",
-                    "",
                     GetExecutionStyle(query_index),
                     requirements,
                 ),

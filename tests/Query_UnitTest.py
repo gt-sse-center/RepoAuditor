@@ -6,7 +6,6 @@
 # -------------------------------------------------------------------------------
 """Unit test for Query.py"""
 
-from dataclasses import dataclass, field
 from unittest.mock import Mock
 
 import pytest
@@ -38,8 +37,8 @@ def test_StatusInfo():
 
 
 # ----------------------------------------------------------------------
-@dataclass(frozen=True)
 class MyQuery(Query):
+    # ----------------------------------------------------------------------
     @override
     def GetData(
         self,
@@ -134,7 +133,6 @@ requirement5 = MyRequirement(
 
 my_query = MyQuery(
     "MyQuery",
-    "This is my query.",
     ExecutionStyle.Sequential,
     [
         requirement1,
@@ -149,7 +147,6 @@ my_query = MyQuery(
 # ----------------------------------------------------------------------`
 def test_MyQueryConstruct():
     assert my_query.name == "MyQuery"
-    assert my_query.description == "This is my query."
     assert my_query.style == ExecutionStyle.Sequential
     assert my_query.requirements == [
         requirement1,
