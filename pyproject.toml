@@ -73,6 +73,10 @@ Repository = "https://github.com/gt-sse-center/RepoAuditor"
 [project.scripts]
 RepoAuditor = "RepoAuditor:EntryPoint.app"
 
+[project.entry-points.RepoAuditor]
+plugin1 = "RepoAuditor.Plugins.Plugin1"
+plugin2 = "RepoAuditor.Plugins.Plugin2"
+
 # ----------------------------------------------------------------------
 # |
 # |  black
