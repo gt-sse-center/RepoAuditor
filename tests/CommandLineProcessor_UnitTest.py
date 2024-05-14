@@ -34,12 +34,15 @@ class MyModule(Module):
         self,
         name: str = "MyModule",
         dynamic_args: Optional[dict[str, Any]] = None,
+        *,
+        requires_explicit_include: bool = False,
     ):
         super(MyModule, self).__init__(
             name,
             "",
             ExecutionStyle.Sequential,
             [MyQuery()],
+            requires_explicit_include=requires_explicit_include,
         )
 
         self.dynamic_args = dynamic_args
@@ -67,7 +70,7 @@ class MyQuery(Query):
             "MyQuery",
             ExecutionStyle.Sequential,
             [
-                MyRequirement("Requirement1"),
+                MyRequirement("Requirement1", requires_explicit_include=True),
                 MyRequirement("Requirement2"),
             ],
         )
@@ -84,13 +87,19 @@ class MyQuery(Query):
 # ----------------------------------------------------------------------
 class MyRequirement(Requirement):
     # ----------------------------------------------------------------------
-    def __init__(self, name: str):
+    def __init__(
+        self,
+        name: str,
+        *,
+        requires_explicit_include: bool = False,
+    ):
         super(MyRequirement, self).__init__(
             name,
             "",
             ExecutionStyle.Sequential,
             "",
             "",
+            requires_explicit_include=requires_explicit_include,
         )
 
     # ----------------------------------------------------------------------
@@ -112,13 +121,14 @@ def test_Standard():
         lambda *args: {"MyModule-arg1": False},
         [MyModule()],
         [],
+        [],
         set(),
         set(),
     )
 
     assert len(clp.module_infos) == 1
     assert isinstance(clp.module_infos[0].module, MyModule)
-    assert clp.module_infos[0].module.GetNumRequirements() == 2
+    assert clp.module_infos[0].module.GetNumRequirements() == 1
     assert clp.module_infos[0].dynamic_args == {"arg1": False}
     assert clp.warnings_as_error_module_names == set()
     assert clp.ignore_warnings_module_names == set()
@@ -158,13 +168,14 @@ def test_WithDynamicArgs():
         },
         [MyModule(dynamic_args={"one": int, "two": int})],
         [],
+        [],
         set(),
         set(),
     )
 
     assert len(clp.module_infos) == 1
     assert isinstance(clp.module_infos[0].module, MyModule)
-    assert clp.module_infos[0].module.GetNumRequirements() == 2
+    assert clp.module_infos[0].module.GetNumRequirements() == 1
     assert clp.module_infos[0].dynamic_args == {
         "arg1": False,
         "one": 1,
@@ -176,10 +187,42 @@ def test_WithDynamicArgs():
 
 
 # ----------------------------------------------------------------------
+def test_IncludeModule():
+    clp = CommandLineProcessor.Create(
+        lambda *args: {},
+        [MyModule(requires_explicit_include=True)],
+        [],
+        [],
+        set(),
+        set(),
+    )
+
+    assert not clp.module_infos
+    assert clp.warnings_as_error_module_names == set()
+    assert clp.ignore_warnings_module_names == set()
+    assert clp.single_threaded is False
+
+    clp = CommandLineProcessor.Create(
+        lambda *args: {},
+        [MyModule(requires_explicit_include=True)],
+        ["MyModule"],
+        [],
+        set(),
+        set(),
+    )
+
+    assert len(clp.module_infos) == 1
+    assert clp.warnings_as_error_module_names == set()
+    assert clp.ignore_warnings_module_names == set()
+    assert clp.single_threaded is False
+
+
+# ----------------------------------------------------------------------
 def test_ExcludeModule():
     clp = CommandLineProcessor.Create(
         lambda *args: {},
         [MyModule()],
+        [],
         ["MyModule"],
         set(),
         set(),
@@ -193,18 +236,38 @@ def test_ExcludeModule():
 
 # ----------------------------------------------------------------------
 @pytest.mark.parametrize("sep", ["-", "__--__"])
-def test_ExcludeRequirement(sep):
+def test_IncludeRequirement(sep):
     clp = CommandLineProcessor.Create(
-        lambda *args: {f"MyModule{sep}arg1": False},
+        lambda *args: {},
         [MyModule()],
         [f"MyModule{sep}Requirement1"],
+        [],
         set(),
         set(),
         argument_separator=sep,
     )
 
     assert len(clp.module_infos) == 1
-    assert clp.module_infos[0].module.GetNumRequirements() == 1
+    assert clp.module_infos[0].module.GetNumRequirements() == 2
+    assert clp.warnings_as_error_module_names == set()
+    assert clp.ignore_warnings_module_names == set()
+    assert clp.single_threaded is False
+
+
+# ----------------------------------------------------------------------
+@pytest.mark.parametrize("sep", ["-", "__--__"])
+def test_ExcludeRequirement(sep):
+    clp = CommandLineProcessor.Create(
+        lambda *args: {},
+        [MyModule()],
+        [],
+        [f"MyModule{sep}Requirement2"],
+        set(),
+        set(),
+        argument_separator=sep,
+    )
+
+    assert not clp.module_infos
     assert clp.warnings_as_error_module_names == set()
     assert clp.ignore_warnings_module_names == set()
     assert clp.single_threaded is False
@@ -215,6 +278,7 @@ def test_ExcludeAllRequirements():
     clp = CommandLineProcessor.Create(
         lambda *args: {},
         [MyModule()],
+        [],
         ["MyModule-Requirement1", "MyModule-Requirement2"],
         set(),
         set(),
@@ -235,13 +299,14 @@ def test_CommandLineArgs(sep):
         },
         [MyModule()],
         [],
+        [],
         set(),
         set(),
         argument_separator=sep,
     )
 
     assert len(clp.module_infos) == 1
-    assert clp.module_infos[0].module.GetNumRequirements() == 2
+    assert clp.module_infos[0].module.GetNumRequirements() == 1
     assert clp.module_infos[0].dynamic_args == {"arg1": True}
     assert clp.warnings_as_error_module_names == set()
     assert clp.ignore_warnings_module_names == set()
@@ -253,6 +318,7 @@ def test_AllWarningsAsError():
     clp = CommandLineProcessor.Create(
         lambda *args: {"MyModule-arg1": False},
         [MyModule()],
+        [],
         [],
         set(),
         set(),
@@ -270,6 +336,7 @@ def test_IgnoreAllWarnings():
     clp = CommandLineProcessor.Create(
         lambda *args: {"MyModule-arg1": False},
         [MyModule()],
+        [],
         [],
         set(),
         set(),
@@ -292,6 +359,7 @@ def test_ErrorInvalidModuleName():
             lambda *args: {},
             [MyModule("Invalid-name")],
             [],
+            [],
             set(),
             set(),
         )
@@ -307,6 +375,23 @@ def test_ErrorDuplicateName():
             lambda *args: {},
             [MyModule(), MyModule()],
             [],
+            [],
+            set(),
+            set(),
+        )
+
+
+# ----------------------------------------------------------------------
+def test_ErrorInvalidIncludeName():
+    with pytest.raises(
+        Exception,
+        match=re.escape("'DoesNotExist' is not a recognized module name."),
+    ):
+        CommandLineProcessor.Create(
+            lambda *args: {"MyModule-arg1": False},
+            [MyModule()],
+            ["DoesNotExist"],
+            [],
             set(),
             set(),
         )
@@ -321,6 +406,7 @@ def test_ErrorInvalidExcludeName():
         CommandLineProcessor.Create(
             lambda *args: {"MyModule-arg1": False},
             [MyModule()],
+            [],
             ["DoesNotExist"],
             set(),
             set(),
@@ -337,6 +423,7 @@ def test_InvalidArgName():
         CommandLineProcessor.Create(
             lambda *args: {"MyModule-arg1": False},
             [MyModule()],
+            [],
             ["MyModule"],
             set(),
             set(),

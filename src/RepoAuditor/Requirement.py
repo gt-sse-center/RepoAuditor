@@ -58,6 +58,8 @@ class Requirement(ABC):
         style: ExecutionStyle,
         resolution_template: str,
         rationale_template: str,
+        *,
+        requires_explicit_include: bool = False,  # If True, the requirement must be explicitly included on the command line
     ) -> None:
         self.name = name
         self.description = description
@@ -65,6 +67,8 @@ class Requirement(ABC):
 
         self.resolution_template = resolution_template
         self.rationale_template = rationale_template
+
+        self.requires_explicit_include = requires_explicit_include
 
     # ----------------------------------------------------------------------
     def Evaluate(

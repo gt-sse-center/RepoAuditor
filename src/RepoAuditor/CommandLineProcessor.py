@@ -55,6 +55,7 @@ class CommandLineProcessor:
         cls,
         get_dynamic_args_func: "CommandLineProcessor.GetDynamicArgsFunc",
         modules: list[Module],
+        includes: list[str],
         excludes: list[str],
         warnings_as_error_module_names: set[str],
         ignore_warnings_module_names: set[str],
@@ -79,6 +80,33 @@ class CommandLineProcessor:
 
         del modules
 
+        # Process includes
+        included_modules: set[str] = set()
+        included_requirements: dict[str, set[str]] = {}
+
+        for include in includes:
+            parts = include.split(argument_separator)
+
+            this_module = module_map.get(parts[0], None)
+            if this_module is None:
+                raise Exception(f"'{parts[0]}' is not a recognized module name.")
+
+            if len(parts) == 1:
+                included_modules.add(parts[0])
+            else:
+                included_requirements.setdefault(this_module.name, set()).add(
+                    argument_separator.join(parts[1:])
+                )
+
+        del includes
+
+        for module_name, module in list(module_map.items()):
+            if module.requires_explicit_include and module_name not in included_modules:
+                module_map.pop(module_name)
+                continue
+
+        del included_modules
+
         # Process excludes
         excluded_requirements: dict[str, set[str]] = {}
 
@@ -98,15 +126,18 @@ class CommandLineProcessor:
 
         del excludes
 
-        for module_name, excluded_requirement_names in excluded_requirements.items():
-            module = module_map[module_name]
-            module.RemoveRequirements(excluded_requirement_names)
-
-        del excluded_requirements
-
+        # Added / Remove the requirements for each module
         for module_name, module in list(module_map.items()):
+            module.ProcessRequirements(
+                included_requirements.get(module_name, set()),
+                excluded_requirements.get(module_name, set()),
+            )
+
             if module.GetNumRequirements() == 0:
                 module_map.pop(module_name)
+
+        del included_requirements
+        del excluded_requirements
 
         if all_warnings_as_error:
             warnings_as_error_module_names = {module.name for module in module_map.values()}

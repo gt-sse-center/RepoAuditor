@@ -29,8 +29,15 @@ class MyModule(Module):
         queries: list[Query],
         *,
         produce_data: bool,
+        requires_explicit_include: bool = False,
     ) -> None:
-        super(MyModule, self).__init__(name, description, style, queries)
+        super(MyModule, self).__init__(
+            name,
+            description,
+            style,
+            queries,
+            requires_explicit_include=requires_explicit_include,
+        )
 
         self.produce_data = produce_data
 
@@ -99,9 +106,16 @@ class MyRequirement(Requirement):
         resolution_template: str,
         rationale_template: str,
         evaluate_result: EvaluateResult,
+        *,
+        requires_explicit_include: bool = False,
     ) -> None:
         super(MyRequirement, self).__init__(
-            name, description, style, resolution_template, rationale_template
+            name,
+            description,
+            style,
+            resolution_template,
+            rationale_template,
+            requires_explicit_include=requires_explicit_include,
         )
 
         self.evaluate_result = evaluate_result
@@ -124,14 +138,23 @@ def test_Construct():
     style = Mock()
     queries = Mock()
     produce_data = Mock()
+    requires_explicit_include = Mock()
 
-    module = MyModule(name, description, style, queries, produce_data=produce_data)
+    module = MyModule(
+        name,
+        description,
+        style,
+        queries,
+        produce_data=produce_data,
+        requires_explicit_include=requires_explicit_include,
+    )
 
     assert module.name is name
     assert module.description is description
     assert module.style is style
     assert module.queries is queries
     assert module.produce_data is produce_data
+    assert module.requires_explicit_include is requires_explicit_include
 
 
 # ----------------------------------------------------------------------
@@ -142,6 +165,7 @@ requirementA1 = MyRequirement(
     "{one} -- {two} -- {query_data} -- {module_data}",
     "{three} -- {four} -- {query_data} -- {module_data}",
     EvaluateResult.Success,
+    requires_explicit_include=True,
 )
 
 requirementA2 = MyRequirement(
@@ -178,6 +202,7 @@ requirementB1 = MyRequirement(
     "{one} -- {two} -- {query_data} -- {module_data}",
     "{three} -- {four} -- {query_data} -- {module_data}",
     EvaluateResult.Success,
+    requires_explicit_include=True,
 )
 
 requirementB2 = MyRequirement(
@@ -358,26 +383,62 @@ def test_ModuleNoData():
 
 
 # ----------------------------------------------------------------------
-def test_ModuleRemoveRequirements():
-    module = MyModule(
-        "MyModule",
-        "",
-        ExecutionStyle.Sequential,
-        [copy.deepcopy(queryA)],
-        produce_data=False,
-    )
+class TestProcessRequriements:
+    # ----------------------------------------------------------------------
+    def test_NoIncludes(self):
+        module = MyModule(
+            "MyModule",
+            "",
+            ExecutionStyle.Sequential,
+            [copy.deepcopy(queryA)],
+            produce_data=False,
+        )
 
-    assert module.GetNumRequirements() == 4
-    assert module.queries
+        assert module.GetNumRequirements() == 4
+        assert module.queries
 
-    module.RemoveRequirements({"RequirementA2"})
-    assert module.GetNumRequirements() == 3
-    assert module.queries
+        module.ProcessRequirements(
+            set(),
+            set(),
+        )
 
-    module.RemoveRequirements({"RequirementA1", "RequirementA4"})
-    assert module.GetNumRequirements() == 1
-    assert module.queries
+        # The requires_explicit_include requirements should be removed
+        assert module.GetNumRequirements() == 3
+        assert module.queries
 
-    module.RemoveRequirements({"RequirementA3"})
-    assert module.GetNumRequirements() == 0
-    assert not module.queries
+        module.ProcessRequirements(set(), {"RequirementA2"})
+        assert module.GetNumRequirements() == 2
+        assert module.queries
+
+        module.ProcessRequirements(set(), {"RequirementA3", "RequirementA4"})
+        assert module.GetNumRequirements() == 0
+        assert not module.queries
+
+    # ----------------------------------------------------------------------
+    def test_WithIncludes(self):
+        module = MyModule(
+            "MyModule",
+            "",
+            ExecutionStyle.Sequential,
+            [copy.deepcopy(queryA)],
+            produce_data=False,
+        )
+
+        assert module.GetNumRequirements() == 4
+        assert module.queries
+
+        module.ProcessRequirements(
+            {"RequirementA1"},
+            set(),
+        )
+
+        assert module.GetNumRequirements() == 4
+        assert module.queries
+
+        module.ProcessRequirements(
+            {"RequirementA1"},
+            {"RequirementA3", "RequirementA4"},
+        )
+
+        assert module.GetNumRequirements() == 2
+        assert module.queries
