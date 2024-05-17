@@ -44,20 +44,24 @@ class Module(ABC):
         description: str,
         style: ExecutionStyle,
         queries: list[Query],
+        *,
+        requires_explicit_include: bool = False,  # If True, the module must be explicitly included on the command line
     ) -> None:
         self.name = name
         self.description = description
         self.style = style
         self.queries = queries
+        self.requires_explicit_include = requires_explicit_include
 
     # ----------------------------------------------------------------------
     def GetNumRequirements(self) -> int:
         return sum(len(query.requirements) for query in self.queries)
 
     # ----------------------------------------------------------------------
-    def RemoveRequirements(
+    def ProcessRequirements(
         self,
-        requirement_names: set[str],
+        included_names: set[str],
+        excluded_names: set[str],
     ) -> None:
         query_index = 0
 
@@ -69,7 +73,9 @@ class Module(ABC):
             while requirement_index < len(query.requirements):
                 requirement = query.requirements[requirement_index]
 
-                if requirement.name in requirement_names:
+                if (
+                    requirement.requires_explicit_include and requirement.name not in included_names
+                ) or (requirement.name in excluded_names):
                     query.requirements.pop(requirement_index)
                     continue
 

@@ -137,7 +137,7 @@ def _VersionCallback(value: bool) -> None:
     epilog=_HelpEpilog(),
     no_args_is_help=False,
 )
-def EntryPoint(
+def EntryPoint(  # pylint: disable=dangerous-default-value
     ctx: typer.Context,
     version: Annotated[  # pylint: disable=unused-argument
         bool,
@@ -148,6 +148,13 @@ def EntryPoint(
             is_eager=True,
         ),
     ] = False,
+    includes: Annotated[
+        list[str],
+        typer.Option(
+            "--include",
+            help=f"Module or requirement names to explicitly include in the execution; like other command line arguments, requirement names must include the module name as a prefix (e.g. 'ModuleName{ARGUMENT_SEPARATOR}RequirementName'). This value can be provided multiple times.",
+        ),
+    ] = [],
     excludes: Annotated[
         list[str],
         typer.Option(
@@ -206,6 +213,7 @@ def EntryPoint(
                     ctx, dynamic_arg_definitions
                 ),
                 _all_modules,
+                includes,
                 excludes,
                 set(warnings_as_error),
                 set(ignore_warnings),

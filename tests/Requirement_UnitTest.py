@@ -25,9 +25,16 @@ class MyRequirement(Requirement):
         rationale_template: str,
         expected_result: EvaluateResult,
         context: Optional[str] = None,
+        *,
+        requires_explicit_include: bool = False,
     ) -> None:
         super(MyRequirement, self).__init__(
-            name, description, style, resolution_template, rationale_template
+            name,
+            description,
+            style,
+            resolution_template,
+            rationale_template,
+            requires_explicit_include=requires_explicit_include,
         )
 
         self.expected_result = expected_result
@@ -53,9 +60,17 @@ def test_Construct():
     rationale_template = Mock()
     expected_result = Mock()
     context = Mock()
+    requires_explicit_include = Mock()
 
     r = MyRequirement(
-        name, description, style, resolution_template, rationale_template, expected_result, context
+        name,
+        description,
+        style,
+        resolution_template,
+        rationale_template,
+        expected_result,
+        context,
+        requires_explicit_include=requires_explicit_include,
     )
 
     assert r.name is name
@@ -65,6 +80,7 @@ def test_Construct():
     assert r.rationale_template is rationale_template
     assert r.expected_result is expected_result
     assert r.context is context
+    assert r.requires_explicit_include is requires_explicit_include
 
 
 # ----------------------------------------------------------------------
