@@ -4,7 +4,7 @@
 # |  Distributed under the MIT License.
 # |
 # ----------------------------------------------------------------------
-"""This file serves as an example of how to create scripts that can be invoked from the command line once the package is installed."""
+"""Audits a repository against a set of requirements."""
 
 import sys
 import textwrap
@@ -22,6 +22,7 @@ from typer.core import TyperGroup  # type: ignore [import-untyped]
 
 from RepoAuditor import APP_NAME, __version__
 from RepoAuditor.CommandLineProcessor import CommandLineProcessor, Module
+from RepoAuditor.ExecuteModules import DisplayResults
 from RepoAuditor import Plugin
 
 
@@ -80,7 +81,7 @@ def _HelpEpilog() -> str:
                 parameter_info = None
 
             arguments.append(
-                "    {arg_name:<32} {type_description:<8} {help}".format(
+                "    {arg_name:<32} {type_description:<15} {help}".format(
                     arg_name=f"--{module.name}{ARGUMENT_SEPARATOR}{arg_name}",
                     type_description=python_type.__name__,
                     help="" if parameter_info is None else parameter_info.help,
@@ -188,6 +189,20 @@ def EntryPoint(  # pylint: disable=dangerous-default-value
             "--single-threaded", help="Do not use multiple threads when evaluating requirements."
         ),
     ] = False,
+    no_resolution: Annotated[
+        bool,
+        typer.Option(
+            "--no-resolution",
+            help="Do not display resolution information for requirements that are not successful.",
+        ),
+    ] = False,
+    no_rationale: Annotated[
+        bool,
+        typer.Option(
+            "--no-rationale",
+            help="Do not display rationale information for requirements that are not successful.",
+        ),
+    ] = False,
     verbose: Annotated[
         bool,
         typer.Option(
@@ -229,9 +244,16 @@ def EntryPoint(  # pylint: disable=dangerous-default-value
 
             raise UsageError(str(ex)) from ex
 
-        dm.WriteLine("")
+        all_results = executor(dm)
 
-        executor(dm)
+        dm.WriteLine("\n\n")
+
+        DisplayResults(
+            dm,
+            all_results,
+            display_resolution=not no_resolution,
+            display_rationale=not no_rationale,
+        )
 
 
 # ----------------------------------------------------------------------

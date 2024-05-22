@@ -11,10 +11,10 @@ import textwrap
 import time
 
 from typing import cast
-from unittest.mock import Mock
 
 import pytest
 
+from dbrownell_Common.Streams.Capabilities import Capabilities
 from dbrownell_Common.Types import override
 from dbrownell_Common.TestHelpers.StreamTestHelpers import GenerateDoneManagerAndContent
 
@@ -65,7 +65,12 @@ class MyQuery(Query):
     def GetData(
         self,
         module_data: dict[str, Any],
+        *args,
+        **kwargs,
     ) -> Optional[dict[str, Any]]:
+        if args or kwargs:
+            super(MyQuery, self).__init__(*args, **kwargs)
+
         module_data["query_name"] = self.name
         return module_data
 
@@ -93,183 +98,359 @@ class MyRequirement(Requirement):
 
 
 # ----------------------------------------------------------------------
-@pytest.mark.parametrize("single_threaded", [False, True])
-def test_Successful(single_threaded):
-    modules: list[Module] = []
-
+class TestExecute:
     # ----------------------------------------------------------------------
-    def GetExecutionStyle(index: int) -> ExecutionStyle:
-        return ExecutionStyle.Parallel if index % 2 == 0 else ExecutionStyle.Sequential
+    @pytest.mark.parametrize("single_threaded", [False, True])
+    def test_Successful(self, single_threaded):
+        modules: list[Module] = []
 
-    # ----------------------------------------------------------------------
+        # ----------------------------------------------------------------------
+        def GetExecutionStyle(index: int) -> ExecutionStyle:
+            return ExecutionStyle.Parallel if index % 2 == 0 else ExecutionStyle.Sequential
 
-    for module_index in range(5):
-        queries: list[Query] = []
+        # ----------------------------------------------------------------------
 
-        for query_index in range(4):
-            requirements: list[Requirement] = []
+        for module_index in range(5):
+            queries: list[Query] = []
 
-            for requirement_index in range(5):
-                requirements.append(
-                    MyRequirement(
-                        EvaluateResult.Success,
-                        f"Requirement-{module_index}-{query_index}-{requirement_index}",
-                        "",
-                        GetExecutionStyle(requirement_index),
-                        "",
-                        "",
+            for query_index in range(4):
+                requirements: list[Requirement] = []
+
+                for requirement_index in range(5):
+                    requirements.append(
+                        MyRequirement(
+                            EvaluateResult.Success,
+                            f"Requirement-{module_index}-{query_index}-{requirement_index}",
+                            "",
+                            GetExecutionStyle(requirement_index),
+                            "",
+                            "",
+                        ),
+                    )
+
+                queries.append(
+                    MyQuery(
+                        f"Query-{module_index}-{query_index}",
+                        GetExecutionStyle(query_index),
+                        requirements,
                     ),
                 )
 
-            queries.append(
-                MyQuery(
-                    f"Query-{module_index}-{query_index}",
-                    GetExecutionStyle(query_index),
-                    requirements,
+            modules.append(
+                MyModule(
+                    f"Module-{module_index}",
+                    "",
+                    GetExecutionStyle(module_index),
+                    queries,
                 ),
             )
 
-        modules.append(
-            MyModule(
-                f"Module-{module_index}",
-                "",
-                GetExecutionStyle(module_index),
-                queries,
-            ),
-        )
-
-    with DoneManager.Create(sys.stdout, "", line_prefix="") as dm:
-        Execute(
-            dm,
-            [ModuleInfo(module, {}) for module in modules],
-            single_threaded=single_threaded,
-        )
-
-        assert dm.result == 0
-
-
-# ----------------------------------------------------------------------
-@pytest.mark.parametrize(
-    "data",
-    [
-        (EvaluateResult.Error, -1, False, False),
-        (EvaluateResult.Warning, 1, False, False),
-        (EvaluateResult.Warning, -1, True, False),
-        (EvaluateResult.Warning, 0, False, True),
-    ],
-)
-def test_NotSuccess(data):
-    test_result, expected_result, warnings_as_errors, ignore_warnings = data
-
-    modules: list[Module] = []
-
-    # ----------------------------------------------------------------------
-    def GetExecutionStyle(index: int) -> ExecutionStyle:
-        return ExecutionStyle.Parallel if index % 2 == 0 else ExecutionStyle.Sequential
-
-    # ----------------------------------------------------------------------
-
-    for module_index in range(5):
-        queries: list[Query] = []
-
-        for query_index in range(4):
-            requirements: list[Requirement] = []
-
-            for requirement_index in range(5):
-                requirements.append(
-                    MyRequirement(
-                        (test_result if requirement_index % 3 == 0 else EvaluateResult.Success),
-                        f"Requirement-{module_index}-{query_index}-{requirement_index}",
-                        "",
-                        GetExecutionStyle(requirement_index),
-                        "",
-                        "",
-                    ),
-                )
-
-            queries.append(
-                MyQuery(
-                    f"Query-{module_index}-{query_index}",
-                    GetExecutionStyle(query_index),
-                    requirements,
-                ),
+        with DoneManager.Create(sys.stdout, "", line_prefix="") as dm:
+            all_results = Execute(
+                dm,
+                [ModuleInfo(module, {}) for module in modules],
+                single_threaded=single_threaded,
             )
 
-        modules.append(
-            MyModule(
-                f"Module-{module_index}",
-                "",
-                GetExecutionStyle(module_index),
-                queries,
-            ),
-        )
+            assert dm.result == 0
 
-    with DoneManager.Create(sys.stdout, "", line_prefix="") as dm:
-        Execute(
-            dm,
-            [ModuleInfo(module, {}) for module in modules],
-            warnings_as_errors_module_names=(
-                set() if not warnings_as_errors else {module.name for module in modules}
-            ),
-            ignore_warnings_module_names=(
-                set() if not ignore_warnings else {module.name for module in modules}
-            ),
-        )
+            for results in all_results:
+                assert all(result.result == EvaluateResult.Success for result in results)
 
-        assert dm.result == expected_result
-
-
-# ----------------------------------------------------------------------
-def test_NoModules():
-    dm_and_content = GenerateDoneManagerAndContent()
-
-    dm = cast(DoneManager, next(dm_and_content))
-
-    Execute(dm, [])
-
-    assert dm.result > 0, dm.result
-
-    assert cast(str, next(dm_and_content)) == textwrap.dedent(
-        """\
-        Heading...
-          WARNING: There are no modules to process.
-        DONE! (1, <scrubbed duration>)
-        """,
-    )
-
-
-# ----------------------------------------------------------------------
-def test_SingleParallel():
-    dm_and_content = GenerateDoneManagerAndContent()
-
-    Execute(
-        cast(DoneManager, next(dm_and_content)),
-        [ModuleInfo(MyModule("MyModule", "", ExecutionStyle.Parallel, []), {})],
-    )
-
-
-# ----------------------------------------------------------------------
-def test_NoInitialData():
-    dm_and_content = GenerateDoneManagerAndContent()
-
-    Execute(
-        cast(DoneManager, next(dm_and_content)),
+    # ----------------------------------------------------------------------
+    @pytest.mark.parametrize(
+        "data",
         [
-            ModuleInfo(
-                MyModule("MyModule", "", ExecutionStyle.Sequential, [], no_initial_data=True), {}
-            )
+            (EvaluateResult.Error, -1, False, False),
+            (EvaluateResult.Warning, 1, False, False),
+            (EvaluateResult.Warning, -1, True, False),
+            (EvaluateResult.Warning, 0, False, True),
         ],
     )
+    def test_NotSuccess(self, data):
+        test_result, expected_result, warnings_as_errors, ignore_warnings = data
 
-    assert cast(str, next(dm_and_content)) == textwrap.dedent(
-        """\
-        Heading...
-          Processing 1 module...
-            Processing 'MyModule' (1 of 1)...
+        modules: list[Module] = []
+
+        # ----------------------------------------------------------------------
+        def GetExecutionStyle(index: int) -> ExecutionStyle:
+            return ExecutionStyle.Parallel if index % 2 == 0 else ExecutionStyle.Sequential
+
+        # ----------------------------------------------------------------------
+
+        for module_index in range(2):
+            queries: list[Query] = []
+
+            for query_index in range(3):
+                requirements: list[Requirement] = []
+
+                for requirement_index in range(4):
+                    requirements.append(
+                        MyRequirement(
+                            (test_result if requirement_index % 3 == 0 else EvaluateResult.Success),
+                            f"Requirement-{module_index}-{query_index}-{requirement_index}",
+                            "",
+                            GetExecutionStyle(requirement_index),
+                            "",
+                            "",
+                        ),
+                    )
+
+                queries.append(
+                    MyQuery(
+                        f"Query-{module_index}-{query_index}",
+                        GetExecutionStyle(query_index),
+                        requirements,
+                    ),
+                )
+
+            modules.append(
+                MyModule(
+                    f"Module-{module_index}",
+                    "",
+                    GetExecutionStyle(module_index),
+                    queries,
+                ),
+            )
+
+        with DoneManager.Create(sys.stdout, "", line_prefix="") as dm:
+            all_results = Execute(
+                dm,
+                [ModuleInfo(module, {}) for module in modules],
+                warnings_as_errors_module_names=(
+                    set() if not warnings_as_errors else {module.name for module in modules}
+                ),
+                ignore_warnings_module_names=(
+                    set() if not ignore_warnings else {module.name for module in modules}
+                ),
+            )
+
+            assert dm.result == expected_result
+
+            # Convert the results into a list of EvaluateResult values
+            converted_results: list[EvaluateResult] = []
+
+            for results in all_results:
+                converted_results += [result.result for result in results]
+
+            assert converted_results == [
+                test_result,
+                EvaluateResult.Success,
+                EvaluateResult.Success,
+                test_result,
+                test_result,
+                EvaluateResult.Success,
+                EvaluateResult.Success,
+                test_result,
+                test_result,
+                EvaluateResult.Success,
+                EvaluateResult.Success,
+                test_result,
+                test_result,
+                EvaluateResult.Success,
+                EvaluateResult.Success,
+                test_result,
+                test_result,
+                EvaluateResult.Success,
+                EvaluateResult.Success,
+                test_result,
+                test_result,
+                EvaluateResult.Success,
+                EvaluateResult.Success,
+                test_result,
+            ]
+
+    # ----------------------------------------------------------------------
+    def test_NoModules(self):
+        dm_and_content = GenerateDoneManagerAndContent()
+
+        dm = cast(DoneManager, next(dm_and_content))
+
+        all_results = Execute(dm, [])
+
+        assert dm.result > 0, dm.result
+        assert all_results == []
+
+        assert cast(str, next(dm_and_content)) == textwrap.dedent(
+            """\
+            Heading...
+              WARNING: There are no modules to process.
+            DONE! (1, <scrubbed duration>)
+            """,
+        )
+
+    # ----------------------------------------------------------------------
+    def test_SingleParallel(self):
+        dm_and_content = GenerateDoneManagerAndContent()
+
+        all_results = Execute(
+            cast(DoneManager, next(dm_and_content)),
+            [ModuleInfo(MyModule("MyModule", "", ExecutionStyle.Parallel, []), {})],
+        )
+
+        # No queries, so no results
+        assert all_results == [[]]
+
+    # ----------------------------------------------------------------------
+    def test_NoInitialData(self):
+        dm_and_content = GenerateDoneManagerAndContent()
+
+        all_results = Execute(
+            cast(DoneManager, next(dm_and_content)),
+            [
+                ModuleInfo(
+                    MyModule("MyModule", "", ExecutionStyle.Sequential, [], no_initial_data=True),
+                    {},
+                )
+            ],
+        )
+
+        assert all_results == [[]]
+
+        assert cast(str, next(dm_and_content)) == textwrap.dedent(
+            """\
+            Heading...
+              Processing 1 module...
+                Processing 'MyModule' (1 of 1)...
 
 
+                DONE! (0, <scrubbed duration>)
+              DONE! (0, <scrubbed duration>)
             DONE! (0, <scrubbed duration>)
-          DONE! (0, <scrubbed duration>)
-        DONE! (0, <scrubbed duration>)
-        """,
+            """,
+        )
+
+
+# ----------------------------------------------------------------------
+class TestDisplayResults:
+    # ----------------------------------------------------------------------
+    @staticmethod
+    @pytest.fixture
+    def modules() -> list[MyModule]:
+        return [
+            MyModule(
+                "Module1",
+                "Module1 description",
+                ExecutionStyle.Parallel,
+                [
+                    MyQuery(
+                        "Query1",
+                        ExecutionStyle.Parallel,
+                        [
+                            MyRequirement(
+                                EvaluateResult.Success,
+                                "Requirement1A",
+                                "This is the description for Requirement1A",
+                                ExecutionStyle.Parallel,
+                                "resolution",
+                                "rationale",
+                            ),
+                            MyRequirement(
+                                EvaluateResult.Success,
+                                "Requirement1B",
+                                "This is the description for Requirement1B",
+                                ExecutionStyle.Parallel,
+                                "resolution",
+                                "rationale",
+                            ),
+                        ],
+                    ),
+                ],
+            ),
+            MyModule(
+                "Module2",
+                "Module2 description",
+                ExecutionStyle.Parallel,
+                [
+                    MyQuery(
+                        "Query2",
+                        ExecutionStyle.Parallel,
+                        [
+                            MyRequirement(
+                                EvaluateResult.Success,
+                                "Requirement2A",
+                                "This is the description for Requirement2A",
+                                ExecutionStyle.Parallel,
+                                "resolution",
+                                "rationale",
+                            ),
+                        ],
+                    ),
+                ],
+            ),
+        ]
+
+    # ----------------------------------------------------------------------
+    @pytest.mark.parametrize("display_rationale", [True, False])
+    @pytest.mark.parametrize("display_resolution", [True, False])
+    @pytest.mark.parametrize("verbose", [False, True])
+    @pytest.mark.parametrize(
+        "result",
+        [
+            EvaluateResult.Success,
+            EvaluateResult.Warning,
+            EvaluateResult.Error,
+            EvaluateResult.DoesNotApply,
+        ],
     )
+    def test_Output(
+        self, result, verbose, display_resolution, display_rationale, modules, capsys, snapshot
+    ):
+        # Ensure that colors are displayed in all scenarios
+        Capabilities(
+            supports_colors=True,
+            stream=sys.stdout,
+        )
+
+        dm_and_content = GenerateDoneManagerAndContent(verbose=verbose)
+
+        if result in [EvaluateResult.Warning, EvaluateResult.Error]:
+            resolution = "resolution"
+            rationale = "rationale"
+        else:
+            resolution = None
+            rationale = None
+
+        DisplayResults(
+            cast(DoneManager, next(dm_and_content)),
+            [
+                [
+                    Module.EvaluateInfo(
+                        result,
+                        "Context 1",
+                        resolution,
+                        rationale,
+                        modules[0].queries[0].requirements[0],
+                        modules[0].queries[0],
+                        modules[0],
+                    ),
+                    Module.EvaluateInfo(
+                        result,
+                        "Context 2",
+                        resolution,
+                        rationale,
+                        modules[0].queries[0].requirements[1],
+                        modules[0].queries[0],
+                        modules[0],
+                    ),
+                ],
+                [
+                    Module.EvaluateInfo(
+                        result,
+                        "Context 3",
+                        resolution,
+                        rationale,
+                        modules[1].queries[0].requirements[0],
+                        modules[1].queries[0],
+                        modules[1],
+                    ),
+                ],
+            ],
+            display_resolution=display_resolution,
+            display_rationale=display_rationale,
+            panel_width=180,
+        )
+
+        content = capsys.readouterr().out
+
+        assert content == snapshot

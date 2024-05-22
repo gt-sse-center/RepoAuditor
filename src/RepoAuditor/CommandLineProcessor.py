@@ -177,5 +177,5 @@ class CommandLineProcessor:
     def __call__(
         self,
         dm: DoneManager,
-    ) -> None:
-        Execute(dm, self.module_infos)
+    ) -> list[list[Module.EvaluateInfo]]:
+        return Execute(dm, self.module_infos)
