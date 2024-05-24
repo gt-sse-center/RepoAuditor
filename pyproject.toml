@@ -57,6 +57,7 @@ readme = "README.md"
 [project.optional-dependencies]
 dev = [
     "dbrownell_DevTools",
+    "syrupy ~= 4.6",
 ]
 
 package = [
