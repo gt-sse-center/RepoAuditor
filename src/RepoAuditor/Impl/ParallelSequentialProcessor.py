@@ -96,7 +96,7 @@ def _Impl(
     # ----------------------------------------------------------------------
 
     if parallel:
-        ExecuteTasks.TransformTasks(
+        transform_results: list[Optional[Exception]] = ExecuteTasks.TransformTasks(
             dm,
             "Processing",
             [
@@ -105,7 +105,12 @@ def _Impl(
             ],
             lambda context, status: Execute(*context),
             max_num_threads=max_num_threads,
+            return_exceptions=True,
         )
+
+        for transform_result in transform_results:
+            if transform_result is not None:
+                raise transform_result
 
     for sequential_index, (results_index, item) in enumerate(sequential):
         with dm.Nested(

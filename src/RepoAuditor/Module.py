@@ -113,6 +113,7 @@ class Module(ABC):
     def Evaluate(
         self,
         module_data: dict[str, Any],
+        requirement_data: dict[str, Any],
         status_func: OnStatusFunc,
         *,
         max_num_threads: Optional[int] = None,
@@ -166,6 +167,7 @@ class Module(ABC):
 
             evaluate_infos = query.Evaluate(
                 query_data,
+                requirement_data,
                 OnQueryStatus,
                 max_num_threads=max_num_threads,
             )

@@ -90,6 +90,7 @@ class MyRequirement(Requirement):
     def _EvaluateImpl(
         self,
         query_data: dict[str, Any],
+        requirement_args: dict[str, Any],
     ) -> tuple[EvaluateResult, Optional[str]]:
         # Introduce a delay so that we can see things happening
         time.sleep(0.1)
@@ -148,7 +149,7 @@ class TestExecute:
         with DoneManager.Create(sys.stdout, "", line_prefix="") as dm:
             all_results = Execute(
                 dm,
-                [ModuleInfo(module, {}) for module in modules],
+                [ModuleInfo(module, {}, {}) for module in modules],
                 single_threaded=single_threaded,
             )
 
@@ -216,7 +217,7 @@ class TestExecute:
         with DoneManager.Create(sys.stdout, "", line_prefix="") as dm:
             all_results = Execute(
                 dm,
-                [ModuleInfo(module, {}) for module in modules],
+                [ModuleInfo(module, {}, {}) for module in modules],
                 warnings_as_errors_module_names=(
                     set() if not warnings_as_errors else {module.name for module in modules}
                 ),
@@ -285,7 +286,7 @@ class TestExecute:
 
         all_results = Execute(
             cast(DoneManager, next(dm_and_content)),
-            [ModuleInfo(MyModule("MyModule", "", ExecutionStyle.Parallel, []), {})],
+            [ModuleInfo(MyModule("MyModule", "", ExecutionStyle.Parallel, []), {}, {})],
         )
 
         # No queries, so no results
@@ -300,6 +301,7 @@ class TestExecute:
             [
                 ModuleInfo(
                     MyModule("MyModule", "", ExecutionStyle.Sequential, [], no_initial_data=True),
+                    {},
                     {},
                 )
             ],

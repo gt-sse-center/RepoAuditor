@@ -127,6 +127,7 @@ class MyRequirement(Requirement):
     def _EvaluateImpl(
         self,
         query_data: dict[str, Any],
+        requirement_args: dict[str, Any],
     ) -> tuple[EvaluateResult, Optional[str]]:
         return self.evaluate_result, None
 
@@ -272,6 +273,7 @@ def test_Module(single_threaded):
 
     results = module.Evaluate(
         initial_data,
+        {},
         status_func,
         max_num_threads=1 if single_threaded else None,
     )

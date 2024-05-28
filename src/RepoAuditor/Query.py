@@ -70,6 +70,7 @@ class Query(ABC):
     def Evaluate(
         self,
         query_data: dict[str, Any],
+        requirement_args: dict[str, Any],
         status_func: OnStatusFunc,
         *,
         max_num_threads: Optional[int] = None,
@@ -83,7 +84,10 @@ class Query(ABC):
         def EvaluateRequirement(
             requirement: Requirement,
         ) -> tuple[int, Query.EvaluateInfo]:
-            result_info = requirement.Evaluate(query_data)
+            result_info = requirement.Evaluate(
+                query_data,
+                requirement_args.get(requirement.name, {}),
+            )
             return_code = 0
 
             with status_info_lock:

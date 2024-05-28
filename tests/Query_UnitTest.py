@@ -76,6 +76,7 @@ class MyRequirement(Requirement):
     def _EvaluateImpl(
         self,
         query_data: dict[str, Any],
+        requirement_args: dict[str, Any],
     ) -> tuple[EvaluateResult, Optional[str]]:
         return self.expected_result, self.context
 
@@ -169,6 +170,7 @@ def test_Evaluate(single_threaded):
 
     results = my_query.Evaluate(
         query_data,
+        {},
         status_func,
         max_num_threads=1 if single_threaded else None,
     )
@@ -207,8 +209,8 @@ def test_Evaluate(single_threaded):
     assert results[4].query is my_query
     assert results[4].requirement is requirement5
     assert results[4].context is None
-    assert results[4].resolution == "1 -- 2 -- NEW"
-    assert results[4].rationale == "3 -- 4 -- NEW"
+    assert results[4].resolution is None
+    assert results[4].rationale is None
 
     if single_threaded:
         assert [call_args.args for call_args in status_func.call_args_list] == [

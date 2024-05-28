@@ -8,6 +8,7 @@
 
 import sys
 import textwrap
+import traceback
 
 from typing import Annotated
 
@@ -66,30 +67,62 @@ del _GetModules
 def _HelpEpilog() -> str:
     content: list[str] = []
 
+    # ----------------------------------------------------------------------
+    def TypeInfoToString(
+        arg_name: str,
+        type_info: TyperEx.TypeDefinitionItemType,
+    ) -> str:
+        if isinstance(type_info, TyperEx.TypeDefinitionItem):
+            python_type = type_info.python_type
+            parameter_info = type_info.parameter_info
+        elif isinstance(type_info, tuple):
+            python_type = type_info[0]
+            parameter_info = type_info[1]
+        else:
+            python_type = type_info
+            parameter_info = None
+
+        return "    {arg_name:<32} {type_description:<15} {help}".format(
+            arg_name=arg_name,
+            type_description=python_type.__name__,
+            help="" if parameter_info is None else parameter_info.help,
+        )
+
+    # ----------------------------------------------------------------------
+
     for module in _all_modules:
-        arguments: list[str] = []
+        # Get the module arguments
+        module_arguments: list[str] = []
 
         for arg_name, type_info in module.GetDynamicArgDefinitions().items():
-            if isinstance(type_info, TyperEx.TypeDefinitionItem):
-                python_type = type_info.python_type
-                parameter_info = type_info.parameter_info
-            elif isinstance(type_info, tuple):
-                python_type = type_info[0]
-                parameter_info = type_info[1]
-            else:
-                python_type = type_info
-                parameter_info = None
-
-            arguments.append(
-                "    {arg_name:<32} {type_description:<15} {help}".format(
-                    arg_name=f"--{module.name}{ARGUMENT_SEPARATOR}{arg_name}",
-                    type_description=python_type.__name__,
-                    help="" if parameter_info is None else parameter_info.help,
-                ),
+            module_arguments.append(
+                TypeInfoToString(
+                    f"--{module.name}{ARGUMENT_SEPARATOR}{arg_name}",
+                    type_info,
+                )
             )
 
-        final_arguments = TextwrapEx.Indent(
-            "\n".join(arguments),
+        final_module_arguments = TextwrapEx.Indent(
+            "\n".join(module_arguments),
+            4,
+            skip_first_line=True,
+        )
+
+        # Get the requirement arguments
+        requirement_arguments: list[str] = []
+
+        for query in module.queries:
+            for requirement in query.requirements:
+                for key, value in requirement.GetDynamicArgDefinitions().items():
+                    requirement_arguments.append(
+                        TypeInfoToString(
+                            f"--{module.name}{ARGUMENT_SEPARATOR}{requirement.name}{ARGUMENT_SEPARATOR}{key}",
+                            value,
+                        ),
+                    )
+
+        final_requirement_arguments = TextwrapEx.Indent(
+            "\n".join(requirement_arguments),
             4,
             skip_first_line=True,
         )
@@ -102,7 +135,10 @@ def _HelpEpilog() -> str:
                 {module.description}
 
                 Command Line Arguments:
-                    {final_arguments}
+                    {final_module_arguments}
+
+                Requirement Arguments:
+                    {final_requirement_arguments}
                 """,
             ),
         )
@@ -244,16 +280,24 @@ def EntryPoint(  # pylint: disable=dangerous-default-value
 
             raise UsageError(str(ex)) from ex
 
-        all_results = executor(dm)
+        try:
+            all_results = executor(dm)
 
-        dm.WriteLine("\n\n")
+            dm.WriteLine("\n\n")
 
-        DisplayResults(
-            dm,
-            all_results,
-            display_resolution=not no_resolution,
-            display_rationale=not no_rationale,
-        )
+            DisplayResults(
+                dm,
+                all_results,
+                display_resolution=not no_resolution,
+                display_rationale=not no_rationale,
+            )
+        except Exception as ex:
+            if dm.is_debug:
+                error = traceback.format_exc()
+            else:
+                error = str(ex)
+
+            dm.WriteError(error)
 
 
 # ----------------------------------------------------------------------

@@ -47,6 +47,7 @@ class MyRequirement(Requirement):
     def _EvaluateImpl(
         self,
         query_data: dict[str, Any],
+        requirement_args: dict[str, Any],
     ) -> tuple[EvaluateResult, Optional[str]]:
         return self.expected_result, self.context
 
@@ -88,7 +89,7 @@ def test_Success():
     requirement = MyRequirement(
         Mock(), Mock(), Mock(), Mock(), Mock(), EvaluateResult.Success, "testing"
     )
-    result_info = requirement.Evaluate(Mock())
+    result_info = requirement.Evaluate(Mock(), {})
 
     assert result_info.result == EvaluateResult.Success
     assert result_info.context == "testing"
@@ -102,13 +103,28 @@ def test_DoesNotApply():
     requirement = MyRequirement(
         Mock(), Mock(), Mock(), Mock(), Mock(), EvaluateResult.DoesNotApply, None
     )
-    result_info = requirement.Evaluate(Mock())
+    result_info = requirement.Evaluate(Mock(), {})
 
     assert result_info.result == EvaluateResult.DoesNotApply
     assert result_info.context is None
     assert result_info.resolution is None
     assert result_info.rationale is None
     assert result_info.requirement is requirement
+
+
+# ----------------------------------------------------------------------
+def test_GetDynamicArgDefinitions():
+    requirement = MyRequirement(
+        Mock(),
+        Mock(),
+        Mock(),
+        Mock(),
+        Mock(),
+        EvaluateResult.Success,
+        "testing",
+    )
+
+    assert requirement.GetDynamicArgDefinitions() == {}
 
 
 # ----------------------------------------------------------------------
@@ -123,7 +139,9 @@ def test_Error():
         "testing",
     )
 
-    result_info = requirement.Evaluate({"one": "1", "two": "2", "three": "3", "four": "4"})
+    result_info = requirement.Evaluate(
+        {"one": "1", "two": "2", "three": "3", "four": "4"}, {"four": "FOUR"}
+    )
 
     assert result_info.result == EvaluateResult.Error
     assert result_info.context == "testing"
@@ -144,10 +162,12 @@ def test_Warning():
         None,
     )
 
-    result_info = requirement.Evaluate({"one": "1", "two": "2", "three": "3", "four": "4"})
+    result_info = requirement.Evaluate(
+        {"one": "1", "two": "2", "three": "3", "four": "4"}, {"four": "FOUR"}
+    )
 
     assert result_info.result == EvaluateResult.Warning
     assert result_info.context is None
-    assert result_info.resolution == "1 -- 2"
-    assert result_info.rationale == "3 -- 4"
+    assert result_info.resolution is None
+    assert result_info.rationale is None
     assert result_info.requirement is requirement

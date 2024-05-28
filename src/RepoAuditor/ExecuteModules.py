@@ -35,6 +35,7 @@ from .Module import EvaluateResult, ExecutionStyle, Module, OnStatusFunc
 class ModuleInfo:
     module: Module
     dynamic_args: dict[str, Any]
+    requirement_args: dict[str, Any]
 
 
 # ----------------------------------------------------------------------
@@ -91,6 +92,7 @@ def Execute(
 
             return module_info.module.Evaluate(
                 module_data,
+                module_info.requirement_args,
                 on_status_func,
                 max_num_threads=max_num_threads,
             )
@@ -324,7 +326,7 @@ def DisplayResults(
                 content.append(f"{result.requirement.description.strip()}\n")
 
             if result.context:
-                content.append(f"{result.context.strip()}\n")
+                content.append(f"{result.result.name.upper()}: {result.context.strip()}\n")
 
             if display_resolution and result.resolution:
                 content.append(
