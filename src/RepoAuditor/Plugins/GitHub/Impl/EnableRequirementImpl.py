@@ -52,7 +52,7 @@ class EnableRequirementImpl(Requirement):
             textwrap.dedent(
                 f"""\
                 1) Visit '{{session.github_url}}/{github_settings_url_suffix}'
-                2) Location the '{github_settings_section}' section
+                2) Locate the '{github_settings_section}' section
                 3) Ensure that {github_settings_value} is {{__checked_desc}}
                 """,
             ),

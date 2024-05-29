@@ -29,7 +29,7 @@ class AutoMerge(EnableRequirementImpl):
 
                 Reasons for this Default
                 ------------------------
-                - Reduces mean resolution time by triggering the merge once all required status checks pass.
+                - Reduces mean resolution time by triggering the merge once all the required status checks pass.
 
                 Reasons to Override this Default
                 --------------------------------
