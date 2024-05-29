@@ -11,6 +11,8 @@ from dataclasses import dataclass
 from enum import auto, Enum
 from typing import Any, Optional
 
+from dbrownell_Common.TyperEx import TypeDefinitionItemType  # type: ignore[import-untyped]
+from dbrownell_Common.Types import extension  # type: ignore[import-untyped]
 
 from .Impl.ParallelSequentialProcessor import ExecutionStyle
 
@@ -71,22 +73,31 @@ class Requirement(ABC):
         self.requires_explicit_include = requires_explicit_include
 
     # ----------------------------------------------------------------------
+    @extension
+    def GetDynamicArgDefinitions(self) -> dict[str, TypeDefinitionItemType]:
+        """Returns information about dynamic arguments that the requirement can consume (often from the command line)."""
+
+        # No dynamic arguments by default
+        return {}
+
+    # ----------------------------------------------------------------------
     def Evaluate(
         self,
         query_data: dict[str, Any],
+        requirement_args: dict[str, Any],
     ) -> "Requirement.EvaluateInfo":
-        result, context = self._EvaluateImpl(query_data)
+        result, context = self._EvaluateImpl(query_data, requirement_args)
 
-        if result in [EvaluateResult.DoesNotApply, EvaluateResult.Success]:
-            return Requirement.EvaluateInfo(result, context, None, None, self)
+        if result == EvaluateResult.Error:
+            return Requirement.EvaluateInfo(
+                result,
+                context,
+                self.resolution_template.format(**query_data),
+                self.rationale_template.format(**query_data),
+                self,
+            )
 
-        return Requirement.EvaluateInfo(
-            result,
-            context,
-            self.resolution_template.format(**query_data),
-            self.rationale_template.format(**query_data),
-            self,
-        )
+        return Requirement.EvaluateInfo(result, context, None, None, self)
 
     # ----------------------------------------------------------------------
     # |
@@ -97,5 +108,6 @@ class Requirement(ABC):
     def _EvaluateImpl(
         self,
         query_data: dict[str, Any],
+        requirement_args: dict[str, Any],
     ) -> tuple[EvaluateResult, Optional[str]]:
         """Perform the actual evaluation"""

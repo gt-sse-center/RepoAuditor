@@ -7,7 +7,7 @@
 """Contains the CommandLineProcessor object"""
 
 from dataclasses import dataclass, field
-from typing import Any, Protocol
+from typing import Any, Optional, Protocol
 
 from dbrownell_Common.Streams.DoneManager import DoneManager  # type: ignore[import-untyped]
 
@@ -126,7 +126,7 @@ class CommandLineProcessor:
 
         del excludes
 
-        # Added / Remove the requirements for each module
+        # Add / Remove the requirements for each module
         for module_name, module in list(module_map.items()):
             module.ProcessRequirements(
                 included_requirements.get(module_name, set()),
@@ -148,8 +148,17 @@ class CommandLineProcessor:
         dynamic_arg_definitions: dict[str, Any] = {}
 
         for module in module_map.values():
+            # Module-level args
             for key, value in module.GetDynamicArgDefinitions().items():
                 dynamic_arg_definitions[f"{module.name}{argument_separator}{key}"] = value
+
+            # Requirement-level args
+            for query in module.queries:
+                for requirement in query.requirements:
+                    for key, value in requirement.GetDynamicArgDefinitions().items():
+                        dynamic_arg_definitions[
+                            f"{module.name}{argument_separator}{requirement.name}{argument_separator}{key}"
+                        ] = value
 
         # Process the dynamic info
         dynamic_args: dict[str, dict[str, Any]] = {}
@@ -161,13 +170,26 @@ class CommandLineProcessor:
             if parts[0] not in module_map:
                 raise Exception(f"'{parts[0]}' is not a recognized module name.")
 
-            dynamic_args.setdefault(parts[0], {})[argument_separator.join(parts[1:])] = value
+            if len(parts) == 2:
+                dynamic_args.setdefault(parts[0], {})[parts[1]] = value
+            else:
+                dynamic_args.setdefault(parts[0], {}).setdefault(None, {}).setdefault(  # type: ignore
+                    parts[1],
+                    {},
+                )[
+                    argument_separator.join(parts[2:])
+                ] = value
+
+        module_infos: list[ModuleInfo] = []
+
+        for module_name, module in module_map.items():
+            module_args = dynamic_args.get(module_name, {})
+            requirement_args = module_args.pop(None, None)  # type: ignore
+
+            module_infos.append(ModuleInfo(module, module_args, requirement_args))
 
         return cls(
-            [
-                ModuleInfo(module, dynamic_args.get(module_name, {}))
-                for module_name, module in module_map.items()
-            ],
+            module_infos,
             warnings_as_error_module_names,
             ignore_warnings_module_names,
             single_threaded=single_threaded,

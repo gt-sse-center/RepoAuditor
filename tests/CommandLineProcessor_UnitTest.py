@@ -70,8 +70,10 @@ class MyQuery(Query):
             "MyQuery",
             ExecutionStyle.Sequential,
             [
-                MyRequirement("Requirement1", requires_explicit_include=True),
-                MyRequirement("Requirement2"),
+                MyRequirement(
+                    "Requirement1", requires_explicit_include=True, has_dynamic_args=False
+                ),
+                MyRequirement("Requirement2", has_dynamic_args=True),
             ],
         )
 
@@ -92,6 +94,7 @@ class MyRequirement(Requirement):
         name: str,
         *,
         requires_explicit_include: bool = False,
+        has_dynamic_args: bool = False,
     ):
         super(MyRequirement, self).__init__(
             name,
@@ -101,6 +104,16 @@ class MyRequirement(Requirement):
             "",
             requires_explicit_include=requires_explicit_include,
         )
+
+        self._has_dynamic_args = has_dynamic_args
+
+    # ----------------------------------------------------------------------
+    @override
+    def GetDynamicArgDefinitions(self) -> dict[str, TypeDefinitionItemType]:
+        if not self._has_dynamic_args:
+            return {}
+
+        return {"foo": int}
 
     # ----------------------------------------------------------------------
     @override
@@ -130,6 +143,7 @@ def test_Standard():
     assert isinstance(clp.module_infos[0].module, MyModule)
     assert clp.module_infos[0].module.GetNumRequirements() == 1
     assert clp.module_infos[0].dynamic_args == {"arg1": False}
+    assert not clp.module_infos[0].requirement_args
     assert clp.warnings_as_error_module_names == set()
     assert clp.ignore_warnings_module_names == set()
     assert clp.single_threaded is False
@@ -165,6 +179,7 @@ def test_WithDynamicArgs():
             "MyModule-arg1": False,
             "MyModule-one": 1,
             "MyModule-two": 2,
+            "MyModule-Requirement2-foo": 123,
         },
         [MyModule(dynamic_args={"one": int, "two": int})],
         [],
@@ -180,6 +195,9 @@ def test_WithDynamicArgs():
         "arg1": False,
         "one": 1,
         "two": 2,
+    }
+    assert clp.module_infos[0].requirement_args == {
+        "Requirement2": {"foo": 123},
     }
     assert clp.warnings_as_error_module_names == set()
     assert clp.ignore_warnings_module_names == set()

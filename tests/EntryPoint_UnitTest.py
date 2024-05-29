@@ -6,6 +6,8 @@
 # -------------------------------------------------------------------------------
 """Unit tests for EntryPoint.py"""
 
+import pytest
+
 from typer.testing import CliRunner
 
 from RepoAuditor import __version__
@@ -22,29 +24,29 @@ def test_Version() -> None:
 
 # ----------------------------------------------------------------------
 def test_Standard() -> None:
-    result = CliRunner().invoke(app, ["--Plugin1-foo", "10"])
-
-    assert result.exit_code == 0
-    assert result.output
-
-
-# ----------------------------------------------------------------------
-def test_Exception() -> None:
     result = CliRunner().invoke(app, [])
 
-    assert result.exit_code != 0
-
-    # Don't assert as a single string as the "ERROR:" prefix is decorated with colors
-    assert "ERROR:" in result.output
-    assert "'foo' is a required argument." in result.output
+    assert result.exit_code == 1
+    assert "There are no modules to process." in result.output
 
 
 # ----------------------------------------------------------------------
-def test_ExceptionWithDebug() -> None:
-    result = CliRunner().invoke(app, ["--debug"])
+@pytest.mark.skip(
+    reason="This test isn't stable due to GitHub rate limiting for requests without a PAT."
+)
+def test_GitHub() -> None:
+    result = CliRunner().invoke(
+        app,
+        [
+            "--include",
+            "GitHub",
+            "--GitHub-url",
+            "https://github.com/gt-sse-center/RepoAuditor",
+        ],
+    )
 
-    assert result.exit_code != 0
-    assert "Exception: 'foo' is a required argument" in result.output
+    assert result.exit_code == 1, result.output
+    assert "Incomplete data was encountered; please provide the GitHub PAT." in result.output
 
 
 # ----------------------------------------------------------------------
