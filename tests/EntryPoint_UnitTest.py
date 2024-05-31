@@ -8,10 +8,15 @@
 
 import pytest
 
+from dbrownell_Common.TestHelpers.StreamTestHelpers import InitializeStreamCapabilities
 from typer.testing import CliRunner
 
 from RepoAuditor import __version__
 from RepoAuditor.EntryPoint import app
+
+
+# ----------------------------------------------------------------------
+@pytest.fixture(InitializeStreamCapabilities(), scope="session", autouse=True)
 
 
 # ----------------------------------------------------------------------

@@ -102,7 +102,7 @@ class EnableRequirementImpl(Requirement):
             query_data["__checked_desc"] = "checked" if expected_value else "unchecked"
             return (
                 EvaluateResult.Error,
-                f"{self._github_settings_value} must be set to '{expected_value}'.",
+                f"{self._github_settings_value} must be set to '{expected_value}' (it is currently set to '{result}').",
             )
 
         return EvaluateResult.Success, None

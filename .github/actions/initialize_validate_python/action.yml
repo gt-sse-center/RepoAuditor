@@ -1,0 +1,58 @@
+name: Initialize github_pat.txt
+description: Creates the file containing the github pat that is used while running GitHub_EndToEndTest.py
+
+inputs:
+  operating_system:
+    required: true
+    type: string
+
+  python_version:
+    required: true
+    type: string
+
+  custom_initialization_secret:
+    required: true
+    type: string
+
+  shell_name:
+    required: true
+    type: string
+
+  # Include these unused inputs to avoid GitHub warnings
+  script_prefix:
+    required: false
+    type: string
+
+  script_extension:
+    required: false
+    type: string
+
+  source_command:
+    required: false
+    type: string
+
+  sudo_command:
+    required: false
+    type: string
+
+runs:
+  using: composite
+  steps:
+    - name: Create github_pat.txt
+      shell: ${{ inputs.shell_name }}
+      run: |
+        echo ${{ inputs.custom_initialization_secret }} > tests/Plugins/github_pat.txt
+
+    - name: Environment Variables (!Windows)
+      shell: ${{ inputs.shell_name }}
+      if: ${{ ! startsWith(inputs.operating_system, 'windows') }}
+      run: |
+        echo "GITHUB_CI_OPERATING_SYSTEM=${{ inputs.operating_system }}" >> $GITHUB_ENV
+        echo "GITHUB_CI_PYTHON_VERSION=${{ inputs.python_version }}" >> $GITHUB_ENV
+
+    - name: Environment Variables (Windows)
+      shell: ${{ inputs.shell_name }}
+      if: ${{ startsWith(inputs.operating_system, 'windows') }}
+      run: |
+        echo GITHUB_CI_OPERATING_SYSTEM=${{ inputs.operating_system }} >> %GITHUB_ENV%
+        echo GITHUB_CI_PYTHON_VERSION=${{ inputs.python_version }} >> %GITHUB_ENV%
