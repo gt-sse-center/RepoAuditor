@@ -12,3 +12,5 @@ Deactivate*.sh
 build/**
 dist/**
 src/RepoAuditor.egg-info/**
+
+tests/Plugins/github_pat.txt

@@ -16,11 +16,18 @@ import pytest
 
 from dbrownell_Common.Streams.Capabilities import Capabilities
 from dbrownell_Common.Types import override
-from dbrownell_Common.TestHelpers.StreamTestHelpers import GenerateDoneManagerAndContent
+from dbrownell_Common.TestHelpers.StreamTestHelpers import (
+    GenerateDoneManagerAndContent,
+    InitializeStreamCapabilities,
+)
 
 from RepoAuditor.ExecuteModules import *
 from RepoAuditor.Module import *
 from RepoAuditor.Requirement import *
+
+
+# ----------------------------------------------------------------------
+pytest.fixture(InitializeStreamCapabilities(), scope="session", autouse=True)
 
 
 # ----------------------------------------------------------------------
@@ -398,12 +405,6 @@ class TestDisplayResults:
     def test_Output(
         self, result, verbose, display_resolution, display_rationale, modules, capsys, snapshot
     ):
-        # Ensure that colors are displayed in all scenarios
-        Capabilities(
-            supports_colors=True,
-            stream=sys.stdout,
-        )
-
         dm_and_content = GenerateDoneManagerAndContent(verbose=verbose)
 
         if result in [EvaluateResult.Warning, EvaluateResult.Error]:
@@ -450,7 +451,6 @@ class TestDisplayResults:
             ],
             display_resolution=display_resolution,
             display_rationale=display_rationale,
-            panel_width=180,
         )
 
         content = capsys.readouterr().out

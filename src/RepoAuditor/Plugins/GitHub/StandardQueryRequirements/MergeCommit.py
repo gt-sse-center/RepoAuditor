@@ -4,7 +4,7 @@
 # |                     Distributed under the MIT License.                      |
 # |                                                                             |
 # -------------------------------------------------------------------------------
-"""Contains the AutoMerge object"""
+"""Contains the MergeCommit object"""
 
 import textwrap
 
@@ -12,24 +12,24 @@ from ..Impl.EnableRequirementImpl import EnableRequirementImpl
 
 
 # ----------------------------------------------------------------------
-class AutoMerge(EnableRequirementImpl):
+class MergeCommit(EnableRequirementImpl):
     # ----------------------------------------------------------------------
     def __init__(self):
-        super(AutoMerge, self).__init__(
-            "AutoMerge",
+        super(MergeCommit, self).__init__(
+            "MergeCommit",
             True,
             "false",
             "settings",
             "Pull Requests",
-            "Allow auto-merge",
-            lambda data: data["standard"].get("allow_auto_merge", None),
+            "Allow merge commits",
+            lambda data: data["standard"].get("allow_merge_commit", None),
             textwrap.dedent(
                 """\
-                The default behavior is to enable the option to auto-merge once all the required status checks associated with a pull request have passed.
+                The default behavior is to allow merge commits.
 
                 Reasons for this Default
                 ------------------------
-                - Reduces mean resolution time by triggering the merge once all the required status checks pass.
+                - Merge commits are the most basic way to merge from a branch into another branch.
 
                 Reasons to Override this Default
                 --------------------------------

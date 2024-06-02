@@ -13,6 +13,9 @@ from dbrownell_Common.Types import override  # type: ignore[import-untyped]
 from RepoAuditor.Query import ExecutionStyle, Query
 
 from .StandardQueryRequirements.AutoMerge import AutoMerge
+from .StandardQueryRequirements.DeleteHeadBranches import DeleteHeadBranches
+from .StandardQueryRequirements.DependabotSecurityUpdates import DependabotSecurityUpdates
+from .StandardQueryRequirements.MergeCommit import MergeCommit
 
 
 # ----------------------------------------------------------------------
@@ -26,6 +29,9 @@ class StandardQuery(Query):
             ExecutionStyle.Parallel,
             [
                 AutoMerge(),
+                DeleteHeadBranches(),
+                DependabotSecurityUpdates(),
+                MergeCommit(),
             ],
         )
 

@@ -4,7 +4,7 @@
 # |                     Distributed under the MIT License.                      |
 # |                                                                             |
 # -------------------------------------------------------------------------------
-"""Contains the AutoMerge object"""
+"""Contains the DeleteHeadBranches object"""
 
 import textwrap
 
@@ -12,28 +12,30 @@ from ..Impl.EnableRequirementImpl import EnableRequirementImpl
 
 
 # ----------------------------------------------------------------------
-class AutoMerge(EnableRequirementImpl):
+class DeleteHeadBranches(EnableRequirementImpl):
     # ----------------------------------------------------------------------
     def __init__(self):
-        super(AutoMerge, self).__init__(
-            "AutoMerge",
+        super(DeleteHeadBranches, self).__init__(
+            "DeleteHeadBranches",
             True,
             "false",
             "settings",
             "Pull Requests",
-            "Allow auto-merge",
-            lambda data: data["standard"].get("allow_auto_merge", None),
+            "Automatically delete head branches",
+            lambda data: data["standard"].get("delete_branch_on_merge", None),
             textwrap.dedent(
                 """\
-                The default behavior is to enable the option to auto-merge once all the required status checks associated with a pull request have passed.
+                The default behavior is to automatically delete head branches once they have been merged into the mainline branch.
 
                 Reasons for this Default
                 ------------------------
-                - Reduces mean resolution time by triggering the merge once all the required status checks pass.
+                - Long-lived branches make integration more difficult due to changes that accumulate over time.
 
                 Reasons to Override this Default
                 --------------------------------
-                <unknown>
+                - You support release branches and may want to merge changes from this release branch into the mainline branch
+                  (although, it is possible to workaround this issue by creating a pull request from a temporary branch that
+                  includes cherry-picked changes from the release branch).
                 """,
             ),
         )

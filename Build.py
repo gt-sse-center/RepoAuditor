@@ -55,6 +55,7 @@ Pytest = RepoBuildTools.PytestFuncFactory(
     package_dir.name,
     app,
     default_min_coverage=90.0,
+    additional_args="--snapshot-warn-unused",
 )
 
 UpdateVersion = RepoBuildTools.UpdateVersionFuncFactory(

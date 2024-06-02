@@ -82,7 +82,7 @@ def _HelpEpilog() -> str:
             python_type = type_info
             parameter_info = None
 
-        return "    {arg_name:<32} {type_description:<15} {help}".format(
+        return "    {arg_name:<35} {type_description:<15} {help}".format(
             arg_name=arg_name,
             type_description=python_type.__name__,
             help="" if parameter_info is None else parameter_info.help,
