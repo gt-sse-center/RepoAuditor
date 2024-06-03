@@ -288,7 +288,8 @@ def DisplayResults(
             else:
                 assert False, result.result  # pragma: no cover
 
-        num_executed = num_success + num_warning + num_error
+        num_requirements = module.GetNumRequirements()
+        assert num_requirements
 
         internal_content: list[Panel | str] = []
 
@@ -298,16 +299,19 @@ def DisplayResults(
         internal_content.append(
             textwrap.dedent(
                 f"""\
-                Successful:     {num_success} ({(num_success / num_executed if num_executed else 0):.02%})
-                Warnings:       {num_warning} ({(num_warning / num_executed if num_executed else 0):.02%})
-                Errors:         {num_error} ({(num_error / num_executed if num_executed else 0):.02%})
-                Skipped:        {num_does_not_apply} ({num_does_not_apply / module.GetNumRequirements():.02%})
+                Successful:     {num_success} ({(num_success / num_requirements):.02%})
+                Warnings:       {num_warning} ({(num_warning / num_requirements):.02%})
+                Errors:         {num_error} ({(num_error / num_requirements):.02%})
+                Skipped:        {num_does_not_apply} ({(num_does_not_apply / num_requirements):.02%})
                 """,
             ),
         )
 
         for result in results:
-            if not dm.is_verbose and result.result == EvaluateResult.Success:
+            if not dm.is_verbose and result.result in [
+                EvaluateResult.Success,
+                EvaluateResult.DoesNotApply,
+            ]:
                 continue
 
             if result.result == EvaluateResult.Success:

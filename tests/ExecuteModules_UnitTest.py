@@ -98,11 +98,16 @@ class MyRequirement(Requirement):
         self,
         query_data: dict[str, Any],
         requirement_args: dict[str, Any],
-    ) -> tuple[EvaluateResult, Optional[str], bool]:
+    ) -> Requirement.EvaluateImplResult:
         # Introduce a delay so that we can see things happening
         time.sleep(0.1)
 
-        return self.result, None, True
+        return Requirement.EvaluateImplResult(
+            self.result,
+            None,
+            provide_resolution=True,
+            provide_rationale=True,
+        )
 
 
 # ----------------------------------------------------------------------

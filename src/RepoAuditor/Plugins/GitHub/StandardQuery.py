@@ -13,13 +13,17 @@ from dbrownell_Common.Types import override  # type: ignore[import-untyped]
 from RepoAuditor.Query import ExecutionStyle, Query
 
 from .StandardQueryRequirements.AutoMerge import AutoMerge
+from .StandardQueryRequirements.DefaultBranch import DefaultBranch
 from .StandardQueryRequirements.DeleteHeadBranches import DeleteHeadBranches
 from .StandardQueryRequirements.DependabotSecurityUpdates import DependabotSecurityUpdates
+from .StandardQueryRequirements.License import License
 from .StandardQueryRequirements.MergeCommit import MergeCommit
+from .StandardQueryRequirements.MergeCommitMessage import MergeCommitMessage
 from .StandardQueryRequirements.RebaseMergeCommit import RebaseMergeCommit
 from .StandardQueryRequirements.SecretScanning import SecretScanning
 from .StandardQueryRequirements.SecretScanningPushProtection import SecretScanningPushProtection
 from .StandardQueryRequirements.SquashCommitMerge import SquashCommitMerge
+from .StandardQueryRequirements.SquashMergeCommitMessage import SquashMergeCommitMessage
 from .StandardQueryRequirements.SuggestUpdatingPullRequestBranches import (
     SuggestUpdatingPullRequestBranches,
 )
@@ -42,13 +46,17 @@ class StandardQuery(Query):
             ExecutionStyle.Parallel,
             [
                 AutoMerge(),
+                DefaultBranch(),
                 DeleteHeadBranches(),
                 DependabotSecurityUpdates(),
+                License(),
                 MergeCommit(),
+                MergeCommitMessage(),
                 RebaseMergeCommit(),
                 SecretScanning(),
                 SecretScanningPushProtection(),
                 SquashCommitMerge(),
+                SquashMergeCommitMessage(),
                 SuggestUpdatingPullRequestBranches(),
                 SupportDiscussions(),
                 SupportIssues(),
