@@ -179,7 +179,7 @@ class Module(ABC):
                     return_code = -1
                     break
 
-                elif evaluate_info.result == EvaluateResult.Warning:
+                if evaluate_info.result == EvaluateResult.Warning:
                     return_code = 1
 
             return (

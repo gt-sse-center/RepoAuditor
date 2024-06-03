@@ -12,7 +12,7 @@ from ..Impl.EnableRequirementImpl import EnableRequirementImpl
 
 
 # ----------------------------------------------------------------------
-class AutoMerge(EnableRequirementImpl):
+class AutoMerge(EnableRequirementImpl):  # pylint: disable=missing-class-docstring
     # ----------------------------------------------------------------------
     def __init__(self):
         super(AutoMerge, self).__init__(

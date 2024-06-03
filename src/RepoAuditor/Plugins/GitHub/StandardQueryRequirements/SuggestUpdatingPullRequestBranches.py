@@ -4,7 +4,7 @@
 # |                     Distributed under the MIT License.                      |
 # |                                                                             |
 # -------------------------------------------------------------------------------
-"""Contains the MergeCommit object"""
+"""Contains the SuggestUpdatingPullRequestBranches object"""
 
 import textwrap
 
@@ -12,28 +12,32 @@ from ..Impl.EnableRequirementImpl import EnableRequirementImpl
 
 
 # ----------------------------------------------------------------------
-class MergeCommit(EnableRequirementImpl):  # pylint: disable=missing-class-docstring
+class SuggestUpdatingPullRequestBranches(
+    EnableRequirementImpl
+):  # pylint: disable=missing-class-docstring
     # ----------------------------------------------------------------------
     def __init__(self):
-        super(MergeCommit, self).__init__(
-            "MergeCommit",
-            True,
-            "false",
+        super(SuggestUpdatingPullRequestBranches, self).__init__(
+            "SuggestUpdatingPullRequestBranches",
+            False,
+            "true",
             "settings",
             "Pull Requests",
-            "Allow merge commits",
-            lambda data: data["standard"].get("allow_merge_commit", None),
+            "Always suggest updating pull request branches",
+            lambda data: data["standard"].get("allow_update_branch", None),
             textwrap.dedent(
                 """\
-                The default behavior is to allow merge commits.
+                The default behavior is to not suggest updating branches associated with pull requests within the pull request.
 
                 Reasons for this Default
                 ------------------------
-                - Merge commits are the most basic way to merge from a branch into another branch.
+                - Pull requests updated by GitHub are not compatible with signed commits, as GitHub creates a new commit when rebasing.
+                - Rebasing may introduce changes that are incompatible with the current pull request.
 
                 Reasons to Override this Default
                 --------------------------------
-                <unknown>
+                - Your repository does not require signatures.
+                - Merge problems more insidious than conflicts are infrequent.
                 """,
             ),
         )

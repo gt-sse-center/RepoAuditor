@@ -36,6 +36,7 @@ class EnableRequirementImpl(Requirement):
         subject: Optional[str] = None,
         *,
         requires_explicit_include: bool = False,
+        unset_set_terminology: tuple[str, str] = ("unchecked", "checked"),
     ) -> None:
         if github_settings_value is None:
             github_settings_value = "the value"
@@ -63,8 +64,8 @@ class EnableRequirementImpl(Requirement):
         self._github_settings_value = github_settings_value
         self._default_value = default_value
         self._dynamic_arg_name = dynamic_arg_name
-
         self._get_configuration_value_func = get_configuration_value_func
+        self._unset_set_terminology = unset_set_terminology
 
     # ----------------------------------------------------------------------
     @override
@@ -73,7 +74,7 @@ class EnableRequirementImpl(Requirement):
             self._dynamic_arg_name: (
                 bool,
                 typer.Option(
-                    not self._default_value,
+                    False,
                     help=f"Ensures that the value for {self._github_settings_value} is set to {not self._default_value}.",
                 ),
             ),
@@ -85,24 +86,31 @@ class EnableRequirementImpl(Requirement):
         self,
         query_data: dict[str, Any],
         requirement_args: dict[str, Any],
-    ) -> tuple[EvaluateResult, str | None]:
+    ) -> tuple[EvaluateResult, str | None, bool]:
         result = self._get_configuration_value_func(query_data)
 
         if result is None:
             return (
                 EvaluateResult.Warning,
                 "Incomplete data was encountered; please provide the GitHub PAT.",
+                False,
             )
 
         expected_value = self._default_value
+
         if requirement_args[self._dynamic_arg_name]:
             expected_value = not expected_value
+            provide_rationale = False
+        else:
+            provide_rationale = True
 
         if result != expected_value:
-            query_data["__checked_desc"] = "checked" if expected_value else "unchecked"
+            query_data["__checked_desc"] = self._unset_set_terminology[int(expected_value)]
+
             return (
                 EvaluateResult.Error,
                 f"{self._github_settings_value} must be set to '{expected_value}' (it is currently set to '{result}').",
+                provide_rationale,
             )
 
-        return EvaluateResult.Success, None
+        return EvaluateResult.Success, None, False

@@ -4,7 +4,7 @@
 # |                     Distributed under the MIT License.                      |
 # |                                                                             |
 # -------------------------------------------------------------------------------
-"""Contains the MergeCommit object"""
+"""Contains the SupportWikis object"""
 
 import textwrap
 
@@ -12,28 +12,21 @@ from ..Impl.EnableRequirementImpl import EnableRequirementImpl
 
 
 # ----------------------------------------------------------------------
-class MergeCommit(EnableRequirementImpl):  # pylint: disable=missing-class-docstring
+class SupportWikis(EnableRequirementImpl):  # pylint: disable=missing-class-docstring
     # ----------------------------------------------------------------------
     def __init__(self):
-        super(MergeCommit, self).__init__(
-            "MergeCommit",
+        super(SupportWikis, self).__init__(
+            "SupportWikis",
             True,
             "false",
             "settings",
-            "Pull Requests",
-            "Allow merge commits",
-            lambda data: data["standard"].get("allow_merge_commit", None),
-            textwrap.dedent(
+            "Features",
+            "Wikis",
+            lambda data: data["standard"].get("has_wiki", None),
+            rationale=textwrap.dedent(
                 """\
-                The default behavior is to allow merge commits.
-
-                Reasons for this Default
-                ------------------------
-                - Merge commits are the most basic way to merge from a branch into another branch.
-
-                Reasons to Override this Default
-                --------------------------------
-                <unknown>
+                No rationale for this default.
                 """,
             ),
+            subject="Support for Wikis",
         )

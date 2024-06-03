@@ -118,7 +118,8 @@ def Execute(
 
                     if result == EvaluateResult.Error:
                         return -1, "errors were encountered"
-                    elif result == EvaluateResult.Warning:
+
+                    if result == EvaluateResult.Warning:
                         return_code = 1
 
             return return_code, "" if return_code == 0 else "warnings were encountered"

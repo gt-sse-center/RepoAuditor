@@ -4,7 +4,7 @@
 # |                     Distributed under the MIT License.                      |
 # |                                                                             |
 # -------------------------------------------------------------------------------
-"""Contains the MergeCommit object"""
+"""Contains the TemplateRepository object"""
 
 import textwrap
 
@@ -12,28 +12,28 @@ from ..Impl.EnableRequirementImpl import EnableRequirementImpl
 
 
 # ----------------------------------------------------------------------
-class MergeCommit(EnableRequirementImpl):  # pylint: disable=missing-class-docstring
+class TemplateRepository(EnableRequirementImpl):  # pylint: disable=missing-class-docstring
     # ----------------------------------------------------------------------
     def __init__(self):
-        super(MergeCommit, self).__init__(
-            "MergeCommit",
-            True,
-            "false",
+        super(TemplateRepository, self).__init__(
+            "TemplateRepository",
+            False,
+            "true",
             "settings",
-            "Pull Requests",
-            "Allow merge commits",
-            lambda data: data["standard"].get("allow_merge_commit", None),
-            textwrap.dedent(
+            "General",
+            "Template repository",
+            lambda data: data["standard"].get("is_template", None),
+            rationale=textwrap.dedent(
                 """\
-                The default behavior is to allow merge commits.
+                The default behavior is that this is not a template repository.
 
                 Reasons for this Default
                 ------------------------
-                - Merge commits are the most basic way to merge from a branch into another branch.
+                - Most repositories are not templates.
 
                 Reasons to Override this Default
                 --------------------------------
-                <unknown>
+                - Your repository is a template repository.
                 """,
             ),
         )
