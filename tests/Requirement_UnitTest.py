@@ -8,6 +8,8 @@
 
 from unittest.mock import Mock
 
+import pytest
+
 from dbrownell_Common.Types import override
 
 from RepoAuditor.Requirement import *
@@ -27,6 +29,7 @@ class MyRequirement(Requirement):
         context: Optional[str] = None,
         *,
         requires_explicit_include: bool = False,
+        provide_rationale: bool = True,
     ) -> None:
         super(MyRequirement, self).__init__(
             name,
@@ -39,6 +42,7 @@ class MyRequirement(Requirement):
 
         self.expected_result = expected_result
         self.context = context
+        self._provide_rationale = provide_rationale
 
     # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
@@ -48,8 +52,8 @@ class MyRequirement(Requirement):
         self,
         query_data: dict[str, Any],
         requirement_args: dict[str, Any],
-    ) -> tuple[EvaluateResult, Optional[str]]:
-        return self.expected_result, self.context
+    ) -> tuple[EvaluateResult, Optional[str], bool]:
+        return self.expected_result, self.context, self._provide_rationale
 
 
 # ----------------------------------------------------------------------
@@ -128,7 +132,8 @@ def test_GetDynamicArgDefinitions():
 
 
 # ----------------------------------------------------------------------
-def test_Error():
+@pytest.mark.parametrize("provide_rationale", [True, False])
+def test_Error(provide_rationale: bool):
     requirement = MyRequirement(
         Mock(),
         Mock(),
@@ -137,6 +142,7 @@ def test_Error():
         "{three} -- {four}",
         EvaluateResult.Error,
         "testing",
+        provide_rationale=provide_rationale,
     )
 
     result_info = requirement.Evaluate(
@@ -146,7 +152,7 @@ def test_Error():
     assert result_info.result == EvaluateResult.Error
     assert result_info.context == "testing"
     assert result_info.resolution == "1 -- 2"
-    assert result_info.rationale == "3 -- 4"
+    assert result_info.rationale == ("3 -- 4" if provide_rationale else None)
     assert result_info.requirement is requirement
 
 
@@ -171,3 +177,6 @@ def test_Warning():
     assert result_info.resolution is None
     assert result_info.rationale is None
     assert result_info.requirement is requirement
+
+
+# ----------------------------------------------------------------------

@@ -4,7 +4,7 @@
 # |                     Distributed under the MIT License.                      |
 # |                                                                             |
 # -------------------------------------------------------------------------------
-"""Contains the DependabotSecurityUpdates object"""
+"""Contains the SecretScanning object"""
 
 import textwrap
 
@@ -14,29 +14,28 @@ from ..Impl.EnableRequirementImpl import EnableRequirementImpl
 
 
 # ----------------------------------------------------------------------
-class DependabotSecurityUpdates(EnableRequirementImpl):
+class SecretScanning(EnableRequirementImpl):
     # ----------------------------------------------------------------------
     def __init__(self):
-        super(DependabotSecurityUpdates, self).__init__(
-            "DependabotSecurityUpdates",
+        super(SecretScanning, self).__init__(
+            "SecretScanning",
             True,
             "false",
             "settings/security_analysis",
-            "Dependabot",
-            "Dependabot security updates",
+            "Secret scanning",
+            "Secret scanning",
             _GetValue,
             textwrap.dedent(
                 """\
-                The default behavior is to enable Dependabot security updates.
+                The default behavior is to enable secret scanning.
 
                 Reasons for this Default
                 ------------------------
-                - Increases the overall security of the repository by automatically applying security updates.
+                - Secrets should not be checked into code.
 
                 Reasons to Override this Default
                 --------------------------------
-                - Dependabot security updates are not supported for the repository or by the organization.
-                - A manual test pass is required before changes can be deployed.
+                <unknown>
                 """,
             ),
             unset_set_terminology=("disabled", "enabled"),
@@ -50,7 +49,7 @@ def _GetValue(data: dict[str, Any]) -> Optional[bool]:
     result = (
         data["standard"]
         .get("security_and_analysis", {})
-        .get("dependabot_security_updates", {})
+        .get("secret_scanning", {})
         .get("status", None)
     )
 

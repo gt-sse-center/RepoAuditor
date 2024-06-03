@@ -16,6 +16,19 @@ from .StandardQueryRequirements.AutoMerge import AutoMerge
 from .StandardQueryRequirements.DeleteHeadBranches import DeleteHeadBranches
 from .StandardQueryRequirements.DependabotSecurityUpdates import DependabotSecurityUpdates
 from .StandardQueryRequirements.MergeCommit import MergeCommit
+from .StandardQueryRequirements.RebaseMergeCommit import RebaseMergeCommit
+from .StandardQueryRequirements.SecretScanning import SecretScanning
+from .StandardQueryRequirements.SecretScanningPushProtection import SecretScanningPushProtection
+from .StandardQueryRequirements.SquashCommitMerge import SquashCommitMerge
+from .StandardQueryRequirements.SuggestUpdatingPullRequestBranches import (
+    SuggestUpdatingPullRequestBranches,
+)
+from .StandardQueryRequirements.SupportDiscussions import SupportDiscussions
+from .StandardQueryRequirements.SupportIssues import SupportIssues
+from .StandardQueryRequirements.SupportProjects import SupportProjects
+from .StandardQueryRequirements.SupportWikis import SupportWikis
+from .StandardQueryRequirements.TemplateRepository import TemplateRepository
+from .StandardQueryRequirements.WebCommitSignoff import WebCommitSignoff
 
 
 # ----------------------------------------------------------------------
@@ -32,6 +45,17 @@ class StandardQuery(Query):
                 DeleteHeadBranches(),
                 DependabotSecurityUpdates(),
                 MergeCommit(),
+                RebaseMergeCommit(),
+                SecretScanning(),
+                SecretScanningPushProtection(),
+                SquashCommitMerge(),
+                SuggestUpdatingPullRequestBranches(),
+                SupportDiscussions(),
+                SupportIssues(),
+                SupportProjects(),
+                SupportWikis(),
+                TemplateRepository(),
+                WebCommitSignoff(),
             ],
         )
 

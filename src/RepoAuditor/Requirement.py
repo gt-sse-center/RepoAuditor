@@ -86,14 +86,14 @@ class Requirement(ABC):
         query_data: dict[str, Any],
         requirement_args: dict[str, Any],
     ) -> "Requirement.EvaluateInfo":
-        result, context = self._EvaluateImpl(query_data, requirement_args)
+        result, context, provide_rationale = self._EvaluateImpl(query_data, requirement_args)
 
         if result == EvaluateResult.Error:
             return Requirement.EvaluateInfo(
                 result,
                 context,
                 self.resolution_template.format(**query_data),
-                self.rationale_template.format(**query_data),
+                self.rationale_template.format(**query_data) if provide_rationale else None,
                 self,
             )
 
@@ -109,5 +109,5 @@ class Requirement(ABC):
         self,
         query_data: dict[str, Any],
         requirement_args: dict[str, Any],
-    ) -> tuple[EvaluateResult, Optional[str]]:
+    ) -> tuple[EvaluateResult, Optional[str], bool]:
         """Perform the actual evaluation"""
