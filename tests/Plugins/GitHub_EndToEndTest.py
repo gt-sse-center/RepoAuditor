@@ -124,6 +124,96 @@ def test_NoMergeCommit(pat_args, snapshot):
 
 
 # ----------------------------------------------------------------------
+def test_YesRebaseMergeCommit(pat_args, snapshot):
+    result = CliRunner().invoke(app, pat_args + ["--GitHub-RebaseMergeCommit-true"])
+
+    assert result.exit_code == -1, result.output
+    assert ScrubDuration(result.stdout) == snapshot
+
+
+# ----------------------------------------------------------------------
+def test_NoSecretScanning(pat_args, snapshot):
+    result = CliRunner().invoke(app, pat_args + ["--GitHub-SecretScanning-false"])
+
+    assert result.exit_code == -1, result.output
+    assert ScrubDuration(result.stdout) == snapshot
+
+
+# ----------------------------------------------------------------------
+def test_NoSecretScanningPushProtection(pat_args, snapshot):
+    result = CliRunner().invoke(app, pat_args + ["--GitHub-SecretScanningPushProtection-false"])
+
+    assert result.exit_code == -1, result.output
+    assert ScrubDuration(result.stdout) == snapshot
+
+
+# ----------------------------------------------------------------------
+def test_YesSquashCommitMerge(pat_args, snapshot):
+    result = CliRunner().invoke(app, pat_args + ["--GitHub-SquashCommitMerge-true"])
+
+    assert result.exit_code == -1, result.output
+    assert ScrubDuration(result.stdout) == snapshot
+
+
+# ----------------------------------------------------------------------
+def test_YesSuggestUpdatingPullRequestBranches(pat_args, snapshot):
+    result = CliRunner().invoke(
+        app, pat_args + ["--GitHub-SuggestUpdatingPullRequestBranches-true"]
+    )
+
+    assert result.exit_code == -1, result.output
+    assert ScrubDuration(result.stdout) == snapshot
+
+
+# ----------------------------------------------------------------------
+def test_YesSupportDiscussions(pat_args, snapshot):
+    result = CliRunner().invoke(app, pat_args + ["--GitHub-SupportDiscussions-true"])
+
+    assert result.exit_code == -1, result.output
+    assert ScrubDuration(result.stdout) == snapshot
+
+
+# ----------------------------------------------------------------------
+def test_NoSupportIssues(pat_args, snapshot):
+    result = CliRunner().invoke(app, pat_args + ["--GitHub-SupportIssues-false"])
+
+    assert result.exit_code == -1, result.output
+    assert ScrubDuration(result.stdout) == snapshot
+
+
+# ----------------------------------------------------------------------
+def test_NoSupportProjects(pat_args, snapshot):
+    result = CliRunner().invoke(app, pat_args + ["--GitHub-SupportProjects-false"])
+
+    assert result.exit_code == -1, result.output
+    assert ScrubDuration(result.stdout) == snapshot
+
+
+# ----------------------------------------------------------------------
+def test_NoSupportWikis(pat_args, snapshot):
+    result = CliRunner().invoke(app, pat_args + ["--GitHub-SupportWikis-false"])
+
+    assert result.exit_code == -1, result.output
+    assert ScrubDuration(result.stdout) == snapshot
+
+
+# ----------------------------------------------------------------------
+def test_YesTemplateRepository(pat_args, snapshot):
+    result = CliRunner().invoke(app, pat_args + ["--GitHub-TemplateRepository-true"])
+
+    assert result.exit_code == -1, result.output
+    assert ScrubDuration(result.stdout) == snapshot
+
+
+# ----------------------------------------------------------------------
+def test_NoWebCommitSignoff(pat_args, snapshot):
+    result = CliRunner().invoke(app, pat_args + ["--GitHub-WebCommitSignoff-false"])
+
+    assert result.exit_code == -1, result.output
+    assert ScrubDuration(result.stdout) == snapshot
+
+
+# ----------------------------------------------------------------------
 # ----------------------------------------------------------------------
 # ----------------------------------------------------------------------
 @pytest.fixture

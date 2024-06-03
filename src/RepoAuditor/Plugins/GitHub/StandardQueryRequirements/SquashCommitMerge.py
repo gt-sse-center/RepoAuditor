@@ -4,7 +4,7 @@
 # |                     Distributed under the MIT License.                      |
 # |                                                                             |
 # -------------------------------------------------------------------------------
-"""Contains the MergeCommit object"""
+"""Contains the SquashCommitMerge object"""
 
 import textwrap
 
@@ -12,28 +12,29 @@ from ..Impl.EnableRequirementImpl import EnableRequirementImpl
 
 
 # ----------------------------------------------------------------------
-class MergeCommit(EnableRequirementImpl):  # pylint: disable=missing-class-docstring
+class SquashCommitMerge(EnableRequirementImpl):  # pylint: disable=missing-class-docstring
     # ----------------------------------------------------------------------
     def __init__(self):
-        super(MergeCommit, self).__init__(
-            "MergeCommit",
-            True,
-            "false",
+        super(SquashCommitMerge, self).__init__(
+            "SquashCommitMerge",
+            False,
+            "true",
             "settings",
             "Pull Requests",
-            "Allow merge commits",
-            lambda data: data["standard"].get("allow_merge_commit", None),
+            "Allow squash merging",
+            lambda data: data["standard"].get("allow_squash_merge", None),
             textwrap.dedent(
                 """\
-                The default behavior is to allow merge commits.
+                The default behavior is to not allow squash merging.
 
                 Reasons for this Default
                 ------------------------
-                - Merge commits are the most basic way to merge from a branch into another branch.
+                - Rebase merging is not compatible with signed commits, as GitHub creates a new commit when squashing.
 
                 Reasons to Override this Default
                 --------------------------------
-                <unknown>
+                - Your repository does not require signatures.
+                - You want to ensure that single-commit-changes are merged into the mainline branch to simplify the branch's history.
                 """,
             ),
         )

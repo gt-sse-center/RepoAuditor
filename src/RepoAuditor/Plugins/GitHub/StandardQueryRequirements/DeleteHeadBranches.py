@@ -12,7 +12,7 @@ from ..Impl.EnableRequirementImpl import EnableRequirementImpl
 
 
 # ----------------------------------------------------------------------
-class DeleteHeadBranches(EnableRequirementImpl):
+class DeleteHeadBranches(EnableRequirementImpl):  # pylint: disable=missing-class-docstring
     # ----------------------------------------------------------------------
     def __init__(self):
         super(DeleteHeadBranches, self).__init__(

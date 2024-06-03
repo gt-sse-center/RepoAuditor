@@ -4,36 +4,56 @@
 # |                     Distributed under the MIT License.                      |
 # |                                                                             |
 # -------------------------------------------------------------------------------
-"""Contains the MergeCommit object"""
+"""Contains the SecretScanning object"""
 
 import textwrap
+
+from typing import Any, Optional
 
 from ..Impl.EnableRequirementImpl import EnableRequirementImpl
 
 
 # ----------------------------------------------------------------------
-class MergeCommit(EnableRequirementImpl):  # pylint: disable=missing-class-docstring
+class SecretScanning(EnableRequirementImpl):  # pylint: disable=missing-class-docstring
     # ----------------------------------------------------------------------
     def __init__(self):
-        super(MergeCommit, self).__init__(
-            "MergeCommit",
+        super(SecretScanning, self).__init__(
+            "SecretScanning",
             True,
             "false",
-            "settings",
-            "Pull Requests",
-            "Allow merge commits",
-            lambda data: data["standard"].get("allow_merge_commit", None),
+            "settings/security_analysis",
+            "Secret scanning",
+            "Secret scanning",
+            _GetValue,
             textwrap.dedent(
                 """\
-                The default behavior is to allow merge commits.
+                The default behavior is to enable secret scanning.
 
                 Reasons for this Default
                 ------------------------
-                - Merge commits are the most basic way to merge from a branch into another branch.
+                - Secrets should not be checked into code.
 
                 Reasons to Override this Default
                 --------------------------------
                 <unknown>
                 """,
             ),
+            unset_set_terminology=("disabled", "enabled"),
         )
+
+
+# ----------------------------------------------------------------------
+# ----------------------------------------------------------------------
+# ----------------------------------------------------------------------
+def _GetValue(data: dict[str, Any]) -> Optional[bool]:
+    result = (
+        data["standard"]
+        .get("security_and_analysis", {})
+        .get("secret_scanning", {})
+        .get("status", None)
+    )
+
+    if result is None:
+        return None
+
+    return result == "enabled"

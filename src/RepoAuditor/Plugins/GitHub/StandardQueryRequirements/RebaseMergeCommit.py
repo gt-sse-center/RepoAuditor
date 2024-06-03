@@ -4,7 +4,7 @@
 # |                     Distributed under the MIT License.                      |
 # |                                                                             |
 # -------------------------------------------------------------------------------
-"""Contains the MergeCommit object"""
+"""Contains the RebaseMergeCommit object"""
 
 import textwrap
 
@@ -12,28 +12,30 @@ from ..Impl.EnableRequirementImpl import EnableRequirementImpl
 
 
 # ----------------------------------------------------------------------
-class MergeCommit(EnableRequirementImpl):  # pylint: disable=missing-class-docstring
+class RebaseMergeCommit(EnableRequirementImpl):  # pylint: disable=missing-class-docstring
     # ----------------------------------------------------------------------
     def __init__(self):
-        super(MergeCommit, self).__init__(
-            "MergeCommit",
-            True,
-            "false",
+        super(RebaseMergeCommit, self).__init__(
+            "RebaseMergeCommit",
+            False,
+            "true",
             "settings",
             "Pull Requests",
-            "Allow merge commits",
-            lambda data: data["standard"].get("allow_merge_commit", None),
+            "Allow rebase merging",
+            lambda data: data["standard"].get("allow_rebase_merge", None),
             textwrap.dedent(
                 """\
-                The default behavior is to allow merge commits.
+                The default behavior is to not allow rebase merging.
 
                 Reasons for this Default
                 ------------------------
-                - Merge commits are the most basic way to merge from a branch into another branch.
+                - Rebase merging is not compatible with signed commits, as GitHub creates a new commit when rebasing.
 
                 Reasons to Override this Default
                 --------------------------------
-                <unknown>
+                - Your repository does not require signatures.
+                - You want GitHub to rebase for you as part of the pull request process when changes by others are frequent or the
+                  pull request process can last for an extended period of time.
                 """,
             ),
         )

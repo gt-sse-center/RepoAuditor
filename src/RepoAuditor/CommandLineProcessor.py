@@ -7,7 +7,7 @@
 """Contains the CommandLineProcessor object"""
 
 from dataclasses import dataclass, field
-from typing import Any, Optional, Protocol
+from typing import Any, Protocol
 
 from dbrownell_Common.Streams.DoneManager import DoneManager  # type: ignore[import-untyped]
 
