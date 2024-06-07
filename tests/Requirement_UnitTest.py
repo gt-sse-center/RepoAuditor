@@ -52,8 +52,13 @@ class MyRequirement(Requirement):
         self,
         query_data: dict[str, Any],
         requirement_args: dict[str, Any],
-    ) -> tuple[EvaluateResult, Optional[str], bool]:
-        return self.expected_result, self.context, self._provide_rationale
+    ) -> Requirement.EvaluateImplResult:
+        return Requirement.EvaluateImplResult(
+            self.expected_result,
+            self.context,
+            provide_resolution=self.expected_result == EvaluateResult.Error,
+            provide_rationale=self._provide_rationale,
+        )
 
 
 # ----------------------------------------------------------------------

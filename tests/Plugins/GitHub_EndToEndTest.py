@@ -214,6 +214,52 @@ def test_NoWebCommitSignoff(pat_args, snapshot):
 
 
 # ----------------------------------------------------------------------
+def test_DefaultBranchValue(pat_args, snapshot):
+    result = CliRunner().invoke(app, pat_args + ["--GitHub-DefaultBranch-value", "not_main"])
+
+    assert result.exit_code == -1, result.output
+    assert ScrubDuration(result.stdout) == snapshot
+
+
+# ----------------------------------------------------------------------
+def test_LicenseValue(pat_args, snapshot):
+    result = CliRunner().invoke(app, pat_args + ["--GitHub-License-value", "Not the MIT License"])
+
+    assert result.exit_code == -1, result.output
+    assert ScrubDuration(result.stdout) == snapshot
+
+
+# ----------------------------------------------------------------------
+def test_MergeCommitMessageValue(pat_args, snapshot):
+    result = CliRunner().invoke(
+        app,
+        pat_args
+        + [
+            "--GitHub-MergeCommitMessage-value",
+            "This is not a valid merge commit message",
+        ],
+    )
+
+    assert result.exit_code == -1, result.output
+    assert ScrubDuration(result.stdout) == snapshot
+
+
+# ----------------------------------------------------------------------
+def test_SquashMergeCommitMessageValue(pat_args, snapshot):
+    result = CliRunner().invoke(
+        app,
+        pat_args
+        + [
+            "--GitHub-SquashMergeCommitMessage-value",
+            "This is not a valid squash merge commit message",
+        ],
+    )
+
+    assert result.exit_code == -1, result.output
+    assert ScrubDuration(result.stdout) == snapshot
+
+
+# ----------------------------------------------------------------------
 # ----------------------------------------------------------------------
 # ----------------------------------------------------------------------
 @pytest.fixture

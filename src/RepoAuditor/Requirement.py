@@ -7,7 +7,7 @@
 """Contains types used when creating Requirements."""
 
 from abc import ABC, abstractmethod
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from enum import auto, Enum
 from typing import Any, Optional
 
@@ -49,6 +49,14 @@ class Requirement(ABC):
         requirement: "Requirement"
 
     # ----------------------------------------------------------------------
+    @dataclass(frozen=True)
+    class EvaluateImplResult:
+        result: EvaluateResult
+        context: Optional[str]
+        provide_resolution: bool = field(kw_only=True, default=False)
+        provide_rationale: bool = field(kw_only=True, default=False)
+
+    # ----------------------------------------------------------------------
     # |
     # |  Public Methods
     # |
@@ -86,18 +94,26 @@ class Requirement(ABC):
         query_data: dict[str, Any],
         requirement_args: dict[str, Any],
     ) -> "Requirement.EvaluateInfo":
-        result, context, provide_rationale = self._EvaluateImpl(query_data, requirement_args)
+        result_info = self._EvaluateImpl(query_data, requirement_args)
 
-        if result == EvaluateResult.Error:
+        if result_info.result == EvaluateResult.Error:
             return Requirement.EvaluateInfo(
-                result,
-                context,
-                self.resolution_template.format(**query_data),
-                self.rationale_template.format(**query_data) if provide_rationale else None,
+                result_info.result,
+                result_info.context,
+                (
+                    self.resolution_template.format(**query_data)
+                    if result_info.provide_resolution
+                    else None
+                ),
+                (
+                    self.rationale_template.format(**query_data)
+                    if result_info.provide_rationale
+                    else None
+                ),
                 self,
             )
 
-        return Requirement.EvaluateInfo(result, context, None, None, self)
+        return Requirement.EvaluateInfo(result_info.result, result_info.context, None, None, self)
 
     # ----------------------------------------------------------------------
     # |
@@ -109,5 +125,5 @@ class Requirement(ABC):
         self,
         query_data: dict[str, Any],
         requirement_args: dict[str, Any],
-    ) -> tuple[EvaluateResult, Optional[str], bool]:
+    ) -> "Requirement.EvaluateImplResult":
         """Perform the actual evaluation"""

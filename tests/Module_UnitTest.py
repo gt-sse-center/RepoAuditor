@@ -128,8 +128,13 @@ class MyRequirement(Requirement):
         self,
         query_data: dict[str, Any],
         requirement_args: dict[str, Any],
-    ) -> tuple[EvaluateResult, Optional[str], bool]:
-        return self.evaluate_result, None, True
+    ) -> Requirement.EvaluateImplResult:
+        return Requirement.EvaluateImplResult(
+            self.evaluate_result,
+            None,
+            provide_resolution=True,
+            provide_rationale=True,
+        )
 
 
 # ----------------------------------------------------------------------

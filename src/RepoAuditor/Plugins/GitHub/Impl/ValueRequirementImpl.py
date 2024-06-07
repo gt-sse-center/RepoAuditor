@@ -4,10 +4,11 @@
 # |                     Distributed under the MIT License.                      |
 # |                                                                             |
 # -------------------------------------------------------------------------------
-"""Contains the EnableRequirementImpl object"""
+"""Contains the ValueRequirementImpl object"""
 
 import textwrap
 
+from dataclasses import dataclass
 from typing import Any, Callable, Optional
 
 import typer
@@ -19,60 +20,72 @@ from RepoAuditor.Requirement import EvaluateResult, ExecutionStyle, Requirement
 
 
 # ----------------------------------------------------------------------
-class EnableRequirementImpl(Requirement):
-    """Object that implements settings that can be enabled/disabled."""
+@dataclass(frozen=True)
+class DoesNotApplyResult:
+    """Evaluate result returned when a requirement does not apply."""
+
+    reason: str
+
+
+# ----------------------------------------------------------------------
+class ValueRequirementImpl(Requirement):
+    """Object that implements settings specified by a value."""
 
     # ----------------------------------------------------------------------
     def __init__(
         self,
         name: str,
-        default_value: bool,
-        dynamic_arg_name: str,
+        default_value: str,
         github_settings_url_suffix: str,
-        github_settings_section: str,
-        github_settings_value: str,
-        get_configuration_value_func: Callable[[dict[str, Any]], Optional[bool]],
+        github_settings_section: Optional[str],
+        github_settings_value: Optional[str],
+        get_configuration_value_func: Callable[[dict[str, Any]], str | DoesNotApplyResult | None],
         rationale: str,
         subject: Optional[str] = None,
         *,
         requires_explicit_include: bool = False,
-        unset_set_terminology: tuple[str, str] = ("unchecked", "checked"),
     ) -> None:
-        github_settings_value = f"'{github_settings_value}'"
+        if github_settings_value is None:
+            github_settings_value = "the value"
+        else:
+            github_settings_value = f"'{github_settings_value}'"
 
         if subject is None:
             subject = github_settings_value
 
-        super(EnableRequirementImpl, self).__init__(
-            name,
-            f"Validates that {subject} is set to the expected value.",
-            ExecutionStyle.Parallel,
-            textwrap.dedent(
+        if github_settings_section is None:
+            resolution = "No Resolution Instructions are available."
+        else:
+            resolution = textwrap.dedent(
                 f"""\
                 1) Visit '{{session.github_url}}/{github_settings_url_suffix}'
                 2) Locate the '{github_settings_section}' section
-                3) Ensure that {github_settings_value} is {{__checked_desc}}
+                3) Ensure that {github_settings_value} is set to {{__expected_value}}
                 """,
-            ),
+            )
+
+        super(ValueRequirementImpl, self).__init__(
+            name,
+            f"Validates that {subject} is set to the expected value.",
+            ExecutionStyle.Parallel,
+            resolution,
             rationale,
             requires_explicit_include=requires_explicit_include,
         )
 
         self._github_settings_value = github_settings_value
         self._default_value = default_value
-        self._dynamic_arg_name = dynamic_arg_name
         self._get_configuration_value_func = get_configuration_value_func
-        self._unset_set_terminology = unset_set_terminology
 
     # ----------------------------------------------------------------------
     @override
     def GetDynamicArgDefinitions(self) -> dict[str, TypeDefinitionItemType]:
         return {
-            self._dynamic_arg_name: (
-                bool,
+            "value": (
+                str,
                 typer.Option(
-                    False,
-                    help=f"Ensures that the value for {self._github_settings_value} is set to {not self._default_value}.",
+                    self._default_value,
+                    help=f"Ensures that {self._github_settings_value} is set to the provided value.",
                 ),
             ),
         }
@@ -92,22 +105,26 @@ class EnableRequirementImpl(Requirement):
                 "Incomplete data was encountered; please provide the GitHub PAT.",
             )
 
-        expected_value = self._default_value
+        expected_value = requirement_args["value"]
+        is_default_expected_value = expected_value == self._default_value
 
-        if requirement_args[self._dynamic_arg_name]:
-            expected_value = not expected_value
-            provide_rationale = False
-        else:
-            provide_rationale = True
+        if isinstance(result, DoesNotApplyResult):
+            if is_default_expected_value:
+                return Requirement.EvaluateImplResult(EvaluateResult.DoesNotApply, result.reason)
+
+            return Requirement.EvaluateImplResult(
+                EvaluateResult.Error,
+                f"{self._github_settings_value} cannot be set to '{expected_value}' because {result.reason}",
+            )
 
         if result != expected_value:
-            query_data["__checked_desc"] = self._unset_set_terminology[int(expected_value)]
+            query_data["__expected_value"] = f"'{expected_value}'"
 
             return Requirement.EvaluateImplResult(
                 EvaluateResult.Error,
                 f"{self._github_settings_value} must be set to '{expected_value}' (it is currently set to '{result}').",
                 provide_resolution=True,
-                provide_rationale=provide_rationale,
+                provide_rationale=is_default_expected_value,
             )
 
         return Requirement.EvaluateImplResult(EvaluateResult.Success, None)
