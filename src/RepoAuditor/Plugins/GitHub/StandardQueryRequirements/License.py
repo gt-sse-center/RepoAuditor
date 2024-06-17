@@ -8,6 +8,8 @@
 
 import textwrap
 
+from typing import Any, Optional
+
 from ..Impl.ValueRequirementImpl import ValueRequirementImpl
 
 
@@ -21,7 +23,7 @@ class License(ValueRequirementImpl):  # pylint: disable=missing-class-docstring
             "settings",
             None,
             None,
-            lambda data: data["standard"].get("license", {}).get("name", None),
+            _GetValue,
             textwrap.dedent(
                 """\
                 The default behavior is to use the MIT License.
@@ -37,3 +39,20 @@ class License(ValueRequirementImpl):  # pylint: disable=missing-class-docstring
                 """,
             ),
         )
+
+
+# ----------------------------------------------------------------------
+# ----------------------------------------------------------------------
+# ----------------------------------------------------------------------
+def _GetValue(data: dict[str, Any]) -> Optional[str]:
+    # Differentiate between "license is not set" and "license cannot be returned due to PAT"
+    data = data["standard"]
+
+    if "license" not in data:
+        return None
+
+    data = data["license"]
+    if data is None:
+        return ""
+
+    return data["name"]

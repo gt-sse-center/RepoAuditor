@@ -245,6 +245,17 @@ def test_MergeCommitMessageValue(pat_args, snapshot):
 
 
 # ----------------------------------------------------------------------
+def test_PrivateValue(pat_args, snapshot):
+    result = CliRunner().invoke(
+        app,
+        pat_args + ["--GitHub-Private-true"],
+    )
+
+    assert result.exit_code == -1, result.output
+    assert ScrubDuration(result.stdout) == snapshot
+
+
+# ----------------------------------------------------------------------
 def test_SquashMergeCommitMessageValue(pat_args, snapshot):
     result = CliRunner().invoke(
         app,
