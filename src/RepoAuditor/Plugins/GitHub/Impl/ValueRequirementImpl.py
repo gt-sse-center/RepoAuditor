@@ -18,6 +18,8 @@ from dbrownell_Common.Types import override  # type: ignore[import-untyped]
 
 from RepoAuditor.Requirement import EvaluateResult, ExecutionStyle, Requirement
 
+from .Common import CreateIncompleteDataResult
+
 
 # ----------------------------------------------------------------------
 @dataclass(frozen=True)
@@ -100,10 +102,7 @@ class ValueRequirementImpl(Requirement):
         result = self._get_configuration_value_func(query_data)
 
         if result is None:
-            return Requirement.EvaluateImplResult(
-                EvaluateResult.Warning,
-                "Incomplete data was encountered; please provide the GitHub PAT.",
-            )
+            return CreateIncompleteDataResult()
 
         expected_value = requirement_args["value"]
         is_default_expected_value = expected_value == self._default_value
