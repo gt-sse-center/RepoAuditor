@@ -1,8 +1,8 @@
 # -------------------------------------------------------------------------------
-# |                                                                             |
-# |  Copyright (c) 2024 Scientific Software Engineering Center at Georgia Tech  |
-# |                     Distributed under the MIT License.                      |
-# |                                                                             |
+# |
+# |  Copyright (c) 2024 Scientific Software Engineering Center at Georgia Tech
+# |  Distributed under the MIT License.
+# |
 # -------------------------------------------------------------------------------
 """Contains common functionality that is used across different components."""
 
