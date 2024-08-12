@@ -1,9 +1,3 @@
-# ----------------------------------------------------------------------
-# |
-# |  Copyright (c) 2024 Scientific Software Engineering Center at Georgia Tech
-# |  Distributed under the MIT License.
-# |
-# ----------------------------------------------------------------------
 # pylint: disable=missing-module-docstring
 
 import os
@@ -14,9 +8,6 @@ from pathlib import Path
 
 
 # Parse the arguments
-is_debug = False
-is_force = False
-is_verbose = False
 is_package = False
 no_cache = False
 
@@ -24,22 +15,13 @@ display_flags: list[str] = []
 
 # First arg is the script name, second arg is the name of the shell script to write to
 for arg in sys.argv[2:]:
-    if arg == "--debug":
-        is_debug = True
-    elif arg == "--force":
-        is_force = True
-    elif arg == "--verbose":
-        is_verbose = True
-    elif arg == "--package":
+    if arg == "--package":
         is_package = True
         display_flags.append("package")
     elif arg == "--no-cache":
         no_cache = True
     else:
-        raise Exception("'{}' is not a recognized argument.".format(arg))
-
-if is_debug:
-    is_verbose = True
+        sys.stderr.write(f"WARNING: '{arg}' is not a recognized argument.\n")
 
 subprocess.run(
     'pip install --disable-pip-version-check {} --editable ".[dev{}]"'.format(

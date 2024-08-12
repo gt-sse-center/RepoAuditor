@@ -1,0 +1,32 @@
+# Changes here will be overwritten by Copier; DO NOT MODIFY THIS FILE DIRECTLY!
+#
+# This file was generated using copier (https://copier.readthedocs.io/) with the
+# template copier-ProjectScaffolding (https://github.com/gt-sse-center/copier-ProjectScaffolding).
+# Additional information (including instructions on how to use this template with copier) is
+# available at https://github.com/gt-sse-center/copier-ProjectScaffolding.
+#
+
+_commit: v0.2.5
+_src_path: https://github.com/gt-sse-center/copier-ProjectScaffolding
+author_email: sse-center@gatech.edu
+author_name: Scientific Software Engineering Center at Georgia Tech
+documentation_license: MIT
+generate_docs: true
+github_host: https://github.com
+github_repo_name: RepoAuditor
+github_username: gt-sse-center
+hosting_platform: GitHub
+project_description: Audits repositories for best practices.
+project_name: RepoAuditor
+project_type: PythonPackage
+python_package_generate_ci_binary_question: true
+python_package_generate_ci_docker_image_question: false
+python_package_generate_ci_openssf_id: '9353'
+python_package_generate_ci_openssf_question: true
+python_package_generate_ci_persist_coverage_gist_id: 2f9d770d13e3a148424f374f74d41f4b
+python_package_generate_ci_persist_coverage_gist_username: davidbrownell
+python_package_generate_ci_persist_coverage_question: true
+python_package_generate_ci_question: true
+python_package_generate_ci_sign_artifacts_question: true
+python_package_pypi_name: RepoAuditor
+repository_tool: git
