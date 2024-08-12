@@ -1,3 +1,5 @@
+post_generation_actions.html
+
 Activate*.cmd
 Activate*.sh
 Deactivate*.cmd
@@ -5,6 +7,7 @@ Deactivate*.sh
 
 **/__pycache__/**
 **/Generated/**
+
 **/.coverage
 **/lcov.info
 **/.vscode
@@ -12,5 +15,7 @@ Deactivate*.sh
 build/**
 dist/**
 src/RepoAuditor.egg-info/**
+
+minisign_key.pri
 
 tests/Plugins/github_pat.txt

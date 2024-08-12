@@ -1,9 +1,3 @@
-# ----------------------------------------------------------------------
-# |
-# |  Copyright (c) 2024 Scientific Software Engineering Center at Georgia Tech
-# |  Distributed under the MIT License.
-# |
-# ----------------------------------------------------------------------
 # https://packaging.python.org/en/latest/specifications/declaring-project-metadata/
 
 [build-system]
@@ -26,12 +20,12 @@ authors = [
 ]
 
 keywords = [
-    # TODO
+    # TODO: Add keywords specific to your project.
 ]
 
 # https://pypi.org/classifiers/
 classifiers = [
-    # TODO
+    # TODO: Add additional classifiers specific to your project.
     "License :: OSI Approved :: MIT License",
     "Operating System :: MacOS",
     "Operating System :: Microsoft :: Windows",
@@ -62,15 +56,16 @@ dev = [
 ]
 
 package = [
-    "build == 1.*",
-    "cx_Freeze == 6.*",
-    "twine == 4.*",
+    "build ~= 1.2",
+    "cx_Freeze ~= 6.15",
+    "twine ~= 5.1",
 ]
 
 [project.urls]
 Homepage = "https://github.com/gt-sse-center/RepoAuditor"
 Documentation = "https://github.com/gt-sse-center/RepoAuditor"
 Repository = "https://github.com/gt-sse-center/RepoAuditor"
+
 
 [project.scripts]
 RepoAuditor = "RepoAuditor:EntryPoint.app"
@@ -174,6 +169,7 @@ reportMissingTypeStubs = false
 # |
 # ----------------------------------------------------------------------
 [tool.pytest.ini_options]
+addopts = "--snapshot-warn-unused"
 python_files = [
     "**/*Test.py",
 ]
@@ -185,3 +181,6 @@ python_files = [
 # ----------------------------------------------------------------------
 [tool.setuptools.dynamic]
 version = { attr = "RepoAuditor.__version__" }
+
+[tool.setuptools.packages.find]
+where = ["src"]

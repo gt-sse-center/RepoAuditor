@@ -1,14 +1,8 @@
-# ----------------------------------------------------------------------
-# |
-# |  Copyright (c) 2024 Scientific Software Engineering Center at Georgia Tech
-# |  Distributed under the MIT License.
-# |
-# ----------------------------------------------------------------------
 """Builds the binary for this project."""
 
 import datetime
 import importlib
-import textwrap
+import re
 
 from functools import cache
 from pathlib import Path
@@ -39,39 +33,34 @@ def _GetEntryPoint() -> Path:
 # ----------------------------------------------------------------------
 @cache
 def _GetCopyright() -> str:
-    initial_year = 2024
+    match = re.search(
+        r"""(?#
+        Copyright                           )Copyright(?#
+        Mark [Optional]                     )(?P<mark>\s+\([cC]\))?(?#
+        Year                                )\s+(?P<year>\d{4})(?#
+        Year Range [Optional]               )(?:\s*-\s*\d{2,4})?(?#
+        Suffix                              )(?P<suffix>.+)(?#
+        End of line                         )$(?#
+        )""",
+        PathEx.EnsureFile(Path(__file__).parent.parent / "LICENSE.txt").read_text(),
+        flags=re.MULTILINE,
+    )
+
     current_year = datetime.datetime.now().year
+
+    if not match:
+        return f"Copyright {current_year} Scientific Software Engineering Center at Georgia Tech"
+
+    initial_year = int(match.group("year"))
 
     if current_year == initial_year:
         year_suffix = ""
     elif current_year // 100 != initial_year // 100:
-        year_suffix = str(current_year)
+        year_suffix = f"-{current_year}"
     else:
-        year_suffix = "-{}".format(current_year % 100)
+        year_suffix = f"-{current_year % 100}"
 
-    return textwrap.dedent(
-        f"""\
-        Copyright (c) {initial_year}{year_suffix} Scientific Software Engineering Center at Georgia Tech
-
-        Permission is hereby granted, free of charge, to any person obtaining a copy
-        of this software and associated documentation files (the "Software"), to deal
-        in the Software without restriction, including without limitation the rights
-        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-        copies of the Software, and to permit persons to whom the Software is
-        furnished to do so, subject to the following conditions:
-
-        The above copyright notice and this permission notice shall be included in all
-        copies or substantial portions of the Software.
-
-        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-        SOFTWARE.
-        """,
-    )
+    return f"Copyright{match.group('mark')} {initial_year}{year_suffix} Scientific Software Engineering Center at Georgia Tech"
 
 
 # ----------------------------------------------------------------------
