@@ -8,11 +8,11 @@
 
 import textwrap
 
-from ..Impl.EnableRequirementImpl import EnableRequirementImpl
+from .StandardEnableRequirementImpl import StandardEnableRequirementImpl
 
 
 # ----------------------------------------------------------------------
-class AutoMerge(EnableRequirementImpl):  # pylint: disable=missing-class-docstring
+class AutoMerge(StandardEnableRequirementImpl):  # pylint: disable=missing-class-docstring
     # ----------------------------------------------------------------------
     def __init__(self):
         super(AutoMerge, self).__init__(

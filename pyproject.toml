@@ -69,6 +69,7 @@ Repository = "https://github.com/gt-sse-center/RepoAuditor"
 
 [project.scripts]
 RepoAuditor = "RepoAuditor:EntryPoint.app"
+repo_auditor = "RepoAuditor:EntryPoint.app"
 
 [project.entry-points.RepoAuditor]
 GitHubPlugin = "RepoAuditor.Plugins.GitHubPlugin"

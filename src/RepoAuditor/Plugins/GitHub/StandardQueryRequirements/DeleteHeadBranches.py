@@ -8,11 +8,11 @@
 
 import textwrap
 
-from ..Impl.EnableRequirementImpl import EnableRequirementImpl
+from .StandardEnableRequirementImpl import StandardEnableRequirementImpl
 
 
 # ----------------------------------------------------------------------
-class DeleteHeadBranches(EnableRequirementImpl):  # pylint: disable=missing-class-docstring
+class DeleteHeadBranches(StandardEnableRequirementImpl):  # pylint: disable=missing-class-docstring
     # ----------------------------------------------------------------------
     def __init__(self):
         super(DeleteHeadBranches, self).__init__(

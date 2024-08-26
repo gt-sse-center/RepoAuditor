@@ -10,12 +10,12 @@ import textwrap
 
 from typing import Any, Optional
 
-from ..Impl.EnableRequirementImpl import EnableRequirementImpl
+from .StandardEnableRequirementImpl import StandardEnableRequirementImpl
 
 
 # ----------------------------------------------------------------------
 class SecretScanningPushProtection(
-    EnableRequirementImpl
+    StandardEnableRequirementImpl
 ):  # pylint: disable=missing-class-docstring
     # ----------------------------------------------------------------------
     def __init__(self):

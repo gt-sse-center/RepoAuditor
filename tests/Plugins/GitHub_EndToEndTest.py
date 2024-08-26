@@ -271,6 +271,28 @@ def test_SquashMergeCommitMessageValue(pat_args, snapshot):
 
 
 # ----------------------------------------------------------------------
+def test_Protected(pat_args, snapshot):
+    result = CliRunner().invoke(
+        app,
+        pat_args + ["--GitHub-Protected-false"],
+    )
+
+    assert result.exit_code == -1, result.output
+    assert ScrubDuration(result.stdout) == snapshot
+
+
+# ----------------------------------------------------------------------
+def test_DoNotAllowBypassSettings(pat_args, snapshot):
+    result = CliRunner().invoke(
+        app,
+        pat_args + ["--GitHub-DoNotAllowBypassSettings-false"],
+    )
+
+    assert result.exit_code == -1, result.output
+    assert ScrubDuration(result.stdout) == snapshot
+
+
+# ----------------------------------------------------------------------
 # ----------------------------------------------------------------------
 # ----------------------------------------------------------------------
 @pytest.fixture

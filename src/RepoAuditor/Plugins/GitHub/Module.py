@@ -18,6 +18,8 @@ from dbrownell_Common.Types import override  # type: ignore[import-untyped]
 
 from RepoAuditor.Module import ExecutionStyle, Module
 
+from .ClassicBranchProtectionQuery import ClassicBranchProtectionQuery
+from .DefaultBranchQuery import DefaultBranchQuery
 from .StandardQuery import StandardQuery
 
 
@@ -31,6 +33,8 @@ class GitHubModule(Module):  # pylint: disable=missing-class-docstring
             ExecutionStyle.Parallel,
             [
                 StandardQuery(),
+                DefaultBranchQuery(),
+                ClassicBranchProtectionQuery(),
             ],
             requires_explicit_include=True,
         )
