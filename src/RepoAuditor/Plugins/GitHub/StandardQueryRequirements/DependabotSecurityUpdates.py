@@ -10,11 +10,13 @@ import textwrap
 
 from typing import Any, Optional
 
-from ..Impl.EnableRequirementImpl import EnableRequirementImpl
+from .StandardEnableRequirementImpl import StandardEnableRequirementImpl
 
 
 # ----------------------------------------------------------------------
-class DependabotSecurityUpdates(EnableRequirementImpl):  # pylint: disable=missing-class-docstring
+class DependabotSecurityUpdates(
+    StandardEnableRequirementImpl
+):  # pylint: disable=missing-class-docstring
     # ----------------------------------------------------------------------
     def __init__(self):
         super(DependabotSecurityUpdates, self).__init__(

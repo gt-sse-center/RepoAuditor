@@ -48,7 +48,7 @@ class ValueRequirementImpl(Requirement):
         requires_explicit_include: bool = False,
     ) -> None:
         if github_settings_value is None:
-            github_settings_value = "the value"
+            github_settings_value = "the entity"
         else:
             github_settings_value = f"'{github_settings_value}'"
 

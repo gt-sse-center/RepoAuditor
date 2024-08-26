@@ -8,11 +8,11 @@
 
 import textwrap
 
-from ..Impl.EnableRequirementImpl import EnableRequirementImpl
+from .StandardEnableRequirementImpl import StandardEnableRequirementImpl
 
 
 # ----------------------------------------------------------------------
-class TemplateRepository(EnableRequirementImpl):  # pylint: disable=missing-class-docstring
+class TemplateRepository(StandardEnableRequirementImpl):  # pylint: disable=missing-class-docstring
     # ----------------------------------------------------------------------
     def __init__(self):
         super(TemplateRepository, self).__init__(

@@ -138,7 +138,7 @@ def _HelpEpilog() -> str:
                 Command Line Arguments:
                     {final_module_arguments}
 
-                Requirement Arguments:
+                Optional Arguments:
                     {final_requirement_arguments}
                 """,
             ),
@@ -151,6 +151,11 @@ def _HelpEpilog() -> str:
         ==================
 
         {}
+
+        Command Line Examples
+        =====================
+        repo_auditor --include GitHub --GitHub-url https://github.com/gt-sse-center/RepoAuditor --GitHub-pat <PAT or path to file containing PAT>
+
         """,
         )
         .format(

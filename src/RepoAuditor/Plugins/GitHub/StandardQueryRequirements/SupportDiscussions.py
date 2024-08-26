@@ -8,11 +8,11 @@
 
 import textwrap
 
-from ..Impl.EnableRequirementImpl import EnableRequirementImpl
+from .StandardEnableRequirementImpl import StandardEnableRequirementImpl
 
 
 # ----------------------------------------------------------------------
-class SupportDiscussions(EnableRequirementImpl):  # pylint: disable=missing-class-docstring
+class SupportDiscussions(StandardEnableRequirementImpl):  # pylint: disable=missing-class-docstring
     # ----------------------------------------------------------------------
     def __init__(self):
         super(SupportDiscussions, self).__init__(

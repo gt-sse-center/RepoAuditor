@@ -8,11 +8,11 @@
 
 import textwrap
 
-from ..Impl.EnableRequirementImpl import EnableRequirementImpl
+from .StandardEnableRequirementImpl import StandardEnableRequirementImpl
 
 
 # ----------------------------------------------------------------------
-class WebCommitSignoff(EnableRequirementImpl):  # pylint: disable=missing-class-docstring
+class WebCommitSignoff(StandardEnableRequirementImpl):  # pylint: disable=missing-class-docstring
     # ----------------------------------------------------------------------
     def __init__(self):
         super(WebCommitSignoff, self).__init__(
