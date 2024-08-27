@@ -10,11 +10,13 @@ import textwrap
 
 from typing import Any
 
-from ..Impl.ValueRequirementImpl import DoesNotApplyResult, ValueRequirementImpl
+from .Impl.StandardValueRequirementImpl import DoesNotApplyResult, StandardValueRequirementImpl
 
 
 # ----------------------------------------------------------------------
-class SquashMergeCommitMessage(ValueRequirementImpl):  # pylint: disable=missing-class-docstring
+class SquashMergeCommitMessage(
+    StandardValueRequirementImpl
+):  # pylint: disable=missing-class-docstring
     # ----------------------------------------------------------------------
     def __init__(self):
         super(SquashMergeCommitMessage, self).__init__(

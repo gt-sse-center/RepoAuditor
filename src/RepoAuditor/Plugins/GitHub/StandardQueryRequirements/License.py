@@ -10,11 +10,11 @@ import textwrap
 
 from typing import Any, Optional
 
-from ..Impl.ValueRequirementImpl import ValueRequirementImpl
+from .Impl.StandardValueRequirementImpl import StandardValueRequirementImpl
 
 
 # ----------------------------------------------------------------------
-class License(ValueRequirementImpl):  # pylint: disable=missing-class-docstring
+class License(StandardValueRequirementImpl):  # pylint: disable=missing-class-docstring
     # ----------------------------------------------------------------------
     def __init__(self):
         super(License, self).__init__(
