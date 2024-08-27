@@ -10,7 +10,7 @@ import textwrap
 
 from typing import Any, Optional
 
-from .StandardEnableRequirementImpl import StandardEnableRequirementImpl
+from .Impl.StandardEnableRequirementImpl import StandardEnableRequirementImpl
 
 
 # ----------------------------------------------------------------------

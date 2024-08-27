@@ -10,11 +10,11 @@ import textwrap
 
 from typing import Any
 
-from ..Impl.ValueRequirementImpl import DoesNotApplyResult, ValueRequirementImpl
+from .Impl.StandardValueRequirementImpl import DoesNotApplyResult, StandardValueRequirementImpl
 
 
 # ----------------------------------------------------------------------
-class MergeCommitMessage(ValueRequirementImpl):  # pylint: disable=missing-class-docstring
+class MergeCommitMessage(StandardValueRequirementImpl):  # pylint: disable=missing-class-docstring
     # ----------------------------------------------------------------------
     def __init__(self):
         super(MergeCommitMessage, self).__init__(

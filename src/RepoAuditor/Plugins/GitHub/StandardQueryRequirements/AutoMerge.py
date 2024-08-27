@@ -8,7 +8,7 @@
 
 import textwrap
 
-from .StandardEnableRequirementImpl import StandardEnableRequirementImpl
+from .Impl.StandardEnableRequirementImpl import StandardEnableRequirementImpl
 
 
 # ----------------------------------------------------------------------

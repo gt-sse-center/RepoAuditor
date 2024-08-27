@@ -8,11 +8,11 @@
 
 import textwrap
 
-from ..Impl.ValueRequirementImpl import ValueRequirementImpl
+from .Impl.StandardValueRequirementImpl import StandardValueRequirementImpl
 
 
 # ----------------------------------------------------------------------
-class DefaultBranch(ValueRequirementImpl):  # pylint: disable=missing-class-docstring
+class DefaultBranch(StandardValueRequirementImpl):  # pylint: disable=missing-class-docstring
     # ----------------------------------------------------------------------
     def __init__(self):
         super(DefaultBranch, self).__init__(
