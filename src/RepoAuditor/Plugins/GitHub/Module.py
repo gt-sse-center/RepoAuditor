@@ -57,6 +57,13 @@ class GitHubModule(Module):  # pylint: disable=missing-class-docstring
                     help="GitHub Personal Access Token (PAT) or path to a local file containing the PAT.",
                 ),
             ),
+            "branch": (
+                str,
+                typer.Option(
+                    None,
+                    help="Branch to evaluate. The default branch will be used if not specified.",
+                ),
+            ),
         }
 
     # ----------------------------------------------------------------------
