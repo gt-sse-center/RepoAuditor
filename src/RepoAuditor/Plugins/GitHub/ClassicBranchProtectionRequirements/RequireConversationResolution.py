@@ -4,7 +4,7 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the AllowBypassSettings object"""
+"""Contains the RequireConversationResolution object"""
 
 import textwrap
 
@@ -12,35 +12,32 @@ from .Impl.ClassicEnableRequirementImpl import ClassicEnableRequirementImpl
 
 
 # ----------------------------------------------------------------------
-class DoNotAllowBypassSettings(
+class RequireConversationResolution(
     ClassicEnableRequirementImpl
 ):  # pylint: disable=missing-class-docstring
     # ----------------------------------------------------------------------
     def __init__(self):
-        super(DoNotAllowBypassSettings, self).__init__(
-            "DoNotAllowBypassSettings",
+        super(RequireConversationResolution, self).__init__(
+            "RequireConversationResolution",
             True,
             "false",
             "Protect matching branches",
-            "Do not allow bypassing the above settings",
-            lambda data: data["branch_protection_data"]["enforce_admins"]["enabled"],
+            "Require conversation resolution before merging",
+            lambda data: data["branch_protection_data"]["required_conversation_resolution"][
+                "enabled"
+            ],
             textwrap.dedent(
                 """\
-                The default behavior is to not allow administrators to bypass branch protection settings.
+                The default behavior is to require conversation resolution before merging a pull request.
 
                 Reasons for this Default
                 ------------------------
-                - Ensure that all pull requests go through the same verification process.
+                - Conversation resolution is an important part of the development process.
+                - Prevent the accidental merging of a pull request before changes associated with the comments have been made.
 
                 Reasons to Override this Default
                 --------------------------------
-                - The steps invoked during the verification process...
-                    * ...are unreliable.
-                    * ...take an excessive amount of time to complete.
-
-                * Note that all of the reasons in this section are workarounds to address the underlying instability
-                  of the steps invoked during the verification process. The ideal solution is to address the
-                  underlying instability.
+                <unknown>
                 """,
             ),
         )

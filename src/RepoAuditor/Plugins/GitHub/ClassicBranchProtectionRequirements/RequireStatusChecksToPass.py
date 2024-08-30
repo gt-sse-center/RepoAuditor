@@ -4,7 +4,7 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the AllowBypassSettings object"""
+"""Contains the RequireStatusChecksToPass object"""
 
 import textwrap
 
@@ -12,35 +12,29 @@ from .Impl.ClassicEnableRequirementImpl import ClassicEnableRequirementImpl
 
 
 # ----------------------------------------------------------------------
-class DoNotAllowBypassSettings(
+class RequireStatusChecksToPass(
     ClassicEnableRequirementImpl
 ):  # pylint: disable=missing-class-docstring
     # ----------------------------------------------------------------------
     def __init__(self):
-        super(DoNotAllowBypassSettings, self).__init__(
-            "DoNotAllowBypassSettings",
+        super(RequireStatusChecksToPass, self).__init__(
+            "RequireStatusChecksToPass",
             True,
             "false",
             "Protect matching branches",
-            "Do not allow bypassing the above settings",
-            lambda data: data["branch_protection_data"]["enforce_admins"]["enabled"],
+            "Require status checks to pass before merging",
+            lambda data: "required_status_checks" in data["branch_protection_data"],
             textwrap.dedent(
                 """\
-                The default behavior is to not allow administrators to bypass branch protection settings.
+                The default behavior is to require status checks to pass before merging a pull request.
 
                 Reasons for this Default
                 ------------------------
-                - Ensure that all pull requests go through the same verification process.
+                - Status checks are an important part of the development process and should not be bypassed.
 
                 Reasons to Override this Default
                 --------------------------------
-                - The steps invoked during the verification process...
-                    * ...are unreliable.
-                    * ...take an excessive amount of time to complete.
-
-                * Note that all of the reasons in this section are workarounds to address the underlying instability
-                  of the steps invoked during the verification process. The ideal solution is to address the
-                  underlying instability.
+                <unknown>
                 """,
             ),
         )

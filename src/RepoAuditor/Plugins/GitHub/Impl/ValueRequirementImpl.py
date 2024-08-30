@@ -43,6 +43,7 @@ class ValueRequirementImpl(Requirement):
         subject: Optional[str] = None,
         *,
         requires_explicit_include: bool = False,
+        missing_value_is_warning: bool = True,
     ) -> None:
         if github_settings_value is None:
             github_settings_value = "the entity"
@@ -64,6 +65,7 @@ class ValueRequirementImpl(Requirement):
         self.github_settings_value = github_settings_value
         self.default_value = default_value
         self.get_configuration_value_func = get_configuration_value_func
+        self.missing_value_is_warning = missing_value_is_warning
 
     # ----------------------------------------------------------------------
     @override
@@ -87,7 +89,10 @@ class ValueRequirementImpl(Requirement):
     ) -> Requirement.EvaluateImplResult:
         result = self.get_configuration_value_func(query_data)
         if result is None:
-            return CreateIncompleteDataResult()
+            if self.missing_value_is_warning:
+                return CreateIncompleteDataResult()
+
+            return Requirement.EvaluateImplResult(EvaluateResult.DoesNotApply, None)
 
         expected_value = requirement_args["value"]
         is_default_expected_value = expected_value == self.default_value
@@ -100,6 +105,8 @@ class ValueRequirementImpl(Requirement):
                 EvaluateResult.Error,
                 f"{self.github_settings_value} cannot be set to '{expected_value}' because {result.reason}",
             )
+
+        result = str(result)
 
         if result != expected_value:
             query_data["__expected_value"] = f"'{expected_value}'"

@@ -6,8 +6,6 @@
 # -------------------------------------------------------------------------------
 """Contains the EnableRequirementImpl object"""
 
-import textwrap
-
 from typing import Any, Callable, Optional
 
 import typer
@@ -38,6 +36,7 @@ class EnableRequirementImpl(Requirement):
         *,
         requires_explicit_include: bool = False,
         unset_set_terminology: tuple[str, str] = ("unchecked", "checked"),
+        missing_value_is_warning: bool = True,
     ) -> None:
         github_settings_value = f"'{github_settings_value}'"
 
@@ -58,6 +57,7 @@ class EnableRequirementImpl(Requirement):
         self.default_value = default_value
         self.get_configuration_value_func = get_configuration_value_func
         self.unset_set_terminology = unset_set_terminology
+        self.missing_value_is_warning = missing_value_is_warning
 
     # ----------------------------------------------------------------------
     @override
@@ -81,7 +81,10 @@ class EnableRequirementImpl(Requirement):
     ) -> Requirement.EvaluateImplResult:
         result = self.get_configuration_value_func(query_data)
         if result is None:
-            return CreateIncompleteDataResult()
+            if self.missing_value_is_warning:
+                return CreateIncompleteDataResult()
+
+            return Requirement.EvaluateImplResult(EvaluateResult.DoesNotApply, None)
 
         expected_value = self.default_value
 

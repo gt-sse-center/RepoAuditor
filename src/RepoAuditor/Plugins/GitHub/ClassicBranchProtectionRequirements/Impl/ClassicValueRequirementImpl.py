@@ -4,7 +4,7 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the StandardValueRequirementImpl object"""
+"""Contains the ClassicValueRequirementImpl object"""
 
 import textwrap
 
@@ -14,15 +14,12 @@ from ...Impl.ValueRequirementImpl import DoesNotApplyResult, ValueRequirementImp
 
 
 # ----------------------------------------------------------------------
-class StandardValueRequirementImpl(
-    ValueRequirementImpl,
-):  # pylint: disable=missing-class-docstring
+class ClassicValueRequirementImpl(ValueRequirementImpl):  # pylint: disable=missing-class-docstring
     # ----------------------------------------------------------------------
     def __init__(
         self,
         name: str,
         default_value: str,
-        github_settings_url_suffix: str,
         github_settings_section: Optional[str],
         github_settings_value: Optional[str],
         get_configuration_value_func: Callable[[dict[str, Any]], str | DoesNotApplyResult | None],
@@ -30,10 +27,9 @@ class StandardValueRequirementImpl(
         subject: Optional[str] = None,
         *,
         requires_explicit_include: bool = False,
-        missing_value_is_warning: bool = True,
     ) -> None:
         if github_settings_section is None:
-            resolution = "No Resolution Instructions are available."
+            resolution = "No resolution instructions are available"
         else:
             if github_settings_value is None:
                 github_settings_value_display = "the entity"
@@ -42,13 +38,15 @@ class StandardValueRequirementImpl(
 
             resolution = textwrap.dedent(
                 f"""\
-                1) Visit '{{session.github_url}}/{github_settings_url_suffix}'
-                2) Locate the '{github_settings_section}' section
-                3) Ensure that {github_settings_value_display} is set to {{__expected_value}}
+                1) Visit '{{session.github_url}}/settings/branches'
+                2) Locate the 'Branch protection rules' section
+                3) Click the 'Edit' button next to the branch '{{branch}}'
+                4) Locate the '{github_settings_section}' section
+                5) Ensure that {github_settings_value_display} is {{__expected_value}}
                 """,
             )
 
-        super(StandardValueRequirementImpl, self).__init__(
+        super(ClassicValueRequirementImpl, self).__init__(
             name,
             default_value,
             github_settings_value,
@@ -57,5 +55,5 @@ class StandardValueRequirementImpl(
             rationale,
             subject,
             requires_explicit_include=requires_explicit_include,
-            missing_value_is_warning=missing_value_is_warning,
+            missing_value_is_warning=False,
         )
