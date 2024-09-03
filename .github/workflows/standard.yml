@@ -19,7 +19,7 @@ jobs:
   # ----------------------------------------------------------------------
   action_contexts:
     name: "Display GitHub Action Contexts"
-    uses: davidbrownell/dbrownell_DevTools/.github/workflows/callable_display_action_contexts.yaml@CI-v0.22.1
+    uses: davidbrownell/dbrownell_DevTools/.github/workflows/callable_display_action_contexts.yaml@CI-v0.23.0
 
   # ----------------------------------------------------------------------
   validate:
@@ -44,7 +44,7 @@ jobs:
     permissions:
       contents: read
 
-    uses: davidbrownell/dbrownell_DevTools/.github/workflows/callable_validate_python.yaml@CI-v0.22.1
+    uses: davidbrownell/dbrownell_DevTools/.github/workflows/callable_validate_python.yaml@CI-v0.23.0
     with:
       operating_system: ${{ matrix.os }}
       python_version: ${{ matrix.python_version }}
@@ -60,7 +60,7 @@ jobs:
     permissions:
       contents: read
 
-    uses: davidbrownell/dbrownell_DevTools/.github/workflows/callable_package_python_coverage.yaml@CI-v0.22.1
+    uses: davidbrownell/dbrownell_DevTools/.github/workflows/callable_package_python_coverage.yaml@CI-v0.23.0
     with:
       gist_id: 2f9d770d13e3a148424f374f74d41f4b
       gist_filename: RepoAuditor_coverage.json
@@ -92,7 +92,7 @@ jobs:
     permissions:
       contents: read
 
-    uses: davidbrownell/dbrownell_DevTools/.github/workflows/callable_create_python_package.yaml@CI-v0.22.1
+    uses: davidbrownell/dbrownell_DevTools/.github/workflows/callable_create_python_package.yaml@CI-v0.23.0
     with:
       operating_system: ${{ matrix.os }}
       python_version: ${{ matrix.python_version }}
@@ -122,7 +122,7 @@ jobs:
     permissions:
       contents: read
 
-    uses: davidbrownell/dbrownell_DevTools/.github/workflows/callable_validate_python_package.yaml@CI-v0.22.1
+    uses: davidbrownell/dbrownell_DevTools/.github/workflows/callable_validate_python_package.yaml@CI-v0.23.0
     with:
       operating_system: ${{ matrix.os }}
       python_version: ${{ matrix.python_version }}
@@ -149,7 +149,7 @@ jobs:
     permissions:
       contents: read
 
-    uses: davidbrownell/dbrownell_DevTools/.github/workflows/callable_create_python_binary.yaml@CI-v0.22.1
+    uses: davidbrownell/dbrownell_DevTools/.github/workflows/callable_create_python_binary.yaml@CI-v0.23.0
     with:
       operating_system: ${{ matrix.os }}
       python_version: ${{ matrix.python_version }}
@@ -175,7 +175,7 @@ jobs:
     permissions:
       contents: read
 
-    uses: davidbrownell/dbrownell_DevTools/.github/workflows/callable_validate_python_binary.yaml@CI-v0.22.1
+    uses: davidbrownell/dbrownell_DevTools/.github/workflows/callable_validate_python_binary.yaml@CI-v0.23.0
     with:
       operating_system: ${{ matrix.os }}
       python_version: ${{ matrix.python_version }}
@@ -194,7 +194,7 @@ jobs:
     permissions:
       contents: write
 
-    uses: davidbrownell/dbrownell_DevTools/.github/workflows/callable_publish_python.yaml@CI-v0.22.1
+    uses: davidbrownell/dbrownell_DevTools/.github/workflows/callable_publish_python.yaml@CI-v0.23.0
     with:
       release_sources_configuration_filename: .github/release_sources.yaml
     secrets:
