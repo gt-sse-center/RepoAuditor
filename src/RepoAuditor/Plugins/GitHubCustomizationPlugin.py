@@ -16,5 +16,5 @@ from RepoAuditor.Plugins.GitHubCustomization.Module import GitHubCustomizationMo
 # ----------------------------------------------------------------------
 @pluggy.HookimplMarker(APP_NAME)
 def GetModule() -> Module:
-    """Return GitHub Custommization Module."""
+    """Return GitHub Customization Module."""
     return GitHubCustomizationModule()
