@@ -40,7 +40,7 @@ dependencies = [
     "dbrownell_Common",
     "pluggy == 1.*",
     "requests ~= 2.32",
-    "typer ~= 0.9"
+    "typer ~= 0.9",
 ]
 
 dynamic = [
