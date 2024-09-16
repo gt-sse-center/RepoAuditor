@@ -7,7 +7,7 @@ See [Code of Conduct](CODE_OF_CONDUCT.md) and [Contributing](CONTRIBUTING.md) fo
 ## Current Maintainers
 | Maintainer | GitHub ID | Affiliation |
 | --- | --- | --- |
-| Dave Brownell | @davidbrownell | SSEC at Georgia Tech |
+| David Brownell | @davidbrownell | SSEC at Georgia Tech |
 
 ## Emeritus
 | Maintainer | GitHub ID | Affiliation |

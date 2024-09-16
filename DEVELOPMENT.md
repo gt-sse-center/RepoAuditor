@@ -1,6 +1,7 @@
 # Local Development
 
 ## Enlistment
+<!-- [BEGIN] Enlistment -->
 Enlistment in this repository involves these steps.
 
 <table>
@@ -68,8 +69,10 @@ Enlistment in this repository involves these steps.
     </td>
 </tr>
 </table>
+<!-- [END] Enlistment -->
 
 ## Development Activities
+<!-- [BEGIN] Development Activities -->
 Each of these activities can be invoked from an activated terminal on your local machine.
 
 | Activity | Command Line | Description | Invoked by Continuous Integration |
@@ -82,3 +85,4 @@ Each of these activities can be invoked from an activated terminal on your local
 | Python Package Publishing | <p><code>python Build.py publish</code></p><p>Requires that the repository was bootstrapped with the <code>--package</code> flag. | Publish a python package to [PyPi](https://pypi.org). | :white_check_mark: |
 | Build Binaries | `python Build.py build_binaries` |  Create a python binary for your current operating system using [cx_Freeze](https://cx-freeze.readthedocs.io/) based on settings in `src/BuildBinary.py`. | :white_check_mark: |
 | Development Docker Image | `python Build.py create_docker_image` | Create a [docker](https://docker.com) image for a bootstrapped development environment. This functionality is useful when adhering to the [FAIR principles for research software](https://doi.org/10.1038/s41597-022-01710-x) by supporting the creation of a development environment and its dependencies as they existed at the moment when the image was created. |  |
+<!-- [END] Development Activities -->
