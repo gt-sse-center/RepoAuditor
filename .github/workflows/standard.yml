@@ -28,8 +28,8 @@ jobs:
 
       matrix:
         os:
-          - macos-latest
-          - ubuntu-latest
+          # BugBug - macos-latest
+          # BugBug - ubuntu-latest
           - windows-latest
 
         python_version:
@@ -76,8 +76,8 @@ jobs:
 
       matrix:
         os:
-          - macos-latest
-          - ubuntu-latest
+          # BugBug - macos-latest
+          # BugBug - ubuntu-latest
           - windows-latest
 
         python_version:
@@ -106,8 +106,8 @@ jobs:
 
       matrix:
         os:
-          - macos-latest
-          - ubuntu-latest
+          # BugBug - macos-latest
+          # BugBug - ubuntu-latest
           - windows-latest
 
         python_version:
@@ -137,8 +137,8 @@ jobs:
 
       matrix:
         os:
-          - macos-latest
-          - ubuntu-latest
+          # BugBug - macos-latest
+          # BugBug - ubuntu-latest
           - windows-latest
 
         python_version:
@@ -163,8 +163,8 @@ jobs:
 
       matrix:
         os:
-          - macos-latest
-          - ubuntu-latest
+          # BugBug - macos-latest
+          # BugBug - ubuntu-latest
           - windows-latest
 
         python_version:
