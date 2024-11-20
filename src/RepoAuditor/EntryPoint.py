@@ -135,10 +135,10 @@ def _HelpEpilog() -> str:
                 {"-" * len(module.name)}
                 {module.description}
 
-                Command Line Arguments:
+                Module Arguments:
                     {final_module_arguments}
 
-                Optional Arguments:
+                Requirement Arguments:
                     {final_requirement_arguments}
                 """,
             ),

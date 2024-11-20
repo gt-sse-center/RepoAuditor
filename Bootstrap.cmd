@@ -22,7 +22,7 @@
 @REM |  Parse and Process Arguments
 @REM |
 @REM ----------------------------------------------------------------------
-@set _BOOTSTRAP_BRANCH=main
+@set _BOOTSTRAP_BRANCH=WindowsBug
 @set _COMMAND_LINE_ARGS=
 
 :ParseArgs
