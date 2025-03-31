@@ -251,14 +251,14 @@ def EntryPoint(  # pylint: disable=dangerous-default-value
             "--verbose",
             help="Write verbose information to the terminal.",
         ),
-    ] = True,
+    ] = False,
     debug: Annotated[
         bool,
         typer.Option(
             "--debug",
             help="Write debug information to the terminal.",
         ),
-    ] = True,
+    ] = False,
 ) -> None:
     with DoneManager.CreateCommandLine(
         sys.stdout,
