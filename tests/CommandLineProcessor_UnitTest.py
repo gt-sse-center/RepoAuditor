@@ -405,7 +405,7 @@ def test_ErrorInvalidIncludeName():
         Exception,
         match=re.escape("'DoesNotExist' is not a recognized module name."),
     ):
-        print(1)
+       # print(1)
         CommandLineProcessor.Create(
             lambda *args: {"MyModule-arg1": False},
             [MyModule()],

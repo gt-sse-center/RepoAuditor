@@ -90,7 +90,7 @@ class CommandLineProcessor:
 
             this_module = module_map.get(parts[0], None)
             if this_module is None:
-                print(1)
+                #print(1)
                 raise Exception(f"'{parts[0]}' is not a recognized module name.")
 
             if len(parts) == 1:
@@ -117,7 +117,7 @@ class CommandLineProcessor:
 
             this_module = module_map.get(parts[0], None)
             if this_module is None:
-                print(1)
+               # print(1)
                 raise Exception(f"'{parts[0]}' is not a recognized module name.")
 
             if len(parts) == 1:
@@ -169,9 +169,9 @@ class CommandLineProcessor:
         for key, value in get_dynamic_args_func(dynamic_arg_definitions).items():
             parts = key.split(argument_separator)
             assert len(parts) >= 2
-            print(1)
+            #print(1)
             if parts[0] not in module_map:
-                print(1)
+               # print(1)
                 raise Exception(f"'{parts[0]}' is not a recognized module name.")
 
             if len(parts) == 2:
