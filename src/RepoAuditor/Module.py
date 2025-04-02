@@ -166,10 +166,7 @@ class Module(ABC):
                 prev_query_status_info.num_does_not_apply = num_does_not_apply
 
             # ----------------------------------------------------------------------
-            if requirement_data==None:
-                with open('Bug1.txt','w') as f:
-                    f.write('Bug')
-                    #f.close()
+            
             evaluate_infos = query.Evaluate(
                 query_data,
                 requirement_data,

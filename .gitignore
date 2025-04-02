@@ -19,3 +19,4 @@ src/RepoAuditor.egg-info/**
 minisign_key.pri
 
 tests/Plugins/github_pat.txt
+.DS_Store
