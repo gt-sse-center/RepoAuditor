@@ -16,7 +16,7 @@ from dbrownell_Common.TyperEx import TypeDefinitionItemType  # type: ignore[impo
 
 from .Impl.ParallelSequentialProcessor import ParallelSequentialProcessor
 from .Query import EvaluateResult, ExecutionStyle, OnStatusFunc, Query, StatusInfo
-
+import time
 
 # ----------------------------------------------------------------------
 class Module(ABC):
@@ -118,6 +118,8 @@ class Module(ABC):
         *,
         max_num_threads: Optional[int] = None,
     ) -> list[list["Module.EvaluateInfo"]]:
+        
+        start_time=time.time()
         status_info = StatusInfo()
         status_info_lock = threading.Lock()
 
@@ -164,7 +166,7 @@ class Module(ABC):
                 prev_query_status_info.num_does_not_apply = num_does_not_apply
 
             # ----------------------------------------------------------------------
-
+            
             evaluate_infos = query.Evaluate(
                 query_data,
                 requirement_data,
@@ -196,7 +198,7 @@ class Module(ABC):
             )
 
         # ----------------------------------------------------------------------
-
+        end_time=time.time()
         return ParallelSequentialProcessor(
             self.queries,
             EvaluateQuery,
