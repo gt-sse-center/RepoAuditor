@@ -7,7 +7,6 @@ from dbrownell_Common.Types import override
 
 from RepoAuditor.Module import ExecutionStyle, Module
 
-# 假设我们有一个 RulesetQuery 类来处理规则集相关的逻辑
 from .Query import RulesetQuery
 
 
@@ -33,7 +32,13 @@ class GitHubRulesetModule(Module):
                     help="[REQUIRED] GitHub repository URL (e.g., https://github.com/owner/repo).",
                 ),
             ),
-            
+            "pat": (
+                str,
+                typer.Option(
+                    None,
+                    help="GitHub Personal Access Token (PAT) or path to a local file containing the PAT.",
+                ),
+            ),
             "branch": (
                 str,
                 typer.Option(
