@@ -6,6 +6,7 @@
 # -------------------------------------------------------------------------------
 """Contains the Query object and types used in its definition"""
 
+import os
 import threading
 
 from abc import ABC, abstractmethod
@@ -26,7 +27,6 @@ class OnStatusFunc(Protocol):
         num_warning: int,
         num_does_not_apply: int,
     ) -> None: ...
-
 
 # ----------------------------------------------------------------------
 class Query(ABC):
@@ -79,14 +79,14 @@ class Query(ABC):
         status_info_lock = threading.Lock()
 
         status_func(*status_info.__dict__.values())
-
+        
         # ----------------------------------------------------------------------
         def EvaluateRequirement(
             requirement: Requirement,
         ) -> tuple[int, Query.EvaluateInfo]:
             result_info = requirement.Evaluate(
                 query_data,
-                requirement_args.get(requirement.name, {}),
+                requirement_args.get(requirement.name,{}),
             )
             return_code = 0
 
@@ -98,6 +98,7 @@ class Query(ABC):
                 elif result_info.result == EvaluateResult.Success:
                     status_info.num_success += 1
                 elif result_info.result == EvaluateResult.Error:
+                   # os.system('cls')
                     status_info.num_error += 1
                     return_code = -1
                 elif result_info.result == EvaluateResult.Warning:

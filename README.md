@@ -68,9 +68,9 @@ Please visit [Contributing](https://github.com/gt-sse-center/RepoAuditor/blob/ma
 ## Additional Information
 Additional information can be found at these locations.
 
+<!-- [BEGIN] Additional Information -->
 | Title | Document | Description |
 | --- | --- | --- |
-<!-- [BEGIN] Additional Information -->
 | Code of Conduct | [CODE_OF_CONDUCT.md](https://github.com/gt-sse-center/RepoAuditor/blob/main/CODE_OF_CONDUCT.md) | Information about the the norms, rules, and responsibilities we adhere to when participating in this open source community. |
 | Contributing | [CONTRIBUTING.md](https://github.com/gt-sse-center/RepoAuditor/blob/main/CONTRIBUTING.md) | Information about contributing code changes to this project. |
 | Development | [DEVELOPMENT.md](https://github.com/gt-sse-center/RepoAuditor/blob/main/DEVELOPMENT.md) | Information about development activities involved in making changes to this project. |
