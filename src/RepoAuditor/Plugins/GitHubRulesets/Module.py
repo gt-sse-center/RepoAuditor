@@ -33,7 +33,7 @@ class GitHubRulesetModule(Module):
                     help="[REQUIRED] GitHub repository URL (e.g., https://github.com/owner/repo).",
                 ),
             ),
-            
+           
             "branch": (
                 str,
                 typer.Option(

@@ -12,22 +12,20 @@ class RequirePullRequests(Requirement):
         )
 
     @override
-    # 以RequirePullRequests为例
-
     def _EvaluateImpl(self, query_data, requirement_args):
-     rulesets = query_data.get("rulesets", [])
-    
-     for ruleset in rulesets:
-        if ruleset.get("enforcement") == "active" and \
-           ruleset.get("target") == "branch" and \
-           ruleset.get("rules", {}).get("pull_request", {}).get("required"):
-            return self.EvaluateImplResult(
-                EvaluateResult.Success,
-                f"ruleset'{ruleset['name']}' check"
-            )
-    
-     return self.EvaluateImplResult(
-        EvaluateResult.Error,
-        "No Find Rule",
-        provide_resolution=True
-    )
+        rulesets = query_data.get("rulesets", [])
+        
+        for ruleset in rulesets:
+            if ruleset.get("enforcement", "") == "active" and \
+               ruleset.get("target", "") == "branch" and \
+               ruleset.get("parameters", {}).get("pull_request", {}).get("required", False):
+                return self.EvaluateImplResult(
+                    EvaluateResult.Success,
+                    f"Ruleset '{ruleset['name']}' enforces pull requests"
+                )
+
+        return self.EvaluateImplResult(
+            EvaluateResult.Error,
+            "No active branch ruleset requiring pull requests found",
+            provide_resolution=True
+        )
