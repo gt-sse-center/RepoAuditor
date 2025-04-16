@@ -14,7 +14,7 @@ from dbrownell_Common import ExecuteTasks  # type: ignore[import-untyped]
 from dbrownell_Common.Streams.DoneManager import DoneManager  # type: ignore[import-untyped]
 from dbrownell_Common.Streams.StreamDecorator import StreamDecorator  # type: ignore[import-untyped]
 
-
+import time
 # ----------------------------------------------------------------------
 class ExecutionStyle(Enum):
     """Controls the way in which a Requirement, Query, and Module can be processed."""
@@ -38,6 +38,7 @@ def ParallelSequentialProcessor(
     """Process a list of items in parallel and/or sequentially."""
     if dm is None:
         with DoneManager.Create(StreamDecorator(None), "", line_prefix="") as dm:
+            next_time=time.time()
             return _Impl(
                 dm,
                 items,
@@ -62,6 +63,7 @@ def _Impl(
     calculate_result_func: Callable[[ItemType], tuple[int, OutputType]],
     max_num_threads: Optional[int],
 ) -> list[OutputType]:
+    final_time2=time.time()
     # Divide the items into those that can be run in parallel and those that must be run sequentially
     parallel: list[tuple[int, ItemType]] = []
     sequential: list[tuple[int, ItemType]] = []
@@ -89,15 +91,14 @@ def _Impl(
         item: ItemType,
     ) -> ExecuteTasks.TransformResultComplete:
         return_code, result = calculate_result_func(item)
-
         assert results[results_index] is None
         results[results_index] = result
-
         return ExecuteTasks.TransformResultComplete(None, return_code)
 
     # ----------------------------------------------------------------------
 
     if parallel:
+
         transform_results: list[Optional[Exception]] = ExecuteTasks.TransformTasks(
             dm,
             "Processing",
@@ -109,7 +110,7 @@ def _Impl(
             max_num_threads=max_num_threads,
             return_exceptions=True,
         )
-
+        
         for transform_result in transform_results:
             if transform_result is not None:
                 raise transform_result
@@ -123,6 +124,6 @@ def _Impl(
             ),
         ):
             Execute(results_index, item)
-
+        
     assert not any(result is None for result in results), results
     return cast(list[OutputType], results)

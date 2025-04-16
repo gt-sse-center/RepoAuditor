@@ -124,6 +124,7 @@ def Execute(
         parallel: list[tuple[int, ModuleInfo]] = []
         sequential: list[tuple[int, ModuleInfo]] = []
 
+
         for index, module_info in enumerate(module_infos):
             if module_info.module.style == ExecutionStyle.Parallel:
                 parallel.append((index, module_info))

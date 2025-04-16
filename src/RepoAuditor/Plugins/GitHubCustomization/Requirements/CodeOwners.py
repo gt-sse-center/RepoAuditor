@@ -35,7 +35,6 @@ class CodeOwners(ExistsRequirementImpl):
                    - .github/CODEOWNERS
                    - docs/CODEOWNERS
                    - CODEOWNERS
-
                 Example CODEOWNERS file format:
                 # Syntax example:
                 # directory/ @username
@@ -46,7 +45,6 @@ class CodeOwners(ExistsRequirementImpl):
             textwrap.dedent(
                 """\
                 CODEOWNERS files define who is responsible for code review.
-
                 Benefits:
                 - Automatic reviewer assignment
                 - Clear code ownership
