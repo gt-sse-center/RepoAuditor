@@ -35,6 +35,7 @@ class Contributing(ExistsRequirementImpl):
                    - .github/CONTRIBUTING.md
                    - docs/CONTRIBUTING.md
                    - CONTRIBUTING.md
+
                 Example template can be found at:
                 https://github.com/nayafia/contributing-template/blob/master/CONTRIBUTING-template.md
                 """
@@ -42,6 +43,7 @@ class Contributing(ExistsRequirementImpl):
             textwrap.dedent(
                 """\
                 Contributing guides help new contributors understand how to participate.
+
                 Benefits:
                 - Clear contribution process
                 - Consistent code quality

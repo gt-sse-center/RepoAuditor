@@ -35,6 +35,7 @@ class SecurityPolicy(ExistsRequirementImpl):
                    - .github/SECURITY.md
                    - docs/SECURITY.md
                    - SECURITY.md
+
                 Example policy can be found at:
                 https://github.com/gt-sse-center/RepoAuditor/blob/main/SECURITY.md
                 """
@@ -42,6 +43,7 @@ class SecurityPolicy(ExistsRequirementImpl):
             textwrap.dedent(
                 """\
                 Security policies help users report vulnerabilities responsibly.
+
                 Benefits:
                 - Clear security reporting process
                 - Responsible disclosure guidelines

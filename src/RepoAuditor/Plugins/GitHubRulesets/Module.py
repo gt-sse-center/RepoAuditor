@@ -1,6 +1,15 @@
+# -------------------------------------------------------------------------------
+# |
+# |  Copyright (c) 2024 Scientific Software Engineering Center at Georgia Tech
+# |  Distributed under the MIT License.
+# |
+# -------------------------------------------------------------------------------
+"""Contains the GitHubRulesetModule object for the GitHubRulesets plugin."""
+
 from pathlib import Path
 from typing import Any, Optional
 import typer
+import requests
 
 from dbrownell_Common.TyperEx import TypeDefinitionItemType
 from dbrownell_Common.Types import override
@@ -14,16 +23,17 @@ class GitHubRulesetModule(Module):
     """Module that validates GitHub repository rulesets."""
 
     def __init__(self) -> None:
-        super(GitHubRulesetModule, self).__init__(
+        super().__init__(
             "GitHubRuleset",
             "Validates GitHub repository rulesets.",
             ExecutionStyle.Parallel,
             [RulesetQuery()],
-            requires_explicit_include=True,  # 显式包含此模块
+            requires_explicit_include=True,
         )
 
     @override
     def GetDynamicArgDefinitions(self) -> dict[str, TypeDefinitionItemType]:
+        """Get the definitions for the arguments to this requirement."""
         return {
             "url": (
                 str,
@@ -50,32 +60,20 @@ class GitHubRulesetModule(Module):
 
     @override
     def GenerateInitialData(self, dynamic_args: dict[str, Any]) -> Optional[dict[str, Any]]:
-        # 获取 URL 和 PAT
-        github_url = dynamic_args.get("url", None)
-        github_pat = dynamic_args.get("pat", None)
+        """Generate the initial data to be used in the `dynamic_args`, such as session info, etc."""
+        github_url = dynamic_args.get("url")
+        github_pat = dynamic_args.get("pat")
 
         if not github_url:
-            print("Error: GitHub repository URL is required.")
-            return None
+            msg = "Error: GitHub repository URL is required."
+            raise RuntimeError(msg)
 
-        # 创建一个会话对象
-        try:
-            session = _GitHubSession(github_url, github_pat)
-            dynamic_args["session"] = session
-        except ValueError as e:
-            print(f"Error creating GitHub session: {e}")
-            return None
+        session = _GitHubSession(github_url, github_pat)
+        dynamic_args["session"] = session
 
         return dynamic_args
 
-    @override
-    def Cleanup(self, dynamic_args: dict[str, Any]) -> None:
-        """Clean up any resources created during execution."""
-        print("Cleaning up GitHubRulesetModule resources...")
-        super(GitHubRulesetModule, self).Cleanup(dynamic_args)
 
-
-# 辅助类：用于与 GitHub API 通信
 class _GitHubSession:
     """Session used to communicate with GitHub APIs for ruleset validation."""
 
@@ -93,7 +91,8 @@ class _GitHubSession:
         path_parts = url_parts.path.split("/")
 
         if len(path_parts) != 3:
-            raise ValueError(f"'{github_url}' is not a valid GitHub repository URL.")
+            msg = f"'{github_url}' is not a valid GitHub repository URL."
+            raise ValueError(msg)
 
         _, username, repo = path_parts
 
@@ -109,7 +108,6 @@ class _GitHubSession:
         self.api_url = api_url
         self.is_enterprise = is_enterprise
 
-        # 设置 API 请求头
         self.headers = {
             "X-GitHub-Api-Version": "2022-11-28",
             "Accept": "application/vnd.github+json",
@@ -123,15 +121,14 @@ class _GitHubSession:
 
             self.headers["Authorization"] = f"Bearer {github_pat}"
 
-    def request(self, method: str, endpoint: str, *args, **kwargs):
+    def request(self, method: str, endpoint: str, *args, **kwargs) -> requests.Response:
         """Send a request to the GitHub API."""
-        import requests
 
         if not endpoint.startswith("/"):
             endpoint = f"/{endpoint}"
 
         response = requests.request(
-            method, f"{self.api_url}{endpoint}", headers=self.headers, *args, **kwargs
+            method, f"{self.api_url}{endpoint}", *args, timeout=10, headers=self.headers, **kwargs
         )
         response.raise_for_status()
         return response.json()

@@ -1,23 +1,29 @@
+# -------------------------------------------------------------------------------
+# |
+# |  Copyright (c) 2024 Scientific Software Engineering Center at Georgia Tech
+# |  Distributed under the MIT License.
+# |
+# -------------------------------------------------------------------------------
+"""Contains the RequireSignedCommits object for the GitHubRulesets plugin."""
+
 from typing import Any, Optional
 
 from dbrownell_Common.Types import override
 from RepoAuditor.Impl.ParallelSequentialProcessor import ExecutionStyle
 from RepoAuditor.Query import Query
-from .Requirments.RequirePullRequests import RequirePullRequests
-from .Requirments.RequireSignedCommits import RequireSignedCommits
-from .Requirments.RequireStatusChecks import RequireStatusChecks
+from .Requirements.RequirePullRequests import RequirePullRequests
+from .Requirements.RequireSignedCommits import RequireSignedCommits
+from .Requirements.RequireStatusChecks import RequireStatusChecks
+
+
 class RulesetQuery(Query):
     """Query to validate GitHub repository rulesets."""
 
     def __init__(self) -> None:
-        super(RulesetQuery, self).__init__(
+        super().__init__(
             "RulesetQuery",
             ExecutionStyle.Parallel,
-            [
-                RequireStatusChecks(),
-                RequirePullRequests(),
-                RequireSignedCommits()
-            ]
+            [RequireStatusChecks(), RequirePullRequests(), RequireSignedCommits()],
         )
 
     @override
@@ -25,33 +31,26 @@ class RulesetQuery(Query):
         self,
         module_data: dict[str, Any],
     ) -> Optional[dict[str, Any]]:
-        """
-        Retrieves data required for validating GitHub rulesets.
+        """Retrieve data required for validating GitHub rulesets.
 
         Args:
             module_data (dict): Dictionary containing initial data from the module.
 
-        Returns:
-            Optional[dict]: A dictionary containing ruleset-related data, or None if an error occurs.
+        Return:
+            Optional[dict]: A dictionary containing ruleset-related data,
+            or None if an error occurs.
+
         """
-        try:
-            # Get the session object from module_data
-            session = module_data.get("session")
-            if not session:
-                print("RulesetQuery: Error - No GitHub session provided.")
-                return None
 
-            # Fetch ruleset data from the GitHub API
-            print("RulesetQuery: Fetching ruleset data...")
-            ruleset_data = session.request("GET", "/rulesets")
+        # Get the session object from module_data
+        session = module_data.get("session")
+        if not session:
+            msg = "RulesetQuery: Error - No GitHub session provided."
+            raise RuntimeError(msg)
 
-            # Add ruleset data to module_data
-            module_data["ruleset_data"] = ruleset_data
-            return module_data
+        # Fetch ruleset data from the GitHub API
+        ruleset_data = session.get("rulesets")
 
-        except Exception as e:
-            print(f"RulesetQuery: Error in GetData: {str(e)}")
-            import traceback
-
-            traceback.print_exc()
-            return None
+        # Add ruleset data to module_data
+        module_data["ruleset_data"] = ruleset_data
+        return module_data

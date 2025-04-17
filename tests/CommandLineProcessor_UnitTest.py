@@ -405,7 +405,6 @@ def test_ErrorInvalidIncludeName():
         Exception,
         match=re.escape("'DoesNotExist' is not a recognized module name."),
     ):
-       # print(1)
         CommandLineProcessor.Create(
             lambda *args: {"MyModule-arg1": False},
             [MyModule()],
@@ -422,7 +421,6 @@ def test_ErrorInvalidExcludeName():
         Exception,
         match=re.escape("'DoesNotExist' is not a recognized module name."),
     ):
-        print(1)
         CommandLineProcessor.Create(
             lambda *args: {"MyModule-arg1": False},
             [MyModule()],
@@ -438,8 +436,7 @@ def test_InvalidArgName():
     with pytest.raises(
         Exception,
         match=re.escape("'MyModule' is not a recognized module name."),
-    ): 
-        print(1)
+    ):
         # This code provides an argument for a module that has been excluded
         CommandLineProcessor.Create(
             lambda *args: {"MyModule-arg1": False},
