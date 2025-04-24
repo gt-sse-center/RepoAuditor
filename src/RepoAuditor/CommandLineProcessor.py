@@ -69,6 +69,7 @@ class CommandLineProcessor:
         module_map: dict[str, Module] = {}
 
         for module in modules:
+            print(module.name)
             if argument_separator in module.name:
                 raise Exception(f"The module name '{module.name}' contains '{argument_separator}'.")
 
@@ -89,6 +90,7 @@ class CommandLineProcessor:
 
             this_module = module_map.get(parts[0], None)
             if this_module is None:
+                #print(1)
                 raise Exception(f"'{parts[0]}' is not a recognized module name.")
 
             if len(parts) == 1:
@@ -115,6 +117,7 @@ class CommandLineProcessor:
 
             this_module = module_map.get(parts[0], None)
             if this_module is None:
+               # print(1)
                 raise Exception(f"'{parts[0]}' is not a recognized module name.")
 
             if len(parts) == 1:
@@ -166,8 +169,9 @@ class CommandLineProcessor:
         for key, value in get_dynamic_args_func(dynamic_arg_definitions).items():
             parts = key.split(argument_separator)
             assert len(parts) >= 2
-
+            #print(1)
             if parts[0] not in module_map:
+               # print(1)
                 raise Exception(f"'{parts[0]}' is not a recognized module name.")
 
             if len(parts) == 2:
@@ -184,8 +188,7 @@ class CommandLineProcessor:
 
         for module_name, module in module_map.items():
             module_args = dynamic_args.get(module_name, {})
-            requirement_args = module_args.pop(None, None)  # type: ignore
-
+            requirement_args = module_args.pop(None, {})  # type: ignore
             module_infos.append(ModuleInfo(module, module_args, requirement_args))
 
         return cls(

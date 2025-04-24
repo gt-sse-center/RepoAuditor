@@ -73,7 +73,8 @@ repo_auditor = "RepoAuditor:EntryPoint.app"
 
 [project.entry-points.RepoAuditor]
 GitHubPlugin = "RepoAuditor.Plugins.GitHubPlugin"
-
+GitHubCustomizationPlugin = "RepoAuditor.Plugins.GitHubCustomizationPlugin"
+GitHubRulesetPlugin="RepoAuditor.Plugins.GitHubRuleset"
 # ----------------------------------------------------------------------
 # |
 # |  black

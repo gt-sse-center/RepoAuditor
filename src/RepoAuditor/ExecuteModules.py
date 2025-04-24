@@ -67,6 +67,7 @@ def Execute(
         parallel: list[tuple[int, ModuleInfo]] = []
         sequential: list[tuple[int, ModuleInfo]] = []
 
+
         for index, module_info in enumerate(module_infos):
             if module_info.module.style == ExecutionStyle.Parallel:
                 parallel.append((index, module_info))
@@ -89,7 +90,7 @@ def Execute(
             module_data = module_info.module.GenerateInitialData(module_info.dynamic_args)
             if module_data is None:
                 return []
-
+            
             return module_info.module.Evaluate(
                 module_data,
                 module_info.requirement_args,
@@ -148,10 +149,8 @@ def Execute(
                             _CreateStatusString(*args, **kwargs),
                         )
 
-                    # ----------------------------------------------------------------------
-
                     evaluate_results = Evaluate(module_info, OnStatus)
-
+                    
                     result_code, result_status = CalcResultInfo(evaluate_results)
 
                     return ExecuteTasks.TransformResultComplete(

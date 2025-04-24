@@ -94,8 +94,8 @@ class Requirement(ABC):
         query_data: dict[str, Any],
         requirement_args: dict[str, Any],
     ) -> "Requirement.EvaluateInfo":
+        
         result_info = self._EvaluateImpl(query_data, requirement_args)
-
         if result_info.result == EvaluateResult.Error:
             return Requirement.EvaluateInfo(
                 result_info.result,
