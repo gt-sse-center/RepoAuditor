@@ -9,6 +9,7 @@
 from RepoAuditor.Module import ExecutionStyle, Module
 from .Query import CustomizationQuery
 
+
 class GitHubCustomizationModule(Module):
     """Module that validates GitHub repository customization files."""
 

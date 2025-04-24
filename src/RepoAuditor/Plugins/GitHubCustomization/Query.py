@@ -8,6 +8,7 @@
 
 from RepoAuditor.Query import ExecutionStyle, Query
 
+
 class CustomizationQuery(Query):
     """Query with requirements that check for GitHub customization files."""
 
