@@ -13,5 +13,5 @@ from RepoAuditor.Requirement import EvaluateResult, Requirement
 def CreateIncompleteDataResult() -> Requirement.EvaluateImplResult:
     return Requirement.EvaluateImplResult(
         EvaluateResult.Warning,
-        "Incomplete data was encountered; please provide the GitHub PAT.",
+        "Incomplete data was encountered; please provide the GitHub PAT or update the PAT's permissions if one was provided.",
     )
