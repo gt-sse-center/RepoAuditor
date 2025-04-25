@@ -10,7 +10,7 @@ from typing import Any, Optional, Dict
 from RepoAuditor.Module import ExecutionStyle, Module
 from dbrownell_Common.TyperEx import TypeDefinitionItemType
 from dbrownell_Common.Types import override
-from .Query import CustomizationQuery
+from .CustomizationQuery import CustomizationQuery
 
 
 class GitHubCustomizationModule(Module):
