@@ -56,9 +56,14 @@ class CodeOwners(Requirement):
 
         # Check all possible locations for CODEOWNERS file
         possible_locations = [
+            # Upper case variants
             repo_path / ".github" / "CODEOWNERS",
             repo_path / "docs" / "CODEOWNERS",
             repo_path / "CODEOWNERS",
+            # Lower case variants
+            repo_path / ".github" / "codeowners",
+            repo_path / "docs" / "codeowners",
+            repo_path / "codeowners",
         ]
 
         for location in possible_locations:

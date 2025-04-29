@@ -53,9 +53,14 @@ class SecurityPolicy(Requirement):
 
         # Check all possible locations for security policy
         possible_locations = [
+            # Upper case variants
             repo_path / ".github" / "SECURITY.md",
             repo_path / "docs" / "SECURITY.md",
             repo_path / "SECURITY.md",
+            # Lower case variants
+            repo_path / ".github" / "security.md",
+            repo_path / "docs" / "security.md",
+            repo_path / "security.md",
         ]
 
         for location in possible_locations:

@@ -53,9 +53,14 @@ class Contributing(Requirement):
 
         # Check all possible locations for contributing guide
         possible_locations = [
+            # Upper case variants
             repo_path / ".github" / "CONTRIBUTING.md",
             repo_path / "docs" / "CONTRIBUTING.md",
             repo_path / "CONTRIBUTING.md",
+            # Lower case variants
+            repo_path / ".github" / "contributing.md",
+            repo_path / "docs" / "contributing.md",
+            repo_path / "contributing.md",
         ]
 
         for location in possible_locations:
