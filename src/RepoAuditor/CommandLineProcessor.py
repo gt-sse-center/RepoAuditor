@@ -184,7 +184,7 @@ class CommandLineProcessor:
 
         for module_name, module in module_map.items():
             module_args = dynamic_args.get(module_name, {})
-            requirement_args = module_args.pop(None, None)  # type: ignore
+            requirement_args = module_args.pop(None, {})  # type: ignore
 
             module_infos.append(ModuleInfo(module, module_args, requirement_args))
 
