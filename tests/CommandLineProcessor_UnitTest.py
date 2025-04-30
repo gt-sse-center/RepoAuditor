@@ -446,3 +446,22 @@ def test_InvalidArgName():
             set(),
             set(),
         )
+
+
+# ----------------------------------------------------------------------
+def test_InvalidArgs():
+    """Check if an invalid module is specified as an argument."""
+    with pytest.raises(
+        Exception,
+        match=re.escape("'InvalidModule' is not a recognized module name."),
+    ):
+        CommandLineProcessor.Create(
+            # Specify an unregistered module
+            get_dynamic_args_func=lambda dynamic_arg_definitions: {"InvalidModule-arg1": "value"},
+            # ValidModule is the registered module.
+            modules=[MyModule(name="ValidModule")],
+            includes=["InvalidModule"],
+            excludes=[],
+            warnings_as_error_module_names=set(),
+            ignore_warnings_module_names=set(),
+        )
