@@ -446,3 +446,23 @@ def test_InvalidArgName():
             set(),
             set(),
         )
+def test_error_invalid_arg_processing():
+    """测试包含未注册模块时的异常处理"""
+    # 注册合法模块
+    valid_module = MyModule(name="valid_module")
+
+    with pytest.raises(
+        Exception,
+        match=re.escape("'invalid_module' is not a recognized module name."),
+    ):
+        CommandLineProcessor.Create(
+            # 注意：参数键格式为 {模块名}-{参数名}（即使模块不存在）
+            get_dynamic_args_func=lambda dynamic_arg_definitions: {
+                "invalid_module-arg1": "value"  # 参数键格式正确但模块名不存在
+            },
+            modules=[valid_module],  # 实际注册的模块是valid_module
+            includes=["invalid_module"],  # 包含不存在的模块名
+            excludes=[],
+            warnings_as_error_module_names=set(),
+            ignore_warnings_module_names=set(),
+        )
