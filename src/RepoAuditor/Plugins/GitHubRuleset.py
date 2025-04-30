@@ -3,7 +3,7 @@ import pluggy
 from RepoAuditor import APP_NAME
 from RepoAuditor.Module import Module
 
-from .GitHubRuleset.Module import GitHubRulesetModule
+from .GitHubRulesets.Module import GitHubRulesetModule
 
 
 @pluggy.HookimplMarker(APP_NAME)
