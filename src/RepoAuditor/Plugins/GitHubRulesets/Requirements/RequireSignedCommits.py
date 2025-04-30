@@ -2,14 +2,14 @@ from typing import override
 from RepoAuditor.Requirement import EvaluateResult, ExecutionStyle, Requirement
 
 
-class RequirePullRequests(Requirement):
+class RequireSignedCommits(Requirement):
     def __init__(self):
         super().__init__(
-            name="RequirePullRequests",
-            description="Require pull requests before merging to default branch",
+            name="RequireSignedCommits",
+            description="Require signed commits",
             style=ExecutionStyle.Parallel,
-            resolution_template="Enable pull request requirements in repository rulesets",
-            rationale_template="Pull request reviews help maintain code quality and collaboration",
+            resolution_template="Enable commit signing requirement in repository rulesets",
+            rationale_template="Signed commits ensure commit authenticity",
         )
 
     @override
@@ -20,14 +20,14 @@ class RequirePullRequests(Requirement):
             if (
                 ruleset.get("enforcement", "") == "active"
                 and ruleset.get("target", "") == "branch"
-                and ruleset.get("parameters", {}).get("pull_request", {}).get("required", False)
+                and ruleset.get("parameters", {}).get("commit_signatures", False)
             ):
                 return self.EvaluateImplResult(
-                    EvaluateResult.Success, f"Ruleset '{ruleset['name']}' enforces pull requests"
+                    EvaluateResult.Success, f"Ruleset '{ruleset['name']}' enforces signed commits"
                 )
 
         return self.EvaluateImplResult(
             EvaluateResult.Error,
-            "No active branch ruleset requiring pull requests found",
+            "No active branch ruleset requiring signed commits found",
             provide_resolution=True,
         )

@@ -4,9 +4,9 @@ from pathlib import Path
 from dbrownell_Common.Types import override
 from RepoAuditor.Impl.ParallelSequentialProcessor import ExecutionStyle
 from RepoAuditor.Query import Query
-from .Requirments.RequirePullRequests import RequirePullRequests
-from .Requirments.RequireSignedCommits import RequireSignedCommits
-from .Requirments.RequireStatusChecks import RequireStatusChecks
+from .Requirements.RequirePullRequests import RequirePullRequests
+from .Requirements.RequireSignedCommits import RequireSignedCommits
+from .Requirements.RequireStatusChecks import RequireStatusChecks
 
 
 class RulesetQuery(Query):

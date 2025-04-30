@@ -1,9 +1,11 @@
 import pytest
 
 from RepoAuditor.Requirement import EvaluateResult
-from RepoAuditor.Plugins.GitHubRulesets.Requirments.RequirePullRequests import RequirePullRequests
-from RepoAuditor.Plugins.GitHubRulesets.Requirments.RequireStatusChecks import RequireStatusChecks
-from RepoAuditor.Plugins.GitHubRulesets.Requirments.RequireSignedCommits import RequireSignedCommits
+from RepoAuditor.Plugins.GitHubRulesets.Requirements.RequirePullRequests import RequirePullRequests
+from RepoAuditor.Plugins.GitHubRulesets.Requirements.RequireStatusChecks import RequireStatusChecks
+from RepoAuditor.Plugins.GitHubRulesets.Requirements.RequireSignedCommits import (
+    RequireSignedCommits,
+)
 
 
 def create_ruleset(name, target, enforcement, parameters):
