@@ -25,7 +25,8 @@ from RepoAuditor.EntryPoint import app
 
 # ----------------------------------------------------------------------
 _github_pat_filename = (Path(__file__).parent / "github_pat.txt").resolve()
-
+if not Path("tests/Plugins/github_pat.txt").exists():
+    pytest.skip("GitHub PAT not found", allow_module_level=True)
 if not _github_pat_filename.is_file():
     sys.stdout.write(
         textwrap.dedent(
