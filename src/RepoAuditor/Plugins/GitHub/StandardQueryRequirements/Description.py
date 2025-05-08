@@ -8,7 +8,7 @@
 
 import textwrap
 
-from typing import Any, Optional
+from typing import Any
 
 import typer
 
@@ -21,7 +21,7 @@ from ..Impl.Common import CreateIncompleteDataResult
 
 
 # ----------------------------------------------------------------------
-class Description(Requirement):  # pylint: disable=missing-class-docstring
+class Description(Requirement):
     # ----------------------------------------------------------------------
     def __init__(self):
         super(Description, self).__init__(

@@ -100,16 +100,8 @@ class Requirement(ABC):
             return Requirement.EvaluateInfo(
                 result_info.result,
                 result_info.context,
-                (
-                    self.resolution_template.format(**query_data)
-                    if result_info.provide_resolution
-                    else None
-                ),
-                (
-                    self.rationale_template.format(**query_data)
-                    if result_info.provide_rationale
-                    else None
-                ),
+                (self.resolution_template.format(**query_data) if result_info.provide_resolution else None),
+                (self.rationale_template.format(**query_data) if result_info.provide_rationale else None),
                 self,
             )
 

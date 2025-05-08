@@ -12,9 +12,7 @@ from .Impl.ClassicEnableRequirementImpl import ClassicEnableRequirementImpl
 
 
 # ----------------------------------------------------------------------
-class RequireStatusChecksToPass(
-    ClassicEnableRequirementImpl
-):  # pylint: disable=missing-class-docstring
+class RequireStatusChecksToPass(ClassicEnableRequirementImpl):
     # ----------------------------------------------------------------------
     def __init__(self):
         super(RequireStatusChecksToPass, self).__init__(

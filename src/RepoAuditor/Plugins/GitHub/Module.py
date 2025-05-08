@@ -24,7 +24,7 @@ from .StandardQuery import StandardQuery
 
 
 # ----------------------------------------------------------------------
-class GitHubModule(Module):  # pylint: disable=missing-class-docstring
+class GitHubModule(Module):
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
         super(GitHubModule, self).__init__(

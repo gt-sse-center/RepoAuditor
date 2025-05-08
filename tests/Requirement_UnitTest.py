@@ -95,9 +95,7 @@ def test_Construct():
 
 # ----------------------------------------------------------------------
 def test_Success():
-    requirement = MyRequirement(
-        Mock(), Mock(), Mock(), Mock(), Mock(), EvaluateResult.Success, "testing"
-    )
+    requirement = MyRequirement(Mock(), Mock(), Mock(), Mock(), Mock(), EvaluateResult.Success, "testing")
     result_info = requirement.Evaluate(Mock(), {})
 
     assert result_info.result == EvaluateResult.Success
@@ -109,9 +107,7 @@ def test_Success():
 
 # ----------------------------------------------------------------------
 def test_DoesNotApply():
-    requirement = MyRequirement(
-        Mock(), Mock(), Mock(), Mock(), Mock(), EvaluateResult.DoesNotApply, None
-    )
+    requirement = MyRequirement(Mock(), Mock(), Mock(), Mock(), Mock(), EvaluateResult.DoesNotApply, None)
     result_info = requirement.Evaluate(Mock(), {})
 
     assert result_info.result == EvaluateResult.DoesNotApply
@@ -150,9 +146,7 @@ def test_Error(provide_rationale: bool):
         provide_rationale=provide_rationale,
     )
 
-    result_info = requirement.Evaluate(
-        {"one": "1", "two": "2", "three": "3", "four": "4"}, {"four": "FOUR"}
-    )
+    result_info = requirement.Evaluate({"one": "1", "two": "2", "three": "3", "four": "4"}, {"four": "FOUR"})
 
     assert result_info.result == EvaluateResult.Error
     assert result_info.context == "testing"
@@ -173,9 +167,7 @@ def test_Warning():
         None,
     )
 
-    result_info = requirement.Evaluate(
-        {"one": "1", "two": "2", "three": "3", "four": "4"}, {"four": "FOUR"}
-    )
+    result_info = requirement.Evaluate({"one": "1", "two": "2", "three": "3", "four": "4"}, {"four": "FOUR"})
 
     assert result_info.result == EvaluateResult.Warning
     assert result_info.context is None

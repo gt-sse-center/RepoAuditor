@@ -1,5 +1,3 @@
-# pylint: disable=missing-module-docstring,invalid-name
-
 APP_NAME = "RepoAuditor"
 
 # Note that this value will be overwritten by calls to `python ../../Build.py update_version` based

@@ -12,7 +12,7 @@ from .Impl.StandardEnableRequirementImpl import StandardEnableRequirementImpl
 
 
 # ----------------------------------------------------------------------
-class TemplateRepository(StandardEnableRequirementImpl):  # pylint: disable=missing-class-docstring
+class TemplateRepository(StandardEnableRequirementImpl):
     # ----------------------------------------------------------------------
     def __init__(self):
         super(TemplateRepository, self).__init__(

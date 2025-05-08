@@ -14,9 +14,7 @@ from .Impl.StandardValueRequirementImpl import DoesNotApplyResult, StandardValue
 
 
 # ----------------------------------------------------------------------
-class SquashMergeCommitMessage(
-    StandardValueRequirementImpl
-):  # pylint: disable=missing-class-docstring
+class SquashMergeCommitMessage(StandardValueRequirementImpl):
     # ----------------------------------------------------------------------
     def __init__(self):
         super(SquashMergeCommitMessage, self).__init__(

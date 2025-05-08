@@ -14,7 +14,7 @@ from .Impl.StandardEnableRequirementImpl import StandardEnableRequirementImpl
 
 
 # ----------------------------------------------------------------------
-class SecretScanning(StandardEnableRequirementImpl):  # pylint: disable=missing-class-docstring
+class SecretScanning(StandardEnableRequirementImpl):
     # ----------------------------------------------------------------------
     def __init__(self):
         super(SecretScanning, self).__init__(
@@ -46,12 +46,7 @@ class SecretScanning(StandardEnableRequirementImpl):  # pylint: disable=missing-
 # ----------------------------------------------------------------------
 # ----------------------------------------------------------------------
 def _GetValue(data: dict[str, Any]) -> Optional[bool]:
-    result = (
-        data["standard"]
-        .get("security_and_analysis", {})
-        .get("secret_scanning", {})
-        .get("status", None)
-    )
+    result = data["standard"].get("security_and_analysis", {}).get("secret_scanning", {}).get("status", None)
 
     if result is None:
         return None

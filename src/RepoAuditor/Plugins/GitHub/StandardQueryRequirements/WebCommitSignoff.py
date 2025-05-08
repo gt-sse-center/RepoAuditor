@@ -12,7 +12,7 @@ from .Impl.StandardEnableRequirementImpl import StandardEnableRequirementImpl
 
 
 # ----------------------------------------------------------------------
-class WebCommitSignoff(StandardEnableRequirementImpl):  # pylint: disable=missing-class-docstring
+class WebCommitSignoff(StandardEnableRequirementImpl):
     # ----------------------------------------------------------------------
     def __init__(self):
         super(WebCommitSignoff, self).__init__(

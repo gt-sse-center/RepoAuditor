@@ -12,7 +12,7 @@ from .Impl.StandardValueRequirementImpl import StandardValueRequirementImpl
 
 
 # ----------------------------------------------------------------------
-class DefaultBranch(StandardValueRequirementImpl):  # pylint: disable=missing-class-docstring
+class DefaultBranch(StandardValueRequirementImpl):
     # ----------------------------------------------------------------------
     def __init__(self):
         super(DefaultBranch, self).__init__(

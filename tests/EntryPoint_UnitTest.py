@@ -18,7 +18,6 @@ from RepoAuditor.EntryPoint import app
 # ----------------------------------------------------------------------
 @pytest.fixture(InitializeStreamCapabilities(), scope="session", autouse=True)
 
-
 # ----------------------------------------------------------------------
 def test_Version() -> None:
     result = CliRunner().invoke(app, ["--version"])
@@ -36,9 +35,7 @@ def test_Standard() -> None:
 
 
 # ----------------------------------------------------------------------
-@pytest.mark.skip(
-    reason="This test isn't stable due to GitHub rate limiting for requests without a PAT."
-)
+@pytest.mark.skip(reason="This test isn't stable due to GitHub rate limiting for requests without a PAT.")
 def test_GitHub() -> None:
     result = CliRunner().invoke(
         app,

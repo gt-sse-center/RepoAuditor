@@ -12,7 +12,7 @@ from .Impl.StandardEnableRequirementImpl import StandardEnableRequirementImpl
 
 
 # ----------------------------------------------------------------------
-class SquashCommitMerge(StandardEnableRequirementImpl):  # pylint: disable=missing-class-docstring
+class SquashCommitMerge(StandardEnableRequirementImpl):
     # ----------------------------------------------------------------------
     def __init__(self):
         super(SquashCommitMerge, self).__init__(

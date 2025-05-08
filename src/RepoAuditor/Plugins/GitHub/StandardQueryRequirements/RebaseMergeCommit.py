@@ -12,7 +12,7 @@ from .Impl.StandardEnableRequirementImpl import StandardEnableRequirementImpl
 
 
 # ----------------------------------------------------------------------
-class RebaseMergeCommit(StandardEnableRequirementImpl):  # pylint: disable=missing-class-docstring
+class RebaseMergeCommit(StandardEnableRequirementImpl):
     # ----------------------------------------------------------------------
     def __init__(self):
         super(RebaseMergeCommit, self).__init__(

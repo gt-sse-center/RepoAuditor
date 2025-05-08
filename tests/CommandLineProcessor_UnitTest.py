@@ -70,9 +70,7 @@ class MyQuery(Query):
             "MyQuery",
             ExecutionStyle.Sequential,
             [
-                MyRequirement(
-                    "Requirement1", requires_explicit_include=True, has_dynamic_args=False
-                ),
+                MyRequirement("Requirement1", requires_explicit_include=True, has_dynamic_args=False),
                 MyRequirement("Requirement2", has_dynamic_args=True),
             ],
         )

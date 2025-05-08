@@ -14,9 +14,7 @@ from .Impl.StandardEnableRequirementImpl import StandardEnableRequirementImpl
 
 
 # ----------------------------------------------------------------------
-class DependabotSecurityUpdates(
-    StandardEnableRequirementImpl
-):  # pylint: disable=missing-class-docstring
+class DependabotSecurityUpdates(StandardEnableRequirementImpl):
     # ----------------------------------------------------------------------
     def __init__(self):
         super(DependabotSecurityUpdates, self).__init__(

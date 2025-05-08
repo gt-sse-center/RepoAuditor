@@ -62,9 +62,7 @@ class MyRequirement(Requirement):
         expected_result: EvaluateResult,
         context: Optional[str] = None,
     ) -> None:
-        super(MyRequirement, self).__init__(
-            name, description, style, resolution_template, rationale_template
-        )
+        super(MyRequirement, self).__init__(name, description, style, resolution_template, rationale_template)
 
         self.expected_result = expected_result
         self.context = context

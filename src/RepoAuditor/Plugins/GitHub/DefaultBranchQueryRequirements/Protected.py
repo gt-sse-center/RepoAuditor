@@ -20,7 +20,7 @@ from ..Impl.Common import CreateIncompleteDataResult
 
 
 # ----------------------------------------------------------------------
-class Protected(Requirement):  # pylint: disable=missing-class-docstring
+class Protected(Requirement):
     # ----------------------------------------------------------------------
     def __init__(self):
         # Note that protected is set for the branch when creating a branch ruleset or a classic

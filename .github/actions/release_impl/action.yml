@@ -1,0 +1,117 @@
+name: "[impl] Release"
+description: "Releases the current repository."
+
+# spell-checker: words jedisct, minisig, minisign, pypi, schneegans
+
+inputs:
+  minisign_private_key:
+    description: "Key used to sign dist artifacts. No signatures will be created if the key is empty."
+    required: false
+    default: ""
+
+  pypi_publish_token:
+    description: "Token used to publish the package to PyPI."
+    required: false
+    default: ""
+
+  coverage_badge_gist_token:
+    description: "Gist token used to store the code coverage badge."
+    default: ""
+
+  coverage_badge_gist_id:
+    description: "Gist ID used to store the code coverage badge."
+    required: false
+    default: ""
+
+  coverage_badge_gist_username:
+    description: "Gist username used to store the code coverage badge. The current GitHub user will be used if this value is not provided."
+    required: false
+    default: ""
+
+runs:
+  using: composite
+  steps:
+    - name: Install uv and python
+      uses: astral-sh/setup-uv@v5
+      with:
+        enable-cache: false # No uv.lock or requirements.txt files, so nothing to cache on
+
+    - name: Download Python Package
+      uses: actions/download-artifact@v4
+      with:
+        name: Python package
+        path: dist
+
+    # Create repository tag
+    - name: Create Repository Tag
+      shell: bash
+      run: |-
+        git config user.name "GitHub Action Bot"
+        git config user.email "<>"
+
+        git tag --annotate --force -m "Publish Tag" "v${{ env.PACKAGE_VERSION }}" "${{ github.sha }}"
+        git push origin "v${{ env.PACKAGE_VERSION }}" --force
+
+    # Commit code coverage
+    - name: Create Code Coverage Badge
+      if: ${{ inputs.coverage_badge_gist_token != '' && inputs.coverage_badge_gist_id != '' }}
+      uses: schneegans/dynamic-badges-action@v1.7.0
+      with:
+        auth: ${{ inputs.coverage_badge_gist_token }}
+        gistID: ${{ inputs.coverage_badge_gist_id }}
+        filename: ${{ github.event.repository.name }}_code_coverage.json
+        label: Coverage
+        message: ${{ env.COVERAGE_TOTAL }}%
+        valColorRange: ${{ env.COVERAGE_TOTAL }}
+        minColorRange: 50
+        maxColorRange: 90
+
+    - name: Display Code Coverage Badge Url
+      if: ${{ inputs.coverage_badge_gist_token != '' && inputs.coverage_badge_gist_id != '' }}
+      shell: bash
+      run: |-
+        username="${{ inputs.coverage_badge_gist_username }}"
+        if [ -z "${username}" ]; then
+          username="${{ github.repository_owner }}"
+        fi
+
+        echo "**Code Coverage Badge:** [![Code Coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/${username}/${{ inputs.coverage_badge_gist_id }}/raw/${{ github.event.repository.name }}_code_coverage.json)](${{ github.server_url }}/${{ github.repository_owner }}/${{ github.event.repository.name }}/actions)" >> $GITHUB_STEP_SUMMARY
+        echo "**Code Coverage Badge Markdown:** <code>\[!\[Code Coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/${username}/${{ inputs.coverage_badge_gist_id }}/raw/${{ github.event.repository.name }}_code_coverage.json)](${{ github.server_url }}/${{ github.repository_owner }}/${{ github.event.repository.name }}/actions)</code>" >> $GITHUB_STEP_SUMMARY
+
+    # Sign artifacts
+    - name: Sign Artifacts
+      if: ${{ inputs.minisign_private_key != '' }}
+      shell: bash
+      run: |-
+        pushd dist
+
+        echo "**Signed Artifacts:**" >> $GITHUB_STEP_SUMMARY
+
+        echo "${{ inputs.minisign_private_key }}" > /tmp/minisign.key
+
+        for filename in *; do
+          echo "- ${filename} [${filename}.minisig]" >> $GITHUB_STEP_SUMMARY
+          uv run --with py-minisign python -c "import minisign; minisign.SecretKey.from_file('/tmp/minisign.key').sign_file('${filename}', trusted_comment='${{ env.PACKAGE_NAME }} v${{ env.PACKAGE_VERSION }}', drop_signature=True)"
+        done
+
+        rm /tmp/minisign.key
+
+    - name: Upload Signatures
+      if: ${{ inputs.minisign_private_key != '' }}
+      uses: actions/upload-artifact@v4
+      with:
+        name: Minisign signatures
+        path: ./dist/*.minisig
+
+    # Create the GitHub release
+    - name: Create GitHub Release
+      shell: bash
+      run: |-
+        gh release create "v${{ env.PACKAGE_VERSION }}" ./dist/* --generate-notes
+
+    # Publish Python Package
+    - name: Publish Python Package
+      if: ${{ inputs.pypi_publish_token != '' }}
+      shell: bash
+      run: |-
+        uv publish --token "${{ inputs.pypi_publish_token }}" --verbose

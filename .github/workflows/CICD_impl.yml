@@ -1,0 +1,281 @@
+name: "[Callable] CI+CD Workflow Impl"
+
+on:
+  workflow_call:
+    inputs:
+      operating_system_json_string:
+        type: string
+        description: "The operating systems to run the job on. Note that this is JSON content embedded within a string."
+        required: true
+
+      python_version_json_string:
+        type: string
+        description: "The Python versions to run the job with. Note that this is JSON content embedded within a string."
+        required: true
+
+      python_package_version:
+        type: string
+        description: "The python version used when creating the python package."
+        required: true
+
+      coverage_badge_gist_id:
+        type: string
+        description: "The ID of the Gist used to store coverage badge information. Code coverage information will not be persisted if this value is missing."
+        required: false
+
+      coverage_badge_gist_username:
+        type: string
+        description: "The username used to access the Gist used to store coverage badge information. The current GitHub user will be used if this value is not provided."
+        required: false
+
+    secrets:
+      MINISIGN_PRIVATE_KEY:
+        required: false
+        description: "Private key used to sign artifacts. Artifacts will not be signed if this value is missing."
+
+      PYPI_PUBLISH_TOKEN:
+        required: false
+        description: "Token used to publish packages to PyPi. Packages will not be published if this value is missing."
+
+      COVERAGE_BADGE_GIST_TOKEN:
+        required: false
+        description: "Token used to access the Gist used to store coverage badge information. Code coverage information will not be persisted if this value is missing."
+
+      TESTING_GITHUB_PAT:
+        required: true
+        description: "GitHub PAT used by tests to access the repository. This value is required."
+
+jobs:
+  # ----------------------------------------------------------------------
+  validate:
+    strategy:
+      fail-fast: false
+
+      matrix:
+        os: ${{ fromJson(inputs.operating_system_json_string) }}
+        python_version: ${{ fromJson(inputs.python_version_json_string) }}
+
+    name: Validate
+    runs-on: ${{ matrix.os }}
+
+    permissions:
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv and python
+        uses: astral-sh/setup-uv@v5
+        with:
+          python-version: ${{ matrix.python_version }}
+          enable-cache: true
+
+      # Ensure that the github PAT is available for the tests
+      - name: Create github_pat.txt
+        run: |
+          echo ${{ secrets.TESTING_GITHUB_PAT }} > tests/Plugins/github_pat.txt
+
+      - name: Environment Variables (!Windows)
+        shell: bash
+        if: ${{ ! startsWith(matrix.os, 'windows') }}
+        run: |
+          echo "GITHUB_CI_OPERATING_SYSTEM=${{ matrix.os }}" >> $GITHUB_ENV
+          echo "GITHUB_CI_PYTHON_VERSION=${{ matrix.python_version }}" >> $GITHUB_ENV
+
+      - name: Environment Variables (Windows)
+        shell: cmd
+        if: ${{ startsWith(matrix.os, 'windows') }}
+        run: |
+          echo GITHUB_CI_OPERATING_SYSTEM=${{ matrix.os }} >> %GITHUB_ENV%
+          echo GITHUB_CI_PYTHON_VERSION=${{ matrix.python_version }} >> %GITHUB_ENV%
+
+      - name: Run pre-commit scripts
+        run: uv run pre-commit run --verbose
+
+      - name: Validate Tests
+        run: uv run pytest
+        env:
+          COVERAGE_FILE: .coverage.${{ matrix.os }}.${{ matrix.python_version }}
+
+      - name: Upload Coverage Data
+        uses: actions/upload-artifact@v4
+        with:
+          name: .coverage.${{ matrix.os }}.${{ matrix.python_version }}
+          path: .coverage.${{ matrix.os }}.${{ matrix.python_version }}
+          include-hidden-files: true
+
+  # ----------------------------------------------------------------------
+  package_coverage:
+    needs: validate
+
+    name: Postprocess Coverage Info
+    runs-on: ubuntu-latest
+
+    outputs:
+      coverage_total: ${{ steps.combine_coverage_data.outputs.coverage_total }}
+
+    permissions:
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv and python
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Install Dependencies
+        run: uv sync --frozen
+
+      - name: Download Coverage Data
+        uses: actions/download-artifact@v4
+        with:
+          merge-multiple: true
+
+      - name: Combine Coverage Data
+        id: combine_coverage_data
+        shell: bash
+        run: |
+          uv run coverage combine .
+          uv run coverage report --ignore-errors --show-missing --skip-covered
+          uv run coverage json --ignore-errors -o .coverage.json
+
+          export TOTAL=$(uv run python -c "import json;print(json.load(open('.coverage.json'))['totals']['percent_covered_display'])")
+          echo "coverage_total=${TOTAL}" >> $GITHUB_OUTPUT
+          echo "**Total coverage:** ${TOTAL}%" >> $GITHUB_STEP_SUMMARY
+
+      - name: Upload Coverage Data
+        uses: actions/upload-artifact@v4
+        with:
+          name: .coverage.json
+          path: .coverage.json
+          include-hidden-files: true
+
+  # ----------------------------------------------------------------------
+  python_package:
+    needs: package_coverage
+
+    name: Build Python Package
+    runs-on: ubuntu-latest
+
+    outputs:
+      package_name: ${{ steps.package_name_and_version.outputs.package_name }}
+      package_version: ${{ steps.package_name_and_version.outputs.package_version }}
+
+    permissions:
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install uv and python
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+          python-version: ${{ inputs.python_package_version }}
+
+      - name: Install Dependencies
+        run: uv sync --frozen
+
+      - name: Update Version
+        run: uv run python -m AutoGitSemVer.scripts.UpdatePythonVersion ./src/RepoAuditor/__init__.py ./src --verbose
+
+      - name: Build Python Package
+        run: uv build
+
+      - name: Save Package Name and Version
+        id: package_name_and_version
+        run: |-
+          cd dist
+
+          export PACKAGE_NAME=$(ls *.whl)
+          echo "package_name=${PACKAGE_NAME}" >> $GITHUB_OUTPUT
+          echo "**Package Name:** ${PACKAGE_NAME}" >> $GITHUB_STEP_SUMMARY
+
+          export PACKAGE_VERSION=$(uv run python -c "import RepoAuditor as package; print(package.__version__)")
+          echo "package_version=${PACKAGE_VERSION}" >> $GITHUB_OUTPUT
+          echo "**Package Version:** ${PACKAGE_VERSION}" >> $GITHUB_STEP_SUMMARY
+
+      - name: Upload Python Package
+        uses: actions/upload-artifact@v4
+        with:
+          name: Python package
+          path: dist/**
+
+  # ----------------------------------------------------------------------
+  validate_python_package:
+    needs: python_package
+
+    strategy:
+      fail-fast: false
+
+      matrix:
+        os: ${{ fromJson(inputs.operating_system_json_string) }}
+        python_version: ${{ fromJson(inputs.python_version_json_string) }}
+
+    name: Validate Python Package
+    runs-on: ${{ matrix.os }}
+
+    env:
+      PACKAGE_NAME: ${{ needs.python_package.outputs.package_name }}
+      PACKAGE_VERSION: ${{ needs.python_package.outputs.package_version }}
+
+    permissions: {}
+
+    steps:
+      - name: Install uv and python
+        uses: astral-sh/setup-uv@v5
+        with:
+          python-version: ${{ matrix.python_version }}
+          enable-cache: false # No uv.lock or requirements.txt files, so nothing to cache on
+          ignore-empty-workdir: true
+
+      - name: Download Python Package
+        uses: actions/download-artifact@v4
+        with:
+          name: Python package
+          path: dist
+
+      - name: Install Python Package
+        run: uv pip install dist/${{ env.PACKAGE_NAME }}
+
+      - name: Validate Python Package
+        run: uv run python -c "import RepoAuditor as package; assert package.__version__ == '${{ env.PACKAGE_VERSION }}', package.__version__"
+
+  # ----------------------------------------------------------------------
+  release:
+    needs: [package_coverage, python_package, validate_python_package]
+
+    name: Release
+    runs-on: ubuntu-latest
+
+    env:
+      COVERAGE_TOTAL: ${{ needs.package_coverage.outputs.coverage_total }}
+      PACKAGE_NAME: ${{ needs.python_package.outputs.package_name }}
+      PACKAGE_VERSION: ${{ needs.python_package.outputs.package_version }}
+      GH_TOKEN: ${{ github.token }}
+
+    permissions:
+      contents: write  # To tag the repository and create the release
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Has Release Changes?
+        id: has_release_changes
+        uses: dorny/paths-filter@v3
+        with:
+          filters: ./.github/release_sources.yaml
+
+      - name: Release
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && steps.has_release_changes.outputs.src == 'true' }}
+        uses: ./.github/actions/release_impl
+        with:
+          minisign_private_key: ${{ secrets.MINISIGN_PRIVATE_KEY }}
+          pypi_publish_token: ${{ secrets.PYPI_PUBLISH_TOKEN }}
+          coverage_badge_gist_token: ${{ secrets.COVERAGE_BADGE_GIST_TOKEN }}
+          coverage_badge_gist_id: ${{ inputs.coverage_badge_gist_id }}
+          coverage_badge_gist_username: ${{ inputs.coverage_badge_gist_username }}

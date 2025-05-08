@@ -12,7 +12,7 @@ from .Impl.ClassicEnableRequirementImpl import ClassicEnableRequirementImpl
 
 
 # ----------------------------------------------------------------------
-class AllowForcePushes(ClassicEnableRequirementImpl):  # pylint: disable=missing-class-docstring
+class AllowForcePushes(ClassicEnableRequirementImpl):
     # ----------------------------------------------------------------------
     def __init__(self):
         super(AllowForcePushes, self).__init__(

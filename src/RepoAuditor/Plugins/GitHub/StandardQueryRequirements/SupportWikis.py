@@ -12,7 +12,7 @@ from .Impl.StandardEnableRequirementImpl import StandardEnableRequirementImpl
 
 
 # ----------------------------------------------------------------------
-class SupportWikis(StandardEnableRequirementImpl):  # pylint: disable=missing-class-docstring
+class SupportWikis(StandardEnableRequirementImpl):
     # ----------------------------------------------------------------------
     def __init__(self):
         super(SupportWikis, self).__init__(

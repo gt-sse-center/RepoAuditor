@@ -25,7 +25,7 @@ If applicable, add screenshots to help explain your problem.
 
 ## Environment (please complete the following information):
  - OS: [e.g. iOS]
- - Python Version: [e.g. 3.12, 3.11, etc.]
+ - Python Version: [e.g. 3.13, 3.12, 3.11, etc.]
  - RepoAuditor Version [e.g. 1.2.3]
 
 ## Additional context

@@ -14,9 +14,7 @@ from .Impl.ClassicEnableRequirementImpl import ClassicEnableRequirementImpl
 
 
 # ----------------------------------------------------------------------
-class RequireUpToDateBranches(
-    ClassicEnableRequirementImpl
-):  # pylint: disable=missing-class-docstring
+class RequireUpToDateBranches(ClassicEnableRequirementImpl):
     # ----------------------------------------------------------------------
     def __init__(self):
         super(RequireUpToDateBranches, self).__init__(
