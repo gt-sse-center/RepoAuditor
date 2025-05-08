@@ -12,7 +12,7 @@ from .Impl.StandardEnableRequirementImpl import StandardEnableRequirementImpl
 
 
 # ----------------------------------------------------------------------
-class SupportProjects(StandardEnableRequirementImpl):  # pylint: disable=missing-class-docstring
+class SupportProjects(StandardEnableRequirementImpl):
     # ----------------------------------------------------------------------
     def __init__(self):
         super(SupportProjects, self).__init__(

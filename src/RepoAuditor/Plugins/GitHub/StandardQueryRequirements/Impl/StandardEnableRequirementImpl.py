@@ -14,9 +14,7 @@ from ...Impl.EnableRequirementImpl import EnableRequirementImpl
 
 
 # ----------------------------------------------------------------------
-class StandardEnableRequirementImpl(
-    EnableRequirementImpl
-):  # pylint: disable=missing-class-docstring
+class StandardEnableRequirementImpl(EnableRequirementImpl):
     # ----------------------------------------------------------------------
     def __init__(
         self,

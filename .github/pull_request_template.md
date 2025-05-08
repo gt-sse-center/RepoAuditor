@@ -1,5 +1,5 @@
 ## :pencil: Description
-Please include a summary of the change and the work item associated with it.
+Please include a summary of the change.
 
 ## :gear: Work Item
 Please include link to the corresponding GitHub Issue or Project work item.

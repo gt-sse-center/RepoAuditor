@@ -12,7 +12,7 @@ from .Impl.ClassicEnableRequirementImpl import ClassicEnableRequirementImpl
 
 
 # ----------------------------------------------------------------------
-class RequirePullRequests(ClassicEnableRequirementImpl):  # pylint: disable=missing-class-docstring
+class RequirePullRequests(ClassicEnableRequirementImpl):
     # ----------------------------------------------------------------------
     def __init__(self):
         super(RequirePullRequests, self).__init__(

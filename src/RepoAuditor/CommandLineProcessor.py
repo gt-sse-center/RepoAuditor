@@ -176,9 +176,7 @@ class CommandLineProcessor:
                 dynamic_args.setdefault(parts[0], {}).setdefault(None, {}).setdefault(  # type: ignore
                     parts[1],
                     {},
-                )[
-                    argument_separator.join(parts[2:])
-                ] = value
+                )[argument_separator.join(parts[2:])] = value
 
         module_infos: list[ModuleInfo] = []
 

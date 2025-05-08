@@ -12,9 +12,7 @@ from .Impl.StandardEnableRequirementImpl import StandardEnableRequirementImpl
 
 
 # ----------------------------------------------------------------------
-class SuggestUpdatingPullRequestBranches(
-    StandardEnableRequirementImpl
-):  # pylint: disable=missing-class-docstring
+class SuggestUpdatingPullRequestBranches(StandardEnableRequirementImpl):
     # ----------------------------------------------------------------------
     def __init__(self):
         super(SuggestUpdatingPullRequestBranches, self).__init__(

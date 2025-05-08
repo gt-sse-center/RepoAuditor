@@ -14,9 +14,7 @@ from .Impl.ClassicEnableRequirementImpl import ClassicEnableRequirementImpl
 
 
 # ----------------------------------------------------------------------
-class RequireCodeOwnerReview(
-    ClassicEnableRequirementImpl
-):  # pylint: disable=missing-class-docstring
+class RequireCodeOwnerReview(ClassicEnableRequirementImpl):
     # ----------------------------------------------------------------------
     def __init__(self):
         super(RequireCodeOwnerReview, self).__init__(

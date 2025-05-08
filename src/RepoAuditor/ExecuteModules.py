@@ -59,9 +59,7 @@ def Execute(
     ignore_warnings_module_names = ignore_warnings_module_names or set()
     max_num_threads = 1 if single_threaded else None
 
-    with dm.Nested(
-        "Processing {}...".format(inflect.no("module", len(module_infos)))
-    ) as modules_dm:
+    with dm.Nested("Processing {}...".format(inflect.no("module", len(module_infos)))) as modules_dm:
         # Organize the modules into those that can be run in parallel and those that must be run
         # sequentially.
         parallel: list[tuple[int, ModuleInfo]] = []
@@ -132,7 +130,7 @@ def Execute(
             # ----------------------------------------------------------------------
             def Prepare(
                 context: Any,
-                on_simple_status_func: Callable[[str], None],  # pylint: disable=unused-argument
+                on_simple_status_func: Callable[[str], None],
             ) -> tuple[int, ExecuteTasks.TransformTasksExTypes.TransformFuncType]:
                 module_info = cast(ModuleInfo, context)
                 del context
@@ -154,9 +152,7 @@ def Execute(
 
                     result_code, result_status = CalcResultInfo(evaluate_results)
 
-                    return ExecuteTasks.TransformResultComplete(
-                        evaluate_results, result_code, result_status
-                    )
+                    return ExecuteTasks.TransformResultComplete(evaluate_results, result_code, result_status)
 
                 # ----------------------------------------------------------------------
 

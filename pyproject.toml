@@ -1,71 +1,36 @@
-# https://packaging.python.org/en/latest/specifications/declaring-project-metadata/
-
-[build-system]
-requires = ["setuptools >= 63.0"]
-build-backend = "setuptools.build_meta"
-
-# ----------------------------------------------------------------------
-# |
-# |  Project
-# |
-# ----------------------------------------------------------------------
 [project]
 name = "RepoAuditor"
-description = "Audits repositories for best practices."
-
-license = { text = "MIT" }
-
+description = "Add your description here"
+readme = "README.md"
 authors = [
     { name = "Scientific Software Engineering Center at Georgia Tech", email = "sse-center@gatech.edu" },
 ]
-
-keywords = [
-    # TODO: Add keywords specific to your project.
+requires-python = ">= 3.10"
+dependencies = [
+    "dbrownell-common>=0.14.6",
+    "pluggy>=1.5.0",
+    "requests>=2.32.3",
+    "typer>=0.15.3",
 ]
-
-# https://pypi.org/classifiers/
+dynamic = ["version"]
 classifiers = [
-    # TODO: Add additional classifiers specific to your project.
-    "License :: OSI Approved :: MIT License",
     "Operating System :: MacOS",
     "Operating System :: Microsoft :: Windows",
     "Operating System :: POSIX :: Linux",
     "Programming Language :: Python",
-    "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.13",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.10",
 ]
 
-dependencies = [
-    "dbrownell_Common",
-    "pluggy == 1.*",
-    "requests ~= 2.32",
-    "typer ~= 0.9",
-]
-
-dynamic = [
-    "version",
-]
-
-readme = "README.md"
-
-[project.optional-dependencies]
-dev = [
-    "dbrownell_DevTools",
-    "syrupy ~= 4.6",
-]
-
-package = [
-    "build ~= 1.2",
-    "cx_Freeze ~= 6.15",
-    "twine ~= 6.1",
-]
+[project.license]
+text = "MIT"
 
 [project.urls]
 Homepage = "https://github.com/gt-sse-center/RepoAuditor"
 Documentation = "https://github.com/gt-sse-center/RepoAuditor"
 Repository = "https://github.com/gt-sse-center/RepoAuditor"
-
 
 [project.scripts]
 RepoAuditor = "RepoAuditor:EntryPoint.app"
@@ -74,114 +39,121 @@ repo_auditor = "RepoAuditor:EntryPoint.app"
 [project.entry-points.RepoAuditor]
 GitHubPlugin = "RepoAuditor.Plugins.GitHubPlugin"
 
-# ----------------------------------------------------------------------
-# |
-# |  black
-# |
-# ----------------------------------------------------------------------
-[tool.black]
-line-length = 100
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
-# ----------------------------------------------------------------------
-# |
-# |  coverage
-# |
-# ----------------------------------------------------------------------
-[tool.coverage.run]
-omit = [
-    "*/Impl/*",
+[dependency-groups]
+dev = [
+    "autogitsemver>=0.8.0",
+    "pre-commit>=4.2.0",
+    "pytest>=8.3.5",
+    "pytest-cov>=6.1.1",
+    "ruff>=0.11.8",
+    "syrupy>=4.9.1",
 ]
 
-# ----------------------------------------------------------------------
-# |
-# |  pylint
-# |
-# ----------------------------------------------------------------------
-[tool.pylint.basic]
-class-const-naming-style = "any"
-function-naming-style = "PascalCase"
-good-names = [
-    "i",
-    "j",
-    "k",
-    "ex",
-    "Run",
-    "_",
-    "dm",                                   # added
-    "f",                                    # added
-]
-method-naming-style = "any"
-module-naming-style = "PascalCase"
+[tool.hatch.version]
+path = "src/RepoAuditor/__init__.py"
 
-[tool.pylint.design]
-max-args = 10
-max-parents = 15
-
-[tool.pylint.main]
-ignore-paths = [
-    # Note that the pylint vscode extension has trouble with wrapping these patterns in quotes
-    # (which is required to parse the file correctly). Because of this, each pattern must be
-    # converted to a glob pattern and specified in the pylint vscode settings as well.
-    "^.+?Tests/.*$",
-]
-
-[tool.pylint."messages control"]
-disable = [
-    "raw-checker-failed",
-    "bad-inline-option",
-    "locally-disabled",
-    "file-ignored",
-    "suppressed-message",
-    "useless-suppression",
-    "deprecated-pragma",
-    "use-symbolic-message-instead",
-    "assignment-from-no-return",            # added
-    "broad-except",                         # added
-    "broad-exception-raised",               # added
-    "cell-var-from-loop",                   # added
-    "consider-using-f-string",              # added
-    "import-outside-toplevel",              # added
-    "line-too-long",                        # added
-    "missing-function-docstring",           # added
-    "subprocess-run-check",                 # added
-    "super-with-arguments",                 # added
-    "too-few-public-methods",               # added
-    "unnecessary-lambda-assignment",        # added
-    "unspecified-encoding",                 # added
-]
-
-# ----------------------------------------------------------------------
-# |
-# |  pyright
-# |
-# ----------------------------------------------------------------------
-[tool.pyright]
-exclude = [
-    "**/*Tests/*",
-    "**/Generated/*",
-]
-
-reportMissingImports = true
-reportMissingTypeStubs = false
-
-# ----------------------------------------------------------------------
-# |
-# |  pytest
-# |
-# ----------------------------------------------------------------------
 [tool.pytest.ini_options]
-addopts = "--snapshot-warn-unused"
+addopts = "--verbose -vv --capture=no --cov=RepoAuditor --cov-fail-under=95.0"
 python_files = [
     "**/*Test.py",
 ]
 
-# ----------------------------------------------------------------------
-# |
-# |  setuptools
-# |
-# ----------------------------------------------------------------------
-[tool.setuptools.dynamic]
-version = { attr = "RepoAuditor.__version__" }
+[tool.ruff]
+line-length = 110
 
-[tool.setuptools.packages.find]
-where = ["src"]
+[tool.ruff.lint]
+exclude = ["tests/**"]
+
+# Eventually, we want to enable all rulesets...
+# select = ["ALL"]
+
+# ...however, we current experience failures in the rulesets commented out below.
+select = [
+    "AIR",
+    #"ERA", # 168
+    "FAST",
+    "YTT",
+    # "ANN", # 41
+    "ASYNC",
+    "S",
+    "BLE",
+    # "FBT", # 44
+    # "B", # 11
+    "A",
+    "COM",
+    "C4",
+    "CPY",
+    "DTZ",
+    "T10",
+    "DJ",
+    # "EM", # 9
+    "EXE",
+    "FIX",
+    "FA",
+    "INT",
+    "ISC",
+    "ICN",
+    "LOG",
+    "G",
+    "INP",
+    # "PIE", # 2
+    "T20",
+    "PYI",
+    # "PT", # 5
+    "Q",
+    # "RSE", # 1
+    "RET",
+    "SLF",
+    # "SIM", # 4
+    "SLOT",
+    # "TID", # 9
+    "TD",
+    # "TC", # 2
+    # "ARG", # 5
+    "PTH",
+    "FLY",
+    "I",
+    # "C90", # 3
+    "NPY",
+    "PD",
+    "N",
+    "PERF",
+    "E",
+    "W",
+    "DOC",
+    # "D", # 249
+    "F",
+    # "PGH", # 5
+    # "PL", # 11
+    # "UP", # 100
+    # "FURB", # 1
+    "RUF",
+    # "TRY", # 16
+
+]
+
+ignore = [
+    "ANN002", # Missing type annotation for `*args`
+    "ANN003", # Missing type annotation for `**kwargs`
+    "BLE001", # Do not catch blind exception: `Exception`
+    "COM812", # Trailing comma missing
+    "D202", # No blank lines allowed after function docstring
+    "E501", # Line too long
+    "I001", # Import block is un-sorted or un-formatted
+    "N802", # Function name `xxx` should be lowercase
+    "N999", # Invalid module name
+    "S101", # Use of assert detected
+    "UP032", # Use f-string instead of `format` call
+]
+
+[tool.ruff.lint.mccabe]
+max-complexity = 15
+
+[tool.ruff.lint.pylint]
+max-args = 10
+max-branches = 20
+max-returns = 20

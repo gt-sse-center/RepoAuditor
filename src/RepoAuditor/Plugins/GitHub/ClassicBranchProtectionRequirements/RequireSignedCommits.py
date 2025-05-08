@@ -12,7 +12,7 @@ from .Impl.ClassicEnableRequirementImpl import ClassicEnableRequirementImpl
 
 
 # ----------------------------------------------------------------------
-class RequireSignedCommits(ClassicEnableRequirementImpl):  # pylint: disable=missing-class-docstring
+class RequireSignedCommits(ClassicEnableRequirementImpl):
     # ----------------------------------------------------------------------
     def __init__(self):
         super(RequireSignedCommits, self).__init__(

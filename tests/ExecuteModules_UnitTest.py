@@ -407,9 +407,7 @@ class TestDisplayResults:
             EvaluateResult.DoesNotApply,
         ],
     )
-    def test_Output(
-        self, result, verbose, display_resolution, display_rationale, modules, capsys, snapshot
-    ):
+    def test_Output(self, result, verbose, display_resolution, display_rationale, modules, capsys, snapshot):
         dm_and_content = GenerateDoneManagerAndContent(verbose=verbose)
 
         if result in [EvaluateResult.Warning, EvaluateResult.Error]:

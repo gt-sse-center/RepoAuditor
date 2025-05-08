@@ -14,7 +14,7 @@ from .Impl.StandardValueRequirementImpl import DoesNotApplyResult, StandardValue
 
 
 # ----------------------------------------------------------------------
-class MergeCommitMessage(StandardValueRequirementImpl):  # pylint: disable=missing-class-docstring
+class MergeCommitMessage(StandardValueRequirementImpl):
     # ----------------------------------------------------------------------
     def __init__(self):
         super(MergeCommitMessage, self).__init__(

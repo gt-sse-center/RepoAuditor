@@ -14,7 +14,7 @@ from ...Impl.ValueRequirementImpl import DoesNotApplyResult, ValueRequirementImp
 
 
 # ----------------------------------------------------------------------
-class ClassicValueRequirementImpl(ValueRequirementImpl):  # pylint: disable=missing-class-docstring
+class ClassicValueRequirementImpl(ValueRequirementImpl):
     # ----------------------------------------------------------------------
     def __init__(
         self,

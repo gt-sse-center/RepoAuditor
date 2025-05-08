@@ -18,7 +18,7 @@ from RepoAuditor.Requirement import EvaluateResult, ExecutionStyle, Requirement
 
 
 # ----------------------------------------------------------------------
-class EnsureStatusChecks(Requirement):  # pylint: disable=missing-class-docstring
+class EnsureStatusChecks(Requirement):
     # ----------------------------------------------------------------------
     def __init__(self):
         super(EnsureStatusChecks, self).__init__(

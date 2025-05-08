@@ -14,7 +14,7 @@ from .Impl.StandardValueRequirementImpl import StandardValueRequirementImpl
 
 
 # ----------------------------------------------------------------------
-class License(StandardValueRequirementImpl):  # pylint: disable=missing-class-docstring
+class License(StandardValueRequirementImpl):
     # ----------------------------------------------------------------------
     def __init__(self):
         super(License, self).__init__(

@@ -12,7 +12,7 @@ from .Impl.ClassicEnableRequirementImpl import ClassicEnableRequirementImpl
 
 
 # ----------------------------------------------------------------------
-class AllowDeletions(ClassicEnableRequirementImpl):  # pylint: disable=missing-class-docstring
+class AllowDeletions(ClassicEnableRequirementImpl):
     # ----------------------------------------------------------------------
     def __init__(self):
         super(AllowDeletions, self).__init__(

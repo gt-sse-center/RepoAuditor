@@ -151,9 +151,7 @@ class TestStandard:
 
     # ----------------------------------------------------------------------
     def test_YesSuggestUpdatingPullRequestBranches(self, pat_args, snapshot):
-        result = CliRunner().invoke(
-            app, pat_args + ["--GitHub-SuggestUpdatingPullRequestBranches-true"]
-        )
+        result = CliRunner().invoke(app, pat_args + ["--GitHub-SuggestUpdatingPullRequestBranches-true"])
 
         assert result.exit_code == -1, result.output
         assert ScrubDuration(result.stdout) == snapshot
@@ -209,9 +207,7 @@ class TestStandard:
 
     # ----------------------------------------------------------------------
     def test_LicenseValue(self, pat_args, snapshot):
-        result = CliRunner().invoke(
-            app, pat_args + ["--GitHub-License-value", "Not the MIT License"]
-        )
+        result = CliRunner().invoke(app, pat_args + ["--GitHub-License-value", "Not the MIT License"])
 
         assert result.exit_code == -1, result.output
         assert ScrubDuration(result.stdout) == snapshot

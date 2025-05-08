@@ -14,9 +14,7 @@ from .Impl.ClassicEnableRequirementImpl import ClassicEnableRequirementImpl
 
 
 # ----------------------------------------------------------------------
-class RequireApprovalMostRecentPush(
-    ClassicEnableRequirementImpl
-):  # pylint: disable=missing-class-docstring
+class RequireApprovalMostRecentPush(ClassicEnableRequirementImpl):
     # ----------------------------------------------------------------------
     def __init__(self):
         super(RequireApprovalMostRecentPush, self).__init__(

@@ -3,3 +3,4 @@ src:
   - 'src/**'
   - 'pyproject.toml'
   - 'README.md'
+  - 'uv.lock'

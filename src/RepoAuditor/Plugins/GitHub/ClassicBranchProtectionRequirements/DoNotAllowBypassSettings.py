@@ -12,9 +12,7 @@ from .Impl.ClassicEnableRequirementImpl import ClassicEnableRequirementImpl
 
 
 # ----------------------------------------------------------------------
-class DoNotAllowBypassSettings(
-    ClassicEnableRequirementImpl
-):  # pylint: disable=missing-class-docstring
+class DoNotAllowBypassSettings(ClassicEnableRequirementImpl):
     # ----------------------------------------------------------------------
     def __init__(self):
         super(DoNotAllowBypassSettings, self).__init__(

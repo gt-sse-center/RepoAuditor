@@ -14,7 +14,7 @@ from .Impl.ClassicValueRequirementImpl import ClassicValueRequirementImpl, DoesN
 
 
 # ----------------------------------------------------------------------
-class RequireApprovals(ClassicValueRequirementImpl):  # pylint: disable=missing-class-docstring
+class RequireApprovals(ClassicValueRequirementImpl):
     # ----------------------------------------------------------------------
     def __init__(self):
         super(RequireApprovals, self).__init__(

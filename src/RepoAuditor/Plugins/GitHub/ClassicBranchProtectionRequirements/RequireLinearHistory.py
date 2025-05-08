@@ -12,7 +12,7 @@ from .Impl.ClassicEnableRequirementImpl import ClassicEnableRequirementImpl
 
 
 # ----------------------------------------------------------------------
-class RequireLinearHistory(ClassicEnableRequirementImpl):  # pylint: disable=missing-class-docstring
+class RequireLinearHistory(ClassicEnableRequirementImpl):
     # ----------------------------------------------------------------------
     def __init__(self):
         super(RequireLinearHistory, self).__init__(

@@ -14,9 +14,7 @@ from .Impl.ClassicEnableRequirementImpl import ClassicEnableRequirementImpl
 
 
 # ----------------------------------------------------------------------
-class DismissStalePullRequestApprovals(
-    ClassicEnableRequirementImpl
-):  # pylint: disable=missing-class-docstring
+class DismissStalePullRequestApprovals(ClassicEnableRequirementImpl):
     # ----------------------------------------------------------------------
     def __init__(self):
         super(DismissStalePullRequestApprovals, self).__init__(

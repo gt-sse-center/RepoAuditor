@@ -73,9 +73,9 @@ class Module(ABC):
             while requirement_index < len(query.requirements):
                 requirement = query.requirements[requirement_index]
 
-                if (
-                    requirement.requires_explicit_include and requirement.name not in included_names
-                ) or (requirement.name in excluded_names):
+                if (requirement.requires_explicit_include and requirement.name not in included_names) or (
+                    requirement.name in excluded_names
+                ):
                     query.requirements.pop(requirement_index)
                     continue
 
@@ -145,9 +145,7 @@ class Module(ABC):
                 num_does_not_apply: int,
             ) -> None:
                 with status_info_lock:
-                    status_info.num_completed += (
-                        num_completed - prev_query_status_info.num_completed
-                    )
+                    status_info.num_completed += num_completed - prev_query_status_info.num_completed
                     status_info.num_success += num_success - prev_query_status_info.num_success
                     status_info.num_error += num_error - prev_query_status_info.num_error
                     status_info.num_warning += num_warning - prev_query_status_info.num_warning

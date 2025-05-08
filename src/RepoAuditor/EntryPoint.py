@@ -33,9 +33,8 @@ ARGUMENT_SEPARATOR = "-"
 
 # ----------------------------------------------------------------------
 class NaturalOrderGrouper(TyperGroup):
-    # pylint: disable=missing-class-docstring
     # ----------------------------------------------------------------------
-    def list_commands(self, *args, **kwargs):  # pylint: disable=unused-argument
+    def list_commands(self, *args, **kwargs):
         return self.commands.keys()
 
 
@@ -180,9 +179,9 @@ def _VersionCallback(value: bool) -> None:
     epilog=_HelpEpilog(),
     no_args_is_help=False,
 )
-def EntryPoint(  # pylint: disable=dangerous-default-value
+def EntryPoint(
     ctx: typer.Context,
-    version: Annotated[  # pylint: disable=unused-argument
+    version: Annotated[
         bool,
         typer.Option(
             "--version",
@@ -227,9 +226,7 @@ def EntryPoint(  # pylint: disable=dangerous-default-value
     ] = False,
     single_threaded: Annotated[
         bool,
-        typer.Option(
-            "--single-threaded", help="Do not use multiple threads when evaluating requirements."
-        ),
+        typer.Option("--single-threaded", help="Do not use multiple threads when evaluating requirements."),
     ] = False,
     no_resolution: Annotated[
         bool,
@@ -266,9 +263,7 @@ def EntryPoint(  # pylint: disable=dangerous-default-value
     ) as dm:
         try:
             executor = CommandLineProcessor.Create(
-                lambda dynamic_arg_definitions: TyperEx.ProcessDynamicArgs(
-                    ctx, dynamic_arg_definitions
-                ),
+                lambda dynamic_arg_definitions: TyperEx.ProcessDynamicArgs(ctx, dynamic_arg_definitions),
                 _all_modules,
                 includes,
                 excludes,

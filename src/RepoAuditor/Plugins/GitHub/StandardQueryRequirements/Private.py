@@ -20,7 +20,7 @@ from ..Impl.Common import CreateIncompleteDataResult
 
 
 # ----------------------------------------------------------------------
-class Private(Requirement):  # pylint: disable=missing-class-docstring
+class Private(Requirement):
     # ----------------------------------------------------------------------
     def __init__(self):
         super(Private, self).__init__(
