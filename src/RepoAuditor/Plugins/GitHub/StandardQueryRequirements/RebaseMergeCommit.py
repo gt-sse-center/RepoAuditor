@@ -14,7 +14,7 @@ from .Impl.StandardEnableRequirementImpl import StandardEnableRequirementImpl
 # ----------------------------------------------------------------------
 class RebaseMergeCommit(StandardEnableRequirementImpl):
     # ----------------------------------------------------------------------
-    def __init__(self):
+    def __init__(self) -> None:
         super(RebaseMergeCommit, self).__init__(
             "RebaseMergeCommit",
             False,

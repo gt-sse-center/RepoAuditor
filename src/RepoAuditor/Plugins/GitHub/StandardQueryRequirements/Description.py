@@ -23,7 +23,7 @@ from ..Impl.Common import CreateIncompleteDataResult
 # ----------------------------------------------------------------------
 class Description(Requirement):
     # ----------------------------------------------------------------------
-    def __init__(self):
+    def __init__(self) -> None:
         super(Description, self).__init__(
             "Description",
             "Validates a repository's description.",

@@ -14,7 +14,7 @@ from .Impl.StandardEnableRequirementImpl import StandardEnableRequirementImpl
 # ----------------------------------------------------------------------
 class MergeCommit(StandardEnableRequirementImpl):
     # ----------------------------------------------------------------------
-    def __init__(self):
+    def __init__(self) -> None:
         super(MergeCommit, self).__init__(
             "MergeCommit",
             True,

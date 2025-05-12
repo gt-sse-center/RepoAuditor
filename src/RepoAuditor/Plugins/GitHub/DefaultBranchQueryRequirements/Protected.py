@@ -22,7 +22,7 @@ from ..Impl.Common import CreateIncompleteDataResult
 # ----------------------------------------------------------------------
 class Protected(Requirement):
     # ----------------------------------------------------------------------
-    def __init__(self):
+    def __init__(self) -> None:
         # Note that protected is set for the branch when creating a branch ruleset or a classic
         # branch protection rule.
         super(Protected, self).__init__(

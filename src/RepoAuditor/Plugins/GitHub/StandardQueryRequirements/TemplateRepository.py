@@ -14,7 +14,7 @@ from .Impl.StandardEnableRequirementImpl import StandardEnableRequirementImpl
 # ----------------------------------------------------------------------
 class TemplateRepository(StandardEnableRequirementImpl):
     # ----------------------------------------------------------------------
-    def __init__(self):
+    def __init__(self) -> None:
         super(TemplateRepository, self).__init__(
             "TemplateRepository",
             False,

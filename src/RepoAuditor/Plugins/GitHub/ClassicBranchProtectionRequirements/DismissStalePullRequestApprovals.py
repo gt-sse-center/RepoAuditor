@@ -16,7 +16,7 @@ from .Impl.ClassicEnableRequirementImpl import ClassicEnableRequirementImpl
 # ----------------------------------------------------------------------
 class DismissStalePullRequestApprovals(ClassicEnableRequirementImpl):
     # ----------------------------------------------------------------------
-    def __init__(self):
+    def __init__(self) -> None:
         super(DismissStalePullRequestApprovals, self).__init__(
             "DismissStalePullRequestApprovals",
             True,
