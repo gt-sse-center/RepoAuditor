@@ -19,7 +19,6 @@ class RequireApprovalMostRecentPush(ClassicEnableRequirementImpl):
     def __init__(self):
         super(RequireApprovalMostRecentPush, self).__init__(
             "RequireApprovalMostRecentPush",
-            True,
             "false",
             "Protect matching branches",
             "Require a pull request before merging -> Require approval of the most recent reviewable push",
@@ -37,6 +36,7 @@ class RequireApprovalMostRecentPush(ClassicEnableRequirementImpl):
                 - You are the only person working on the repository.
                 """,
             ),
+            default_value=True,
         )
 
 

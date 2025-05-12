@@ -19,7 +19,6 @@ class SecretScanning(StandardEnableRequirementImpl):
     def __init__(self):
         super(SecretScanning, self).__init__(
             "SecretScanning",
-            True,
             "false",
             "settings/security_analysis",
             "Secret scanning",
@@ -38,6 +37,7 @@ class SecretScanning(StandardEnableRequirementImpl):
                 <unknown>
                 """,
             ),
+            default_value=True,
             unset_set_terminology=("disabled", "enabled"),
         )
 
@@ -46,7 +46,12 @@ class SecretScanning(StandardEnableRequirementImpl):
 # ----------------------------------------------------------------------
 # ----------------------------------------------------------------------
 def _GetValue(data: dict[str, Any]) -> Optional[bool]:
-    result = data["standard"].get("security_and_analysis", {}).get("secret_scanning", {}).get("status", None)
+    result = (
+        data["standard"]
+        .get("security_and_analysis", {})
+        .get("secret_scanning", {})
+        .get("status", None)
+    )
 
     if result is None:
         return None

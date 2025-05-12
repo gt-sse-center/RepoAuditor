@@ -17,11 +17,12 @@ class RequireConversationResolution(ClassicEnableRequirementImpl):
     def __init__(self):
         super(RequireConversationResolution, self).__init__(
             "RequireConversationResolution",
-            True,
             "false",
             "Protect matching branches",
             "Require conversation resolution before merging",
-            lambda data: data["branch_protection_data"]["required_conversation_resolution"]["enabled"],
+            lambda data: data["branch_protection_data"][
+                "required_conversation_resolution"
+            ]["enabled"],
             textwrap.dedent(
                 """\
                 The default behavior is to require conversation resolution before merging a pull request.
@@ -36,4 +37,5 @@ class RequireConversationResolution(ClassicEnableRequirementImpl):
                 <unknown>
                 """,
             ),
+            default_value=True,
         )

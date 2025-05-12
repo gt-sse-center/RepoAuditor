@@ -17,7 +17,6 @@ class SupportIssues(StandardEnableRequirementImpl):
     def __init__(self):
         super(SupportIssues, self).__init__(
             "SupportIssues",
-            True,
             "false",
             "settings",
             "Features",
@@ -28,5 +27,6 @@ class SupportIssues(StandardEnableRequirementImpl):
                 No rationale for this default.
                 """,
             ),
+            default_value=True,
             subject="Support for Issues",
         )

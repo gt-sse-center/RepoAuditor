@@ -17,11 +17,12 @@ class RequireSignedCommits(ClassicEnableRequirementImpl):
     def __init__(self):
         super(RequireSignedCommits, self).__init__(
             "RequireSignedCommits",
-            True,
             "false",
             "Protect matching branches",
             "Require signed commits",
-            lambda data: data["branch_protection_data"]["required_signatures"]["enabled"],
+            lambda data: data["branch_protection_data"]["required_signatures"][
+                "enabled"
+            ],
             textwrap.dedent(
                 """\
                 The default behavior is to require signed commits. Note that this setting does not work with
@@ -36,4 +37,5 @@ class RequireSignedCommits(ClassicEnableRequirementImpl):
                 - You have enabled rebase merging or squash merging.
                 """,
             ),
+            default_value=True,
         )

@@ -17,7 +17,6 @@ class AllowForcePushes(ClassicEnableRequirementImpl):
     def __init__(self):
         super(AllowForcePushes, self).__init__(
             "AllowForcePushes",
-            False,
             "true",
             "Rules applied to everyone including administrators",
             "Allow force pushes",
@@ -37,4 +36,5 @@ class AllowForcePushes(ClassicEnableRequirementImpl):
                 <unknown>
                 """,
             ),
+            default_value=False,
         )

@@ -17,7 +17,6 @@ class RequireStatusChecksToPass(ClassicEnableRequirementImpl):
     def __init__(self):
         super(RequireStatusChecksToPass, self).__init__(
             "RequireStatusChecksToPass",
-            True,
             "false",
             "Protect matching branches",
             "Require status checks to pass before merging",
@@ -35,4 +34,5 @@ class RequireStatusChecksToPass(ClassicEnableRequirementImpl):
                 <unknown>
                 """,
             ),
+            default_value=True,
         )

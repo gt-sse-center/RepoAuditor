@@ -17,7 +17,6 @@ class TemplateRepository(StandardEnableRequirementImpl):
     def __init__(self):
         super(TemplateRepository, self).__init__(
             "TemplateRepository",
-            False,
             "true",
             "settings",
             "General",
@@ -36,4 +35,5 @@ class TemplateRepository(StandardEnableRequirementImpl):
                 - Your repository is a template repository.
                 """,
             ),
+            default_value=False,
         )

@@ -17,7 +17,6 @@ class WebCommitSignoff(StandardEnableRequirementImpl):
     def __init__(self):
         super(WebCommitSignoff, self).__init__(
             "WebCommitSignoff",
-            True,
             "false",
             "settings",
             "General",
@@ -37,4 +36,5 @@ class WebCommitSignoff(StandardEnableRequirementImpl):
                   the standard validation process.
                 """,
             ),
+            default_value=True,
         )

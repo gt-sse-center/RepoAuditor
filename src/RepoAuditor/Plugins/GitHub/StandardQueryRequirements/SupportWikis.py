@@ -17,7 +17,6 @@ class SupportWikis(StandardEnableRequirementImpl):
     def __init__(self):
         super(SupportWikis, self).__init__(
             "SupportWikis",
-            True,
             "false",
             "settings",
             "Features",
@@ -29,4 +28,5 @@ class SupportWikis(StandardEnableRequirementImpl):
                 """,
             ),
             subject="Support for Wikis",
+            default_value=True,
         )

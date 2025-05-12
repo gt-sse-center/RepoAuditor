@@ -17,7 +17,6 @@ class DeleteHeadBranches(StandardEnableRequirementImpl):
     def __init__(self):
         super(DeleteHeadBranches, self).__init__(
             "DeleteHeadBranches",
-            True,
             "false",
             "settings",
             "Pull Requests",
@@ -38,4 +37,5 @@ class DeleteHeadBranches(StandardEnableRequirementImpl):
                   includes cherry-picked changes from the release branch).
                 """,
             ),
+            default_value=True,
         )

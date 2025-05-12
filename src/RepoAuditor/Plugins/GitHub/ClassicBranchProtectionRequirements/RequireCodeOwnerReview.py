@@ -19,7 +19,6 @@ class RequireCodeOwnerReview(ClassicEnableRequirementImpl):
     def __init__(self):
         super(RequireCodeOwnerReview, self).__init__(
             "RequireCodeOwnerReview",
-            False,
             "true",
             "Protect matching branches",
             "Require a pull request before merging -> Require review from Code Owners",
@@ -41,6 +40,7 @@ class RequireCodeOwnerReview(ClassicEnableRequirementImpl):
                   catch common problems before they are introduced into the code base.
                 """,
             ),
+            default_value=False,
         )
 
 
