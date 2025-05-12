@@ -77,7 +77,7 @@ select = [
     #"ERA", # 168
     "FAST",
     "YTT",
-    "ANN", # 41
+    "ANN",
     "ASYNC",
     "S",
     "BLE",
