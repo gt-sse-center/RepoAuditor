@@ -181,6 +181,7 @@ def _VersionCallback(value: bool) -> None:
 )
 def EntryPoint(
     ctx: typer.Context,
+    *,
     version: Annotated[
         bool,
         typer.Option(
