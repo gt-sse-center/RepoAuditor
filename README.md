@@ -25,7 +25,34 @@
 TODO: Complete this section
 
 ### How to use RepoAuditor
-TODO: Complete this section
+
+The most convenient way to use RepoAuditor is via a github action
+
+1. Create a fine-grained Personal Access Token (PAT)
+    * The PAT should be under the same user / org that owns the repository
+    * Make sure the PAT has access to either all repositories, or select at least this repository
+    * Grant the following permissions:
+        1. Administration: Read-only
+        1. Contents: Read/write
+        1. Metadata: Read-only
+
+2. Create a repository secret called `REPO_AUDITOR_PAT` whose contents is the PAT.
+
+2. Create a `.github/workflows/RepoAuditor.yml` file with the following contents:
+    ```yml
+    name: RepoAuditor
+
+    on: 
+    workflow_dispatch:
+
+    jobs:
+    audit-repo:
+        runs-on: ubuntu-latest
+        steps:
+        - uses: gt-sse-center/RepoAuditor@action-v0.2.1
+            with:
+            github_pat: ${{ secrets.REPO_AUDITOR_PAT }}
+    ```
 
 <!-- Content below this delimiter will be copied to the generated README.md file. DO NOT REMOVE THIS COMMENT, as it will cause regeneration to fail. -->
 
