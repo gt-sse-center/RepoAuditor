@@ -25,7 +25,35 @@
 TODO: Complete this section
 
 ### How to use RepoAuditor
-TODO: Complete this section
+
+1. Install `RepoAuditor` as per [installation instructions](#installation) below.
+    If the installation is successful, you should be able to run
+    ```bash
+    repo_auditor --version
+    ```
+    and get an output like
+    ```bash
+    RepoAuditor v0.1.0
+    ```
+2. Setup a Personal Access Token (PAT)
+    * [Create a Personal Access Token (PAT)](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token).
+        Fine-grained PATs are recommended over classic PAT.
+    * Save the PAT to a file named `github_pat.txt` at the root of this directory
+3. Execute `RepoAuditor`
+    ```bash
+    repo_auditor --include GitHub --GitHub-url <repo_url> --GitHub-pat github_pat.txt
+    ```
+
+### Common pitfalls
+
+* **PAT permissions**:
+    `RepoAuditor` uses your PAT to authenticate when querying information from GitHub's API.
+    Therefore, it is important to ensure that your PAT has the right scope and level of permissions.
+
+* **Github API rate limits**:
+    GitHub's API has a limit of [5,000 calls per hour](https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api?apiVersion=2022-11-28#primary-rate-limit-for-authenticated-users).
+    Also be aware of [GitHub's secondary API rate limits](https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api?apiVersion=2022-11-28#about-secondary-rate-limits).
+
 
 <!-- Content below this delimiter will be copied to the generated README.md file. DO NOT REMOVE THIS COMMENT, as it will cause regeneration to fail. -->
 
