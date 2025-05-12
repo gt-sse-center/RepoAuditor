@@ -78,9 +78,7 @@ class Private(Requirement):
         expect_private = requirement_args["true"]
 
         if result != expect_private:
-            query_data["__expected_visibility"] = (
-                "private" if expect_private else "public"
-            )
+            query_data["__expected_visibility"] = "private" if expect_private else "public"
 
             return Requirement.EvaluateImplResult(
                 EvaluateResult.Error,

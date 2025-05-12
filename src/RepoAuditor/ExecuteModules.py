@@ -129,7 +129,7 @@ def Execute(
         if parallel:
             # ----------------------------------------------------------------------
             def Prepare(
-                context: Any,
+                context: Any,  # noqa: ANN401
                 on_simple_status_func: Callable[[str], None],
             ) -> tuple[int, ExecuteTasks.TransformTasksExTypes.TransformFuncType]:
                 module_info = cast(ModuleInfo, context)
