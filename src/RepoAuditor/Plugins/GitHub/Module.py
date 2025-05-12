@@ -114,7 +114,8 @@ class _GitHubSession(requests.Session):
         path_parts = url_parts.path.split("/")
 
         if len(path_parts) != 3:
-            raise ValueError(f"'{github_url}' is not a valid GitHub repository URL.")
+            msg = f"'{github_url}' is not a valid GitHub repository URL."
+            raise ValueError(msg)
 
         _, username, repo = path_parts
 
