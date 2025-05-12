@@ -132,7 +132,7 @@ class StatusInfo:
     """Class used to store information required by OnStatusFunc."""
 
     # ----------------------------------------------------------------------
-    def __init__(self):
+    def __init__(self) -> None:
         self.num_completed: int = 0
         self.num_success: int = 0
         self.num_error: int = 0

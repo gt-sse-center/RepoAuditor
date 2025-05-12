@@ -20,7 +20,7 @@ from RepoAuditor.Requirement import EvaluateResult, ExecutionStyle, Requirement
 # ----------------------------------------------------------------------
 class EnsureStatusChecks(Requirement):
     # ----------------------------------------------------------------------
-    def __init__(self):
+    def __init__(self) -> None:
         super(EnsureStatusChecks, self).__init__(
             "EnsureStatusChecks",
             "Ensure that status checks have been enabled for the branch.",

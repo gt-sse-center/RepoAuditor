@@ -140,7 +140,7 @@ class _GitHubSession(requests.Session):
         url: str,
         *args,
         **kwargs,
-    ):
+    ) -> requests.Response:
         if url and not url.startswith("/"):
             url = f"/{url}"
 

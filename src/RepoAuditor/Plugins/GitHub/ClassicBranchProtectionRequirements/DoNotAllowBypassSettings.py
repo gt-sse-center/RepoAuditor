@@ -14,7 +14,7 @@ from .Impl.ClassicEnableRequirementImpl import ClassicEnableRequirementImpl
 # ----------------------------------------------------------------------
 class DoNotAllowBypassSettings(ClassicEnableRequirementImpl):
     # ----------------------------------------------------------------------
-    def __init__(self):
+    def __init__(self) -> None:
         super(DoNotAllowBypassSettings, self).__init__(
             "DoNotAllowBypassSettings",
             True,

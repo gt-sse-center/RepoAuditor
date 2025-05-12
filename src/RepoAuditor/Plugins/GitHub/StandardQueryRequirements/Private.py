@@ -22,7 +22,7 @@ from ..Impl.Common import CreateIncompleteDataResult
 # ----------------------------------------------------------------------
 class Private(Requirement):
     # ----------------------------------------------------------------------
-    def __init__(self):
+    def __init__(self) -> None:
         super(Private, self).__init__(
             "Private",
             "Validates that the repository is set to the expected visibility.",

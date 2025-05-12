@@ -14,7 +14,7 @@ from .Impl.ClassicEnableRequirementImpl import ClassicEnableRequirementImpl
 # ----------------------------------------------------------------------
 class AllowDeletions(ClassicEnableRequirementImpl):
     # ----------------------------------------------------------------------
-    def __init__(self):
+    def __init__(self) -> None:
         super(AllowDeletions, self).__init__(
             "AllowDeletions",
             False,
