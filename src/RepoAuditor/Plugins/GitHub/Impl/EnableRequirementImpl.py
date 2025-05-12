@@ -66,7 +66,7 @@ class EnableRequirementImpl(Requirement):
             self.dynamic_arg_name: (
                 bool,
                 typer.Option(
-                    False,
+                    default=False,
                     help=f"Ensures that the value for {self.github_settings_value} is set to {not self.default_value}.",
                 ),
             ),
