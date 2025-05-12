@@ -220,14 +220,18 @@ def EntryPoint(
         ),
     ] = [],
     all_warnings_as_error: Annotated[
-        bool, typer.Option("--all-warnings-as-error", help="Treat all warnings as errors.")
+        bool,
+        typer.Option("--all-warnings-as-error", help="Treat all warnings as errors."),
     ] = False,
     ignore_all_warnings: Annotated[
         bool, typer.Option("--ignore-all-warnings", help="Ignore all warnings.")
     ] = False,
     single_threaded: Annotated[
         bool,
-        typer.Option("--single-threaded", help="Do not use multiple threads when evaluating requirements."),
+        typer.Option(
+            "--single-threaded",
+            help="Do not use multiple threads when evaluating requirements.",
+        ),
     ] = False,
     no_resolution: Annotated[
         bool,
