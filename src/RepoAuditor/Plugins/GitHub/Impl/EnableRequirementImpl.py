@@ -26,7 +26,6 @@ class EnableRequirementImpl(Requirement):
     def __init__(
         self,
         name: str,
-        default_value: bool,
         dynamic_arg_name: str,
         github_settings_value: str,
         get_configuration_value_func: Callable[[dict[str, Any]], Optional[bool]],
@@ -34,6 +33,7 @@ class EnableRequirementImpl(Requirement):
         rationale: str,
         subject: Optional[str] = None,
         *,
+        default_value: bool,
         requires_explicit_include: bool = False,
         unset_set_terminology: tuple[str, str] = ("unchecked", "checked"),
         missing_value_is_warning: bool = True,
