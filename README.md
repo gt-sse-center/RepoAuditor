@@ -43,6 +43,8 @@ The most convenient way to use RepoAuditor is via a github action
     name: RepoAuditor
 
     on: 
+      schedule:
+        - cron: '0 0 * * *' # Every day at midnight UTC
     workflow_dispatch:
 
     jobs:
