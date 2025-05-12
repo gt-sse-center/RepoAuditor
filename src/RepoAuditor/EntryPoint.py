@@ -165,7 +165,7 @@ def _HelpEpilog() -> str:
 
 
 # ----------------------------------------------------------------------
-def _VersionCallback(value: bool) -> None:
+def _VersionCallback(value: bool) -> None:  # noqa: FBT001
     if value:
         sys.stdout.write(f"RepoAuditor v{__version__}\n")
         raise typer.Exit()
