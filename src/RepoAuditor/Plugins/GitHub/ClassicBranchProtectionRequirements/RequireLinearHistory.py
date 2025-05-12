@@ -20,9 +20,7 @@ class RequireLinearHistory(ClassicEnableRequirementImpl):
             "true",
             "Protect matching branches",
             "Require linear history",
-            lambda data: data["branch_protection_data"]["required_linear_history"][
-                "enabled"
-            ],
+            lambda data: data["branch_protection_data"]["required_linear_history"]["enabled"],
             textwrap.dedent(
                 """\
                 The default behavior is to not require a linear history as this option is disabled when rebase

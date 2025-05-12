@@ -20,8 +20,7 @@ class RequirePullRequests(ClassicEnableRequirementImpl):
             "false",
             "Protect matching branches",
             "Require a pull request before merging",
-            lambda data: "required_pull_request_reviews"
-            in data["branch_protection_data"],
+            lambda data: "required_pull_request_reviews" in data["branch_protection_data"],
             textwrap.dedent(
                 """\
                 The default behavior is to require pull requests before merging.

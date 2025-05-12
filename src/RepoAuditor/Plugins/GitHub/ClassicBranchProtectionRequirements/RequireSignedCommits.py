@@ -20,9 +20,7 @@ class RequireSignedCommits(ClassicEnableRequirementImpl):
             "false",
             "Protect matching branches",
             "Require signed commits",
-            lambda data: data["branch_protection_data"]["required_signatures"][
-                "enabled"
-            ],
+            lambda data: data["branch_protection_data"]["required_signatures"]["enabled"],
             textwrap.dedent(
                 """\
                 The default behavior is to require signed commits. Note that this setting does not work with

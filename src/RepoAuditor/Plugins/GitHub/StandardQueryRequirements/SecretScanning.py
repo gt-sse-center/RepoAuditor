@@ -46,12 +46,7 @@ class SecretScanning(StandardEnableRequirementImpl):
 # ----------------------------------------------------------------------
 # ----------------------------------------------------------------------
 def _GetValue(data: dict[str, Any]) -> Optional[bool]:
-    result = (
-        data["standard"]
-        .get("security_and_analysis", {})
-        .get("secret_scanning", {})
-        .get("status", None)
-    )
+    result = data["standard"].get("security_and_analysis", {}).get("secret_scanning", {}).get("status", None)
 
     if result is None:
         return None
