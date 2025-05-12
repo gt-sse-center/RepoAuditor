@@ -140,7 +140,7 @@ def Execute(
                     status: ExecuteTasks.Status,
                 ) -> ExecuteTasks.TransformResultComplete:
                     # ----------------------------------------------------------------------
-                    def OnStatus(num_completed: int, *args, **kwargs):
+                    def OnStatus(num_completed: int, *args, **kwargs) -> bool:
                         status.OnProgress(
                             num_completed,
                             _CreateStatusString(*args, **kwargs),
