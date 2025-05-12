@@ -1,0 +1,12 @@
+on: 
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *' # Every day at midnight UTC
+
+jobs:
+  audit-repo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: mtanneau/RepoAuditor@action-v0.2
+        with:
+          github_pat: ${{ secrets.REPO_AUDITOR_PAT }}
