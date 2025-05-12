@@ -17,7 +17,6 @@ class SupportDiscussions(StandardEnableRequirementImpl):
     def __init__(self):
         super(SupportDiscussions, self).__init__(
             "SupportDiscussions",
-            False,
             "true",
             "settings",
             "Features",
@@ -28,5 +27,6 @@ class SupportDiscussions(StandardEnableRequirementImpl):
                 No rationale for this default.
                 """,
             ),
+            default_value=False,
             subject="Support for Discussions",
         )

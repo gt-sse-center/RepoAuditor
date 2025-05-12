@@ -19,7 +19,6 @@ class RequireUpToDateBranches(ClassicEnableRequirementImpl):
     def __init__(self):
         super(RequireUpToDateBranches, self).__init__(
             "RequireUpToDateBranches",
-            True,
             "false",
             "Protect matching branches",
             "Require status checks to pass before merging -> Require branches to be up to date before merging",
@@ -39,6 +38,7 @@ class RequireUpToDateBranches(ClassicEnableRequirementImpl):
                 <unknown>
                 """,
             ),
+            default_value=True,
         )
 
 

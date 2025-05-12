@@ -19,7 +19,6 @@ class SecretScanningPushProtection(StandardEnableRequirementImpl):
     def __init__(self):
         super(SecretScanningPushProtection, self).__init__(
             "SecretScanningPushProtection",
-            True,
             "false",
             "settings/security_analysis",
             "Secret scanning",
@@ -38,6 +37,7 @@ class SecretScanningPushProtection(StandardEnableRequirementImpl):
                 <unknown>
                 """,
             ),
+            default_value=True,
             unset_set_terminology=("disabled", "enabled"),
         )
 

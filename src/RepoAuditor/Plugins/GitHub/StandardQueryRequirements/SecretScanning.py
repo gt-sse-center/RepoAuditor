@@ -19,7 +19,6 @@ class SecretScanning(StandardEnableRequirementImpl):
     def __init__(self):
         super(SecretScanning, self).__init__(
             "SecretScanning",
-            True,
             "false",
             "settings/security_analysis",
             "Secret scanning",
@@ -38,6 +37,7 @@ class SecretScanning(StandardEnableRequirementImpl):
                 <unknown>
                 """,
             ),
+            default_value=True,
             unset_set_terminology=("disabled", "enabled"),
         )
 

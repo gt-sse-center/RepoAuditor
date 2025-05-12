@@ -17,7 +17,6 @@ class RequireLinearHistory(ClassicEnableRequirementImpl):
     def __init__(self):
         super(RequireLinearHistory, self).__init__(
             "RequireLinearHistory",
-            False,
             "true",
             "Protect matching branches",
             "Require linear history",
@@ -37,4 +36,5 @@ class RequireLinearHistory(ClassicEnableRequirementImpl):
                 - You have enabled rebase merging or squash merging
                 """,
             ),
+            default_value=False,
         )

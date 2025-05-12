@@ -17,7 +17,6 @@ class RequireSignedCommits(ClassicEnableRequirementImpl):
     def __init__(self):
         super(RequireSignedCommits, self).__init__(
             "RequireSignedCommits",
-            True,
             "false",
             "Protect matching branches",
             "Require signed commits",
@@ -36,4 +35,5 @@ class RequireSignedCommits(ClassicEnableRequirementImpl):
                 - You have enabled rebase merging or squash merging.
                 """,
             ),
+            default_value=True,
         )

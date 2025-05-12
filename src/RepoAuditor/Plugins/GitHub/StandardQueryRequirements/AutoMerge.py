@@ -17,7 +17,6 @@ class AutoMerge(StandardEnableRequirementImpl):
     def __init__(self):
         super(AutoMerge, self).__init__(
             "AutoMerge",
-            True,
             "false",
             "settings",
             "Pull Requests",
@@ -36,4 +35,5 @@ class AutoMerge(StandardEnableRequirementImpl):
                 <unknown>
                 """,
             ),
+            default_value=True,
         )

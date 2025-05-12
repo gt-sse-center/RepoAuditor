@@ -58,7 +58,7 @@ class Protected(Requirement):
             "false": (
                 bool,
                 typer.Option(
-                    False,
+                    default=False,
                     help="Allow an unprotected mainline branch.",
                 ),
             ),

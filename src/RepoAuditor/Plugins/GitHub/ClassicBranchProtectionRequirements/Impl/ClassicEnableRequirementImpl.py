@@ -19,7 +19,6 @@ class ClassicEnableRequirementImpl(EnableRequirementImpl):
     def __init__(
         self,
         name: str,
-        default_value: bool,
         dynamic_arg_name: str,
         github_settings_section: str,
         github_settings_value: str,
@@ -27,12 +26,12 @@ class ClassicEnableRequirementImpl(EnableRequirementImpl):
         rationale: str,
         subject: Optional[str] = None,
         *,
+        default_value: bool,
         requires_explicit_include: bool = False,
         unset_set_terminology: tuple[str, str] = ("unchecked", "checked"),
     ) -> None:
         super(ClassicEnableRequirementImpl, self).__init__(
             name,
-            default_value,
             dynamic_arg_name,
             github_settings_value,
             get_configuration_value_func,
@@ -47,6 +46,7 @@ class ClassicEnableRequirementImpl(EnableRequirementImpl):
             ),
             rationale,
             subject,
+            default_value=default_value,
             requires_explicit_include=requires_explicit_include,
             unset_set_terminology=unset_set_terminology,
             missing_value_is_warning=False,

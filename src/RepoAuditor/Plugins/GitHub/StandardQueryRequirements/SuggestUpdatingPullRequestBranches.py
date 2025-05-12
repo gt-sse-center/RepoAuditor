@@ -17,7 +17,6 @@ class SuggestUpdatingPullRequestBranches(StandardEnableRequirementImpl):
     def __init__(self):
         super(SuggestUpdatingPullRequestBranches, self).__init__(
             "SuggestUpdatingPullRequestBranches",
-            False,
             "true",
             "settings",
             "Pull Requests",
@@ -38,4 +37,5 @@ class SuggestUpdatingPullRequestBranches(StandardEnableRequirementImpl):
                 - Merge problems more insidious than conflicts are infrequent.
                 """,
             ),
+            default_value=False,
         )

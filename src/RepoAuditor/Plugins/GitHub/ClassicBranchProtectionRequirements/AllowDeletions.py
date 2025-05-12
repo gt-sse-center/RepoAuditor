@@ -17,7 +17,6 @@ class AllowDeletions(ClassicEnableRequirementImpl):
     def __init__(self):
         super(AllowDeletions, self).__init__(
             "AllowDeletions",
-            False,
             "true",
             "Rules applied to everyone including administrators",
             "Allow deletions",
@@ -35,4 +34,5 @@ class AllowDeletions(ClassicEnableRequirementImpl):
                 <unknown>
                 """,
             ),
+            default_value=False,
         )

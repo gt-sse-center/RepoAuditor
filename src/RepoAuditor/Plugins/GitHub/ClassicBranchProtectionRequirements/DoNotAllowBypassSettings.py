@@ -17,7 +17,6 @@ class DoNotAllowBypassSettings(ClassicEnableRequirementImpl):
     def __init__(self):
         super(DoNotAllowBypassSettings, self).__init__(
             "DoNotAllowBypassSettings",
-            True,
             "false",
             "Protect matching branches",
             "Do not allow bypassing the above settings",
@@ -41,4 +40,5 @@ class DoNotAllowBypassSettings(ClassicEnableRequirementImpl):
                   underlying instability.
                 """,
             ),
+            default_value=True,
         )
