@@ -16,7 +16,7 @@ from .Impl.StandardValueRequirementImpl import StandardValueRequirementImpl
 # ----------------------------------------------------------------------
 class License(StandardValueRequirementImpl):
     # ----------------------------------------------------------------------
-    def __init__(self):
+    def __init__(self) -> None:
         super(License, self).__init__(
             "License",
             "MIT License",

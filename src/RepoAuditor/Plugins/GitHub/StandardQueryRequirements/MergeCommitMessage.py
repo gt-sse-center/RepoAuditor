@@ -16,7 +16,7 @@ from .Impl.StandardValueRequirementImpl import DoesNotApplyResult, StandardValue
 # ----------------------------------------------------------------------
 class MergeCommitMessage(StandardValueRequirementImpl):
     # ----------------------------------------------------------------------
-    def __init__(self):
+    def __init__(self) -> None:
         super(MergeCommitMessage, self).__init__(
             "MergeCommitMessage",
             "BLANK",
