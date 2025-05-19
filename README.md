@@ -16,18 +16,70 @@
 
 ## Contents
 - [Overview](#overview)
+  - [How to use RepoAuditor](#how-to-use-repoauditor)
+  - [Personal Access Token](#personal-access-token)
+  - [Example Usage](#example-usage)
 - [Installation](#installation)
 - [Development](#development)
 - [Additional Information](#additional-information)
 - [License](#license)
 
 ## Overview
-TODO: Complete this section
+
+We recommend using [uv](https://docs.astral.sh/uv/#uv) since `RepoAuditor` uses `uv` to create and manage a virtual environment.
 
 ### How to use RepoAuditor
-TODO: Complete this section
 
 <!-- Content below this delimiter will be copied to the generated README.md file. DO NOT REMOVE THIS COMMENT, as it will cause regeneration to fail. -->
+
+Once installed, you can invoke the following to verify if `RepoAuditor` is installed correctly:
+```shell
+uv run repo_auditor --version
+```
+and you should see something like
+```shell
+RepoAuditor vX.X.X
+```
+
+To get a list of command line options, you can run
+```shell
+uv run repo_auditor --help
+```
+
+### Personal Access Token (PAT)
+
+The most common use case for `RepoAuditor` would be to audit a GitHub repository.
+In order to allow `RepoAuditor` to read the repository, you first need to generate a Personal Access Token or PAT.
+
+Please refer to the [GitHub documentation on Personal Access Tokens](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) for details about a `Fine-grained PAT` which we will be using.
+
+To generate the Fine-grained PAT, we perform the following steps:
+
+1. Go to `Settings -> Developer settings -> Personal Access Token -> Fine-grained tokens`.
+2. Click on `Generate new token`.
+3. Give the token a name and a description.
+4. Set an appropriate expiration date.
+5. Under `Repository Access`, select `All repositories`.
+6. For permissions, we need to go to `Repository permissions`.
+7. Enable Read-Write access to `Contents`, and Read access to `Administration`, `Secret Scanning` and `Dependabot Alerts`.
+8. Click on `Generate token`.
+9. Copy the generated string. This is your PAT.
+
+After obtaining the PAT, you can save it in a file (e.g. `PAT`) which `RepoAuditor` can read on operation.
+
+### Example Usage
+
+With the above generated PAT file, you can now run `RepoAuditor` on your GitHub repository.
+As an example, we will use the [python-helloworld](https://github.com/dbarnett/python-helloworld) repo.
+
+**NOTE** You need to fork the repository since your default PAT only has access to repos under your account.
+
+To run `RepoAuditor`, we can enter the following in the command-line:
+```shell
+uv run repo_auditor --include GitHub --GitHub-url https://github.com/<username>/python-helloworld --GitHub-pat PAT
+```
+
+`RepoAuditor` will generate a series of messages describing all the issues in the repository, along with the rationale behind them and the steps for resolution.
 
 ## Installation
 
@@ -41,7 +93,9 @@ Artifacts are signed and validated using [py-minisign](https://github.com/x13a/p
 
 To verify that an artifact is valid, visit [the latest release](https://github.com/gt-sse-center/RepoAuditor/releases/latest) and download the `.minisign` signature file that corresponds to the artifact, then run the following command, replacing `<filename>` with the name of the artifact to be verified:
 
-`uv run --with py-minisign python -c "import minisign; minisign.PublicKey.from_file('minisign_key.pub').verify_file('<filename>')"`
+```shell
+uv run --with py-minisign python -c "import minisign; minisign.PublicKey.from_file('minisign_key.pub').verify_file('<filename>')"
+```
 
 ## Development
 Please visit [Contributing](https://github.com/gt-sse-center/RepoAuditor/blob/main/CONTRIBUTING.md) and [Development](https://github.com/gt-sse-center/RepoAuditor/blob/main/DEVELOPMENT.md) for information on contributing to this project.
