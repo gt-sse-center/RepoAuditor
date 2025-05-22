@@ -14,14 +14,15 @@ from pathlib import Path
 
 import pytest
 
-from dbrownell_Common.Streams.Capabilities import Capabilities
 from dbrownell_Common.TestHelpers.StreamTestHelpers import (
     InitializeStreamCapabilities,
-    ScrubDuration,
 )
 from typer.testing import CliRunner
 
 from RepoAuditor.EntryPoint import app
+
+
+from utilities import ScrubDurationGithuburlAndSpaces, GetGithubUrl
 
 # ----------------------------------------------------------------------
 _github_pat_filename = (Path(__file__).parent / "github_pat.txt").resolve()
@@ -53,7 +54,6 @@ if not _github_pat_filename.is_file():
 
     sys.exit(-1)
 
-
 # ----------------------------------------------------------------------
 pytest.fixture(InitializeStreamCapabilities(), scope="session", autouse=True)
 
@@ -63,7 +63,7 @@ def test_Successful(pat_args, snapshot):
     result = CliRunner().invoke(app, pat_args)
 
     assert result.exit_code == 0, result.output
-    assert ScrubDuration(result.stdout) == snapshot
+    assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
 
 
 # ----------------------------------------------------------------------
@@ -88,7 +88,7 @@ def test_NoPAT(snapshot, args):
     result = CliRunner().invoke(app, args)
 
     assert result.exit_code == 1, result.output
-    assert ScrubDuration(result.stdout) == snapshot
+    assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
 
 
 # ----------------------------------------------------------------------
@@ -98,119 +98,119 @@ class TestStandard:
         result = CliRunner().invoke(app, pat_args + ["--GitHub-AutoMerge-false"])
 
         assert result.exit_code == -1, result.output
-        assert ScrubDuration(result.stdout) == snapshot
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
 
     # ----------------------------------------------------------------------
     def test_NoDeleteHeadBranches(self, pat_args, snapshot):
         result = CliRunner().invoke(app, pat_args + ["--GitHub-DeleteHeadBranches-false"])
 
         assert result.exit_code == -1, result.output
-        assert ScrubDuration(result.stdout) == snapshot
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
 
     # ----------------------------------------------------------------------
     def test_NoDependabotSecurityUpdates(self, pat_args, snapshot):
         result = CliRunner().invoke(app, pat_args + ["--GitHub-DependabotSecurityUpdates-false"])
 
         assert result.exit_code == -1, result.output
-        assert ScrubDuration(result.stdout) == snapshot
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
 
     # ----------------------------------------------------------------------
     def test_NoMergeCommit(self, pat_args, snapshot):
         result = CliRunner().invoke(app, pat_args + ["--GitHub-MergeCommit-false"])
 
         assert result.exit_code == -1, result.output
-        assert ScrubDuration(result.stdout) == snapshot
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
 
     # ----------------------------------------------------------------------
     def test_YesRebaseMergeCommit(self, pat_args, snapshot):
         result = CliRunner().invoke(app, pat_args + ["--GitHub-RebaseMergeCommit-true"])
 
         assert result.exit_code == -1, result.output
-        assert ScrubDuration(result.stdout) == snapshot
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
 
     # ----------------------------------------------------------------------
     def test_NoSecretScanning(self, pat_args, snapshot):
         result = CliRunner().invoke(app, pat_args + ["--GitHub-SecretScanning-false"])
 
         assert result.exit_code == -1, result.output
-        assert ScrubDuration(result.stdout) == snapshot
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
 
     # ----------------------------------------------------------------------
     def test_NoSecretScanningPushProtection(self, pat_args, snapshot):
         result = CliRunner().invoke(app, pat_args + ["--GitHub-SecretScanningPushProtection-false"])
 
         assert result.exit_code == -1, result.output
-        assert ScrubDuration(result.stdout) == snapshot
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
 
     # ----------------------------------------------------------------------
     def test_YesSquashCommitMerge(self, pat_args, snapshot):
         result = CliRunner().invoke(app, pat_args + ["--GitHub-SquashCommitMerge-true"])
 
         assert result.exit_code == -1, result.output
-        assert ScrubDuration(result.stdout) == snapshot
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
 
     # ----------------------------------------------------------------------
     def test_YesSuggestUpdatingPullRequestBranches(self, pat_args, snapshot):
         result = CliRunner().invoke(app, pat_args + ["--GitHub-SuggestUpdatingPullRequestBranches-true"])
 
         assert result.exit_code == -1, result.output
-        assert ScrubDuration(result.stdout) == snapshot
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
 
     # ----------------------------------------------------------------------
     def test_YesSupportDiscussions(self, pat_args, snapshot):
         result = CliRunner().invoke(app, pat_args + ["--GitHub-SupportDiscussions-true"])
 
         assert result.exit_code == -1, result.output
-        assert ScrubDuration(result.stdout) == snapshot
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
 
     # ----------------------------------------------------------------------
     def test_NoSupportIssues(self, pat_args, snapshot):
         result = CliRunner().invoke(app, pat_args + ["--GitHub-SupportIssues-false"])
 
         assert result.exit_code == -1, result.output
-        assert ScrubDuration(result.stdout) == snapshot
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
 
     # ----------------------------------------------------------------------
     def test_NoSupportProjects(self, pat_args, snapshot):
         result = CliRunner().invoke(app, pat_args + ["--GitHub-SupportProjects-false"])
 
         assert result.exit_code == -1, result.output
-        assert ScrubDuration(result.stdout) == snapshot
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
 
     # ----------------------------------------------------------------------
     def test_NoSupportWikis(self, pat_args, snapshot):
         result = CliRunner().invoke(app, pat_args + ["--GitHub-SupportWikis-false"])
 
         assert result.exit_code == -1, result.output
-        assert ScrubDuration(result.stdout) == snapshot
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
 
     # ----------------------------------------------------------------------
     def test_YesTemplateRepository(self, pat_args, snapshot):
         result = CliRunner().invoke(app, pat_args + ["--GitHub-TemplateRepository-true"])
 
         assert result.exit_code == -1, result.output
-        assert ScrubDuration(result.stdout) == snapshot
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
 
     # ----------------------------------------------------------------------
     def test_NoWebCommitSignoff(self, pat_args, snapshot):
         result = CliRunner().invoke(app, pat_args + ["--GitHub-WebCommitSignoff-false"])
 
         assert result.exit_code == -1, result.output
-        assert ScrubDuration(result.stdout) == snapshot
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
 
     # ----------------------------------------------------------------------
     def test_DefaultBranchValue(self, pat_args, snapshot):
         result = CliRunner().invoke(app, pat_args + ["--GitHub-DefaultBranch-value", "not_main"])
 
         assert result.exit_code == -1, result.output
-        assert ScrubDuration(result.stdout) == snapshot
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
 
     # ----------------------------------------------------------------------
     def test_LicenseValue(self, pat_args, snapshot):
         result = CliRunner().invoke(app, pat_args + ["--GitHub-License-value", "Not the MIT License"])
 
         assert result.exit_code == -1, result.output
-        assert ScrubDuration(result.stdout) == snapshot
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
 
     # ----------------------------------------------------------------------
     def test_MergeCommitMessageValue(self, pat_args, snapshot):
@@ -224,7 +224,7 @@ class TestStandard:
         )
 
         assert result.exit_code == -1, result.output
-        assert ScrubDuration(result.stdout) == snapshot
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
 
     # ----------------------------------------------------------------------
     def test_PrivateValue(self, pat_args, snapshot):
@@ -234,7 +234,7 @@ class TestStandard:
         )
 
         assert result.exit_code == -1, result.output
-        assert ScrubDuration(result.stdout) == snapshot
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
 
     # ----------------------------------------------------------------------
     def test_SquashMergeCommitMessageValue(self, pat_args, snapshot):
@@ -248,7 +248,7 @@ class TestStandard:
         )
 
         assert result.exit_code == -1, result.output
-        assert ScrubDuration(result.stdout) == snapshot
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
 
     # ----------------------------------------------------------------------
     def test_Protected(self, pat_args, snapshot):
@@ -258,7 +258,7 @@ class TestStandard:
         )
 
         assert result.exit_code == -1, result.output
-        assert ScrubDuration(result.stdout) == snapshot
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
 
 
 # ----------------------------------------------------------------------
@@ -271,7 +271,7 @@ class TestClassic:
         )
 
         assert result.exit_code == -1, result.output
-        assert ScrubDuration(result.stdout) == snapshot
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
 
     # ----------------------------------------------------------------------
     def test_AllowForcePush(self, pat_args, snapshot):
@@ -281,7 +281,7 @@ class TestClassic:
         )
 
         assert result.exit_code == -1, result.output
-        assert ScrubDuration(result.stdout) == snapshot
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
 
     # ----------------------------------------------------------------------
     def test_DismissStalePullRequestApprovals(self, pat_args, snapshot):
@@ -291,7 +291,7 @@ class TestClassic:
         )
 
         assert result.exit_code == -1, result.output
-        assert ScrubDuration(result.stdout) == snapshot
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
 
     # ----------------------------------------------------------------------
     def test_DoNotAllowBypassSettings(self, pat_args, snapshot):
@@ -301,7 +301,7 @@ class TestClassic:
         )
 
         assert result.exit_code == -1, result.output
-        assert ScrubDuration(result.stdout) == snapshot
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
 
     # ----------------------------------------------------------------------
     def test_EnsureStatusChecks(self, pat_args):
@@ -321,7 +321,7 @@ class TestClassic:
         )
 
         assert result.exit_code == -1, result.output
-        assert ScrubDuration(result.stdout) == snapshot
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
 
     # ----------------------------------------------------------------------
     def test_RequireApprovals(self, pat_args, snapshot):
@@ -331,7 +331,7 @@ class TestClassic:
         )
 
         assert result.exit_code == -1, result.output
-        assert ScrubDuration(result.stdout) == snapshot
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
 
     # ----------------------------------------------------------------------
     def test_RequireCodeOwnerReview(self, pat_args, snapshot):
@@ -341,7 +341,7 @@ class TestClassic:
         )
 
         assert result.exit_code == -1, result.output
-        assert ScrubDuration(result.stdout) == snapshot
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
 
     # ----------------------------------------------------------------------
     def test_RequireConversationResolution(self, pat_args, snapshot):
@@ -351,7 +351,7 @@ class TestClassic:
         )
 
         assert result.exit_code == -1, result.output
-        assert ScrubDuration(result.stdout) == snapshot
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
 
     # ----------------------------------------------------------------------
     def test_RequireLinearHistory(self, pat_args, snapshot):
@@ -361,7 +361,7 @@ class TestClassic:
         )
 
         assert result.exit_code == -1, result.output
-        assert ScrubDuration(result.stdout) == snapshot
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
 
     # ----------------------------------------------------------------------
     def test_RequirePullRequests(self, pat_args, snapshot):
@@ -371,7 +371,7 @@ class TestClassic:
         )
 
         assert result.exit_code == -1, result.output
-        assert ScrubDuration(result.stdout) == snapshot
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
 
     # ----------------------------------------------------------------------
     def test_RequireSignedCommits(self, pat_args, snapshot):
@@ -381,7 +381,7 @@ class TestClassic:
         )
 
         assert result.exit_code == -1, result.output
-        assert ScrubDuration(result.stdout) == snapshot
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
 
     # ----------------------------------------------------------------------
     def test_RequireStatusChecksToPass(self, pat_args, snapshot):
@@ -391,7 +391,7 @@ class TestClassic:
         )
 
         assert result.exit_code == -1, result.output
-        assert ScrubDuration(result.stdout) == snapshot
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
 
     # ----------------------------------------------------------------------
     def test_RequireUpToDateBranches(self, pat_args, snapshot):
@@ -401,7 +401,7 @@ class TestClassic:
         )
 
         assert result.exit_code == -1, result.output
-        assert ScrubDuration(result.stdout) == snapshot
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
 
 
 # ----------------------------------------------------------------------
@@ -413,7 +413,7 @@ def args() -> list[str]:
         "--include",
         "GitHub",
         "--GitHub-url",
-        "https://github.com/gt-sse-center/RepoAuditor",
+        GetGithubUrl(),
     ]
 
 
