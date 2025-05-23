@@ -65,7 +65,7 @@ def _Impl(
     sequential: list[tuple[int, ItemType]] = []
 
     for index, item in enumerate(items):
-        execution_style = item.style  # type: ignore
+        execution_style = item.style  # type: ignore[attr-defined]
 
         if execution_style == ExecutionStyle.Parallel:
             parallel.append((index, item))
@@ -100,7 +100,7 @@ def _Impl(
             dm,
             "Processing",
             [
-                ExecuteTasks.TaskData(item.name, (results_index, item))  # type: ignore
+                ExecuteTasks.TaskData(item.name, (results_index, item))  # type: ignore[attr-defined]
                 for results_index, item in parallel
             ],
             lambda context, status: Execute(*context),
@@ -115,7 +115,7 @@ def _Impl(
     for sequential_index, (results_index, item) in enumerate(sequential):
         with dm.Nested(
             "Processing '{}' ({} of {})...".format(
-                item.name,  # type: ignore
+                item.name,  # type: ignore[attr-defined]
                 sequential_index + 1 + len(parallel),
                 len(items),
             ),
