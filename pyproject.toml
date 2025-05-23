@@ -106,7 +106,7 @@ select = [
     "PYI",
     # "PT", # 5
     "Q",
-    # "RSE", # 1
+    "RSE",
     "RET",
     "SLF",
     # "SIM", # 4
@@ -147,6 +147,7 @@ ignore = [
     "I001", # Import block is un-sorted or un-formatted
     "N802", # Function name `xxx` should be lowercase
     "N999", # Invalid module name
+    "RSE102", # Unnecessary parentheses on raise exception
     "S101", # Use of assert detected
     "UP032", # Use f-string instead of `format` call
 ]
