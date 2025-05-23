@@ -70,13 +70,13 @@ class CommandLineProcessor:
 
         for module in modules:
             if argument_separator in module.name:
-                msg = f"The module name '{module.name}' contains '{argument_separator}'."
-                raise Exception(msg)
+                msg = f"The module name '{module.name}' contains '{argument_separator}', which should be used as an argument separator."
+                raise ValueError(msg)
 
             prev_module = module_map.get(module.name, None)
             if prev_module is not None:
                 msg = f"The module '{module.name}' has already been defined."
-                raise Exception(msg)
+                raise ValueError(msg)
 
             module_map[module.name] = module
 
@@ -92,7 +92,7 @@ class CommandLineProcessor:
             this_module = module_map.get(parts[0], None)
             if this_module is None:
                 msg = f"'{parts[0]}' is not a recognized module name."
-                raise Exception(msg)
+                raise ValueError(msg)
 
             if len(parts) == 1:
                 included_modules.add(parts[0])
@@ -119,7 +119,7 @@ class CommandLineProcessor:
             this_module = module_map.get(parts[0], None)
             if this_module is None:
                 msg = f"'{parts[0]}' is not a recognized module name."
-                raise Exception(msg)
+                raise ValueError(msg)
 
             if len(parts) == 1:
                 module_map.pop(parts[0])
@@ -173,7 +173,7 @@ class CommandLineProcessor:
 
             if parts[0] not in module_map:
                 msg = f"'{parts[0]}' is not a recognized module name."
-                raise Exception(msg)
+                raise ValueError(msg)
 
             if len(parts) == 2:
                 dynamic_args.setdefault(parts[0], {})[parts[1]] = value
