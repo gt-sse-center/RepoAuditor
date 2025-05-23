@@ -293,11 +293,7 @@ def EntryPoint(
                 display_rationale=not no_rationale,
             )
         except Exception as ex:
-            if dm.is_debug:
-                error = traceback.format_exc()
-            else:
-                error = str(ex)
-
+            error = traceback.format_exc() if dm.is_debug else str(ex)
             dm.WriteError(error)
 
 

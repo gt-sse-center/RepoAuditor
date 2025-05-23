@@ -117,7 +117,7 @@ class ClassicBranchProtectionQuery(Query):
         self,
         module_data: dict[str, Any],
     ) -> Optional[dict[str, Any]]:
-        branch = module_data.get("branch", None)
+        branch = module_data.get("branch")
         if branch is None:
             # Get the default branch name
             response = module_data["session"].get("")

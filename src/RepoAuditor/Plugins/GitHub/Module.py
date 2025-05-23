@@ -69,7 +69,7 @@ class GitHubModule(Module):
     # ----------------------------------------------------------------------
     @override
     def GenerateInitialData(self, dynamic_args: dict[str, Any]) -> Optional[dict[str, Any]]:
-        dynamic_args["session"] = _GitHubSession(dynamic_args["url"], dynamic_args.get("pat", None))
+        dynamic_args["session"] = _GitHubSession(dynamic_args["url"], dynamic_args.get("pat"))
 
         return dynamic_args
 
