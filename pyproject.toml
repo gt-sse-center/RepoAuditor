@@ -113,7 +113,7 @@ select = [
     "SLOT",
     # "TID", # 9
     "TD",
-    # "TC", # 2
+    "TC",
     # "ARG", # 5
     "PTH",
     "FLY",
@@ -131,7 +131,7 @@ select = [
     # "PGH", # 5
     # "PL", # 11
     # "UP", # 100
-    # "FURB", # 1
+    "FURB",
     "RUF",
     # "TRY", # 16
 
@@ -149,6 +149,7 @@ ignore = [
     "N999", # Invalid module name
     "RSE102", # Unnecessary parentheses on raise exception
     "S101", # Use of assert detected
+    "TC006", # Add quotes to type expression in `typing.cast()`
     "UP032", # Use f-string instead of `format` call
 ]
 
