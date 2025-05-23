@@ -34,7 +34,7 @@ ARGUMENT_SEPARATOR = "-"
 # ----------------------------------------------------------------------
 class NaturalOrderGrouper(TyperGroup):
     # ----------------------------------------------------------------------
-    def list_commands(self, *args, **kwargs):
+    def list_commands(self, *_args, **_kwargs):
         return self.commands.keys()
 
 
@@ -181,7 +181,7 @@ def _VersionCallback(value: bool) -> None:
 )
 def EntryPoint(
     ctx: typer.Context,
-    version: Annotated[
+    _version: Annotated[
         bool,
         typer.Option(
             "--version",
