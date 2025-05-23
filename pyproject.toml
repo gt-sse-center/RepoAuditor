@@ -112,7 +112,7 @@ select = [
     "SLOT",
     # "TID", # 9
     "TD",
-    # "TC", # 2
+    "TC",
     # "ARG", # 5
     "PTH",
     "FLY",
