@@ -14,10 +14,11 @@ from typer.testing import CliRunner
 from RepoAuditor import __version__
 from RepoAuditor.EntryPoint import app
 
+from Plugins.utilities import GetGithubUrl
+
 
 # ----------------------------------------------------------------------
 @pytest.fixture(InitializeStreamCapabilities(), scope="session", autouse=True)
-
 # ----------------------------------------------------------------------
 def test_Version() -> None:
     result = CliRunner().invoke(app, ["--version"])
@@ -43,7 +44,7 @@ def test_GitHub() -> None:
             "--include",
             "GitHub",
             "--GitHub-url",
-            "https://github.com/gt-sse-center/RepoAuditor",
+            GetGithubUrl(),
         ],
     )
 
