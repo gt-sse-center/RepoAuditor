@@ -130,9 +130,9 @@ def Execute(
             # ----------------------------------------------------------------------
             def Prepare(
                 context: Any,  # noqa: ANN401
-                on_simple_status_func: Callable[[str], None],
+                on_simple_status_func: Callable[[str], None],  # noqa: ARG001
             ) -> tuple[int, ExecuteTasks.TransformTasksExTypes.TransformFuncType]:
-                module_info = cast("ModuleInfo", context)
+                module_info = cast(ModuleInfo, context)
                 del context
 
                 # ----------------------------------------------------------------------

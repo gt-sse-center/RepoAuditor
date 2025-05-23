@@ -103,7 +103,7 @@ def _Impl(
                 ExecuteTasks.TaskData(item.name, (results_index, item))  # type: ignore[attr-defined]
                 for results_index, item in parallel
             ],
-            lambda context, status: Execute(*context),
+            lambda context, status: Execute(*context),  # noqa: ARG005
             max_num_threads=max_num_threads,
             return_exceptions=True,
         )
@@ -123,4 +123,4 @@ def _Impl(
             Execute(results_index, item)
 
     assert not any(result is None for result in results), results
-    return cast("list[OutputType]", results)
+    return cast(list[OutputType], results)
