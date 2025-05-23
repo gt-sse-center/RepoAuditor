@@ -178,7 +178,7 @@ class CommandLineProcessor:
             if len(parts) == 2:
                 dynamic_args.setdefault(parts[0], {})[parts[1]] = value
             else:
-                dynamic_args.setdefault(parts[0], {}).setdefault(None, {}).setdefault(  # type: ignore
+                dynamic_args.setdefault(parts[0], {}).setdefault(None, {}).setdefault(  # type: ignore[call-overload]
                     parts[1],
                     {},
                 )[argument_separator.join(parts[2:])] = value
@@ -187,7 +187,7 @@ class CommandLineProcessor:
 
         for module_name, module in module_map.items():
             module_args = dynamic_args.get(module_name, {})
-            requirement_args = module_args.pop(None, None)  # type: ignore
+            requirement_args = module_args.pop(None, None)  # type: ignore[call-overload]
 
             module_infos.append(ModuleInfo(module, module_args, requirement_args))
 
