@@ -108,8 +108,7 @@ class _GitHubSession(requests.Session):
 
             self.headers["Authorization"] = f"Bearer {github_pat}"
 
-        if github_url.endswith("/"):
-            github_url = github_url[:-1]
+        github_url = github_url.removesuffix("/")
 
         url_parts = urlparse(github_url)
         path_parts = url_parts.path.split("/")
