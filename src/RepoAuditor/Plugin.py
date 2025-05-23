@@ -17,4 +17,5 @@ from .Module import Module
 @pluggy.HookspecMarker(APP_NAME)
 def GetModule() -> Module:
     """Returns a Module"""
-    raise Exception("hookspec")  # pragma: no cover
+    msg = "hookspec"
+    raise Exception(msg)  # pragma: no cover
