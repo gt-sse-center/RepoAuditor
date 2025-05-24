@@ -185,7 +185,7 @@ class Module(ABC):
                 [
                     Module.EvaluateInfo(
                         **{
-                            **{"module": self},
+                            "module": self,
                             **evaluate_info.__dict__,
                         },
                     )

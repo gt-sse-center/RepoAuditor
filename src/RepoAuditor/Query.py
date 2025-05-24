@@ -112,7 +112,7 @@ class Query(ABC):
                 return_code,
                 Query.EvaluateInfo(
                     **{
-                        **{"query": self},
+                        "query": self,
                         **result_info.__dict__,
                     },
                 ),
