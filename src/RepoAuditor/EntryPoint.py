@@ -34,7 +34,7 @@ ARGUMENT_SEPARATOR = "-"
 # ----------------------------------------------------------------------
 class NaturalOrderGrouper(TyperGroup):
     # ----------------------------------------------------------------------
-    def list_commands(self, *args, **kwargs):
+    def list_commands(self, *args, **kwargs) -> list[str]:
         return self.commands.keys()
 
 
