@@ -17,7 +17,6 @@ class MergeCommit(StandardEnableRequirementImpl):
     def __init__(self):
         super(MergeCommit, self).__init__(
             "MergeCommit",
-            True,
             "false",
             "settings",
             "Pull Requests",
@@ -36,4 +35,5 @@ class MergeCommit(StandardEnableRequirementImpl):
                 <unknown>
                 """,
             ),
+            default_value=True,
         )

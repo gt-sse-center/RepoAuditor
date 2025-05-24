@@ -17,7 +17,6 @@ class SupportProjects(StandardEnableRequirementImpl):
     def __init__(self):
         super(SupportProjects, self).__init__(
             "SupportProjects",
-            True,
             "false",
             "settings",
             "Features",
@@ -28,5 +27,6 @@ class SupportProjects(StandardEnableRequirementImpl):
                 No rationale for this default.
                 """,
             ),
+            default_value=True,
             subject="Support for Projects",
         )

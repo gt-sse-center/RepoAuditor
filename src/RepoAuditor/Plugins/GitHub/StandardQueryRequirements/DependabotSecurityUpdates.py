@@ -19,7 +19,6 @@ class DependabotSecurityUpdates(StandardEnableRequirementImpl):
     def __init__(self):
         super(DependabotSecurityUpdates, self).__init__(
             "DependabotSecurityUpdates",
-            True,
             "false",
             "settings/security_analysis",
             "Dependabot",
@@ -39,6 +38,7 @@ class DependabotSecurityUpdates(StandardEnableRequirementImpl):
                 - A manual test pass is required before changes can be deployed.
                 """,
             ),
+            default_value=True,
             unset_set_terminology=("disabled", "enabled"),
         )
 

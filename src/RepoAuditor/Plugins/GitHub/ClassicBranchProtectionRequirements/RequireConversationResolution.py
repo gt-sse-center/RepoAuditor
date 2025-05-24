@@ -17,7 +17,6 @@ class RequireConversationResolution(ClassicEnableRequirementImpl):
     def __init__(self):
         super(RequireConversationResolution, self).__init__(
             "RequireConversationResolution",
-            True,
             "false",
             "Protect matching branches",
             "Require conversation resolution before merging",
@@ -36,4 +35,5 @@ class RequireConversationResolution(ClassicEnableRequirementImpl):
                 <unknown>
                 """,
             ),
+            default_value=True,
         )

@@ -17,7 +17,6 @@ class RebaseMergeCommit(StandardEnableRequirementImpl):
     def __init__(self):
         super(RebaseMergeCommit, self).__init__(
             "RebaseMergeCommit",
-            False,
             "true",
             "settings",
             "Pull Requests",
@@ -38,4 +37,5 @@ class RebaseMergeCommit(StandardEnableRequirementImpl):
                   pull request process can last for an extended period of time.
                 """,
             ),
+            default_value=False,
         )

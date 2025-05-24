@@ -17,7 +17,6 @@ class SquashCommitMerge(StandardEnableRequirementImpl):
     def __init__(self):
         super(SquashCommitMerge, self).__init__(
             "SquashCommitMerge",
-            False,
             "true",
             "settings",
             "Pull Requests",
@@ -37,4 +36,5 @@ class SquashCommitMerge(StandardEnableRequirementImpl):
                 - You want to ensure that single-commit-changes are merged into the mainline branch to simplify the branch's history.
                 """,
             ),
+            default_value=False,
         )

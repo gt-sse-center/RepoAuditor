@@ -81,7 +81,7 @@ select = [
     "ASYNC",
     "S",
     "BLE",
-    # "FBT", # 44
+    "FBT",
     # "B", # 11
     "A",
     "COM",

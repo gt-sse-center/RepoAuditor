@@ -17,7 +17,6 @@ class RequirePullRequests(ClassicEnableRequirementImpl):
     def __init__(self):
         super(RequirePullRequests, self).__init__(
             "RequirePullRequests",
-            True,
             "false",
             "Protect matching branches",
             "Require a pull request before merging",
@@ -36,4 +35,5 @@ class RequirePullRequests(ClassicEnableRequirementImpl):
                 <unknown>
                 """,
             ),
+            default_value=True,
         )
