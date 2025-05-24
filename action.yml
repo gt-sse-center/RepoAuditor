@@ -1,0 +1,30 @@
+name: RepoAuditor
+description: "Audit repository for best practices"
+
+inputs:
+  github_pat:
+    description: GitHub Personal Access Token (PAT)
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Checkout RepoAuditor
+      uses: actions/checkout@v4
+      with:
+        repository: gt-sse-center/RepoAuditor
+        ref: v0.2.1
+
+    - name: Install uv
+      uses: astral-sh/setup-uv@v5
+      
+    - name: Setup RepoAuditor
+      run: |
+        uv sync --frozen --quiet
+        uv build
+      shell: bash
+      
+    - name: Run RepoAuditor
+      run: |
+        uv run repo_auditor --include GitHub --GitHub-url ${{ github.server_url }}/${{ github.repository }} --GitHub-pat ${{inputs.github_pat}}
+      shell: bash
