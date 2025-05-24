@@ -90,7 +90,7 @@ select = [
     "DTZ",
     "T10",
     "DJ",
-    # "EM", # 9
+    "EM", # 9
     "EXE",
     "FIX",
     "FA",
