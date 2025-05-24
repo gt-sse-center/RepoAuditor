@@ -168,7 +168,7 @@ def _HelpEpilog() -> str:
 def _VersionCallback(value: bool) -> None:
     if value:
         sys.stdout.write(f"RepoAuditor v{__version__}\n")
-        raise typer.Exit()
+        raise typer.Exit
 
 
 # ----------------------------------------------------------------------
