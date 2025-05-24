@@ -112,7 +112,7 @@ select = [
     "SLOT",
     # "TID", # 9
     "TD",
-    # "TC", # 2
+    "TC",
     # "ARG", # 5
     "PTH",
     "FLY",
@@ -130,7 +130,7 @@ select = [
     # "PGH", # 5
     # "PL", # 11
     # "UP", # 100
-    # "FURB", # 1
+    "FURB",
     "RUF",
     # "TRY", # 16
 
