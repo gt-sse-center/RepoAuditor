@@ -11,7 +11,8 @@ import sys
 import textwrap
 
 from dataclasses import dataclass
-from typing import Any, Callable, cast, Optional
+from typing import Any, cast, Optional
+from collections.abc import Callable
 
 from dbrownell_Common import ExecuteTasks  # type: ignore[import-untyped]
 from dbrownell_Common.InflectEx import inflect  # type: ignore[import-untyped]

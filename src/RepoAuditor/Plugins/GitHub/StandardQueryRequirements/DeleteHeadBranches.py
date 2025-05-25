@@ -15,7 +15,7 @@ from .Impl.StandardEnableRequirementImpl import StandardEnableRequirementImpl
 class DeleteHeadBranches(StandardEnableRequirementImpl):
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
-        super(DeleteHeadBranches, self).__init__(
+        super().__init__(
             "DeleteHeadBranches",
             True,
             "false",

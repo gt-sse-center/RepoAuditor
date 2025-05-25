@@ -15,7 +15,7 @@ from .Impl.ClassicEnableRequirementImpl import ClassicEnableRequirementImpl
 class RequirePullRequests(ClassicEnableRequirementImpl):
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
-        super(RequirePullRequests, self).__init__(
+        super().__init__(
             "RequirePullRequests",
             True,
             "false",

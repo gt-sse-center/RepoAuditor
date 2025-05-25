@@ -17,7 +17,7 @@ from .Impl.StandardValueRequirementImpl import DoesNotApplyResult, StandardValue
 class SquashMergeCommitMessage(StandardValueRequirementImpl):
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
-        super(SquashMergeCommitMessage, self).__init__(
+        super().__init__(
             "SquashMergeCommitMessage",
             "COMMIT_MESSAGES",
             "settings",

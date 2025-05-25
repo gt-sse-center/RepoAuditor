@@ -8,7 +8,8 @@
 
 import textwrap
 
-from typing import Any, Callable, Optional
+from typing import Any, Optional
+from collections.abc import Callable
 
 from ...Impl.EnableRequirementImpl import EnableRequirementImpl
 
@@ -30,7 +31,7 @@ class ClassicEnableRequirementImpl(EnableRequirementImpl):
         requires_explicit_include: bool = False,
         unset_set_terminology: tuple[str, str] = ("unchecked", "checked"),
     ) -> None:
-        super(ClassicEnableRequirementImpl, self).__init__(
+        super().__init__(
             name,
             default_value,
             dynamic_arg_name,

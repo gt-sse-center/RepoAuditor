@@ -90,7 +90,7 @@ class ClassicBranchProtectionQuery(Query):
 
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
-        super(ClassicBranchProtectionQuery, self).__init__(
+        super().__init__(
             "ClassicBranchProtectionQuery",
             ExecutionStyle.Parallel,
             [

@@ -17,7 +17,7 @@ from .Impl.ClassicEnableRequirementImpl import ClassicEnableRequirementImpl
 class RequireUpToDateBranches(ClassicEnableRequirementImpl):
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
-        super(RequireUpToDateBranches, self).__init__(
+        super().__init__(
             "RequireUpToDateBranches",
             True,
             "false",

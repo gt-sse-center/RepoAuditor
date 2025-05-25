@@ -21,7 +21,7 @@ class DefaultBranchQuery(Query):
 
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
-        super(DefaultBranchQuery, self).__init__(
+        super().__init__(
             "DefaultBranchQuery",
             ExecutionStyle.Parallel,
             [

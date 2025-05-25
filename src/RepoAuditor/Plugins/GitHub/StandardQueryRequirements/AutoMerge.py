@@ -15,7 +15,7 @@ from .Impl.StandardEnableRequirementImpl import StandardEnableRequirementImpl
 class AutoMerge(StandardEnableRequirementImpl):
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
-        super(AutoMerge, self).__init__(
+        super().__init__(
             "AutoMerge",
             True,
             "false",

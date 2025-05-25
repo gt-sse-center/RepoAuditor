@@ -7,7 +7,8 @@
 """Contains the ValueRequirementImpl object"""
 
 from dataclasses import dataclass
-from typing import Any, Callable, Optional
+from typing import Any, Optional
+from collections.abc import Callable
 
 import typer
 
@@ -53,7 +54,7 @@ class ValueRequirementImpl(Requirement):
         if subject is None:
             subject = github_settings_value
 
-        super(ValueRequirementImpl, self).__init__(
+        super().__init__(
             name,
             f"Validates that {subject} is set to the expected value.",
             ExecutionStyle.Parallel,

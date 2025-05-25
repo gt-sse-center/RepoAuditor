@@ -10,7 +10,7 @@ import threading
 
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
-from typing import Any, Optional, Protocol
+from typing import Any, Protocol, Optional
 
 from .Impl.ParallelSequentialProcessor import ParallelSequentialProcessor
 from .Requirement import EvaluateResult, ExecutionStyle, Requirement

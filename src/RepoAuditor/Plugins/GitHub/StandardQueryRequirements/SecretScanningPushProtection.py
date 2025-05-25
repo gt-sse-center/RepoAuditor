@@ -17,7 +17,7 @@ from .Impl.StandardEnableRequirementImpl import StandardEnableRequirementImpl
 class SecretScanningPushProtection(StandardEnableRequirementImpl):
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
-        super(SecretScanningPushProtection, self).__init__(
+        super().__init__(
             "SecretScanningPushProtection",
             True,
             "false",

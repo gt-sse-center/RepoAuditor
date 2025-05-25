@@ -6,7 +6,8 @@
 # -------------------------------------------------------------------------------
 """Contains the EnableRequirementImpl object"""
 
-from typing import Any, Callable, Optional
+from typing import Any, Optional
+from collections.abc import Callable
 
 import typer
 
@@ -43,7 +44,7 @@ class EnableRequirementImpl(Requirement):
         if subject is None:
             subject = github_settings_value
 
-        super(EnableRequirementImpl, self).__init__(
+        super().__init__(
             name,
             f"Validates that {subject} is set to the expected value.",
             ExecutionStyle.Parallel,

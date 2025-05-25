@@ -15,7 +15,7 @@ from .Impl.StandardEnableRequirementImpl import StandardEnableRequirementImpl
 class SupportWikis(StandardEnableRequirementImpl):
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
-        super(SupportWikis, self).__init__(
+        super().__init__(
             "SupportWikis",
             True,
             "false",

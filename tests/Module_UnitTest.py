@@ -31,7 +31,7 @@ class MyModule(Module):
         produce_data: bool,
         requires_explicit_include: bool = False,
     ) -> None:
-        super(MyModule, self).__init__(
+        super().__init__(
             name,
             description,
             style,
@@ -78,7 +78,7 @@ class MyQuery(Query):
         *,
         produce_data: bool,
     ) -> None:
-        super(MyQuery, self).__init__(name, style, requirements)
+        super().__init__(name, style, requirements)
 
         self.produce_data = produce_data
 
@@ -109,7 +109,7 @@ class MyRequirement(Requirement):
         *,
         requires_explicit_include: bool = False,
     ) -> None:
-        super(MyRequirement, self).__init__(
+        super().__init__(
             name,
             description,
             style,

@@ -8,7 +8,8 @@
 
 import textwrap
 
-from typing import Any, Callable, Optional
+from typing import Any, Optional
+from collections.abc import Callable
 
 from ...Impl.ValueRequirementImpl import DoesNotApplyResult, ValueRequirementImpl
 
@@ -46,7 +47,7 @@ class ClassicValueRequirementImpl(ValueRequirementImpl):
                 """,
             )
 
-        super(ClassicValueRequirementImpl, self).__init__(
+        super().__init__(
             name,
             default_value,
             github_settings_value,

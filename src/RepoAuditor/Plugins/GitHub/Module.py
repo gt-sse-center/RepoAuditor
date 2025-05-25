@@ -27,7 +27,7 @@ from .StandardQuery import StandardQuery
 class GitHubModule(Module):
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
-        super(GitHubModule, self).__init__(
+        super().__init__(
             "GitHub",
             "Validates GitHub configuration settings.",
             ExecutionStyle.Parallel,
@@ -90,7 +90,7 @@ class _GitHubSession(requests.Session):
         *args,
         **kwargs,
     ) -> None:
-        super(_GitHubSession, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         self.headers.update(
             {
@@ -145,7 +145,7 @@ class _GitHubSession(requests.Session):
         if url and not url.startswith("/"):
             url = f"/{url}"
 
-        return super(_GitHubSession, self).request(
+        return super().request(
             method,
             f"{self.api_url}{url}",
             *args,

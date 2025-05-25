@@ -8,7 +8,7 @@
 
 import textwrap
 
-from typing import Any
+from typing import Any, Optional
 
 from .Impl.ClassicEnableRequirementImpl import ClassicEnableRequirementImpl
 
@@ -17,7 +17,7 @@ from .Impl.ClassicEnableRequirementImpl import ClassicEnableRequirementImpl
 class RequireCodeOwnerReview(ClassicEnableRequirementImpl):
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
-        super(RequireCodeOwnerReview, self).__init__(
+        super().__init__(
             "RequireCodeOwnerReview",
             False,
             "true",
@@ -49,7 +49,7 @@ class RequireCodeOwnerReview(ClassicEnableRequirementImpl):
 # ----------------------------------------------------------------------
 def _GetValue(
     data: dict[str, Any],
-) -> bool | None:
+) -> Optional[bool]:
     settings = data["branch_protection_data"].get("required_pull_request_reviews", None)
     if settings is None:
         return None
