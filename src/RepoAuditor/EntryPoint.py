@@ -33,8 +33,11 @@ ARGUMENT_SEPARATOR = "-"
 
 # ----------------------------------------------------------------------
 class NaturalOrderGrouper(TyperGroup):
+    """Group commands in natural order."""
+
     # ----------------------------------------------------------------------
     def list_commands(self, *args, **kwargs) -> list[str]:  # noqa: ARG002
+        """Return a list of all the commands, to be sorted in a natural ordering."""
         return self.commands.keys()
 
 
@@ -257,6 +260,7 @@ def EntryPoint(
         ),
     ] = False,
 ) -> None:
+    """Entry point for the command line interface."""
     with DoneManager.CreateCommandLine(
         sys.stdout,
         flags=DoneManagerFlags.Create(verbose=verbose, debug=debug),

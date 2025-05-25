@@ -4,7 +4,7 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the RequireStatusChecksToPass object"""
+"""Contains the RequireStatusChecksToPass object."""
 
 import textwrap
 
@@ -13,6 +13,8 @@ from .Impl.ClassicEnableRequirementImpl import ClassicEnableRequirementImpl
 
 # ----------------------------------------------------------------------
 class RequireStatusChecksToPass(ClassicEnableRequirementImpl):
+    """Require status checks to pass before merging pull requests."""
+
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
         super().__init__(

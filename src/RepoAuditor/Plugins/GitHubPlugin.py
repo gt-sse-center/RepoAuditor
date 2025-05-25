@@ -4,7 +4,7 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains Plugin functionality"""
+"""Contains Plugin functionality."""
 
 import pluggy
 
@@ -17,4 +17,5 @@ from .GitHub.Module import GitHubModule
 # ----------------------------------------------------------------------
 @pluggy.HookimplMarker(APP_NAME)
 def GetModule() -> Module:
+    """Return GitHub Module."""
     return GitHubModule()

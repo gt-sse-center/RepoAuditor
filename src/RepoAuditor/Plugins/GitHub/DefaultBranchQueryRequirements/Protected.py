@@ -4,7 +4,7 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the Protected object"""
+"""Contains the Protected object."""
 
 import textwrap
 
@@ -21,6 +21,8 @@ from ..Impl.Common import CreateIncompleteDataResult
 
 # ----------------------------------------------------------------------
 class Protected(Requirement):
+    """Requirement to ensure that the mainline branch is protected."""
+
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
         # Note that protected is set for the branch when creating a branch ruleset or a classic
@@ -54,6 +56,7 @@ class Protected(Requirement):
     # ----------------------------------------------------------------------
     @override
     def GetDynamicArgDefinitions(self) -> dict[str, TypeDefinitionItemType]:
+        """Get the definitions for the arguments to this requirement."""
         return {
             "false": (
                 bool,

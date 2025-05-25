@@ -4,7 +4,7 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the StandardValueRequirementImpl object"""
+"""Contains the StandardValueRequirementImpl object."""
 
 import textwrap
 
@@ -18,6 +18,8 @@ from ...Impl.ValueRequirementImpl import DoesNotApplyResult, ValueRequirementImp
 class StandardValueRequirementImpl(
     ValueRequirementImpl,
 ):
+    """Requirement that checks a specific value against a standard value in GitHub settings."""
+
     # ----------------------------------------------------------------------
     def __init__(
         self,

@@ -4,7 +4,7 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the StandardEnableRequirementImpl object"""
+"""Contains the StandardEnableRequirementImpl object."""
 
 import textwrap
 
@@ -16,6 +16,8 @@ from ...Impl.EnableRequirementImpl import EnableRequirementImpl
 
 # ----------------------------------------------------------------------
 class StandardEnableRequirementImpl(EnableRequirementImpl):
+    """Implementation of requirement for standard enables of GitHub settings."""
+
     # ----------------------------------------------------------------------
     def __init__(
         self,

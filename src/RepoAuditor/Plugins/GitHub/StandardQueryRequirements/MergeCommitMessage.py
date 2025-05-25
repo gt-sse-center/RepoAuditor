@@ -4,7 +4,7 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the MergeCommitMessage object"""
+"""Contains the MergeCommitMessage object."""
 
 import textwrap
 
@@ -15,6 +15,8 @@ from .Impl.StandardValueRequirementImpl import DoesNotApplyResult, StandardValue
 
 # ----------------------------------------------------------------------
 class MergeCommitMessage(StandardValueRequirementImpl):
+    """Allow merge commit message requirement."""
+
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
         super().__init__(

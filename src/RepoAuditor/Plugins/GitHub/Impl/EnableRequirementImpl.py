@@ -4,7 +4,7 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the EnableRequirementImpl object"""
+"""Contains the EnableRequirementImpl object."""
 
 from typing import Any, Optional
 from collections.abc import Callable
@@ -63,6 +63,7 @@ class EnableRequirementImpl(Requirement):
     # ----------------------------------------------------------------------
     @override
     def GetDynamicArgDefinitions(self) -> dict[str, TypeDefinitionItemType]:
+        """Get the definitions for the arguments to this requirement."""
         return {
             self.dynamic_arg_name: (
                 bool,

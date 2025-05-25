@@ -4,7 +4,7 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the DismissStalePullRequestApprovals object"""
+"""Contains the DismissStalePullRequestApprovals object."""
 
 import textwrap
 
@@ -15,6 +15,8 @@ from .Impl.ClassicEnableRequirementImpl import ClassicEnableRequirementImpl
 
 # ----------------------------------------------------------------------
 class DismissStalePullRequestApprovals(ClassicEnableRequirementImpl):
+    """Dismiss stale pull request approvals when new commits are pushed."""
+
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
         super().__init__(

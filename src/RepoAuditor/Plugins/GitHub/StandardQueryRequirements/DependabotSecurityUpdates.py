@@ -4,7 +4,7 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the DependabotSecurityUpdates object"""
+"""Contains the DependabotSecurityUpdates object."""
 
 import textwrap
 
@@ -15,6 +15,8 @@ from .Impl.StandardEnableRequirementImpl import StandardEnableRequirementImpl
 
 # ----------------------------------------------------------------------
 class DependabotSecurityUpdates(StandardEnableRequirementImpl):
+    """Requirement of Dependabot security updates."""
+
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
         super().__init__(

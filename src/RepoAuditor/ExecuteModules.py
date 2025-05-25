@@ -4,7 +4,7 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains functionality to execute multiple Modules"""
+"""Contains functionality to execute multiple Modules."""
 
 import itertools
 import sys
@@ -34,6 +34,8 @@ from .Module import EvaluateResult, ExecutionStyle, Module, OnStatusFunc
 # ----------------------------------------------------------------------
 @dataclass(frozen=True)
 class ModuleInfo:
+    """Information about a Module."""
+
     module: Module
     dynamic_args: dict[str, Any]
     requirement_args: dict[str, Any]
@@ -52,6 +54,7 @@ def Execute(
     *,
     single_threaded: bool = False,
 ) -> list[list[Module.EvaluateInfo]]:
+    """Execute the modules in parallel and/or sequentially."""
     if not module_infos:
         dm.WriteWarning("There are no modules to process.\n")
         return []
@@ -266,6 +269,7 @@ def DisplayResults(
     display_rationale: bool,
     panel_width: Optional[int] = None,
 ) -> None:
+    """Display the results of executing the modules."""
     for results in all_results:
         assert results
         module = results[0].module

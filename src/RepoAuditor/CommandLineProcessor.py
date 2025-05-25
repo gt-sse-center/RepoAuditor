@@ -4,7 +4,7 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the CommandLineProcessor object"""
+"""Contains the CommandLineProcessor object."""
 
 from dataclasses import dataclass, field
 from typing import Any, Protocol
@@ -17,7 +17,8 @@ from .ExecuteModules import Execute, Module, ModuleInfo
 # ----------------------------------------------------------------------
 @dataclass(frozen=True)
 class CommandLineProcessor:
-    """\
+    """Class for processing command line arguments and invoking the appropriate modules.
+
     Object that makes it easy to process command line arguments and invoke ExecuteModules.Execute
     in a testable way.
     """
@@ -28,7 +29,7 @@ class CommandLineProcessor:
     # |
     # ----------------------------------------------------------------------
     class GetDynamicArgsFunc(Protocol):
-        def __call__(
+        def __call__(  # noqa: D102
             self,
             dynamic_arg_definitions: dict[
                 str, Any
@@ -65,6 +66,7 @@ class CommandLineProcessor:
         single_threaded: bool = False,
         argument_separator: str = "-",
     ) -> "CommandLineProcessor":
+        """Factor method to construct a CommandLineProcessor object."""
         # Convert modules into a lookup map
         module_map: dict[str, Module] = {}
 
@@ -199,7 +201,7 @@ class CommandLineProcessor:
         )
 
     # ----------------------------------------------------------------------
-    def __call__(
+    def __call__(  # noqa: D102
         self,
         dm: DoneManager,
     ) -> list[list[Module.EvaluateInfo]]:

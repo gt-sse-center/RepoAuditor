@@ -4,7 +4,7 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the WebCommitSignoff object"""
+"""Contains the WebCommitSignoff object."""
 
 import textwrap
 
@@ -13,6 +13,8 @@ from .Impl.StandardEnableRequirementImpl import StandardEnableRequirementImpl
 
 # ----------------------------------------------------------------------
 class WebCommitSignoff(StandardEnableRequirementImpl):
+    """Require contributors to sign off on web-based commits."""
+
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
         super().__init__(

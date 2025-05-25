@@ -4,7 +4,7 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the RequireConversationResolution object"""
+"""Contains the RequireConversationResolution object."""
 
 import textwrap
 
@@ -13,6 +13,8 @@ from .Impl.ClassicEnableRequirementImpl import ClassicEnableRequirementImpl
 
 # ----------------------------------------------------------------------
 class RequireConversationResolution(ClassicEnableRequirementImpl):
+    """Require conversation resolution before merging."""
+
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
         super().__init__(

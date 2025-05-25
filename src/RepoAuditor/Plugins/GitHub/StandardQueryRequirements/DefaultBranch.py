@@ -4,7 +4,7 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the DefaultBranch object"""
+"""Contains the DefaultBranch object."""
 
 import textwrap
 
@@ -13,6 +13,8 @@ from .Impl.StandardValueRequirementImpl import StandardValueRequirementImpl
 
 # ----------------------------------------------------------------------
 class DefaultBranch(StandardValueRequirementImpl):
+    """Requirement of a default branch in the repository."""
+
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
         super().__init__(

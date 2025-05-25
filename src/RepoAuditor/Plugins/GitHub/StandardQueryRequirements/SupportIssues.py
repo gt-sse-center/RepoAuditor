@@ -4,7 +4,7 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the SupportIssues object"""
+"""Contains the SupportIssues object."""
 
 import textwrap
 
@@ -13,6 +13,8 @@ from .Impl.StandardEnableRequirementImpl import StandardEnableRequirementImpl
 
 # ----------------------------------------------------------------------
 class SupportIssues(StandardEnableRequirementImpl):
+    """Support for Issues."""
+
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
         super().__init__(

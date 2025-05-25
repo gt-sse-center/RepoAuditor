@@ -4,7 +4,7 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the SquashCommitMerge object"""
+"""Contains the SquashCommitMerge object."""
 
 import textwrap
 
@@ -13,6 +13,8 @@ from .Impl.StandardEnableRequirementImpl import StandardEnableRequirementImpl
 
 # ----------------------------------------------------------------------
 class SquashCommitMerge(StandardEnableRequirementImpl):
+    """Allow squash merging."""
+
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
         super().__init__(

@@ -4,7 +4,7 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the SupportWikis object"""
+"""Contains the SupportWikis object."""
 
 import textwrap
 
@@ -13,6 +13,8 @@ from .Impl.StandardEnableRequirementImpl import StandardEnableRequirementImpl
 
 # ----------------------------------------------------------------------
 class SupportWikis(StandardEnableRequirementImpl):
+    """Support for Wikis."""
+
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
         super().__init__(

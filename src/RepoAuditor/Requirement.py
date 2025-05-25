@@ -51,6 +51,8 @@ class Requirement(ABC):
     # ----------------------------------------------------------------------
     @dataclass(frozen=True)
     class EvaluateImplResult:
+        """Result of evaluating a Requirement."""
+
         result: EvaluateResult
         context: Optional[str]
         provide_resolution: bool = field(kw_only=True, default=False)
@@ -69,8 +71,12 @@ class Requirement(ABC):
         resolution_template: str,
         rationale_template: str,
         *,
-        requires_explicit_include: bool = False,  # If True, the requirement must be explicitly included on the command line
+        requires_explicit_include: bool = False,
     ) -> None:
+        """Initialize the requirement with the given name, description, and style.
+
+        If `requires_explicit_include` is True, the requirement must be explicitly included on the command line.
+        """
         self.name = name
         self.description = description
         self.style = style
@@ -83,7 +89,7 @@ class Requirement(ABC):
     # ----------------------------------------------------------------------
     @extension
     def GetDynamicArgDefinitions(self) -> dict[str, TypeDefinitionItemType]:
-        """Returns information about dynamic arguments that the requirement can consume (often from the command line)."""
+        """Return information about dynamic arguments that the requirement can consume (often from the command line)."""
 
         # No dynamic arguments by default
         return {}
@@ -94,6 +100,7 @@ class Requirement(ABC):
         query_data: dict[str, Any],
         requirement_args: dict[str, Any],
     ) -> "Requirement.EvaluateInfo":
+        """Evaluate the requirements given the query data and specific arguments."""
         result_info = self._EvaluateImpl(query_data, requirement_args)
 
         if result_info.result == EvaluateResult.Error:
@@ -118,4 +125,4 @@ class Requirement(ABC):
         query_data: dict[str, Any],
         requirement_args: dict[str, Any],
     ) -> "Requirement.EvaluateImplResult":
-        """Perform the actual evaluation"""
+        """Perform the actual evaluation."""

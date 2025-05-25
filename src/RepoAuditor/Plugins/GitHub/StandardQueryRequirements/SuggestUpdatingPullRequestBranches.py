@@ -4,7 +4,7 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the SuggestUpdatingPullRequestBranches object"""
+"""Contains the SuggestUpdatingPullRequestBranches object."""
 
 import textwrap
 
@@ -13,6 +13,8 @@ from .Impl.StandardEnableRequirementImpl import StandardEnableRequirementImpl
 
 # ----------------------------------------------------------------------
 class SuggestUpdatingPullRequestBranches(StandardEnableRequirementImpl):
+    """Always suggest updating pull request branches."""
+
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
         super().__init__(

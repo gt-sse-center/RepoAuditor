@@ -4,7 +4,7 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the SecretScanning object"""
+"""Contains the SecretScanning object."""
 
 import textwrap
 
@@ -15,6 +15,8 @@ from .Impl.StandardEnableRequirementImpl import StandardEnableRequirementImpl
 
 # ----------------------------------------------------------------------
 class SecretScanning(StandardEnableRequirementImpl):
+    """Secret scanning enable requirement."""
+
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
         super().__init__(

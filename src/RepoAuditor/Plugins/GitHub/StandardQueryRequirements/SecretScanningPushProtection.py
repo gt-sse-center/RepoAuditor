@@ -4,7 +4,7 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the SecretScanningPushProtection object"""
+"""Contains the SecretScanningPushProtection object."""
 
 import textwrap
 
@@ -15,6 +15,8 @@ from .Impl.StandardEnableRequirementImpl import StandardEnableRequirementImpl
 
 # ----------------------------------------------------------------------
 class SecretScanningPushProtection(StandardEnableRequirementImpl):
+    """Push protection for secret scanning."""
+
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
         super().__init__(

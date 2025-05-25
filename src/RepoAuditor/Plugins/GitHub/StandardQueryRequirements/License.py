@@ -4,7 +4,7 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the License object"""
+"""Contains the License object."""
 
 import textwrap
 
@@ -15,6 +15,8 @@ from .Impl.StandardValueRequirementImpl import StandardValueRequirementImpl
 
 # ----------------------------------------------------------------------
 class License(StandardValueRequirementImpl):
+    """Default License as MIT Requirement."""
+
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
         super().__init__(

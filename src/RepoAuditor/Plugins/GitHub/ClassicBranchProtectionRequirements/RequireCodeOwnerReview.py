@@ -4,7 +4,7 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the RequireCodeOwnerReview object"""
+"""Contains the RequireCodeOwnerReview object."""
 
 import textwrap
 
@@ -15,6 +15,8 @@ from .Impl.ClassicEnableRequirementImpl import ClassicEnableRequirementImpl
 
 # ----------------------------------------------------------------------
 class RequireCodeOwnerReview(ClassicEnableRequirementImpl):
+    """Requirement of review from code owners."""
+
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
         super().__init__(

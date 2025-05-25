@@ -4,7 +4,7 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the ValueRequirementImpl object"""
+"""Contains the ValueRequirementImpl object."""
 
 from dataclasses import dataclass
 from typing import Any, Optional
@@ -71,6 +71,7 @@ class ValueRequirementImpl(Requirement):
     # ----------------------------------------------------------------------
     @override
     def GetDynamicArgDefinitions(self) -> dict[str, TypeDefinitionItemType]:
+        """Get the definitions for the arguments to this requirement."""
         return {
             "value": (
                 str,

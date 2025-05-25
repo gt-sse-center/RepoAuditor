@@ -4,7 +4,7 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the RequireApprovalMostRecentPush object"""
+"""Contains the RequireApprovalMostRecentPush object."""
 
 import textwrap
 
@@ -15,6 +15,8 @@ from .Impl.ClassicEnableRequirementImpl import ClassicEnableRequirementImpl
 
 # ----------------------------------------------------------------------
 class RequireApprovalMostRecentPush(ClassicEnableRequirementImpl):
+    """Require approval of the most recent reviewable push."""
+
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
         super().__init__(

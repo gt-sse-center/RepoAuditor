@@ -4,7 +4,7 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the AllowDeletions object"""
+"""Contains the AllowDeletions object."""
 
 import textwrap
 
@@ -13,6 +13,8 @@ from .Impl.ClassicEnableRequirementImpl import ClassicEnableRequirementImpl
 
 # ----------------------------------------------------------------------
 class AllowDeletions(ClassicEnableRequirementImpl):
+    """Allow deletion of the mainline branch."""
+
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
         super().__init__(

@@ -4,7 +4,7 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the TemplateRepository object"""
+"""Contains the TemplateRepository object."""
 
 import textwrap
 
@@ -13,6 +13,8 @@ from .Impl.StandardEnableRequirementImpl import StandardEnableRequirementImpl
 
 # ----------------------------------------------------------------------
 class TemplateRepository(StandardEnableRequirementImpl):
+    """Template repository."""
+
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
         super().__init__(

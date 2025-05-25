@@ -4,7 +4,7 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the ClassicEnableRequirementImpl object"""
+"""Contains the ClassicEnableRequirementImpl object."""
 
 import textwrap
 
@@ -16,6 +16,8 @@ from ...Impl.EnableRequirementImpl import EnableRequirementImpl
 
 # ----------------------------------------------------------------------
 class ClassicEnableRequirementImpl(EnableRequirementImpl):
+    """Implementation of a requirement that checks a classical setting is enabled."""
+
     # ----------------------------------------------------------------------
     def __init__(
         self,

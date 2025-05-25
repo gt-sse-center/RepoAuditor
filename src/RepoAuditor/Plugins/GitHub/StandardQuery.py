@@ -4,7 +4,7 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the StandardQuery object"""
+"""Contains the StandardQuery object."""
 
 from typing import Any, Optional
 
@@ -234,6 +234,7 @@ class StandardQuery(Query):
         self,
         module_data: dict[str, Any],
     ) -> Optional[dict[str, Any]]:
+        """Get the data from an API session."""
         response = module_data["session"].get("")
 
         response.raise_for_status()
