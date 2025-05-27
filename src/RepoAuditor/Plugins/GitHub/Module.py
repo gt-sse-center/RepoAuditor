@@ -7,6 +7,7 @@
 """Contains the GitHubModule object"""
 
 from pathlib import Path
+import re
 from typing import Any, Optional
 from urllib.parse import urlparse
 
@@ -109,15 +110,13 @@ class _GitHubSession(requests.Session):
             self.headers["Authorization"] = f"Bearer {github_pat}"
 
         github_url = github_url.removesuffix("/")
-
         url_parts = urlparse(github_url)
-        path_parts = url_parts.path.split("/")
 
-        if len(path_parts) != 3:
+        if not re.match(r"^/[^/]*/[^/]*$", url_parts.path):
             msg = f"'{github_url}' is not a valid GitHub repository URL."
             raise ValueError(msg)
 
-        _, username, repo = path_parts
+        _, username, repo = url_parts.path.split("/")
 
         if url_parts.netloc.lower() in ["github.com", "www.github.com"]:
             api_url = f"https://api.github.com/repos/{username}/{repo}"
