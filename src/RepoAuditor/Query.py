@@ -104,7 +104,7 @@ class Query(ABC):
                     status_info.num_warning += 1
                     return_code = 1
                 else:
-                    assert False, result_info.result  # pragma: no cover
+                    raise RuntimeError(result_info.result)  # pragma: no cover
 
                 status_func(*status_info.__dict__.values())
 

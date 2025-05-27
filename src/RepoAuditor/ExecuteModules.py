@@ -71,7 +71,7 @@ def Execute(
             elif module_info.module.style == ExecutionStyle.Sequential:
                 sequential.append((index, module_info))
             else:
-                assert False, module_info.module.style  # pragma: no cover
+                raise RuntimeError(module_info.module.style)  # pragma: no cover
 
         if len(parallel) == 1:
             sequential.append(parallel[0])
@@ -282,7 +282,7 @@ def DisplayResults(
             elif result.result == EvaluateResult.DoesNotApply:
                 num_does_not_apply += 1
             else:
-                assert False, result.result  # pragma: no cover
+                raise RuntimeError(result.result)  # pragma: no cover
 
         num_requirements = module.GetNumRequirements()
         assert num_requirements
@@ -319,7 +319,7 @@ def DisplayResults(
             elif result.result == EvaluateResult.DoesNotApply:
                 border_color = ""
             else:
-                assert False, result.result  # pragma: no cover
+                raise RuntimeError(result.result)  # pragma: no cover
 
             content: list[str] = []
 

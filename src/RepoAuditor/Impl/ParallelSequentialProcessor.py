@@ -72,7 +72,7 @@ def _Impl(
         elif execution_style == ExecutionStyle.Sequential:
             sequential.append((index, item))
         else:
-            assert False, execution_style  # pragma: no cover
+            raise RuntimeError(execution_style)  # pragma: no cover
 
     if len(parallel) == 1:
         sequential.append(parallel[0])
