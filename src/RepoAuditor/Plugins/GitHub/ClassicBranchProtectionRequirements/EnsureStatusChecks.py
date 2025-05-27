@@ -58,7 +58,7 @@ class EnsureStatusChecks(Requirement):
             "disable": (
                 bool,
                 typer.Option(
-                    False,
+                    default=False,
                     help="If set, status checks will not be enforced.",
                 ),
             ),
