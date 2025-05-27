@@ -149,7 +149,7 @@ class ClassicBranchProtectionQuery(Query):
         # and then see if rule sets are in use if the classic information is not found.
         response = module_data["session"].get(f"/branches/{module_data['branch']}/protection")
 
-        if response.status_code == 404:
+        if response.status_code == 404:  # noqa: PLR2004
             # Does this branch use rule sets?
             ruleset_response = module_data["session"].get(f"rules/branches/{module_data['branch']}")
 
