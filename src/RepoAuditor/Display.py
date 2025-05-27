@@ -21,8 +21,8 @@ from .Module import EvaluateResult, Module
 def GetInternalPanelContent(
     dm: DoneManager,
     results: list[Module.EvaluateInfo],
-    display_resolution: bool,
-    display_rationale: bool,
+    display_resolution: bool,  # noqa: FBT001
+    display_rationale: bool,  # noqa: FBT001
     num_success: int,
     num_warning: int,
     num_error: int,
