@@ -14,7 +14,7 @@ from .Impl.StandardEnableRequirementImpl import StandardEnableRequirementImpl
 # ----------------------------------------------------------------------
 class SuggestUpdatingPullRequestBranches(StandardEnableRequirementImpl):
     # ----------------------------------------------------------------------
-    def __init__(self):
+    def __init__(self) -> None:
         super(SuggestUpdatingPullRequestBranches, self).__init__(
             "SuggestUpdatingPullRequestBranches",
             False,

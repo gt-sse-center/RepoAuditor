@@ -16,7 +16,7 @@ from .Impl.ClassicValueRequirementImpl import ClassicValueRequirementImpl, DoesN
 # ----------------------------------------------------------------------
 class RequireApprovals(ClassicValueRequirementImpl):
     # ----------------------------------------------------------------------
-    def __init__(self):
+    def __init__(self) -> None:
         super(RequireApprovals, self).__init__(
             "RequireApprovals",
             "1",

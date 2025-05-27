@@ -16,7 +16,7 @@ from .Impl.ClassicEnableRequirementImpl import ClassicEnableRequirementImpl
 # ----------------------------------------------------------------------
 class RequireCodeOwnerReview(ClassicEnableRequirementImpl):
     # ----------------------------------------------------------------------
-    def __init__(self):
+    def __init__(self) -> None:
         super(RequireCodeOwnerReview, self).__init__(
             "RequireCodeOwnerReview",
             False,
