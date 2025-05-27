@@ -179,69 +179,71 @@ def Execute(
                 all_results[all_results_index] = transformed_results
 
         for index, (all_results_index, module_info) in enumerate(sequential):
-            with modules_dm.Nested(
-                "Processing '{}' ({} of {})...".format(
-                    module_info.module.name,
-                    index + 1 + len(parallel),
-                    len(module_infos),
-                ),
-            ) as this_module_dm:
+            with (
+                modules_dm.Nested(
+                    "Processing '{}' ({} of {})...".format(
+                        module_info.module.name,
+                        index + 1 + len(parallel),
+                        len(module_infos),
+                    ),
+                ) as this_module_dm,
                 # rich.progress needs to output to sys.stdout
-                with this_module_dm.YieldStdout() as stdout_context:
-                    stdout_context.persist_content = False
+                this_module_dm.YieldStdout() as stdout_context,
+            ):
+                stdout_context.persist_content = False
 
-                    # Technically speaking, it would be more correct to use `stdout_context.stream` here
-                    # rather than referencing `sys.stdout` directly, but it is really hard to work with mocked
-                    # stream as mocks will create mocks for everything called on the mock. Use sys.stdout
-                    # directly to avoid that particular problem.
-                    from unittest.mock import Mock, MagicMock
+                # Technically speaking, it would be more correct to use `stdout_context.stream` here
+                # rather than referencing `sys.stdout` directly, but it is really hard to work with mocked
+                # stream as mocks will create mocks for everything called on the mock. Use sys.stdout
+                # directly to avoid that particular problem.
+                from unittest.mock import Mock, MagicMock
 
-                    assert stdout_context.stream is sys.stdout or isinstance(
-                        stdout_context.stream, (Mock, MagicMock)
-                    ), stdout_context.stream
+                assert stdout_context.stream is sys.stdout or isinstance(
+                    stdout_context.stream, (Mock, MagicMock)
+                ), stdout_context.stream
 
-                    with Progress(
-                        *Progress.get_default_columns(),
-                        TimeElapsedColumn(),
-                        "{task.fields[status]}",
-                        console=Capabilities.Get(sys.stdout).CreateRichConsole(sys.stdout),
-                        transient=True,
-                        refresh_per_second=10,
-                    ) as progress_bar:
-                        progress_bar_task_id = progress_bar.add_task(
-                            stdout_context.line_prefix,
-                            status="",
-                            total=module_info.module.GetNumRequirements(),
-                            visible=True,
+                with Progress(
+                    *Progress.get_default_columns(),
+                    TimeElapsedColumn(),
+                    "{task.fields[status]}",
+                    console=Capabilities.Get(sys.stdout).CreateRichConsole(sys.stdout),
+                    transient=True,
+                    refresh_per_second=10,
+                ) as progress_bar:
+                    progress_bar_task_id = progress_bar.add_task(
+                        stdout_context.line_prefix,
+                        status="",
+                        total=module_info.module.GetNumRequirements(),
+                        visible=True,
+                    )
+
+                    # ----------------------------------------------------------------------
+                    def OnStatus(
+                        num_completed: int,
+                        num_success: int,
+                        num_error: int,
+                        num_warning: int,
+                        num_does_not_apply: int,
+                    ) -> None:
+                        progress_bar.update(
+                            progress_bar_task_id,
+                            completed=num_completed,
+                            status=_CreateStatusString(
+                                num_success,
+                                num_error,
+                                num_warning,
+                                num_does_not_apply,
+                            ),
                         )
 
-                        # ----------------------------------------------------------------------
-                        def OnStatus(
-                            num_completed: int,
-                            num_success: int,
-                            num_error: int,
-                            num_warning: int,
-                            num_does_not_apply: int,
-                        ) -> None:
-                            progress_bar.update(
-                                progress_bar_task_id,
-                                completed=num_completed,
-                                status=_CreateStatusString(
-                                    num_success,
-                                    num_error,
-                                    num_warning,
-                                    num_does_not_apply,
-                                ),
-                            )
+                    # ----------------------------------------------------------------------
 
-                        # ----------------------------------------------------------------------
+                    evaluate_results = Evaluate(module_info, OnStatus)
 
-                        evaluate_results = Evaluate(module_info, OnStatus)
+                    assert all_results[all_results_index] is None
+                    all_results[all_results_index] = evaluate_results
 
-                        assert all_results[all_results_index] is None
-                        all_results[all_results_index] = evaluate_results
-
-                        this_module_dm.result = CalcResultInfo(evaluate_results)[0]
+                    this_module_dm.result = CalcResultInfo(evaluate_results)[0]
 
     final_results: list[list[Module.EvaluateInfo]] = []
 
