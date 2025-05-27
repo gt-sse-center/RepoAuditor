@@ -179,7 +179,7 @@ def _VersionCallback(value: bool) -> None:
     epilog=_HelpEpilog(),
     no_args_is_help=False,
 )
-def EntryPoint(
+def EntryPoint(  # noqa: PLR0913
     ctx: typer.Context,
     version: Annotated[
         bool,

@@ -16,7 +16,7 @@ from ...Impl.EnableRequirementImpl import EnableRequirementImpl
 # ----------------------------------------------------------------------
 class StandardEnableRequirementImpl(EnableRequirementImpl):
     # ----------------------------------------------------------------------
-    def __init__(
+    def __init__(  # noqa: PLR0913
         self,
         name: str,
         default_value: bool,

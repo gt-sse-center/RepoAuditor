@@ -23,7 +23,7 @@ class EnableRequirementImpl(Requirement):
     """Object that implements settings that can be enabled/disabled."""
 
     # ----------------------------------------------------------------------
-    def __init__(
+    def __init__(  # noqa: PLR0913
         self,
         name: str,
         default_value: bool,
