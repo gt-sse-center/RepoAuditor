@@ -91,7 +91,7 @@ select = [
     "DTZ",
     "T10",
     "DJ",
-    "EM", # 9
+    "EM",
     "EXE",
     "FIX",
     "FA",
@@ -128,7 +128,7 @@ select = [
     "DOC",
     # "D", # 249
     "F",
-    # "PGH", # 5
+    "PGH",
     # "PL", # 11
     # "UP", # 100
     "FURB",
