@@ -82,7 +82,7 @@ select = [
     "ASYNC",
     "S",
     "BLE",
-    # "FBT", # 44
+    "FBT",
     # "B", # 11
     "A",
     "COM",
@@ -144,6 +144,7 @@ ignore = [
     "COM812", # Trailing comma missing
     "D202", # No blank lines allowed after function docstring
     "E501", # Line too long
+    "FBT003", # Boolean positional argument in function call
     "I001", # Import block is un-sorted or un-formatted
     "N802", # Function name `xxx` should be lowercase
     "N999", # Invalid module name
