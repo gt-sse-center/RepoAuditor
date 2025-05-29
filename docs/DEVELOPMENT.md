@@ -19,6 +19,7 @@
 | 3. Install dependencies. | `uv sync` | [Astral uv sync docs](https://docs.astral.sh/uv/concepts/projects/sync) |
 | 4. Install [pre-commit](https://pre-commit.com/) hooks | `uv run pre-commit install` | [Install pre-commit](https://pre-commit.com/#1-install-pre-commit) |
 | 5. If you wish to test against an enterprise server, add a remote named `enterprise` with the corresponding URL | E.g. `git remote add enterprise git@github.gatech.edu:sse-center/RepoAuditor.git` | |
+| 6. Install [tox](https://tox.wiki/) with `uv` support | `uv tool install tox --with tox-uv` | https://tox.wiki/ |
 
 ### Setup
 
@@ -119,6 +120,7 @@ Please follow the steps below to complete the configuration.
 | Static Code Analysis | `uv run ruff check` | Validate source code using [ruff](https://github.com/astral-sh/ruff) based on settings in `pyproject.toml`. | :white_check_mark: | :white_check_mark: (via [pre-commit](https://pre-commit.com/)) |
 | Run pre-commit scripts | `uv run pre-commit run` | Run [pre-commit](https://pre-commit.com/) scripts based on settings in `.pre-commit-config.yaml`. | :white_check_mark: | :white_check_mark: |
 | Automated Testing | `uv run pytest` or<br/>`uv run pytest --no-cov` | Run automated tests using [pytest](https://docs.pytest.org/) and extract code coverage using [coverage](https://coverage.readthedocs.io/) based on settings in `pyproject.toml`. | :white_check_mark: | :white_check_mark: |
+| Testing multiple Python versions | `uv tool run tox -p` | Run automated tests using [pytest](https://docs.pytest.org/) across multiple versions of Python as specified in the `pyproject.toml`, in parallel. | :white_check_mark: | |
 | Semantic Version Generation | `uv run python -m AutoGitSemVer.scripts.UpdatePythonVersion ./src/RepoAuditor/__init__.py ./src` | Generate a new [Semantic Version](https://semver.org/) based on git commits using [AutoGitSemVer](https://github.com/davidbrownell/AutoGitSemVer). Version information is stored in `./src/RepoAuditor/__init__.py`. | | :white_check_mark: |
 | Python Package Creation | `uv build` | Create a python package using [uv](https://github.com/astral-sh/uv) based on settings in `pyproject.toml`. Generated packages will be written to `./dist`. | | :white_check_mark: |
 | Sign Artifacts | `uv run --with py-minisign python -c "import minisign; minisign.SecretKey.from_file(<temp_filename>).sign_file(<filename>, trusted_comment='<package_name> v<package_version>', drop_signature=True)` | Signs artifacts using [py-minisign](https://github.com/x13a/py-minisign). Note that the private key is stored as a [GitHub secret](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions). | | :white_check_mark: |
