@@ -11,7 +11,7 @@ import textwrap
 from typing import Any, Optional
 from collections.abc import Callable
 
-from ...Impl.ValueRequirementImpl import DoesNotApplyResult, ValueRequirementImpl
+from RepoAuditor.Plugins.GitHub.Impl.ValueRequirementImpl import DoesNotApplyResult, ValueRequirementImpl
 
 
 # ----------------------------------------------------------------------
