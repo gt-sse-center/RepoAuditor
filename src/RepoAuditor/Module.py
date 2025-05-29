@@ -4,7 +4,7 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the Module object and types used in its definition"""
+"""Contains the Module object and types used in its definition."""
 
 import threading
 
@@ -55,6 +55,7 @@ class Module(ABC):
 
     # ----------------------------------------------------------------------
     def GetNumRequirements(self) -> int:
+        """Get the total number of requirements across all queries."""
         return sum(len(query.requirements) for query in self.queries)
 
     # ----------------------------------------------------------------------
@@ -63,6 +64,7 @@ class Module(ABC):
         included_names: set[str],
         excluded_names: set[str],
     ) -> None:
+        """Process the requirements to remove invalid requirements and queries."""
         query_index = 0
 
         while query_index < len(self.queries):
@@ -90,7 +92,7 @@ class Module(ABC):
     # ----------------------------------------------------------------------
     @abstractmethod
     def GetDynamicArgDefinitions(self) -> dict[str, TypeDefinitionItemType]:
-        """Returns information about dynamic arguments that the module can consume (often from the command line)."""
+        """Return information about dynamic arguments that the module can consume (often from the command line)."""
 
         raise NotImplementedError("Abstract method")  # pragma: no cover # noqa: EM101
 
@@ -100,8 +102,7 @@ class Module(ABC):
         self,
         dynamic_args: dict[str, Any],
     ) -> Optional[dict[str, Any]]:
-        """\
-        Augments data beyond data initially encountered (for example, on the command line).
+        """Augments data beyond data initially encountered (for example, on the command line).
 
         Return None to indicate that the Module cannot be evaluated. Raise an
         exception to indicate that the command line data is invalid.
@@ -118,6 +119,7 @@ class Module(ABC):
         *,
         max_num_threads: Optional[int] = None,
     ) -> list[list["Module.EvaluateInfo"]]:
+        """Evaluate the module using the module data and requirement data."""
         status_info = StatusInfo()
         status_info_lock = threading.Lock()
 

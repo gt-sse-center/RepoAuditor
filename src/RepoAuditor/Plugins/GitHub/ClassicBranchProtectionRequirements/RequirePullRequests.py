@@ -4,7 +4,7 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the RequirePullRequests object"""
+"""Contains the RequirePullRequests object."""
 
 import textwrap
 
@@ -13,6 +13,8 @@ from .Impl.ClassicEnableRequirementImpl import ClassicEnableRequirementImpl
 
 # ----------------------------------------------------------------------
 class RequirePullRequests(ClassicEnableRequirementImpl):
+    """Require a pull request before merging."""
+
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
         super().__init__(

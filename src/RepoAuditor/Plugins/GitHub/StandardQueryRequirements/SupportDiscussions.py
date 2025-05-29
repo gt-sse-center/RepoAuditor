@@ -4,7 +4,7 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the SupportDiscussions object"""
+"""Contains the SupportDiscussions object."""
 
 import textwrap
 
@@ -13,6 +13,8 @@ from .Impl.StandardEnableRequirementImpl import StandardEnableRequirementImpl
 
 # ----------------------------------------------------------------------
 class SupportDiscussions(StandardEnableRequirementImpl):
+    """Support for Discussions."""
+
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
         super().__init__(

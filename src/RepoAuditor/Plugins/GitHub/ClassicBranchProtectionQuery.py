@@ -4,7 +4,7 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the ClassicBranchProtection object"""
+"""Contains the ClassicBranchProtection object."""
 
 from typing import Any, Optional
 
@@ -117,6 +117,7 @@ class ClassicBranchProtectionQuery(Query):
         self,
         module_data: dict[str, Any],
     ) -> Optional[dict[str, Any]]:
+        """Get the data from an API session."""
         branch = module_data.get("branch")
         if branch is None:
             # Get the default branch name

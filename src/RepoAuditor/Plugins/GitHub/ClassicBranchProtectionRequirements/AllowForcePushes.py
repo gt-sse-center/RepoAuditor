@@ -4,7 +4,7 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the AllowForcePushes object"""
+"""Contains the AllowForcePushes object."""
 
 import textwrap
 
@@ -13,6 +13,8 @@ from .Impl.ClassicEnableRequirementImpl import ClassicEnableRequirementImpl
 
 # ----------------------------------------------------------------------
 class AllowForcePushes(ClassicEnableRequirementImpl):
+    """Allow force pushes to the mainline branch."""
+
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
         super().__init__(

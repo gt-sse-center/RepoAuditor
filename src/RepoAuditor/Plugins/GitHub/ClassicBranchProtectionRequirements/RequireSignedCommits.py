@@ -4,7 +4,7 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the RequireSignedCommits object"""
+"""Contains the RequireSignedCommits object."""
 
 import textwrap
 
@@ -13,6 +13,8 @@ from .Impl.ClassicEnableRequirementImpl import ClassicEnableRequirementImpl
 
 # ----------------------------------------------------------------------
 class RequireSignedCommits(ClassicEnableRequirementImpl):
+    """Require signed commits."""
+
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
         super().__init__(

@@ -4,7 +4,7 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the RequireLinearHistory object"""
+"""Contains the RequireLinearHistory object."""
 
 import textwrap
 
@@ -13,6 +13,8 @@ from .Impl.ClassicEnableRequirementImpl import ClassicEnableRequirementImpl
 
 # ----------------------------------------------------------------------
 class RequireLinearHistory(ClassicEnableRequirementImpl):
+    """Require a linear history."""
+
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
         super().__init__(

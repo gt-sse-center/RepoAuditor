@@ -4,7 +4,7 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the DefaultBranchQuery object"""
+"""Contains the DefaultBranchQuery object."""
 
 from typing import Any, Optional
 
@@ -35,6 +35,7 @@ class DefaultBranchQuery(Query):
         self,
         module_data: dict[str, Any],
     ) -> Optional[dict[str, Any]]:
+        """Get the data from an API session."""
         # Get the default branch name
         response = module_data["session"].get("")
 

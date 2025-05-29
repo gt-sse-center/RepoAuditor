@@ -4,7 +4,7 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the RebaseMergeCommit object"""
+"""Contains the RebaseMergeCommit object."""
 
 import textwrap
 
@@ -13,6 +13,8 @@ from .Impl.StandardEnableRequirementImpl import StandardEnableRequirementImpl
 
 # ----------------------------------------------------------------------
 class RebaseMergeCommit(StandardEnableRequirementImpl):
+    """Allow rebase merging requirement."""
+
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
         super().__init__(

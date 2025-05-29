@@ -4,7 +4,7 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the GitHubModule object"""
+"""Contains the GitHubModule object."""
 
 from pathlib import Path
 from typing import Any, Optional
@@ -25,6 +25,8 @@ from .StandardQuery import StandardQuery
 
 # ----------------------------------------------------------------------
 class GitHubModule(Module):
+    """Module for validating GitHub repository configuration settings."""
+
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
         super().__init__(
@@ -42,6 +44,7 @@ class GitHubModule(Module):
     # ----------------------------------------------------------------------
     @override
     def GetDynamicArgDefinitions(self) -> dict[str, TypeDefinitionItemType]:
+        """Get the definitions for the arguments to this requirement."""
         return {
             "url": (
                 str,
@@ -69,6 +72,8 @@ class GitHubModule(Module):
     # ----------------------------------------------------------------------
     @override
     def GenerateInitialData(self, dynamic_args: dict[str, Any]) -> Optional[dict[str, Any]]:
+        """Generate the initial data to be used in the `dynamic_args`, such as session info, etc."""
+        # Create a GitHub API session
         dynamic_args["session"] = _GitHubSession(dynamic_args["url"], dynamic_args.get("pat"))
 
         return dynamic_args
@@ -80,7 +85,7 @@ class GitHubModule(Module):
 # |
 # ----------------------------------------------------------------------
 class _GitHubSession(requests.Session):
-    """Session used to communicate with GitHub APIs"""
+    """Session used to communicate with GitHub APIs."""
 
     # ----------------------------------------------------------------------
     def __init__(

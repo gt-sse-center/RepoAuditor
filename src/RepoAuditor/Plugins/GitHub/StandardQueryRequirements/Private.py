@@ -4,7 +4,7 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the Private object"""
+"""Contains the Private object."""
 
 import textwrap
 from typing import Any
@@ -21,6 +21,8 @@ from ..Impl.Common import CreateIncompleteDataResult
 
 # ----------------------------------------------------------------------
 class Private(Requirement):
+    """Validates that the repository is set to the expected visibility."""
+
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
         super().__init__(
@@ -53,6 +55,7 @@ class Private(Requirement):
     # ----------------------------------------------------------------------
     @override
     def GetDynamicArgDefinitions(self) -> dict[str, TypeDefinitionItemType]:
+        """Get the definitions for the arguments to this requirement."""
         return {
             "true": (
                 bool,

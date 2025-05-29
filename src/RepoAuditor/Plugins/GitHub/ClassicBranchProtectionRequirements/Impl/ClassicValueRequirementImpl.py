@@ -4,7 +4,7 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the ClassicValueRequirementImpl object"""
+"""Contains the ClassicValueRequirementImpl object."""
 
 import textwrap
 
@@ -16,6 +16,8 @@ from ...Impl.ValueRequirementImpl import DoesNotApplyResult, ValueRequirementImp
 
 # ----------------------------------------------------------------------
 class ClassicValueRequirementImpl(ValueRequirementImpl):
+    """Implementation of a requirement that checks a classic value in GitHub settings."""
+
     # ----------------------------------------------------------------------
     def __init__(
         self,

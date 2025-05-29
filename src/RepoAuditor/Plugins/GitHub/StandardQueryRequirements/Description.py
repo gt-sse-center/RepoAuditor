@@ -4,7 +4,7 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the Description object"""
+"""Contains the Description object."""
 
 import textwrap
 
@@ -22,6 +22,8 @@ from ..Impl.Common import CreateIncompleteDataResult
 
 # ----------------------------------------------------------------------
 class Description(Requirement):
+    """Requirement to validate a repository's description."""
+
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
         super().__init__(
@@ -54,6 +56,7 @@ class Description(Requirement):
     # ----------------------------------------------------------------------
     @override
     def GetDynamicArgDefinitions(self) -> dict[str, TypeDefinitionItemType]:
+        """Get the definitions for the arguments to this requirement."""
         return {
             "allow-empty": (
                 bool,

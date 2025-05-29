@@ -4,7 +4,7 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the SquashMergeCommitMessage object"""
+"""Contains the SquashMergeCommitMessage object."""
 
 import textwrap
 
@@ -15,6 +15,8 @@ from .Impl.StandardValueRequirementImpl import DoesNotApplyResult, StandardValue
 
 # ----------------------------------------------------------------------
 class SquashMergeCommitMessage(StandardValueRequirementImpl):
+    """Set default commit message for squash merges."""
+
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
         super().__init__(

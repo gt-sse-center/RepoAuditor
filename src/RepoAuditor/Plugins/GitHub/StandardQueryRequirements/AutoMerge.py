@@ -4,7 +4,7 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the AutoMerge object"""
+"""Contains the AutoMerge object."""
 
 import textwrap
 
@@ -13,6 +13,8 @@ from .Impl.StandardEnableRequirementImpl import StandardEnableRequirementImpl
 
 # ----------------------------------------------------------------------
 class AutoMerge(StandardEnableRequirementImpl):
+    """Requirement to enable auto-merge for pull requests."""
+
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
         super().__init__(

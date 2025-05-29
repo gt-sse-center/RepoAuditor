@@ -4,7 +4,7 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the interface that Plugins must implement"""
+"""Contains the interface that Plugins must implement."""
 
 import pluggy
 
@@ -16,5 +16,5 @@ from .Module import Module
 # ----------------------------------------------------------------------
 @pluggy.HookspecMarker(APP_NAME)
 def GetModule() -> Module:
-    """Returns a Module"""
+    """Return a Module."""
     raise NotImplementedError("hookspec")  # pragma: no cover # noqa: EM101

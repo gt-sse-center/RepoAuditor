@@ -4,7 +4,7 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the RequireApprovals object"""
+"""Contains the RequireApprovals object."""
 
 import textwrap
 
@@ -15,6 +15,8 @@ from .Impl.ClassicValueRequirementImpl import ClassicValueRequirementImpl, DoesN
 
 # ----------------------------------------------------------------------
 class RequireApprovals(ClassicValueRequirementImpl):
+    """Require approvals for pull requests."""
+
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
         super().__init__(

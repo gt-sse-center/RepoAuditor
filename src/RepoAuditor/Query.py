@@ -4,7 +4,7 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the Query object and types used in its definition"""
+"""Contains the Query object and types used in its definition."""
 
 import threading
 
@@ -18,7 +18,9 @@ from .Requirement import EvaluateResult, ExecutionStyle, Requirement
 
 # ----------------------------------------------------------------------
 class OnStatusFunc(Protocol):
-    def __call__(
+    """Functional to report status information."""
+
+    def __call__(  # noqa: D102
         self,
         num_completed: int,
         num_success: int,
@@ -64,7 +66,7 @@ class Query(ABC):
         self,
         module_data: dict[str, Any],
     ) -> Optional[dict[str, Any]]:
-        """Returns the data object augmented with information required by the Requirements associated with this Query."""
+        """Return the data object augmented with information required by the Requirements associated with this Query."""
 
     # ----------------------------------------------------------------------
     def Evaluate(
@@ -75,6 +77,7 @@ class Query(ABC):
         *,
         max_num_threads: Optional[int] = None,
     ) -> list["Query.EvaluateInfo"]:
+        """Evaluate the Query given the query data and the data from the requirements."""
         status_info = StatusInfo()
         status_info_lock = threading.Lock()
 

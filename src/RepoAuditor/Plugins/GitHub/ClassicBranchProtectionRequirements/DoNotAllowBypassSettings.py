@@ -4,7 +4,7 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the AllowBypassSettings object"""
+"""Contains the AllowBypassSettings object."""
 
 import textwrap
 
@@ -13,6 +13,8 @@ from .Impl.ClassicEnableRequirementImpl import ClassicEnableRequirementImpl
 
 # ----------------------------------------------------------------------
 class DoNotAllowBypassSettings(ClassicEnableRequirementImpl):
+    """Do not allow bypassing settings."""
+
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
         super().__init__(

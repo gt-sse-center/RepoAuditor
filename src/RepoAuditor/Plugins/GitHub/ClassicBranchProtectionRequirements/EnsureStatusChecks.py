@@ -4,7 +4,7 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the EnsureStatusChecks object"""
+"""Contains the EnsureStatusChecks object."""
 
 import textwrap
 
@@ -19,6 +19,8 @@ from RepoAuditor.Requirement import EvaluateResult, ExecutionStyle, Requirement
 
 # ----------------------------------------------------------------------
 class EnsureStatusChecks(Requirement):
+    """Ensure that status checks have been enabled for the branch."""
+
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
         super().__init__(
@@ -54,6 +56,7 @@ class EnsureStatusChecks(Requirement):
     # ----------------------------------------------------------------------
     @override
     def GetDynamicArgDefinitions(self) -> dict[str, TypeDefinitionItemType]:
+        """Get the definitions for the arguments to this requirement."""
         return {
             "disable": (
                 bool,
