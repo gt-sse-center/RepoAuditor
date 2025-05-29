@@ -10,7 +10,7 @@ import sys
 import textwrap
 import traceback
 
-from typing import Annotated
+from typing import Annotated, Optional
 
 import pluggy
 import typer
@@ -194,33 +194,33 @@ def EntryPoint(
         ),
     ] = False,
     includes: Annotated[
-        list[str],
+        Optional[list[str]],
         typer.Option(
             "--include",
             help=f"Module or requirement names to explicitly include in the execution; like other command line arguments, requirement names must include the module name as a prefix (e.g. 'ModuleName{ARGUMENT_SEPARATOR}RequirementName'). This value can be provided multiple times.",
         ),
-    ] = [],
+    ] = None,
     excludes: Annotated[
-        list[str],
+        Optional[list[str]],
         typer.Option(
             "--exclude",
             help=f"Module or requirement names to exclude from execution; like other command line arguments, requirement names must include the module name as a prefix (e.g. 'ModuleName{ARGUMENT_SEPARATOR}RequirementName'). This value can be provided multiple times.",
         ),
-    ] = [],
+    ] = None,
     warnings_as_error: Annotated[
-        list[str],
+        Optional[list[str]],
         typer.Option(
             "--warnings-as-error",
             help="Name of a module whose warnings should be treated as errors. This value can be provided multiple times.",
         ),
-    ] = [],
+    ] = None,
     ignore_warnings: Annotated[
-        list[str],
+        Optional[list[str]],
         typer.Option(
             "--ignore-warnings",
             help="Name of a module whose warnings should be ignored. This value can be provided multiple times.",
         ),
-    ] = [],
+    ] = None,
     all_warnings_as_error: Annotated[
         bool, typer.Option("--all-warnings-as-error", help="Treat all warnings as errors.")
     ] = False,
@@ -261,6 +261,12 @@ def EntryPoint(
     ] = False,
 ) -> None:
     """Entry point for the command line interface."""
+    # Initialize lists to avoid mutable default arguments
+    includes = includes or []
+    excludes = excludes or []
+    warnings_as_error = warnings_as_error or []
+    ignore_warnings = ignore_warnings or []
+
     with DoneManager.CreateCommandLine(
         sys.stdout,
         flags=DoneManagerFlags.Create(verbose=verbose, debug=debug),

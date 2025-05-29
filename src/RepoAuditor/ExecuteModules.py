@@ -176,6 +176,7 @@ def Execute(
                     Prepare,
                     max_num_threads=max_num_threads,
                 ),
+                strict=True,
             ):
                 assert all_results[all_results_index] is None
                 assert isinstance(transformed_results, list), transformed_results
@@ -230,7 +231,7 @@ def Execute(
                         num_does_not_apply: int,
                     ) -> None:
                         progress_bar.update(
-                            progress_bar_task_id,
+                            progress_bar_task_id,  # noqa: B023
                             completed=num_completed,
                             status=_CreateStatusString(
                                 num_success,
