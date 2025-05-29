@@ -14,7 +14,6 @@ from typing import cast
 
 import pytest
 
-from dbrownell_Common.Streams.Capabilities import Capabilities
 from dbrownell_Common.Types import override
 from dbrownell_Common.TestHelpers.StreamTestHelpers import (
     GenerateDoneManagerAndContent,
@@ -39,7 +38,7 @@ class MyModule(Module):
         no_initial_data: bool = False,
         **kwargs,
     ) -> None:
-        super(MyModule, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.no_initial_data = no_initial_data
 
     # ----------------------------------------------------------------------
@@ -76,7 +75,7 @@ class MyQuery(Query):
         **kwargs,
     ) -> Optional[dict[str, Any]]:
         if args or kwargs:
-            super(MyQuery, self).__init__(*args, **kwargs)
+            super().__init__(*args, **kwargs)
 
         module_data["query_name"] = self.name
         return module_data
@@ -86,7 +85,7 @@ class MyQuery(Query):
 class MyRequirement(Requirement):
     # ----------------------------------------------------------------------
     def __init__(self, result: EvaluateResult, *args) -> None:
-        super(MyRequirement, self).__init__(*args)
+        super().__init__(*args)
 
         self.result = result
 

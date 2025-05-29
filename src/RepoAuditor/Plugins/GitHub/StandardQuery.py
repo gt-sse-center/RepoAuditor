@@ -200,7 +200,7 @@ class StandardQuery(Query):
 
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
-        super(StandardQuery, self).__init__(
+        super().__init__(
             "StandardQuery",
             ExecutionStyle.Parallel,
             [

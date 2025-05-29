@@ -15,7 +15,7 @@ from .Impl.ClassicEnableRequirementImpl import ClassicEnableRequirementImpl
 class RequireConversationResolution(ClassicEnableRequirementImpl):
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
-        super(RequireConversationResolution, self).__init__(
+        super().__init__(
             "RequireConversationResolution",
             True,
             "false",

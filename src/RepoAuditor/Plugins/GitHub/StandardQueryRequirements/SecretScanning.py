@@ -17,7 +17,7 @@ from .Impl.StandardEnableRequirementImpl import StandardEnableRequirementImpl
 class SecretScanning(StandardEnableRequirementImpl):
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
-        super(SecretScanning, self).__init__(
+        super().__init__(
             "SecretScanning",
             True,
             "false",

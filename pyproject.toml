@@ -130,7 +130,7 @@ select = [
     "F",
     "PGH",
     # "PL", # 11
-    # "UP", # 100
+    "UP",
     "FURB",
     "RUF",
     "TRY",
@@ -150,7 +150,9 @@ ignore = [
     "RSE102", # Unnecessary parentheses on raise exception
     "S101", # Use of assert detected
     "TC006", # Add quotes to type expression in `typing.cast()`
+    "UP007", # Use `X | Y` for type annotations
     "UP032", # Use f-string instead of `format` call
+    "UP038", # Use `X | Y` in `isinstance` call instead of `(X, Y)`
 ]
 
 [tool.ruff.lint.mccabe]

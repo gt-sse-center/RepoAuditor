@@ -17,7 +17,7 @@ from .Impl.ClassicEnableRequirementImpl import ClassicEnableRequirementImpl
 class RequireApprovalMostRecentPush(ClassicEnableRequirementImpl):
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
-        super(RequireApprovalMostRecentPush, self).__init__(
+        super().__init__(
             "RequireApprovalMostRecentPush",
             True,
             "false",

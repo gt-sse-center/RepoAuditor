@@ -31,7 +31,7 @@ class MyRequirement(Requirement):
         requires_explicit_include: bool = False,
         provide_rationale: bool = True,
     ) -> None:
-        super(MyRequirement, self).__init__(
+        super().__init__(
             name,
             description,
             style,

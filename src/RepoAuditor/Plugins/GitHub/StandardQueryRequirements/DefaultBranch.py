@@ -15,7 +15,7 @@ from .Impl.StandardValueRequirementImpl import StandardValueRequirementImpl
 class DefaultBranch(StandardValueRequirementImpl):
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
-        super(DefaultBranch, self).__init__(
+        super().__init__(
             "DefaultBranch",
             "main",
             "settings",

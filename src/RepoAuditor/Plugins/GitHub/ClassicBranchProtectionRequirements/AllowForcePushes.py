@@ -15,7 +15,7 @@ from .Impl.ClassicEnableRequirementImpl import ClassicEnableRequirementImpl
 class AllowForcePushes(ClassicEnableRequirementImpl):
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
-        super(AllowForcePushes, self).__init__(
+        super().__init__(
             "AllowForcePushes",
             False,
             "true",

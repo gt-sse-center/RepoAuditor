@@ -15,7 +15,7 @@ from .Impl.ClassicEnableRequirementImpl import ClassicEnableRequirementImpl
 class RequireLinearHistory(ClassicEnableRequirementImpl):
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
-        super(RequireLinearHistory, self).__init__(
+        super().__init__(
             "RequireLinearHistory",
             False,
             "true",

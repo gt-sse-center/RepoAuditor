@@ -9,7 +9,7 @@
 import re
 import textwrap
 
-from typing import cast, ClassVar, Optional
+from typing import cast, Optional
 from unittest.mock import patch
 
 import pytest
@@ -37,7 +37,7 @@ class MyModule(Module):
         *,
         requires_explicit_include: bool = False,
     ):
-        super(MyModule, self).__init__(
+        super().__init__(
             name,
             "",
             ExecutionStyle.Sequential,
@@ -66,7 +66,7 @@ class MyModule(Module):
 class MyQuery(Query):
     # ----------------------------------------------------------------------
     def __init__(self):
-        super(MyQuery, self).__init__(
+        super().__init__(
             "MyQuery",
             ExecutionStyle.Sequential,
             [
@@ -94,7 +94,7 @@ class MyRequirement(Requirement):
         requires_explicit_include: bool = False,
         has_dynamic_args: bool = False,
     ):
-        super(MyRequirement, self).__init__(
+        super().__init__(
             name,
             "",
             ExecutionStyle.Sequential,

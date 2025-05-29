@@ -7,7 +7,8 @@
 """Contains functionality to process items in parallel and/or sequentially."""
 
 from enum import auto, Enum
-from typing import Callable, cast, Optional, TypeVar
+from typing import cast, TypeVar, Optional
+from collections.abc import Callable
 
 from dbrownell_Common import ExecuteTasks  # type: ignore[import-untyped]
 from dbrownell_Common.Streams.DoneManager import DoneManager  # type: ignore[import-untyped]

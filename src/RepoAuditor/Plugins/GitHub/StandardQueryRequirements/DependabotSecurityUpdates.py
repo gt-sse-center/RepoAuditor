@@ -17,7 +17,7 @@ from .Impl.StandardEnableRequirementImpl import StandardEnableRequirementImpl
 class DependabotSecurityUpdates(StandardEnableRequirementImpl):
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
-        super(DependabotSecurityUpdates, self).__init__(
+        super().__init__(
             "DependabotSecurityUpdates",
             True,
             "false",

@@ -15,7 +15,7 @@ from .Impl.StandardEnableRequirementImpl import StandardEnableRequirementImpl
 class SupportProjects(StandardEnableRequirementImpl):
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
-        super(SupportProjects, self).__init__(
+        super().__init__(
             "SupportProjects",
             True,
             "false",

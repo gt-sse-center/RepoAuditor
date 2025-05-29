@@ -17,7 +17,7 @@ from .Impl.ClassicValueRequirementImpl import ClassicValueRequirementImpl, DoesN
 class RequireApprovals(ClassicValueRequirementImpl):
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
-        super(RequireApprovals, self).__init__(
+        super().__init__(
             "RequireApprovals",
             "1",
             "Protect matching branches",

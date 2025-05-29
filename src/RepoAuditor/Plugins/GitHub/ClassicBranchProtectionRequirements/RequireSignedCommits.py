@@ -15,7 +15,7 @@ from .Impl.ClassicEnableRequirementImpl import ClassicEnableRequirementImpl
 class RequireSignedCommits(ClassicEnableRequirementImpl):
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
-        super(RequireSignedCommits, self).__init__(
+        super().__init__(
             "RequireSignedCommits",
             True,
             "false",

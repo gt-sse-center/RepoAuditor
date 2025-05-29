@@ -15,7 +15,7 @@ from .Impl.StandardEnableRequirementImpl import StandardEnableRequirementImpl
 class SupportDiscussions(StandardEnableRequirementImpl):
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
-        super(SupportDiscussions, self).__init__(
+        super().__init__(
             "SupportDiscussions",
             False,
             "true",

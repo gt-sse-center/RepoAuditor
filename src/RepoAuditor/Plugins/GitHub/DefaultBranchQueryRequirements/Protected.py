@@ -25,7 +25,7 @@ class Protected(Requirement):
     def __init__(self) -> None:
         # Note that protected is set for the branch when creating a branch ruleset or a classic
         # branch protection rule.
-        super(Protected, self).__init__(
+        super().__init__(
             "Protected",
             "Ensures that the mainline branch is protected.",
             ExecutionStyle.Parallel,

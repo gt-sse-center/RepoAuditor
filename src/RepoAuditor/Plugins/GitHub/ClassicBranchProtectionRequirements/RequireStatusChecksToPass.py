@@ -15,7 +15,7 @@ from .Impl.ClassicEnableRequirementImpl import ClassicEnableRequirementImpl
 class RequireStatusChecksToPass(ClassicEnableRequirementImpl):
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
-        super(RequireStatusChecksToPass, self).__init__(
+        super().__init__(
             "RequireStatusChecksToPass",
             True,
             "false",
