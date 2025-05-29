@@ -133,7 +133,7 @@ select = [
     # "UP", # 100
     "FURB",
     "RUF",
-    # "TRY", # 16
+    "TRY",
 
 ]
 

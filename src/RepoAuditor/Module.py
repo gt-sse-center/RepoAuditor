@@ -92,7 +92,7 @@ class Module(ABC):
     def GetDynamicArgDefinitions(self) -> dict[str, TypeDefinitionItemType]:
         """Returns information about dynamic arguments that the module can consume (often from the command line)."""
 
-        raise Exception("Abstract method")  # pragma: no cover # noqa: EM101
+        raise NotImplementedError("Abstract method")  # pragma: no cover # noqa: EM101
 
     # ----------------------------------------------------------------------
     @abstractmethod
@@ -107,7 +107,7 @@ class Module(ABC):
         exception to indicate that the command line data is invalid.
         """
 
-        raise Exception("Abstract method")  # pragma: no cover # noqa: EM101
+        raise NotImplementedError("Abstract method")  # pragma: no cover # noqa: EM101
 
     # ----------------------------------------------------------------------
     def Evaluate(

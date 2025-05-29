@@ -369,7 +369,9 @@ def test_IgnoreAllWarnings():
 def test_ErrorInvalidModuleName():
     with pytest.raises(
         Exception,
-        match=re.escape("The module name 'Invalid-name' contains '-'."),
+        match=re.escape(
+            "The module name 'Invalid-name' contains '-', which should be used as an argument separator."
+        ),
     ):
         CommandLineProcessor.Create(
             lambda *args: {},
