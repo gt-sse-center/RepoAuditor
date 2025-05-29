@@ -103,7 +103,7 @@ def _Impl(
                 ExecuteTasks.TaskData(item.name, (results_index, item))  # type: ignore[attr-defined]
                 for results_index, item in parallel
             ],
-            lambda context, status: Execute(*context),
+            lambda context, status: Execute(*context),  # noqa: ARG005
             max_num_threads=max_num_threads,
             return_exceptions=True,
         )

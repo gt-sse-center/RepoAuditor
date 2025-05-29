@@ -114,7 +114,7 @@ select = [
     # "TID", # 9
     "TD",
     "TC",
-    # "ARG", # 5
+    "ARG",
     "PTH",
     "FLY",
     "I",
