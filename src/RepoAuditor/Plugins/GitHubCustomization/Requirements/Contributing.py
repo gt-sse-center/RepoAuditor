@@ -7,19 +7,28 @@
 """Contains the Contributing requirement."""
 
 import textwrap
-from typing import Any
 
-from RepoAuditor.Requirement import EvaluateResult, ExecutionStyle, Requirement
+from RepoAuditor.Plugins.GitHubCustomization.Impl.ExistsRequirementImpl import ExistsRequirementImpl
 
 
-class Contributing(Requirement):
+class Contributing(ExistsRequirementImpl):
     """Validates that a contributing guide is configured."""
 
     def __init__(self) -> None:
         super().__init__(
             "Contributing",
-            "Validates that a contributing guide is configured.",
-            ExecutionStyle.Parallel,
+            "exists",
+            "CONTRIBUTING",
+            [
+                # Upper case variants
+                ".github/CONTRIBUTING.md",
+                "docs/CONTRIBUTING.md",
+                "CONTRIBUTING.md",
+                # Lower case variants
+                ".github/contributing.md",
+                "docs/contributing.md",
+                "contributing.md",
+            ],
             textwrap.dedent(
                 """\
                 1) Create a contributing guide in one of these locations:
@@ -41,34 +50,4 @@ class Contributing(Requirement):
                 - Better community engagement
                 """
             ),
-        )
-
-    def _EvaluateImpl(
-        self,
-        query_data: dict[str, Any],
-        requirement_args: dict[str, Any],  # noqa: ARG002
-    ) -> Requirement.EvaluateImplResult:
-        repo_path = query_data["repo_path"]
-
-        # Check all possible locations for contributing guide
-        possible_locations = [
-            # Upper case variants
-            repo_path / ".github" / "CONTRIBUTING.md",
-            repo_path / "docs" / "CONTRIBUTING.md",
-            repo_path / "CONTRIBUTING.md",
-            # Lower case variants
-            repo_path / ".github" / "contributing.md",
-            repo_path / "docs" / "contributing.md",
-            repo_path / "contributing.md",
-        ]
-
-        for location in possible_locations:
-            if location.exists():
-                return Requirement.EvaluateImplResult(EvaluateResult.Success, None)
-
-        return Requirement.EvaluateImplResult(
-            EvaluateResult.Error,
-            "No contributing guide found.",
-            provide_resolution=True,
-            provide_rationale=True,
         )

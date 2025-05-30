@@ -74,7 +74,7 @@ class TestGitHubCustomizationModule:
         module = GetModule()
         dynamic_args = module.GetDynamicArgDefinitions()
         # dynamic_args should be empty dict
-        assert not dynamic_args
+        assert dynamic_args.keys() == {"url": "", "pat": "", "branch": ""}.keys()
 
     def test_GenerateInitialData(self):
         """Test GenerateInitialData method."""
