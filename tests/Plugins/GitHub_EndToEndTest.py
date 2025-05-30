@@ -7,9 +7,6 @@
 """End-to-end tests for the GitHub plugin"""
 
 import os
-import sys
-import textwrap
-
 from pathlib import Path
 
 import pytest
@@ -22,37 +19,11 @@ from typer.testing import CliRunner
 from RepoAuditor.EntryPoint import app
 
 
-from utilities import ScrubDurationGithuburlAndSpaces, GetGithubUrl
+from utilities import ScrubDurationGithuburlAndSpaces, GetGithubUrl, CheckPATFileExists
 
 # ----------------------------------------------------------------------
 _github_pat_filename = (Path(__file__).parent / "github_pat.txt").resolve()
-
-if not _github_pat_filename.is_file():
-    sys.stdout.write(
-        textwrap.dedent(
-            f"""\
-
-
-            The filename '{_github_pat_filename}' does not exist. Please create this file and add your GitHub Personal Access Token (PAT) to it.
-            This git repository is configured to ignore the file so that it will never be included as part of a commit.
-
-            To create a new token:
-
-                1. Visit https://github.com/settings/tokens/new
-                2. Ensure that 'repo' scope is checked
-                3. Click 'Generate token'
-                4. Copy the token to the clipboard
-                5. Create the file '{_github_pat_filename}'
-                6. Paste the token into the created file
-                7. Save the file and run these tests again.
-
-            These tests query a repository on GitHub, but GitHub limits the number of concurrent requests made to a repository when a PAT is
-            not provided. As a result, the tests will fail once the limit is reached.
-            """,
-        ),
-    )
-
-    sys.exit(-1)
+CheckPATFileExists(_github_pat_filename)
 
 # ----------------------------------------------------------------------
 pytest.fixture(InitializeStreamCapabilities(), scope="session", autouse=True)
