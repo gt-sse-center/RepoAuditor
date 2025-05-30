@@ -11,7 +11,8 @@ from pathlib import Path
 import pytest
 from pyfakefs.fake_filesystem_unittest import TestCase as FakeFSTestCase
 
-from RepoAuditor.Plugins.GitHub.Module import GitHubModule, _GitHubSession
+from RepoAuditor.Plugins.GitHub.Module import GitHubModule
+from RepoAuditor.Plugins.GitHubBase.Module import _GitHubSession
 
 
 class TestGitHubSession(FakeFSTestCase):
