@@ -11,7 +11,7 @@ import textwrap
 from typing import Any, Optional
 from collections.abc import Callable
 
-from ...Impl.EnableRequirementImpl import EnableRequirementImpl
+from RepoAuditor.Plugins.GitHub.Impl.EnableRequirementImpl import EnableRequirementImpl
 
 
 # ----------------------------------------------------------------------

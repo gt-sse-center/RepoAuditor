@@ -111,7 +111,7 @@ select = [
     "SLF",
     "SIM",
     "SLOT",
-    # "TID", # 9
+    "TID",
     "TD",
     "TC",
     "ARG",
