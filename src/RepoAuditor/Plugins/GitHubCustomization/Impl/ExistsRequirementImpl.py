@@ -71,9 +71,25 @@ class ExistsRequirementImpl(Requirement):
             for location in self.possible_locations:
                 # Query for file location
                 response = query_data["session"].get(f"contents/{location}")
-                # If file is found, response will have status code 200
+
+                # If location is found, response will have status code 200
                 if response.status_code == 200:
-                    return Requirement.EvaluateImplResult(EvaluateResult.Success, None)
+                    response_json = response.json()
+                    # If response is a list, we have a directory
+                    if isinstance(response_json, list):
+                        for file in response_json:
+                            # Check if there are any template files (.md or .yml)
+                            if ".md" in file["path"] or ".yml" in file["path"]:
+                                return Requirement.EvaluateImplResult(
+                                    EvaluateResult.Success,
+                                    f"File {self.github_file} found in directory {location}",
+                                )
+
+                    # If response is a dict, we have a single file
+                    elif isinstance(response_json, dict):
+                        return Requirement.EvaluateImplResult(
+                            EvaluateResult.Success, f"File {self.github_file} found at {location}"
+                        )
 
             return Requirement.EvaluateImplResult(
                 EvaluateResult.Error,

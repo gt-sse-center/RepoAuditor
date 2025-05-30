@@ -13,6 +13,9 @@ from dbrownell_Common.Types import override  # type: ignore[import-untyped]
 from RepoAuditor.Query import ExecutionStyle, Query
 from RepoAuditor.Plugins.GitHubCustomization.Requirements.CodeOwners import CodeOwners
 from RepoAuditor.Plugins.GitHubCustomization.Requirements.Contributing import Contributing
+from RepoAuditor.Plugins.GitHubCustomization.Requirements.IssueTemplates import IssueTemplates
+from RepoAuditor.Plugins.GitHubCustomization.Requirements.PullRequestTemplates import PullRequestTemplate
+from RepoAuditor.Plugins.GitHubCustomization.Requirements.SecurityPolicy import SecurityPolicy
 
 
 class CustomizationQuery(Query):
@@ -25,6 +28,9 @@ class CustomizationQuery(Query):
             [
                 CodeOwners(),
                 Contributing(),
+                IssueTemplates(),
+                PullRequestTemplate(),
+                SecurityPolicy(),
             ],
         )
 
