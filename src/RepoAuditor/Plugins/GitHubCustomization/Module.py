@@ -6,13 +6,14 @@
 # -------------------------------------------------------------------------------
 """Contains the GitHubCustomizationModule object."""
 
-from typing import Any, Optional
-from RepoAuditor.Module import ExecutionStyle, Module
-from dbrownell_Common.TyperEx import TypeDefinitionItemType
+from typing import Any
 from dbrownell_Common.Types import override
 
+from RepoAuditor.Module import ExecutionStyle
+from RepoAuditor.Plugins.GitHubBase.Module import GitHubBaseModule
 
-class GitHubCustomizationModule(Module):
+
+class GitHubCustomizationModule(GitHubBaseModule):
     """Module that validates GitHub repository customization files."""
 
     def __init__(self) -> None:
@@ -23,18 +24,6 @@ class GitHubCustomizationModule(Module):
             [],  # Empty query list for now
             requires_explicit_include=False,
         )
-
-    @override
-    def GetDynamicArgDefinitions(self) -> dict[str, TypeDefinitionItemType]:
-        """Return the dynamic arguments for this module."""
-        # Return an empty dictionary as we don't have any dynamic args yet
-        return {}
-
-    @override
-    def GenerateInitialData(self, dynamic_args: dict[str, Any]) -> Optional[dict[str, Any]]:  # noqa: ARG002
-        """Generate initial data for queries to use."""
-        # Return an empty dictionary as we don't have any initial data yet
-        return {}
 
     @override
     def Cleanup(self, dynamic_args: dict[str, Any]) -> None:
