@@ -15,10 +15,10 @@
   │                                                                                                                                                                                  │
   │ Validates GitHub repository customization files.                                                                                                                                 │
   │                                                                                                                                                                                  │
-  │ Successful:     2 (66.67%)                                                                                                                                                       │
+  │ Successful:     1 (20.00%)                                                                                                                                                       │
   │ Warnings:       0 (0.00%)                                                                                                                                                        │
   │ Errors:         0 (0.00%)                                                                                                                                                        │
-  │ Skipped:        1 (33.33%)                                                                                                                                                       │
+  │ Skipped:        4 (80.00%)                                                                                                                                                       │
   │                                                                                                                                                                                  │
   │                                                                                                                                                                                  │
   ╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
@@ -44,10 +44,97 @@
   │                                                                                                                                                                                  │
   │ Validates GitHub repository customization files.                                                                                                                                 │
   │                                                                                                                                                                                  │
-  │ Successful:     2 (66.67%)                                                                                                                                                       │
+  │ Successful:     1 (20.00%)                                                                                                                                                       │
   │ Warnings:       0 (0.00%)                                                                                                                                                        │
   │ Errors:         0 (0.00%)                                                                                                                                                        │
-  │ Skipped:        1 (33.33%)                                                                                                                                                       │
+  │ Skipped:        4 (80.00%)                                                                                                                                                       │
+  │                                                                                                                                                                                  │
+  │                                                                                                                                                                                  │
+  ╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+  
+  Results: DONE! ([32;1m0[0m, <scrubbed duration>)
+  
+  
+  '''
+# ---
+# name: TestCustomization.test_IssueTemplate
+  '''
+  Processing 1 module...
+    Processing 'GitHubCustomization' (1 of 1)...
+  
+  
+  
+  
+    DONE! ([32;1m0[0m, <scrubbed duration>)
+  DONE! ([32;1m0[0m, <scrubbed duration>)
+  
+  
+  ╭────────────────────────────────────────────────────────────────────────────── GitHubCustomization ───────────────────────────────────────────────────────────────────────────────╮
+  │                                                                                                                                                                                  │
+  │ Validates GitHub repository customization files.                                                                                                                                 │
+  │                                                                                                                                                                                  │
+  │ Successful:     1 (20.00%)                                                                                                                                                       │
+  │ Warnings:       0 (0.00%)                                                                                                                                                        │
+  │ Errors:         0 (0.00%)                                                                                                                                                        │
+  │ Skipped:        4 (80.00%)                                                                                                                                                       │
+  │                                                                                                                                                                                  │
+  │                                                                                                                                                                                  │
+  ╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+  
+  Results: DONE! ([32;1m0[0m, <scrubbed duration>)
+  
+  
+  '''
+# ---
+# name: TestCustomization.test_PullRequestTemplate
+  '''
+  Processing 1 module...
+    Processing 'GitHubCustomization' (1 of 1)...
+  
+  
+  
+  
+    DONE! ([32;1m0[0m, <scrubbed duration>)
+  DONE! ([32;1m0[0m, <scrubbed duration>)
+  
+  
+  ╭────────────────────────────────────────────────────────────────────────────── GitHubCustomization ───────────────────────────────────────────────────────────────────────────────╮
+  │                                                                                                                                                                                  │
+  │ Validates GitHub repository customization files.                                                                                                                                 │
+  │                                                                                                                                                                                  │
+  │ Successful:     1 (20.00%)                                                                                                                                                       │
+  │ Warnings:       0 (0.00%)                                                                                                                                                        │
+  │ Errors:         0 (0.00%)                                                                                                                                                        │
+  │ Skipped:        4 (80.00%)                                                                                                                                                       │
+  │                                                                                                                                                                                  │
+  │                                                                                                                                                                                  │
+  ╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+  
+  Results: DONE! ([32;1m0[0m, <scrubbed duration>)
+  
+  
+  '''
+# ---
+# name: TestCustomization.test_SecurityPolicy
+  '''
+  Processing 1 module...
+    Processing 'GitHubCustomization' (1 of 1)...
+  
+  
+  
+  
+    DONE! ([32;1m0[0m, <scrubbed duration>)
+  DONE! ([32;1m0[0m, <scrubbed duration>)
+  
+  
+  ╭────────────────────────────────────────────────────────────────────────────── GitHubCustomization ───────────────────────────────────────────────────────────────────────────────╮
+  │                                                                                                                                                                                  │
+  │ Validates GitHub repository customization files.                                                                                                                                 │
+  │                                                                                                                                                                                  │
+  │ Successful:     1 (20.00%)                                                                                                                                                       │
+  │ Warnings:       0 (0.00%)                                                                                                                                                        │
+  │ Errors:         0 (0.00%)                                                                                                                                                        │
+  │ Skipped:        4 (80.00%)                                                                                                                                                       │
   │                                                                                                                                                                                  │
   │                                                                                                                                                                                  │
   ╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯

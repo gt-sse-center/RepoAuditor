@@ -49,6 +49,24 @@ class TestCustomization:
         assert result.exit_code == 0, result.output
         assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
 
+    def test_IssueTemplate(self, pat_args, snapshot):
+        result = CliRunner().invoke(app, pat_args + ["--GitHubCustomization-IssueTemplates-exists"])
+
+        assert result.exit_code == 0, result.output
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
+
+    def test_PullRequestTemplate(self, pat_args, snapshot):
+        result = CliRunner().invoke(app, pat_args + ["--GitHubCustomization-PullRequestTemplate-exists"])
+
+        assert result.exit_code == 0, result.output
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
+
+    def test_SecurityPolicy(self, pat_args, snapshot):
+        result = CliRunner().invoke(app, pat_args + ["--GitHubCustomization-SecurityPolicy-exists"])
+
+        assert result.exit_code == 0, result.output
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
+
 
 # ----------------------------------------------------------------------
 # ----------------------------------------------------------------------
