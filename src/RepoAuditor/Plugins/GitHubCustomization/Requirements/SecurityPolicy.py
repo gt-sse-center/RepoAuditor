@@ -7,19 +7,28 @@
 """Contains the SecurityPolicy requirement."""
 
 import textwrap
-from typing import Any
 
-from RepoAuditor.Requirement import EvaluateResult, ExecutionStyle, Requirement
+from RepoAuditor.Plugins.GitHubCustomization.Impl.ExistsRequirementImpl import ExistsRequirementImpl
 
 
-class SecurityPolicy(Requirement):
+class SecurityPolicy(ExistsRequirementImpl):
     """Validates that a security policy is configured."""
 
     def __init__(self) -> None:
         super().__init__(
             "SecurityPolicy",
-            "Validates that a security policy is configured.",
-            ExecutionStyle.Parallel,
+            "exists",
+            "SECURITY",
+            [
+                # Upper case variants
+                ".github/SECURITY.md",
+                "docs/SECURITY.md",
+                "SECURITY.md",
+                # Lower case variants
+                ".github/security.md",
+                "docs/security.md",
+                "security.md",
+            ],
             textwrap.dedent(
                 """\
                 1) Create a security policy file in one of these locations:
@@ -41,34 +50,4 @@ class SecurityPolicy(Requirement):
                 - Better security management
                 """
             ),
-        )
-
-    def _EvaluateImpl(
-        self,
-        query_data: dict[str, Any],
-        requirement_args: dict[str, Any],  # noqa: ARG002
-    ) -> Requirement.EvaluateImplResult:
-        repo_path = query_data["repo_path"]
-
-        # Check all possible locations for security policy
-        possible_locations = [
-            # Upper case variants
-            repo_path / ".github" / "SECURITY.md",
-            repo_path / "docs" / "SECURITY.md",
-            repo_path / "SECURITY.md",
-            # Lower case variants
-            repo_path / ".github" / "security.md",
-            repo_path / "docs" / "security.md",
-            repo_path / "security.md",
-        ]
-
-        for location in possible_locations:
-            if location.exists():
-                return Requirement.EvaluateImplResult(EvaluateResult.Success, None)
-
-        return Requirement.EvaluateImplResult(
-            EvaluateResult.Error,
-            "No security policy found.",
-            provide_resolution=True,
-            provide_rationale=True,
         )

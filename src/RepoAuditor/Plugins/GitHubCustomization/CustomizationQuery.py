@@ -13,6 +13,9 @@ from dbrownell_Common.Types import override  # type: ignore[import-untyped]
 from RepoAuditor.Query import ExecutionStyle, Query
 from .Requirements.CodeOwners import CodeOwners
 from .Requirements.Contributing import Contributing
+from .Requirements.IssueTemplates import IssueTemplates
+from .Requirements.PullRequestTemplates import PullRequestTemplate
+from .Requirements.SecurityPolicy import SecurityPolicy
 
 
 class CustomizationQuery(Query):
@@ -25,6 +28,9 @@ class CustomizationQuery(Query):
             [
                 CodeOwners(),
                 Contributing(),
+                IssueTemplates(),
+                PullRequestTemplate(),
+                SecurityPolicy(),
             ],
         )
 
