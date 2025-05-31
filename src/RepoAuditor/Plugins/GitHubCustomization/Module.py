@@ -12,6 +12,8 @@ from dbrownell_Common.Types import override
 from RepoAuditor.Module import ExecutionStyle
 from RepoAuditor.Plugins.GitHubBase.Module import GitHubBaseModule
 
+from .CustomizationQuery import CustomizationQuery
+
 
 class GitHubCustomizationModule(GitHubBaseModule):
     """Module that validates GitHub repository customization files."""
@@ -21,8 +23,10 @@ class GitHubCustomizationModule(GitHubBaseModule):
             "GitHubCustomization",
             "Validates GitHub repository customization files.",
             ExecutionStyle.Parallel,
-            [],  # Empty query list for now
-            requires_explicit_include=False,
+            [
+                CustomizationQuery(),
+            ],
+            requires_explicit_include=True,
         )
 
     @override

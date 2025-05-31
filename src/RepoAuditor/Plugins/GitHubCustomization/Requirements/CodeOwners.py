@@ -7,19 +7,28 @@
 """Contains the CodeOwners requirement."""
 
 import textwrap
-from typing import Any
 
-from RepoAuditor.Requirement import EvaluateResult, ExecutionStyle, Requirement
+from RepoAuditor.Plugins.GitHubCustomization.Impl.ExistsRequirementImpl import ExistsRequirementImpl
 
 
-class CodeOwners(Requirement):
+class CodeOwners(ExistsRequirementImpl):
     """Validates that CODEOWNERS file is configured."""
 
     def __init__(self) -> None:
         super().__init__(
             "CodeOwners",
-            "Validates that CODEOWNERS file is configured.",
-            ExecutionStyle.Parallel,
+            "exists",
+            "CODEOWNERS",
+            [
+                # Upper case variants
+                ".github/CODEOWNERS",
+                "docs/CODEOWNERS",
+                "CODEOWNERS",
+                # Lower case variants
+                ".github/codeowners",
+                "docs/codeowners",
+                "codeowners",
+            ],
             textwrap.dedent(
                 """\
                 1) Create a CODEOWNERS file in one of these locations:
@@ -44,34 +53,4 @@ class CodeOwners(Requirement):
                 - Streamlined review process
                 """
             ),
-        )
-
-    def _EvaluateImpl(
-        self,
-        query_data: dict[str, Any],
-        requirement_args: dict[str, Any],  # noqa: ARG002
-    ) -> Requirement.EvaluateImplResult:
-        repo_path = query_data["repo_path"]
-
-        # Check all possible locations for CODEOWNERS file
-        possible_locations = [
-            # Upper case variants
-            repo_path / ".github" / "CODEOWNERS",
-            repo_path / "docs" / "CODEOWNERS",
-            repo_path / "CODEOWNERS",
-            # Lower case variants
-            repo_path / ".github" / "codeowners",
-            repo_path / "docs" / "codeowners",
-            repo_path / "codeowners",
-        ]
-
-        for location in possible_locations:
-            if location.exists():
-                return Requirement.EvaluateImplResult(EvaluateResult.Success, None)
-
-        return Requirement.EvaluateImplResult(
-            EvaluateResult.Error,
-            "No CODEOWNERS file found.",
-            provide_resolution=True,
-            provide_rationale=True,
         )
