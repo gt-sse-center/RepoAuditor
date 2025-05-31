@@ -76,7 +76,7 @@ exclude = ["tests/**"]
 # ...however, we current experience failures in the rulesets commented out below.
 select = [
     "AIR",
-    #"ERA", # 168
+    "ERA",
     "FAST",
     "YTT",
     "ANN",
