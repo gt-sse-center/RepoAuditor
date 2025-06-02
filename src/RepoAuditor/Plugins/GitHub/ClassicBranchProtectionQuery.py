@@ -4,7 +4,60 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the ClassicBranchProtection object."""
+"""Contains the ClassicBranchProtection object.
+
+The API request/response has the following schema:
+
+REQUEST : https://api.github.com/repos/<username>/<repo>/branches/<branch>/protection
+RESPONSE:
+{
+    "url": <not used>,
+    "required_status_checks": { /* RequireStatusChecksToPass */
+        "url": <not used>,
+        "strict": RequireUpToDateBranches,
+        "contexts": <not used>,
+        "contexts_url": <not used>,
+        "checks": EnsureStatusChecks
+    },
+    "required_pull_request_reviews": {  /* RequirePullRequests */
+        "url": <not used>,
+        "dismiss_stale_reviews": DismissStalePullRequestApprovals,
+        "require_code_owner_reviews": RequireCodeOwnerReview,
+        "require_last_push_approval": RequireApprovalMostRecentPush,
+        "required_approving_review_count": RequireApprovals,
+        "bypass_pull_request_allowances": <not used>,
+    },
+    "required_signatures": {
+        "url": <not used>,
+        "enabled": RequireSignedCommits
+    },
+    "enforce_admins": {
+        "url": <not used>,
+        "enabled": DoNotAllowBypassSettings
+    },
+    "required_linear_history": {
+        "enabled": RequireLinearHistory
+    },
+    "allow_force_pushes": {
+        "enabled": AllowForcePushes
+    },
+    "allow_deletions": {
+        "enabled": AllowDeletions
+    },
+    "block_creations": {
+        "enabled": <not used>
+    },
+    "required_conversation_resolution": {
+        "enabled": RequireConversationResolution
+    },
+    "lock_branch": {
+        "enabled": <not used>
+    },
+    "allow_fork_syncing": {
+        "enabled": <not used>
+    }
+}
+"""
 
 from typing import Any, Optional
 
@@ -32,56 +85,6 @@ from .ClassicBranchProtectionRequirements.RequirePullRequests import RequirePull
 from .ClassicBranchProtectionRequirements.RequireSignedCommits import RequireSignedCommits
 from .ClassicBranchProtectionRequirements.RequireStatusChecksToPass import RequireStatusChecksToPass
 from .ClassicBranchProtectionRequirements.RequireUpToDateBranches import RequireUpToDateBranches
-
-# REQUEST : https://api.github.com/repos/<username>/<repo>/branches/<branch>/protection
-# RESPONSE:
-# {
-#     "url": <not used>,
-#     "required_status_checks": { /* RequireStatusChecksToPass */
-#         "url": <not used>,
-#         "strict": RequireUpToDateBranches,
-#         "contexts": <not used>,
-#         "contexts_url": <not used>,
-#         "checks": EnsureStatusChecks
-#     },
-#     "required_pull_request_reviews": {  /* RequirePullRequests */
-#         "url": <not used>,
-#         "dismiss_stale_reviews": DismissStalePullRequestApprovals,
-#         "require_code_owner_reviews": RequireCodeOwnerReview,
-#         "require_last_push_approval": RequireApprovalMostRecentPush,
-#         "required_approving_review_count": RequireApprovals,
-#         "bypass_pull_request_allowances": <not used>,
-#     },
-#     "required_signatures": {
-#         "url": <not used>,
-#         "enabled": RequireSignedCommits
-#     },
-#     "enforce_admins": {
-#         "url": <not used>,
-#         "enabled": DoNotAllowBypassSettings
-#     },
-#     "required_linear_history": {
-#         "enabled": RequireLinearHistory
-#     },
-#     "allow_force_pushes": {
-#         "enabled": AllowForcePushes
-#     },
-#     "allow_deletions": {
-#         "enabled": AllowDeletions
-#     },
-#     "block_creations": {
-#         "enabled": <not used>
-#     },
-#     "required_conversation_resolution": {
-#         "enabled": RequireConversationResolution
-#     },
-#     "lock_branch": {
-#         "enabled": <not used>
-#     },
-#     "allow_fork_syncing": {
-#         "enabled": <not used>
-#     }
-# }
 
 
 # ----------------------------------------------------------------------
