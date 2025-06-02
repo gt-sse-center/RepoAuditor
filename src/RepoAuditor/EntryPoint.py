@@ -23,7 +23,7 @@ from typer.core import TyperGroup  # type: ignore [import-untyped]
 
 from RepoAuditor import APP_NAME, __version__
 from RepoAuditor.CommandLineProcessor import CommandLineProcessor, Module
-from RepoAuditor.ExecuteModules import DisplayResults
+from RepoAuditor.Display import DisplayResults
 from RepoAuditor import Plugin
 
 

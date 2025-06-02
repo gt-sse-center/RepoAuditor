@@ -8,7 +8,6 @@
 
 import itertools
 import sys
-import textwrap
 
 from dataclasses import dataclass
 from typing import Any, cast, Optional
@@ -18,10 +17,6 @@ from dbrownell_Common import ExecuteTasks  # type: ignore[import-untyped]
 from dbrownell_Common.InflectEx import inflect  # type: ignore[import-untyped]
 from dbrownell_Common.Streams.Capabilities import Capabilities  # type: ignore[import-untyped]
 from dbrownell_Common.Streams.DoneManager import DoneManager  # type: ignore[import-untyped]
-from dbrownell_Common import TextwrapEx  # type: ignore[import-untyped]
-from rich import print as rich_print
-from rich.console import Group
-from rich.panel import Panel
 from rich.progress import Progress, TimeElapsedColumn
 
 from .Module import EvaluateResult, ExecutionStyle, Module, OnStatusFunc
@@ -46,6 +41,66 @@ class ModuleInfo:
 # |  Public Functions
 # |
 # ----------------------------------------------------------------------
+
+
+# ----------------------------------------------------------------------
+def Evaluate(
+    module_info: ModuleInfo,
+    on_status_func: OnStatusFunc,
+    max_num_threads: Optional[int],
+) -> list[list[Module.EvaluateInfo]]:
+    """Evaluate the module given the dynamic arguments.
+
+    Returns a list of information pertaining to module evaluation,
+    with it subgrouped as lists themselves, hence a list of lists.
+    """
+    module_data = module_info.module.GenerateInitialData(module_info.dynamic_args)
+    if module_data is None:
+        return []
+
+    return module_info.module.Evaluate(
+        module_data,
+        module_info.requirement_args,
+        on_status_func,
+        max_num_threads=max_num_threads,
+    )
+
+
+# ----------------------------------------------------------------------
+def CalcResultInfo(
+    all_eval_infos: list[list[Module.EvaluateInfo]],
+    warnings_as_errors_module_names: set[str],
+    ignore_warnings_module_names: set[str],
+) -> tuple[int, str]:
+    """Calculate the result of evaluating the modules as given in `all_eval_infos`.
+
+    Returns a code value indicating success, warning, or error,
+    as well as a string description of the result.
+    """
+    return_code = 0
+
+    if not all_eval_infos:
+        return 0, "module does not apply"
+
+    for eval_infos in all_eval_infos:
+        for eval_info in eval_infos:
+            result = eval_info.result
+
+            if result == EvaluateResult.Warning:
+                if eval_info.module.name in warnings_as_errors_module_names:
+                    result = EvaluateResult.Error
+                elif eval_info.module.name in ignore_warnings_module_names:
+                    continue
+
+            if result == EvaluateResult.Error:
+                return -1, "errors were encountered"
+
+            if result == EvaluateResult.Warning:
+                return_code = 1
+
+    return return_code, "" if return_code == 0 else "warnings were encountered"
+
+
 def Execute(
     dm: DoneManager,
     module_infos: list[ModuleInfo],
@@ -82,52 +137,7 @@ def Execute(
             parallel = []
 
         # Calculate the results
-
         # ----------------------------------------------------------------------
-        def Evaluate(
-            module_info: ModuleInfo,
-            on_status_func: OnStatusFunc,
-        ) -> list[list[Module.EvaluateInfo]]:
-            module_data = module_info.module.GenerateInitialData(module_info.dynamic_args)
-            if module_data is None:
-                return []
-
-            return module_info.module.Evaluate(
-                module_data,
-                module_info.requirement_args,
-                on_status_func,
-                max_num_threads=max_num_threads,
-            )
-
-        # ----------------------------------------------------------------------
-        def CalcResultInfo(
-            all_eval_infos: list[list[Module.EvaluateInfo]],
-        ) -> tuple[int, str]:
-            return_code = 0
-
-            if not all_eval_infos:
-                return 0, "module does not apply"
-
-            for eval_infos in all_eval_infos:
-                for eval_info in eval_infos:
-                    result = eval_info.result
-
-                    if result == EvaluateResult.Warning:
-                        if eval_info.module.name in warnings_as_errors_module_names:
-                            result = EvaluateResult.Error
-                        elif eval_info.module.name in ignore_warnings_module_names:
-                            continue
-
-                    if result == EvaluateResult.Error:
-                        return -1, "errors were encountered"
-
-                    if result == EvaluateResult.Warning:
-                        return_code = 1
-
-            return return_code, "" if return_code == 0 else "warnings were encountered"
-
-        # ----------------------------------------------------------------------
-
         all_results: list[Optional[list[list[Module.EvaluateInfo]]]] = [None] * len(module_infos)
 
         if parallel:
@@ -152,9 +162,13 @@ def Execute(
 
                     # ----------------------------------------------------------------------
 
-                    evaluate_results = Evaluate(module_info, OnStatus)
+                    evaluate_results = Evaluate(module_info, OnStatus, max_num_threads=max_num_threads)
 
-                    result_code, result_status = CalcResultInfo(evaluate_results)
+                    result_code, result_status = CalcResultInfo(
+                        evaluate_results,
+                        warnings_as_errors_module_names=warnings_as_errors_module_names,
+                        ignore_warnings_module_names=ignore_warnings_module_names,
+                    )
 
                     return ExecuteTasks.TransformResultComplete(evaluate_results, result_code, result_status)
 
@@ -186,11 +200,7 @@ def Execute(
         for index, (all_results_index, module_info) in enumerate(sequential):
             with (
                 modules_dm.Nested(
-                    "Processing '{}' ({} of {})...".format(
-                        module_info.module.name,
-                        index + 1 + len(parallel),
-                        len(module_infos),
-                    ),
+                    f"Processing '{module_info.module.name}' ({index + 1 + len(parallel)} of {len(module_infos)})...",
                 ) as this_module_dm,
                 # rich.progress needs to output to sys.stdout
                 this_module_dm.YieldStdout() as stdout_context,
@@ -243,12 +253,16 @@ def Execute(
 
                     # ----------------------------------------------------------------------
 
-                    evaluate_results = Evaluate(module_info, OnStatus)
+                    evaluate_results = Evaluate(module_info, OnStatus, max_num_threads=max_num_threads)
 
                     assert all_results[all_results_index] is None
                     all_results[all_results_index] = evaluate_results
 
-                    this_module_dm.result = CalcResultInfo(evaluate_results)[0]
+                    this_module_dm.result = CalcResultInfo(
+                        evaluate_results,
+                        warnings_as_errors_module_names=warnings_as_errors_module_names,
+                        ignore_warnings_module_names=ignore_warnings_module_names,
+                    )[0]
 
     final_results: list[list[Module.EvaluateInfo]] = []
 
@@ -259,124 +273,6 @@ def Execute(
         final_results.append(list(itertools.chain(*results)))
 
     return final_results
-
-
-# ----------------------------------------------------------------------
-def DisplayResults(
-    dm: DoneManager,
-    all_results: list[list[Module.EvaluateInfo]],
-    *,
-    display_resolution: bool,
-    display_rationale: bool,
-    panel_width: Optional[int] = None,
-) -> None:
-    """Display the results of executing the modules."""
-    for results in all_results:
-        assert results
-        module = results[0].module
-
-        num_success = 0
-        num_warning = 0
-        num_error = 0
-        num_does_not_apply = 0
-
-        for result in results:
-            if result.result == EvaluateResult.Success:
-                num_success += 1
-            elif result.result == EvaluateResult.Warning:
-                num_warning += 1
-            elif result.result == EvaluateResult.Error:
-                num_error += 1
-            elif result.result == EvaluateResult.DoesNotApply:
-                num_does_not_apply += 1
-            else:
-                raise RuntimeError(result.result)  # pragma: no cover
-
-        num_requirements = module.GetNumRequirements()
-        assert num_requirements
-
-        internal_content: list[Panel | str] = []
-
-        if module.description:
-            internal_content.append(f"{module.description.strip()}\n")
-
-        internal_content.append(
-            textwrap.dedent(
-                f"""\
-                Successful:     {num_success} ({(num_success / num_requirements):.02%})
-                Warnings:       {num_warning} ({(num_warning / num_requirements):.02%})
-                Errors:         {num_error} ({(num_error / num_requirements):.02%})
-                Skipped:        {num_does_not_apply} ({(num_does_not_apply / num_requirements):.02%})
-                """,
-            ),
-        )
-
-        for result in results:
-            if not dm.is_verbose and result.result in [
-                EvaluateResult.Success,
-                EvaluateResult.DoesNotApply,
-            ]:
-                continue
-
-            if result.result == EvaluateResult.Success:
-                border_color = "green"
-            elif result.result == EvaluateResult.Warning:
-                border_color = "yellow"
-            elif result.result == EvaluateResult.Error:
-                border_color = "red"
-            elif result.result == EvaluateResult.DoesNotApply:
-                border_color = ""
-            else:
-                raise RuntimeError(result.result)  # pragma: no cover
-
-            content: list[str] = []
-
-            if result.requirement.description:
-                content.append(f"{result.requirement.description.strip()}\n")
-
-            if result.context:
-                content.append(f"{result.result.name.upper()}: {result.context.strip()}\n")
-
-            if display_resolution and result.resolution:
-                content.append(
-                    textwrap.dedent(
-                        """\
-                        Resolution
-                        ----------
-                          {}
-                        """,
-                    ).format(TextwrapEx.Indent(result.resolution.strip(), 2, skip_first_line=True)),
-                )
-
-            if display_rationale and result.rationale:
-                content.append(
-                    textwrap.dedent(
-                        """\
-                        Rationale
-                        ---------
-                          {}
-                        """,
-                    ).format(TextwrapEx.Indent(result.rationale.strip(), 2, skip_first_line=True)),
-                )
-
-            internal_content.append(
-                Panel(
-                    Group(*content),
-                    title=f"[{result.result.name}] {result.requirement.name}",
-                    title_align="left",
-                    border_style=border_color,
-                    padding=(1, 1, 0, 1) if content else 0,
-                ),
-            )
-
-        rich_print(
-            Panel(
-                Group(*internal_content),
-                padding=1 if internal_content else 0,
-                title=results[0].module.name,
-                width=panel_width,
-            ),
-        )
 
 
 # ----------------------------------------------------------------------

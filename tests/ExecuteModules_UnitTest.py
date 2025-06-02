@@ -20,6 +20,7 @@ from dbrownell_Common.TestHelpers.StreamTestHelpers import (
     InitializeStreamCapabilities,
 )
 
+from RepoAuditor.Display import *
 from RepoAuditor.ExecuteModules import *
 from RepoAuditor.Module import *
 from RepoAuditor.Requirement import *
