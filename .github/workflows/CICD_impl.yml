@@ -41,10 +41,6 @@ on:
         required: false
         description: "Token used to access the Gist used to store coverage badge information. Code coverage information will not be persisted if this value is missing."
 
-      TESTING_GITHUB_PAT:
-        required: true
-        description: "GitHub PAT used by tests to access the repository. This value is required."
-
 jobs:
   # ----------------------------------------------------------------------
   validate:
@@ -70,30 +66,11 @@ jobs:
           python-version: ${{ matrix.python_version }}
           enable-cache: true
 
-      # Ensure that the github PAT is available for the tests
-      - name: Create github_pat.txt
-        run: |
-          echo ${{ secrets.TESTING_GITHUB_PAT }} > tests/Plugins/github_pat.txt
-
-      - name: Environment Variables (!Windows)
-        shell: bash
-        if: ${{ ! startsWith(matrix.os, 'windows') }}
-        run: |
-          echo "GITHUB_CI_OPERATING_SYSTEM=${{ matrix.os }}" >> $GITHUB_ENV
-          echo "GITHUB_CI_PYTHON_VERSION=${{ matrix.python_version }}" >> $GITHUB_ENV
-
-      - name: Environment Variables (Windows)
-        shell: cmd
-        if: ${{ startsWith(matrix.os, 'windows') }}
-        run: |
-          echo GITHUB_CI_OPERATING_SYSTEM=${{ matrix.os }} >> %GITHUB_ENV%
-          echo GITHUB_CI_PYTHON_VERSION=${{ matrix.python_version }} >> %GITHUB_ENV%
-
       - name: Run pre-commit scripts
         run: uv run pre-commit run --verbose
 
       - name: Validate Tests
-        run: uv run pytest
+        run: uv run pytest -k 'not EndToEndTest' --cov-fail-under=80.0
         env:
           COVERAGE_FILE: .coverage.${{ matrix.os }}.${{ matrix.python_version }}
 

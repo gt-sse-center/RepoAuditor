@@ -22,10 +22,6 @@ from RepoAuditor.EntryPoint import app
 from utilities import ScrubDurationGithuburlAndSpaces, GetGithubUrl, CheckPATFileExists
 
 # ----------------------------------------------------------------------
-_github_pat_filename = (Path(__file__).parent / "github_pat.txt").resolve()
-CheckPATFileExists(_github_pat_filename)
-
-# ----------------------------------------------------------------------
 pytest.fixture(InitializeStreamCapabilities(), scope="session", autouse=True)
 
 
@@ -391,6 +387,9 @@ def args() -> list[str]:
 # ----------------------------------------------------------------------
 @pytest.fixture
 def pat_args(args) -> list[str]:
+    _github_pat_filename = (Path(__file__).parent / "github_pat.txt").resolve()
+    CheckPATFileExists(_github_pat_filename)
+
     with _github_pat_filename.open() as f:
         pat_value = f.read().strip()
 
