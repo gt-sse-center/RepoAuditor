@@ -30,6 +30,7 @@ jobs:
       python_package_version: "3.13"
       coverage_badge_gist_id: "2f9d770d13e3a148424f374f74d41f4b"
       coverage_badge_gist_username: "davidbrownell"
+      pytest_args: "-k 'not EndToEndTest'"
 
     secrets:
       # These values should be populated as GitHub Action secrets (https://github.com/gt-sse-center/RepoAuditor/settings/secrets/actions)

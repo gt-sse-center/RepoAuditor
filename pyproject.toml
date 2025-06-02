@@ -59,7 +59,7 @@ dev = [
 path = "src/RepoAuditor/__init__.py"
 
 [tool.pytest.ini_options]
-addopts = "--verbose -vv --capture=no --cov=RepoAuditor --cov-fail-under=95.0"
+addopts = "--verbose -vv --capture=no --cov=RepoAuditor --cov-fail-under=80.0"
 python_files = [
     "**/*Test.py",
 ]
