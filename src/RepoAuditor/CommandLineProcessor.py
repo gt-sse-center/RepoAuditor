@@ -52,7 +52,7 @@ class CommandLineProcessor:
     # |
     # ----------------------------------------------------------------------
     @classmethod
-    def Create(
+    def Create(  # noqa: PLR0912
         cls,
         get_dynamic_args_func: "CommandLineProcessor.GetDynamicArgsFunc",
         modules: list[Module],
