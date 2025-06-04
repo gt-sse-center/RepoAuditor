@@ -1,0 +1,48 @@
+name: "End To End Tests"
+run-name: EndToEnd ${{ github.run_number }} [${{ github.actor }}] on ${{ github.ref_name }}
+
+on:
+  schedule:
+    - cron: '0 * * * *' # Once every hour
+  workflow_dispatch:
+
+jobs:
+  validate:
+    strategy:
+      fail-fast: false
+
+      matrix:
+        # Since the system under test here is the GitHub API, it is sufficient to test using only a single OS.
+        os: ["ubuntu-latest"]
+        # Similar to OS, we only test the lowest and highest supported versions.
+        python_version: ["3.10", "3.13"]
+
+    name: Validate
+    runs-on: ${{ matrix.os }}
+
+    permissions:
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv and python
+        uses: astral-sh/setup-uv@v5
+        with:
+          python-version: ${{ matrix.python_version }}
+          enable-cache: true
+
+      # Ensure that the github PAT is available for the tests
+      # GitHub PAT used by tests to access the repository.
+      - name: Create github_pat.txt
+        run: |
+          echo ${{ secrets.TESTING_GITHUB_PAT }} > tests/Plugins/github_pat.txt
+
+      - name: Environment Variables
+        shell: bash
+        run: |
+          echo "GITHUB_CI_OPERATING_SYSTEM=${{ matrix.os }}" >> $GITHUB_ENV
+          echo "GITHUB_CI_PYTHON_VERSION=${{ matrix.python_version }}" >> $GITHUB_ENV
+
+      - name: Validate Tests
+        run: uv run pytest -k EndToEndTest --no-cov
