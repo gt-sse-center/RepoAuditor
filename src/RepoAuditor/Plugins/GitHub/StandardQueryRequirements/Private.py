@@ -59,7 +59,7 @@ class Private(Requirement):
             "true": (
                 bool,
                 typer.Option(
-                    False,
+                    default=False,
                     help="Ensures that the repository's visibility is set to private.",
                 ),
             ),

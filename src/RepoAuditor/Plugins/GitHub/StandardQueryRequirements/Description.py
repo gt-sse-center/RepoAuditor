@@ -60,7 +60,7 @@ class Description(Requirement):
             "allow-empty": (
                 bool,
                 typer.Option(
-                    False,
+                    default=False,
                     help="Allow an empty repository description.",
                 ),
             ),

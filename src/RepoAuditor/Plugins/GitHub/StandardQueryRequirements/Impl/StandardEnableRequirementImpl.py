@@ -22,7 +22,7 @@ class StandardEnableRequirementImpl(EnableRequirementImpl):
     def __init__(
         self,
         name: str,
-        default_value: bool,
+        default_value: bool,  # noqa: FBT001
         dynamic_arg_name: str,
         github_settings_url_suffix: str,
         github_settings_section: str,

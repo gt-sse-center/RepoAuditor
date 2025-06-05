@@ -168,7 +168,7 @@ def _HelpEpilog() -> str:
 
 
 # ----------------------------------------------------------------------
-def _VersionCallback(value: bool) -> None:
+def _VersionCallback(value: bool) -> None:  # noqa: FBT001
     if value:
         sys.stdout.write(f"RepoAuditor v{__version__}\n")
         raise typer.Exit()
@@ -184,7 +184,7 @@ def _VersionCallback(value: bool) -> None:
 )
 def EntryPoint(
     ctx: typer.Context,
-    version: Annotated[  # noqa: ARG001
+    version: Annotated[  # noqa: ARG001, FBT002
         bool,
         typer.Option(
             "--version",
@@ -221,38 +221,38 @@ def EntryPoint(
             help="Name of a module whose warnings should be ignored. This value can be provided multiple times.",
         ),
     ] = None,
-    all_warnings_as_error: Annotated[
+    all_warnings_as_error: Annotated[  # noqa: FBT002
         bool, typer.Option("--all-warnings-as-error", help="Treat all warnings as errors.")
     ] = False,
-    ignore_all_warnings: Annotated[
+    ignore_all_warnings: Annotated[  # noqa: FBT002
         bool, typer.Option("--ignore-all-warnings", help="Ignore all warnings.")
     ] = False,
-    single_threaded: Annotated[
+    single_threaded: Annotated[  # noqa: FBT002
         bool,
         typer.Option("--single-threaded", help="Do not use multiple threads when evaluating requirements."),
     ] = False,
-    no_resolution: Annotated[
+    no_resolution: Annotated[  # noqa: FBT002
         bool,
         typer.Option(
             "--no-resolution",
             help="Do not display resolution information for requirements that are not successful.",
         ),
     ] = False,
-    no_rationale: Annotated[
+    no_rationale: Annotated[  # noqa: FBT002
         bool,
         typer.Option(
             "--no-rationale",
             help="Do not display rationale information for requirements that are not successful.",
         ),
     ] = False,
-    verbose: Annotated[
+    verbose: Annotated[  # noqa: FBT002
         bool,
         typer.Option(
             "--verbose",
             help="Write verbose information to the terminal.",
         ),
     ] = False,
-    debug: Annotated[
+    debug: Annotated[  # noqa: FBT002
         bool,
         typer.Option(
             "--debug",
