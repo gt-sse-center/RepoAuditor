@@ -129,6 +129,14 @@ class Query(ABC):
             max_num_threads=max_num_threads,
         )
 
+    # ----------------------------------------------------------------------
+    def Cleanup(
+        self,
+        module_data: dict[str, Any],
+    ) -> None:
+        """Clean up any resources created during execution."""
+        del module_data
+
 
 # ----------------------------------------------------------------------
 class StatusInfo:

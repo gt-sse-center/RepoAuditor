@@ -21,12 +21,8 @@ class IssueTemplates(ExistsRequirementImpl):
                 ".github/ISSUE_TEMPLATE.md",
                 "docs/ISSUE_TEMPLATE.md",
                 "ISSUE_TEMPLATE.md",
-                "docs/issue_template.md",
-                ".github/issue_template.md",
-                "issue_template.md",
                 # Directories
                 ".github/ISSUE_TEMPLATE",
-                ".github/issue_template",
             ],
             "Add issue templates to your repository in the .github/ISSUE_TEMPLATE directory.",
             "Issue templates help contributors create high-quality issues by providing a structured format.",

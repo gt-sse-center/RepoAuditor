@@ -20,14 +20,9 @@ class CodeOwners(ExistsRequirementImpl):
             "exists",
             "CODEOWNERS",
             [
-                # Upper case variants
                 ".github/CODEOWNERS",
                 "docs/CODEOWNERS",
                 "CODEOWNERS",
-                # Lower case variants
-                ".github/codeowners",
-                "docs/codeowners",
-                "codeowners",
             ],
             textwrap.dedent(
                 """\
