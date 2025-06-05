@@ -36,17 +36,39 @@ class TestCustomization:
 
     def test_NoCodeOwners(self, pat_args, snapshot):
         """Test if a CODEOWNERS file does not exist in the repository."""
-        # TODO: How to test if CodeOwners file doesn't exist without updating repo?
-        result = CliRunner().invoke(app, pat_args)
+        result = CliRunner().invoke(
+            app,
+            pat_args
+            + [
+                "--GitHubCustomization-CodeOwners-exists",
+                "--GitHubCustomization-branch",
+                "test-GitHubCustomization",
+            ],
+        )
 
-        assert result.exit_code == 0, result.output
-        # assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
+        assert result.exit_code == -1, result.output
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
 
     def test_Contributing(self, pat_args, snapshot):
         """Test if a CONTRIBUTING.md file exists in the repository."""
         result = CliRunner().invoke(app, pat_args + ["--GitHubCustomization-Contributing-exists"])
 
         assert result.exit_code == 0, result.output
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
+
+    def test_NoContributing(self, pat_args, snapshot):
+        """Test if a CONTRIBUTING file does not exist in the repository."""
+        result = CliRunner().invoke(
+            app,
+            pat_args
+            + [
+                "--GitHubCustomization-Contributing-exists",
+                "--GitHubCustomization-branch",
+                "test-GitHubCustomization",
+            ],
+        )
+
+        assert result.exit_code == -1, result.output
         assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
 
     def test_IssueTemplate(self, pat_args, snapshot):
@@ -56,6 +78,21 @@ class TestCustomization:
         assert result.exit_code == 0, result.output
         assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
 
+    def test_NoIssueTemplate(self, pat_args, snapshot):
+        """Test if no Issue template file exists in the repository."""
+        result = CliRunner().invoke(
+            app,
+            pat_args
+            + [
+                "--GitHubCustomization-IssueTemplates-exists",
+                "--GitHubCustomization-branch",
+                "test-GitHubCustomization",
+            ],
+        )
+
+        assert result.exit_code == -1, result.output
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
+
     def test_PullRequestTemplate(self, pat_args, snapshot):
         """Test if a Pull Request template file (e.g. PULL_REQUEST_TEMPLATE.md) exists in the repository."""
         result = CliRunner().invoke(app, pat_args + ["--GitHubCustomization-PullRequestTemplate-exists"])
@@ -63,11 +100,41 @@ class TestCustomization:
         assert result.exit_code == 0, result.output
         assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
 
+    def test_NoPullRequestTemplate(self, pat_args, snapshot):
+        """Test if no Pull Request template file exists in the repository."""
+        result = CliRunner().invoke(
+            app,
+            pat_args
+            + [
+                "--GitHubCustomization-PullRequestTemplate-exists",
+                "--GitHubCustomization-branch",
+                "test-GitHubCustomization",
+            ],
+        )
+
+        assert result.exit_code == -1, result.output
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
+
     def test_SecurityPolicy(self, pat_args, snapshot):
         """Test if a Security policy file (e.g. SECURITY.md) exists in the repository."""
         result = CliRunner().invoke(app, pat_args + ["--GitHubCustomization-SecurityPolicy-exists"])
 
         assert result.exit_code == 0, result.output
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
+
+    def test_NoSecurityPolicy(self, pat_args, snapshot):
+        """Test if no Security policy file exists in the repository."""
+        result = CliRunner().invoke(
+            app,
+            pat_args
+            + [
+                "--GitHubCustomization-SecurityPolicy-exists",
+                "--GitHubCustomization-branch",
+                "test-GitHubCustomization",
+            ],
+        )
+
+        assert result.exit_code == -1, result.output
         assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
 
 

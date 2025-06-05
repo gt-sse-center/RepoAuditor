@@ -6,9 +6,6 @@
 # -------------------------------------------------------------------------------
 """Contains the GitHubCustomizationModule object."""
 
-from typing import Any
-from dbrownell_Common.Types import override
-
 from RepoAuditor.Module import ExecutionStyle
 from RepoAuditor.Plugins.GitHubBase.Module import GitHubBaseModule
 from RepoAuditor.Plugins.GitHubCustomization.CustomizationQuery import CustomizationQuery
@@ -27,8 +24,3 @@ class GitHubCustomizationModule(GitHubBaseModule):
             ],
             requires_explicit_include=True,
         )
-
-    @override
-    def Cleanup(self, dynamic_args: dict[str, Any]) -> None:
-        """Clean up any resources created during execution."""
-        # No resources to clean up in the minimal implementation
