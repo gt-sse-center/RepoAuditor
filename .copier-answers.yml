@@ -6,8 +6,8 @@
 # available at https://github.com/gt-sse-center/copier-UvScaffolding.
 #
 
-_commit: v0.2.0
-_src_path: .
+_commit: v0.2.11
+_src_path: https://github.com/gt-sse-center/copier-ProjectScaffolding
 author_email: sse-center@gatech.edu
 author_name: Scientific Software Engineering Center at Georgia Tech
 coverage_badge_gist_id: 2f9d770d13e3a148424f374f74d41f4b
