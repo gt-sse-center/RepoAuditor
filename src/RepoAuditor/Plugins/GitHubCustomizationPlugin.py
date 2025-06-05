@@ -10,8 +10,7 @@ import pluggy
 
 from RepoAuditor import APP_NAME
 from RepoAuditor.Module import Module
-
-from .GitHubCustomization.Module import GitHubCustomizationModule
+from RepoAuditor.Plugins.GitHubCustomization.Module import GitHubCustomizationModule
 
 
 # ----------------------------------------------------------------------

@@ -7,8 +7,8 @@
 """Unit tests for the GitHub Customization Plugin"""
 
 import sys
-import pytest
 import pluggy
+from pathlib import Path
 
 from RepoAuditor import APP_NAME
 from RepoAuditor.Plugins.GitHubCustomizationPlugin import GetModule
@@ -54,17 +54,38 @@ def test_plugin_registration():
 
 
 # ----------------------------------------------------------------------
-def test_module_initialization():
-    """Test that the module initializes correctly."""
-    module = GetModule()
+class TestGitHubCustomizationModule:
+    """Unit tests for the GitHubCustomizaton module."""
 
-    assert module is not None
-    assert module.name == "GitHubCustomization"
-    # Comment out checks that would fail with minimal implementation
-    # assert module.execution_style.name == "Parallel"
-    # assert len(module.queries) == 1
-    # assert isinstance(module.queries[0], CustomizationQuery)
-    # assert module.requires_explicit_include is False
+    def test_Construct(self):
+        """Test that the module initializes correctly."""
+        module = GetModule()
+
+        assert module is not None
+        assert module.name == "GitHubCustomization"
+        # Comment out checks that would fail with minimal implementation
+        # assert module.execution_style.name == "Parallel"
+        # assert len(module.queries) == 1
+        # assert isinstance(module.queries[0], CustomizationQuery)
+        # assert module.requires_explicit_include is False
+
+    def test_GetDynamicArgDefinitions(self):
+        """Test GetDynamicArgDefinitions method."""
+        module = GetModule()
+        dynamic_args = module.GetDynamicArgDefinitions()
+        # dynamic_args should be empty dict
+        assert dynamic_args.keys() == {"url": "", "pat": "", "branch": ""}.keys()
+
+    def test_GenerateInitialData(self):
+        """Test GenerateInitialData method."""
+        dynamic_args = {
+            "url": "https://github.com/gt-sse-center/RepoAuditor",
+            "pat": Path(__file__).parent / "dummy_github_pat.txt",
+        }
+        module = GetModule()
+        updated_dynamic_args = module.GenerateInitialData(dynamic_args)
+        # Currently no change in dynamic_args
+        assert updated_dynamic_args == dynamic_args
 
 
 # ----------------------------------------------------------------------
