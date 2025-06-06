@@ -316,25 +316,3 @@ class TestCommunityStandards:
 
         assert result.exit_code == -1, result.output
         assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
-
-
-# ----------------------------------------------------------------------
-# ----------------------------------------------------------------------
-# ----------------------------------------------------------------------
-@pytest.fixture(name="args")
-def args_fixture() -> list[str]:
-    return [
-        "--include",
-        "CommunityStandards",
-        "--CommunityStandards-url",
-        GetGithubUrl(),
-    ]
-
-
-# ----------------------------------------------------------------------
-@pytest.fixture(name="pat_args")
-def pat_args_fixture(args) -> list[str]:
-    github_pat_filename = (Path(__file__).parent / "github_pat.txt").resolve()
-    CheckPATFileExists(github_pat_filename)
-
-    return args + ["--CommunityStandards-pat", str(github_pat_filename)]

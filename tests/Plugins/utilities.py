@@ -19,7 +19,8 @@ from git import Repo
 # ----------------------------------------------------------------------
 def ScrubGithubUrl(content: str) -> str:
     """
-    Function to replace the GitHub username and (possibly) alternative repository name with the default one.
+    Function to replace the GitHub username and (possibly)
+    alternative repository name with a scrubbed value.
     """
 
     def replace_func(m: Match) -> str:
