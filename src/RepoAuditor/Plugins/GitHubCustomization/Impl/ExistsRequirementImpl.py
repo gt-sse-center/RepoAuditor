@@ -9,6 +9,7 @@
 from typing import Any
 from collections.abc import Sequence
 
+import requests
 import typer
 
 from dbrownell_Common.TyperEx import TypeDefinitionItemType  # type: ignore[import-untyped]
@@ -73,7 +74,7 @@ class ExistsRequirementImpl(Requirement):
                 response = query_data["session"].get(f"contents/{location}")
 
                 # If location is found, response will have status code 200
-                if response.status_code == 200:
+                if response.status_code == requests.codes.ALL_OK:
                     response_json = response.json()
                     # If response is a list, we have a directory
                     if isinstance(response_json, list):
