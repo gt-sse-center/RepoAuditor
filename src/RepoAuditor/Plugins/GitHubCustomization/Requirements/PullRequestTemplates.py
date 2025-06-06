@@ -18,17 +18,11 @@ class PullRequestTemplate(ExistsRequirementImpl):
             "exists",
             "PULL_REQUESTS_TEMPLATE",
             [
-                # Upper case variants
                 ".github/PULL_REQUEST_TEMPLATE.md",
                 "docs/PULL_REQUEST_TEMPLATE.md",
                 "PULL_REQUEST_TEMPLATE.md",
-                # Lower case variants
-                ".github/pull_request_template.md",
-                "docs/pull_request_template.md",
-                "pull_request_template.md",
                 # Directory with multiple templates
                 ".github/PULL_REQUEST_TEMPLATE",
-                ".github/pull_request_template",
             ],
             "Create a pull request template file in one of these locations: .github/PULL_REQUEST_TEMPLATE.md, .github/pull_request_template.md, docs/PULL_REQUEST_TEMPLATE.md, or PULL_REQUEST_TEMPLATE.md",
             "Pull request templates help standardize code contributions and expedite the review process by ensuring consistent PR format.",

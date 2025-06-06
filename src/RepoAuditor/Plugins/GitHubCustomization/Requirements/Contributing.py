@@ -20,14 +20,9 @@ class Contributing(ExistsRequirementImpl):
             "exists",
             "CONTRIBUTING",
             [
-                # Upper case variants
                 ".github/CONTRIBUTING.md",
                 "docs/CONTRIBUTING.md",
                 "CONTRIBUTING.md",
-                # Lower case variants
-                ".github/contributing.md",
-                "docs/contributing.md",
-                "contributing.md",
             ],
             textwrap.dedent(
                 """\

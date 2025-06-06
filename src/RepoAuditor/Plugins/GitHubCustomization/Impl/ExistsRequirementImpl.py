@@ -6,6 +6,7 @@
 # -------------------------------------------------------------------------------
 """Contains the ExistsRequirementImpl object."""
 
+from pathlib import Path
 from typing import Any
 from collections.abc import Sequence
 
@@ -69,27 +70,22 @@ class ExistsRequirementImpl(Requirement):
     ) -> Requirement.EvaluateImplResult:
         if requirement_args[self.dynamic_arg_name]:
             for location in self.possible_locations:
-                # Query for file location
-                response = query_data["session"].get(f"contents/{location}")
+                # Get full file path in temporary repo directory and check if it exists
+                # This checks both upper case and lower case variants
+                full_file_path = Path(query_data["repo_dir"].name) / Path(location)
 
-                # If location is found, response will have status code 200
-                if response.status_code == 200:
-                    response_json = response.json()
-                    # If response is a list, we have a directory
-                    if isinstance(response_json, list):
-                        for file in response_json:
-                            # Check if there are any template files (.md or .yml)
-                            if ".md" in file["path"] or ".yml" in file["path"]:
-                                return Requirement.EvaluateImplResult(
-                                    EvaluateResult.Success,
-                                    f"File {self.github_file} found in directory {location}",
-                                )
-
-                    # If response is a dict, we have a single file
-                    elif isinstance(response_json, dict):
+                if full_file_path.exists():
+                    # If full_file_path is a directory, check if it isn't empty
+                    if full_file_path.is_dir() and any(full_file_path.iterdir()):
                         return Requirement.EvaluateImplResult(
-                            EvaluateResult.Success, f"File {self.github_file} found at {location}"
+                            EvaluateResult.Success,
+                            f"File found in {self.github_file} directory of the repository",
                         )
+
+                    return Requirement.EvaluateImplResult(
+                        EvaluateResult.Success,
+                        f"{self.github_file} found in repository",
+                    )
 
             return Requirement.EvaluateImplResult(
                 EvaluateResult.Error,

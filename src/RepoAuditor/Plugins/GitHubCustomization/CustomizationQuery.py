@@ -7,6 +7,8 @@
 """Contains the CustomizationQuery object."""
 
 from typing import Any, Optional
+from tempfile import TemporaryDirectory
+from git import Repo
 
 from dbrownell_Common.Types import override  # type: ignore[import-untyped]
 
@@ -40,12 +42,22 @@ class CustomizationQuery(Query):
         self,
         module_data: dict[str, Any],
     ) -> Optional[dict[str, Any]]:
-        """Get the data from an API session."""
-        response = module_data["session"].get("")
+        """Get the repo data."""
 
-        response.raise_for_status()
-        response = response.json()
+        # Clone the GitHub repository to a temp directory
+        github_url = module_data["url"]
+        branch = module_data.get("branch", "main")
+        temp_repo_dir = TemporaryDirectory()
+        Repo.clone_from(github_url, temp_repo_dir.name, branch=branch)
 
-        module_data["standard"] = response
+        # Record the path and the temp directory for later cleanup
+        module_data["repo_dir"] = temp_repo_dir
 
         return module_data
+
+    @override
+    def Cleanup(self, module_data: dict[str, Any]) -> None:
+        """Clean up the cloned repository."""
+        repo_dir = module_data["repo_dir"]
+        repo_dir.cleanup()
+        del module_data
