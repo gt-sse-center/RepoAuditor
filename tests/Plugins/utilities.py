@@ -35,14 +35,15 @@ def ScrubSpaces(content: str) -> str:
 # ----------------------------------------------------------------------
 def ScrubGithubUrl(content: str) -> str:
     """
-    Function to replace the GitHub username and (possibly) alternative repository name with the default one.
+    Function to replace the GitHub username and (possibly)
+    alternative repository name with a scrubbed value.
     """
 
     def replace_func(_: Match) -> str:
         return "'<scrubbed-github-url>'"
 
     return re.sub(
-        r"('https?:\/\/.+')",
+        r"('https?:\/\/.+?')",
         replace_func,
         content,
     )
