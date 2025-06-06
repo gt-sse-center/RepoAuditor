@@ -6,42 +6,20 @@
 # -------------------------------------------------------------------------------
 """Contains the RequireSignedCommits object."""
 
-from typing import override, Any
-from RepoAuditor.Requirement import EvaluateResult, ExecutionStyle, Requirement
+from RepoAuditor.Plugins.GitHubRulesets.Impl.EnableRulesetRequirementImpl import EnableRulesetRequirementImpl
 
 
-class RequireSignedCommits(Requirement):
-    """Implement the Signed Commits required ruleset for a branch."""
+class RequireSignedCommits(EnableRulesetRequirementImpl):
+    """Require signed commits."""
 
     def __init__(self) -> None:
         super().__init__(
             name="RequireSignedCommits",
-            description="Require signed commits",
-            style=ExecutionStyle.Parallel,
-            resolution_template="Enable commit signing requirement in repository rulesets",
-            rationale_template="Signed commits ensure commit authenticity",
-        )
-
-    @override
-    def _EvaluateImpl(
-        self,
-        query_data: dict[str, Any],
-        requirement_args: dict[str, Any],
-    ) -> Requirement.EvaluateImplResult:
-        rulesets = query_data.get("rulesets", [])
-
-        for ruleset in rulesets:
-            if (
-                ruleset.get("enforcement", "") == "active"
-                and ruleset.get("target", "") == "branch"
-                and ruleset.get("parameters", {}).get("commit_signatures", False)
-            ):
-                return self.EvaluateImplResult(
-                    EvaluateResult.Success, f"Ruleset '{ruleset['name']}' enforces signed commits"
-                )
-
-        return self.EvaluateImplResult(
-            EvaluateResult.Error,
-            "No active branch ruleset requiring signed commits found",
-            provide_resolution=True,
+            default_value=False,
+            dynamic_arg_name="true",
+            github_ruleset_type="Signed Commits",
+            github_ruleset_value="required_signatures",
+            get_configuration_value_func=lambda rule: rule.get("type", "") == "required_signatures",
+            resolution="Enable commit signing requirement in repository rulesets",
+            rationale="Signed commits ensure commit authenticity",
         )

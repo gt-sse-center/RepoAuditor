@@ -6,42 +6,20 @@
 # -------------------------------------------------------------------------------
 """Contains the RequirePullRequests object."""
 
-from typing import override, Any
-from RepoAuditor.Requirement import EvaluateResult, ExecutionStyle, Requirement
+from RepoAuditor.Plugins.GitHubRulesets.Impl.EnableRulesetRequirementImpl import EnableRulesetRequirementImpl
 
 
-class RequirePullRequests(Requirement):
-    """Implement the Pull Requests required ruleset for the branch."""
+class RequirePullRequests(EnableRulesetRequirementImpl):
+    """Require pull requests before merging to default branch."""
 
     def __init__(self) -> None:
         super().__init__(
             name="RequirePullRequests",
-            description="Require pull requests before merging to default branch",
-            style=ExecutionStyle.Parallel,
-            resolution_template="Enable pull request requirements in repository rulesets",
-            rationale_template="Pull request reviews help maintain code quality and collaboration",
-        )
-
-    @override
-    def _EvaluateImpl(
-        self,
-        query_data: dict[str, Any],
-        requirement_args: dict[str, Any],
-    ) -> Requirement.EvaluateImplResult:
-        rulesets = query_data.get("rulesets", [])
-
-        for ruleset in rulesets:
-            if (
-                ruleset.get("enforcement", "") == "active"
-                and ruleset.get("target", "") == "branch"
-                and ruleset.get("parameters", {}).get("pull_request", {}).get("required", False)
-            ):
-                return self.EvaluateImplResult(
-                    EvaluateResult.Success, f"Ruleset '{ruleset['name']}' enforces pull requests"
-                )
-
-        return self.EvaluateImplResult(
-            EvaluateResult.Error,
-            "No active branch ruleset requiring pull requests found",
-            provide_resolution=True,
+            default_value=False,
+            dynamic_arg_name="true",
+            github_ruleset_type="Pull Requests",
+            github_ruleset_value="pull_request",
+            get_configuration_value_func=lambda rule: rule.get("type", "") == "pull_request",
+            resolution="Enable pull request requirements in repository rulesets",
+            rationale="Pull request reviews help maintain code quality and collaboration",
         )
