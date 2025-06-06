@@ -152,15 +152,17 @@ class CommandLineProcessor:
         # Now we process the definitions to get the dynamic arguments
         dynamic_args: dict[str, dict[str, Any]] = {}
 
+        num_acceptable_dynamic_args_parts = 2
+
         for key, value in get_dynamic_args_func(dynamic_arg_definitions).items():
             parts = key.split(argument_separator)
-            assert len(parts) >= 2
+            assert len(parts) >= num_acceptable_dynamic_args_parts
 
             if parts[0] not in module_map:
                 msg = f"'{parts[0]}' is not a recognized module name."
                 raise ValueError(msg)
 
-            if len(parts) == 2:
+            if len(parts) == num_acceptable_dynamic_args_parts:
                 dynamic_args.setdefault(parts[0], {})[parts[1]] = value
             else:
                 dynamic_args.setdefault(parts[0], {}).setdefault(None, {}).setdefault(  # type: ignore[call-overload]
