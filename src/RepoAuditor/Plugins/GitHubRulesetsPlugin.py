@@ -11,10 +11,10 @@ import pluggy
 from RepoAuditor import APP_NAME
 from RepoAuditor.Module import Module
 
-from RepoAuditor.Plugins.GitHubRulesets.Module import GitHubRulesetModule
+from RepoAuditor.Plugins.GitHubRulesets.Module import GitHubRulesetsModule
 
 
 @pluggy.HookimplMarker(APP_NAME)
 def GetModule() -> Module:
     """Return GitHubRulesetModule Module."""
-    return GitHubRulesetModule()
+    return GitHubRulesetsModule()
