@@ -14,9 +14,14 @@ from RepoAuditor.Plugins.GitHubRulesets.Requirements.RequireSignedCommits import
 )
 
 
-def create_ruleset(name, target, enforcement, parameters):
-    """Helper function to create ruleset structure"""
-    return {"name": name, "target": target, "enforcement": enforcement, "parameters": parameters}
+def create_rule(name, rule_type, ruleset_name, parameters):
+    """Helper function to create rule structure"""
+    return {
+        "name": name,
+        "type": rule_type,
+        "ruleset": {"name": ruleset_name},
+        "parameters": parameters,
+    }
 
 
 # ----------------------------------------------------------------------
@@ -24,72 +29,54 @@ class TestRequirePullRequests:
     """Unit tests for the RequirePullRequests requirement."""
 
     def test_Enabled(self):
-        requirement = RequirePullRequests()  # type: ignore
+        requirement = RequirePullRequests()
         context = {
-            "rulesets": [
-                create_ruleset(
+            "rules": [
+                create_rule(
                     name="PR Rules",
-                    target="branch",
-                    enforcement="active",
-                    parameters={"pull_request": {"required": True, "require_code_owner_review": True}},
+                    rule_type="pull_request",
+                    ruleset_name="Ruleset Main",
+                    parameters={},
                 )
             ]
         }
-        result = requirement.Evaluate(context, {})
+        result = requirement.Evaluate(context, {"true": True})
         assert result.result == EvaluateResult.Success
-        assert "enforces pull requests" in result.context
+        assert "enforces Pull Requests" in result.context
 
     def test_Disabled(self):
-        requirement = RequirePullRequests()  # type: ignore
+        requirement = RequirePullRequests()
         context = {
-            "rulesets": [
-                create_ruleset(
+            "rules": [
+                create_rule(
                     name="Inactive PR Rules",
-                    target="branch",
-                    enforcement="disabled",  # Wrong enforcement
-                    parameters={"pull_request": {"required": True}},
+                    # Wrong rule type
+                    rule_type="",
+                    ruleset_name="Ruleset Main",
+                    parameters={},
                 )
             ]
         }
-        result = requirement.Evaluate(context, {})
+        result = requirement.Evaluate(context, {"true": True})
         assert result.result == EvaluateResult.Error
 
     def test_WrongTarget(self):
-        requirement = RequirePullRequests()  # type: ignore
+        requirement = RequirePullRequests()
         context = {
-            "rulesets": [
-                create_ruleset(
-                    name="Wrong Target Rules",
-                    target="tag",  # Wrong target
-                    enforcement="active",
-                    parameters={"pull_request": {"required": True}},
-                )
+            "rules": [
+                # GitHub behavior is to always give enforced rules on the specified target target.
+                # Hence the rules here will be empty.
             ]
         }
-        result = requirement.Evaluate(context, {})
-        assert result.result == EvaluateResult.Error
-
-    def test_MissingParameter(self):
-        requirement = RequirePullRequests()  # type: ignore
-        context = {
-            "rulesets": [
-                create_ruleset(
-                    name="Partial Rules",
-                    target="branch",
-                    enforcement="active",
-                    parameters={"other_rule": {}},  # Missing pull_request
-                )
-            ]
-        }
-        result = requirement.Evaluate(context, {})
+        result = requirement.Evaluate(context, {"true": True})
         assert result.result == EvaluateResult.Error
 
     def test_NoRulesets(self):
-        requirement = RequirePullRequests()  # type: ignore
-        context = {"rulesets": []}
-        result = requirement.Evaluate(context, {})
+        requirement = RequirePullRequests()
+        context = {"rules": []}
+        result = requirement.Evaluate(context, {"true": True})
         assert result.result == EvaluateResult.Error
-        assert "No active branch ruleset requiring pull requests found" in result.context
+        assert "No active branch ruleset requiring Pull Requests found" in result.context
 
 
 # ----------------------------------------------------------------------
@@ -97,57 +84,53 @@ class TestRequireSignedCommits:
     """Unit tests for the RequireSignedCommits requirement."""
 
     def test_Enabled(self):
-        requirement = RequireSignedCommits()  # type: ignore
+        requirement = RequireSignedCommits()
         context = {
-            "rulesets": [
-                create_ruleset(
+            "rules": [
+                create_rule(
                     name="Signing Rules",
-                    target="branch",
-                    enforcement="active",
-                    parameters={"commit_signatures": True},
+                    rule_type="required_signatures",
+                    ruleset_name="Ruleset Main",
+                    parameters={},
                 )
             ]
         }
-        result = requirement.Evaluate(context, {})
+        result = requirement.Evaluate(context, {"true": True})
         assert result.result == EvaluateResult.Success
-        assert "enforces signed commits" in result.context
+        assert "enforces Signed Commits" in result.context
 
     def test_Disabled(self):
-        requirement = RequireSignedCommits()  # type: ignore
+        requirement = RequireSignedCommits()
         context = {
-            "rulesets": [
-                create_ruleset(
-                    name="Inactive Signing",
-                    target="branch",
-                    enforcement="evaluate",  # Wrong enforcement
-                    parameters={"commit_signatures": True},
+            "rules": [
+                create_rule(
+                    name="Signing Rules",
+                    # Wrong rule type
+                    rule_type="pull_request",
+                    ruleset_name="Ruleset Main",
+                    parameters={},
                 )
             ]
         }
-        result = requirement.Evaluate(context, {})
+        result = requirement.Evaluate(context, {"true": True})
         assert result.result == EvaluateResult.Error
 
     def test_PartialConfig(self):
-        requirement = RequireSignedCommits()  # type: ignore
+        requirement = RequireSignedCommits()
         context = {
-            "rulesets": [
-                create_ruleset(
-                    name="Partial Config",
-                    target="branch",
-                    enforcement="active",
-                    parameters={"commit_signatures": False},  # Explicitly disabled
-                )
+            "rules": [
+                # GitHub only returns rules that are actively enforced
             ]
         }
-        result = requirement.Evaluate(context, {})
+        result = requirement.Evaluate(context, {"true": True})
         assert result.result == EvaluateResult.Error
 
     def test_NoRulesets(self):
-        requirement = RequireSignedCommits()  # type: ignore
-        context = {"rulesets": []}
-        result = requirement.Evaluate(context, {})
+        requirement = RequireSignedCommits()
+        context = {"rules": []}
+        result = requirement.Evaluate(context, {"true": True})
         assert result.result == EvaluateResult.Error
-        assert "No active branch ruleset requiring signed commits found" in result.context
+        assert "No active branch ruleset requiring Signed Commits found" in result.context
 
 
 # ----------------------------------------------------------------------
@@ -155,59 +138,35 @@ class TestRequireStatusChecks:
     """Unit tests for the RequireStatusChecks requirement."""
 
     def test_Enabled(self):
-        requirement = RequireStatusChecks()  # type: ignore
+        requirement = RequireStatusChecks()
         context = {
-            "rulesets": [
-                create_ruleset(
+            "rules": [
+                create_rule(
                     name="CI Checks",
-                    target="branch",
-                    enforcement="active",
-                    parameters={
-                        "required_status_checks": [
-                            {"context": "ci-test"},
-                            {"context": "security-scan"},
-                        ]
-                    },
+                    rule_type="required_status_checks",
+                    ruleset_name="Ruleset Main",
+                    parameters={},
                 )
             ]
         }
-        result = requirement.Evaluate(context, {})
+        result = requirement.Evaluate(context, {"true": True})
         assert result.result == EvaluateResult.Success
-        assert "enforces status checks" in result.context
+        assert "enforces Status Checks" in result.context
 
     def test_EmptyChecks(self):
-        requirement = RequireStatusChecks()  # type: ignore
+        requirement = RequireStatusChecks()
         context = {
-            "rulesets": [
-                create_ruleset(
-                    name="Empty Checks",
-                    target="branch",
-                    enforcement="active",
-                    parameters={"required_status_checks": []},  # Empty list
-                )
+            "rules": [
+                # GitHub won't require inactive status check rules which don't have associated CI checks.
+                # Hence empty.
             ]
         }
-        result = requirement.Evaluate(context, {})
-        assert result.result == EvaluateResult.Error
-
-    def test_InactiveRuleset(self):
-        requirement = RequireStatusChecks()  # type: ignore
-        context = {
-            "rulesets": [
-                create_ruleset(
-                    name="Inactive Checks",
-                    target="branch",
-                    enforcement="disabled",  # Inactive
-                    parameters={"required_status_checks": [{"context": "ci-test"}]},
-                )
-            ]
-        }
-        result = requirement.Evaluate(context, {})
+        result = requirement.Evaluate(context, {"true": True})
         assert result.result == EvaluateResult.Error
 
     def test_NoRulesets(self):
-        requirement = RequireStatusChecks()  # type: ignore
-        context = {"rulesets": []}
-        result = requirement.Evaluate(context, {})
+        requirement = RequireStatusChecks()
+        context = {"rules": []}
+        result = requirement.Evaluate(context, {"true": True})
         assert result.result == EvaluateResult.Error
-        assert "No active branch ruleset requiring status checks found" in result.context
+        assert "No active branch ruleset requiring Status Checks found" in result.context

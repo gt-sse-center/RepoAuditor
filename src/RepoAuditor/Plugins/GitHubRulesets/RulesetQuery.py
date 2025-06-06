@@ -45,9 +45,30 @@ class RulesetQuery(Query):
             data, or None if an error occurs.
 
         """
-        # Fetch ruleset data from the GitHub API
-        ruleset_data = module_data["session"].get("rulesets")
+        branch = module_data.get("branch")
+        if branch is None:
+            # Get the default branch name
+            response = module_data["session"].get("")
+
+            response.raise_for_status()
+            response = response.json()
+
+            branch = response["default_branch"]
+
+        # Fetch ruleset data for a specific branch.
+        # This only returns active rules on the branch
+        rules_response = module_data["session"].get(f"rules/branches/{branch}")
+
+        rules_response.raise_for_status()
 
         # Add ruleset data to module_data
-        module_data["ruleset_data"] = ruleset_data
+        module_data["rules"] = rules_response.json()
+
+        # Also get the associated ruleset for each rule
+        for rule in module_data["rules"]:
+            ruleset_respone = module_data["session"].get(f"rulesets/{rule['ruleset_id']}")
+            ruleset_respone.raise_for_status()
+            ruleset = ruleset_respone.json()
+            rule["ruleset"] = ruleset
+
         return module_data
