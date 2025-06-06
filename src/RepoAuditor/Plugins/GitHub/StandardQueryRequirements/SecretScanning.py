@@ -24,12 +24,12 @@ class SecretScanning(StandardEnableRequirementImpl):
             True,
             "false",
             "settings/security_analysis",
-            "Secret scanning",
-            "Secret scanning",
+            "Secret Protection",
+            "Secret protection",
             _GetValue,
             textwrap.dedent(
                 """\
-                The default behavior is to enable secret scanning.
+                The default behavior is to enable secret protection.
 
                 Reasons for this Default
                 ------------------------

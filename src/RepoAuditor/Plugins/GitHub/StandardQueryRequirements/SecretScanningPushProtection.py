@@ -24,7 +24,7 @@ class SecretScanningPushProtection(StandardEnableRequirementImpl):
             True,
             "false",
             "settings/security_analysis",
-            "Secret scanning",
+            "Secret Protection",
             "Push protection",
             _GetValue,
             textwrap.dedent(
