@@ -6,12 +6,11 @@
 # -------------------------------------------------------------------------------
 """Contains the ExistsRequirementImpl object."""
 
+from collections.abc import Sequence
 from pathlib import Path
 from typing import Any
-from collections.abc import Sequence
 
 import typer
-
 from dbrownell_Common.TyperEx import TypeDefinitionItemType  # type: ignore[import-untyped]
 from dbrownell_Common.Types import override  # type: ignore[import-untyped]
 

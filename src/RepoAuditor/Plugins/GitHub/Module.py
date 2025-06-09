@@ -7,11 +7,10 @@
 """Contains the GitHubModule object."""
 
 from RepoAuditor.Module import ExecutionStyle
+from RepoAuditor.Plugins.GitHub.ClassicBranchProtectionQuery import ClassicBranchProtectionQuery
+from RepoAuditor.Plugins.GitHub.DefaultBranchQuery import DefaultBranchQuery
+from RepoAuditor.Plugins.GitHub.StandardQuery import StandardQuery
 from RepoAuditor.Plugins.GitHubBase.Module import GitHubBaseModule
-
-from .ClassicBranchProtectionQuery import ClassicBranchProtectionQuery
-from .DefaultBranchQuery import DefaultBranchQuery
-from .StandardQuery import StandardQuery
 
 
 # ----------------------------------------------------------------------

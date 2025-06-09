@@ -7,13 +7,12 @@
 """Contains the Query object and types used in its definition."""
 
 import threading
-
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
-from typing import Any, Protocol, Optional
+from typing import Any, Optional, Protocol
 
-from .Impl.ParallelSequentialProcessor import ParallelSequentialProcessor
-from .Requirement import EvaluateResult, ExecutionStyle, Requirement
+from RepoAuditor.Impl.ParallelSequentialProcessor import ParallelSequentialProcessor
+from RepoAuditor.Requirement import EvaluateResult, ExecutionStyle, Requirement
 
 
 # ----------------------------------------------------------------------

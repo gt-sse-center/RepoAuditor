@@ -6,18 +6,18 @@
 # -------------------------------------------------------------------------------
 """Contains the CustomizationQuery object."""
 
-from typing import Any, Optional
 from tempfile import TemporaryDirectory
-from git import Repo
+from typing import Any, Optional
 
 from dbrownell_Common.Types import override  # type: ignore[import-untyped]
+from git import Repo
 
-from RepoAuditor.Query import ExecutionStyle, Query
 from RepoAuditor.Plugins.GitHubCustomization.Requirements.CodeOwners import CodeOwners
 from RepoAuditor.Plugins.GitHubCustomization.Requirements.Contributing import Contributing
 from RepoAuditor.Plugins.GitHubCustomization.Requirements.IssueTemplates import IssueTemplates
 from RepoAuditor.Plugins.GitHubCustomization.Requirements.PullRequestTemplates import PullRequestTemplate
 from RepoAuditor.Plugins.GitHubCustomization.Requirements.SecurityPolicy import SecurityPolicy
+from RepoAuditor.Query import ExecutionStyle, Query
 
 
 class CustomizationQuery(Query):

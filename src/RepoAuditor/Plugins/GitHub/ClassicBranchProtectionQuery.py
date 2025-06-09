@@ -64,28 +64,43 @@ from typing import Any, Optional
 import requests
 from dbrownell_Common.Types import override  # type: ignore[import-untyped]
 
-from RepoAuditor.Query import ExecutionStyle, Query
-
-from .ClassicBranchProtectionRequirements.AllowDeletions import AllowDeletions
-from .ClassicBranchProtectionRequirements.AllowForcePushes import AllowForcePushes
-from .ClassicBranchProtectionRequirements.DismissStalePullRequestApprovals import (
+from RepoAuditor.Plugins.GitHub.ClassicBranchProtectionRequirements.AllowDeletions import AllowDeletions
+from RepoAuditor.Plugins.GitHub.ClassicBranchProtectionRequirements.AllowForcePushes import AllowForcePushes
+from RepoAuditor.Plugins.GitHub.ClassicBranchProtectionRequirements.DismissStalePullRequestApprovals import (
     DismissStalePullRequestApprovals,
 )
-from .ClassicBranchProtectionRequirements.DoNotAllowBypassSettings import DoNotAllowBypassSettings
-from .ClassicBranchProtectionRequirements.EnsureStatusChecks import EnsureStatusChecks
-from .ClassicBranchProtectionRequirements.RequireApprovalMostRecentPush import (
+from RepoAuditor.Plugins.GitHub.ClassicBranchProtectionRequirements.DoNotAllowBypassSettings import (
+    DoNotAllowBypassSettings,
+)
+from RepoAuditor.Plugins.GitHub.ClassicBranchProtectionRequirements.EnsureStatusChecks import (
+    EnsureStatusChecks,
+)
+from RepoAuditor.Plugins.GitHub.ClassicBranchProtectionRequirements.RequireApprovalMostRecentPush import (
     RequireApprovalMostRecentPush,
 )
-from .ClassicBranchProtectionRequirements.RequireApprovals import RequireApprovals
-from .ClassicBranchProtectionRequirements.RequireCodeOwnerReview import RequireCodeOwnerReview
-from .ClassicBranchProtectionRequirements.RequireConversationResolution import (
+from RepoAuditor.Plugins.GitHub.ClassicBranchProtectionRequirements.RequireApprovals import RequireApprovals
+from RepoAuditor.Plugins.GitHub.ClassicBranchProtectionRequirements.RequireCodeOwnerReview import (
+    RequireCodeOwnerReview,
+)
+from RepoAuditor.Plugins.GitHub.ClassicBranchProtectionRequirements.RequireConversationResolution import (
     RequireConversationResolution,
 )
-from .ClassicBranchProtectionRequirements.RequireLinearHistory import RequireLinearHistory
-from .ClassicBranchProtectionRequirements.RequirePullRequests import RequirePullRequests
-from .ClassicBranchProtectionRequirements.RequireSignedCommits import RequireSignedCommits
-from .ClassicBranchProtectionRequirements.RequireStatusChecksToPass import RequireStatusChecksToPass
-from .ClassicBranchProtectionRequirements.RequireUpToDateBranches import RequireUpToDateBranches
+from RepoAuditor.Plugins.GitHub.ClassicBranchProtectionRequirements.RequireLinearHistory import (
+    RequireLinearHistory,
+)
+from RepoAuditor.Plugins.GitHub.ClassicBranchProtectionRequirements.RequirePullRequests import (
+    RequirePullRequests,
+)
+from RepoAuditor.Plugins.GitHub.ClassicBranchProtectionRequirements.RequireSignedCommits import (
+    RequireSignedCommits,
+)
+from RepoAuditor.Plugins.GitHub.ClassicBranchProtectionRequirements.RequireStatusChecksToPass import (
+    RequireStatusChecksToPass,
+)
+from RepoAuditor.Plugins.GitHub.ClassicBranchProtectionRequirements.RequireUpToDateBranches import (
+    RequireUpToDateBranches,
+)
+from RepoAuditor.Query import ExecutionStyle, Query
 
 
 # ----------------------------------------------------------------------

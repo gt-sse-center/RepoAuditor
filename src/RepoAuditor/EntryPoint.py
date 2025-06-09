@@ -9,23 +9,22 @@
 import sys
 import textwrap
 import traceback
-
 from typing import Annotated, Optional
 
 import pluggy
 import typer
-
 from click.exceptions import UsageError
-from dbrownell_Common.Streams.DoneManager import DoneManager, Flags as DoneManagerFlags  # type: ignore [import-untyped]
-from dbrownell_Common import TextwrapEx  # type: ignore [import-untyped]
-from dbrownell_Common import TyperEx  # type: ignore [import-untyped]
+from dbrownell_Common import (
+    TextwrapEx,  # type: ignore [import-untyped]
+    TyperEx,  # type: ignore [import-untyped]
+)
+from dbrownell_Common.Streams.DoneManager import DoneManager
+from dbrownell_Common.Streams.DoneManager import Flags as DoneManagerFlags  # type: ignore [import-untyped]
 from typer.core import TyperGroup  # type: ignore [import-untyped]
 
-from RepoAuditor import APP_NAME, __version__
+from RepoAuditor import APP_NAME, Plugin, __version__
 from RepoAuditor.CommandLineProcessor import CommandLineProcessor, Module
 from RepoAuditor.Display import DisplayResults
-from RepoAuditor import Plugin
-
 
 # ----------------------------------------------------------------------
 ARGUMENT_SEPARATOR = "-"

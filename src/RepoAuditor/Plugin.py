@@ -9,8 +9,7 @@
 import pluggy
 
 from RepoAuditor import APP_NAME
-
-from .Module import Module
+from RepoAuditor.Module import Module
 
 
 # ----------------------------------------------------------------------

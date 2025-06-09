@@ -7,9 +7,8 @@
 """Contains the ClassicEnableRequirementImpl object."""
 
 import textwrap
-
-from typing import Any, Optional
 from collections.abc import Callable
+from typing import Any, Optional
 
 from RepoAuditor.Plugins.GitHub.Impl.EnableRequirementImpl import EnableRequirementImpl
 

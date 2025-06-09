@@ -8,10 +8,9 @@
 
 import itertools
 import sys
-
-from dataclasses import dataclass
-from typing import Any, cast, Optional
 from collections.abc import Callable
+from dataclasses import dataclass
+from typing import Any, Optional, cast
 
 from dbrownell_Common import ExecuteTasks  # type: ignore[import-untyped]
 from dbrownell_Common.InflectEx import inflect  # type: ignore[import-untyped]
@@ -19,7 +18,7 @@ from dbrownell_Common.Streams.Capabilities import Capabilities  # type: ignore[i
 from dbrownell_Common.Streams.DoneManager import DoneManager  # type: ignore[import-untyped]
 from rich.progress import Progress, TimeElapsedColumn
 
-from .Module import EvaluateResult, ExecutionStyle, Module, OnStatusFunc
+from RepoAuditor.Module import EvaluateResult, ExecutionStyle, Module, OnStatusFunc
 
 
 # ----------------------------------------------------------------------
@@ -211,7 +210,7 @@ def Execute(
                 # rather than referencing `sys.stdout` directly, but it is really hard to work with mocked
                 # stream as mocks will create mocks for everything called on the mock. Use sys.stdout
                 # directly to avoid that particular problem.
-                from unittest.mock import Mock, MagicMock
+                from unittest.mock import MagicMock, Mock
 
                 assert stdout_context.stream is sys.stdout or isinstance(
                     stdout_context.stream, (Mock, MagicMock)

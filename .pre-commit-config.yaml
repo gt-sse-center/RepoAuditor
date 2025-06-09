@@ -11,6 +11,13 @@ repos:
     require_serial: true
     always_run: true
 
+  - id: uv run ruff check --select I --fix
+    name: ruff sort imports
+    entry: uv run ruff check --select I --fix
+    language: system
+    pass_filenames: false
+    always_run: true
+
   - id: uv run ruff format --check
     name: uv run ruff format --check
     entry: uv run ruff format --check
