@@ -73,10 +73,9 @@ class Description(Requirement):
     ) -> Requirement.EvaluateImplResult:
         standard_data = query_data["standard"]
 
-        if "description" not in standard_data:
+        result = standard_data.get("description", None)
+        if result is None:
             return CreateIncompleteDataResult()
-
-        result = standard_data["description"]
 
         expect_description = not requirement_args["allow-empty"]
 

@@ -53,4 +53,4 @@ def _GetValue(
     if settings is None:
         return None
 
-    return settings["require_last_push_approval"]
+    return settings.get("require_last_push_approval", None)

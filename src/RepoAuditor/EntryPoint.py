@@ -35,9 +35,9 @@ class NaturalOrderGrouper(TyperGroup):
     """Group commands in natural order."""
 
     # ----------------------------------------------------------------------
-    def list_commands(self, *args, **kwargs) -> list[str]:  # noqa: ARG002
+    def list_commands(self, *args, **kwargs) -> list[str]:  # noqa: ARG002  # pragma: no cover
         """Return a list of all the commands, to be sorted in a natural ordering."""
-        return self.commands.keys()
+        return list(self.commands.keys())
 
 
 # ----------------------------------------------------------------------
@@ -65,29 +65,40 @@ del _GetModules
 
 
 # ----------------------------------------------------------------------
+def TypeInfoToString(
+    arg_name: str,
+    type_info: TyperEx.TypeDefinitionItemType,
+) -> str:
+    """Convert type information from command line arguments to a string representation.
+
+    Args:
+        arg_name (str): The name of the command line argument.
+        type_info (TyperEx.TypeDefinitionItemType): Type information for the accepted value.
+
+    Returns:
+        str: String description of the command line argument.
+
+    """
+    if isinstance(type_info, TyperEx.TypeDefinitionItem):
+        python_type = type_info.python_type
+        parameter_info = type_info.parameter_info
+    elif isinstance(type_info, tuple):
+        python_type = type_info[0]
+        parameter_info = type_info[1]
+    else:
+        python_type = type_info
+        parameter_info = None
+
+    return "    {arg_name:<50} {type_description:<7} {help}".format(
+        arg_name=arg_name,
+        type_description=python_type.__name__,
+        help="" if parameter_info is None else parameter_info.help,
+    )
+
+
+# ----------------------------------------------------------------------
 def _HelpEpilog() -> str:
     content: list[str] = []
-
-    # ----------------------------------------------------------------------
-    def TypeInfoToString(
-        arg_name: str,
-        type_info: TyperEx.TypeDefinitionItemType,
-    ) -> str:
-        if isinstance(type_info, TyperEx.TypeDefinitionItem):
-            python_type = type_info.python_type
-            parameter_info = type_info.parameter_info
-        elif isinstance(type_info, tuple):
-            python_type = type_info[0]
-            parameter_info = type_info[1]
-        else:
-            python_type = type_info
-            parameter_info = None
-
-        return "    {arg_name:<50} {type_description:<7} {help}".format(
-            arg_name=arg_name,
-            type_description=python_type.__name__,
-            help="" if parameter_info is None else parameter_info.help,
-        )
 
     # ----------------------------------------------------------------------
 
@@ -181,7 +192,7 @@ def _VersionCallback(value: bool) -> None:  # noqa: FBT001
     epilog=_HelpEpilog(),
     no_args_is_help=False,
 )
-def EntryPoint(  # noqa: PLR0913
+def EntryPoint(  # noqa: PLR0913  # pragma: no cover
     ctx: typer.Context,
     version: Annotated[  # noqa: ARG001, FBT002
         bool,

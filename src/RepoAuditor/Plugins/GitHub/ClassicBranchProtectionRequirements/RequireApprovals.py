@@ -55,4 +55,4 @@ def _GetValue(
     if settings is None:
         return None
 
-    return settings["required_approving_review_count"]
+    return settings.get("required_approving_review_count", None)

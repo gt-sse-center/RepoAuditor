@@ -55,4 +55,4 @@ def _GetValue(
     if settings is None:
         return None
 
-    return settings["strict"]
+    return settings.get("strict", None)

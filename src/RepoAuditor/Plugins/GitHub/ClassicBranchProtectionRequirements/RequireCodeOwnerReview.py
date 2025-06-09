@@ -57,4 +57,4 @@ def _GetValue(
     if settings is None:
         return None
 
-    return settings["require_code_owner_reviews"]
+    return settings.get("require_code_owner_reviews", None)
