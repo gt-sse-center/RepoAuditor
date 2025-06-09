@@ -20,14 +20,9 @@ class SecurityPolicy(ExistsRequirementImpl):
             "exists",
             "SECURITY",
             [
-                # Upper case variants
                 ".github/SECURITY.md",
                 "docs/SECURITY.md",
                 "SECURITY.md",
-                # Lower case variants
-                ".github/security.md",
-                "docs/security.md",
-                "security.md",
             ],
             textwrap.dedent(
                 """\

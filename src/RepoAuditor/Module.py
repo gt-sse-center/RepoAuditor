@@ -182,6 +182,9 @@ class Module(ABC):
                 if evaluate_info.result == EvaluateResult.Warning:
                     return_code = 1
 
+            # Cleanup any resources created during the query
+            query.Cleanup(query_data)
+
             return (
                 return_code,
                 [
