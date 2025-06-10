@@ -170,31 +170,36 @@ from typing import Any, Optional
 
 from dbrownell_Common.Types import override  # type: ignore[import-untyped]
 
-from RepoAuditor.Query import ExecutionStyle, Query
-
-from .StandardQueryRequirements.AutoMerge import AutoMerge
-from .StandardQueryRequirements.DefaultBranch import DefaultBranch
-from .StandardQueryRequirements.DeleteHeadBranches import DeleteHeadBranches
-from .StandardQueryRequirements.Description import Description
-from .StandardQueryRequirements.DependabotSecurityUpdates import DependabotSecurityUpdates
-from .StandardQueryRequirements.License import License
-from .StandardQueryRequirements.MergeCommit import MergeCommit
-from .StandardQueryRequirements.MergeCommitMessage import MergeCommitMessage
-from .StandardQueryRequirements.Private import Private
-from .StandardQueryRequirements.RebaseMergeCommit import RebaseMergeCommit
-from .StandardQueryRequirements.SecretScanning import SecretScanning
-from .StandardQueryRequirements.SecretScanningPushProtection import SecretScanningPushProtection
-from .StandardQueryRequirements.SquashCommitMerge import SquashCommitMerge
-from .StandardQueryRequirements.SquashMergeCommitMessage import SquashMergeCommitMessage
-from .StandardQueryRequirements.SuggestUpdatingPullRequestBranches import (
+from RepoAuditor.Plugins.GitHub.StandardQueryRequirements.AutoMerge import AutoMerge
+from RepoAuditor.Plugins.GitHub.StandardQueryRequirements.DefaultBranch import DefaultBranch
+from RepoAuditor.Plugins.GitHub.StandardQueryRequirements.DeleteHeadBranches import DeleteHeadBranches
+from RepoAuditor.Plugins.GitHub.StandardQueryRequirements.DependabotSecurityUpdates import (
+    DependabotSecurityUpdates,
+)
+from RepoAuditor.Plugins.GitHub.StandardQueryRequirements.Description import Description
+from RepoAuditor.Plugins.GitHub.StandardQueryRequirements.License import License
+from RepoAuditor.Plugins.GitHub.StandardQueryRequirements.MergeCommit import MergeCommit
+from RepoAuditor.Plugins.GitHub.StandardQueryRequirements.MergeCommitMessage import MergeCommitMessage
+from RepoAuditor.Plugins.GitHub.StandardQueryRequirements.Private import Private
+from RepoAuditor.Plugins.GitHub.StandardQueryRequirements.RebaseMergeCommit import RebaseMergeCommit
+from RepoAuditor.Plugins.GitHub.StandardQueryRequirements.SecretScanning import SecretScanning
+from RepoAuditor.Plugins.GitHub.StandardQueryRequirements.SecretScanningPushProtection import (
+    SecretScanningPushProtection,
+)
+from RepoAuditor.Plugins.GitHub.StandardQueryRequirements.SquashCommitMerge import SquashCommitMerge
+from RepoAuditor.Plugins.GitHub.StandardQueryRequirements.SquashMergeCommitMessage import (
+    SquashMergeCommitMessage,
+)
+from RepoAuditor.Plugins.GitHub.StandardQueryRequirements.SuggestUpdatingPullRequestBranches import (
     SuggestUpdatingPullRequestBranches,
 )
-from .StandardQueryRequirements.SupportDiscussions import SupportDiscussions
-from .StandardQueryRequirements.SupportIssues import SupportIssues
-from .StandardQueryRequirements.SupportProjects import SupportProjects
-from .StandardQueryRequirements.SupportWikis import SupportWikis
-from .StandardQueryRequirements.TemplateRepository import TemplateRepository
-from .StandardQueryRequirements.WebCommitSignoff import WebCommitSignoff
+from RepoAuditor.Plugins.GitHub.StandardQueryRequirements.SupportDiscussions import SupportDiscussions
+from RepoAuditor.Plugins.GitHub.StandardQueryRequirements.SupportIssues import SupportIssues
+from RepoAuditor.Plugins.GitHub.StandardQueryRequirements.SupportProjects import SupportProjects
+from RepoAuditor.Plugins.GitHub.StandardQueryRequirements.SupportWikis import SupportWikis
+from RepoAuditor.Plugins.GitHub.StandardQueryRequirements.TemplateRepository import TemplateRepository
+from RepoAuditor.Plugins.GitHub.StandardQueryRequirements.WebCommitSignoff import WebCommitSignoff
+from RepoAuditor.Query import ExecutionStyle, Query
 
 
 # ----------------------------------------------------------------------

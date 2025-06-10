@@ -8,13 +8,13 @@
 
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
-from enum import auto, Enum
+from enum import Enum, auto
 from typing import Any, Optional
 
 from dbrownell_Common.TyperEx import TypeDefinitionItemType  # type: ignore[import-untyped]
 from dbrownell_Common.Types import extension  # type: ignore[import-untyped]
 
-from .Impl.ParallelSequentialProcessor import ExecutionStyle
+from RepoAuditor.Impl.ParallelSequentialProcessor import ExecutionStyle
 
 
 # ----------------------------------------------------------------------

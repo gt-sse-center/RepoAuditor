@@ -12,7 +12,6 @@ from urllib.parse import urlparse
 
 import requests
 import typer
-
 from dbrownell_Common.TyperEx import TypeDefinitionItemType  # type: ignore[import-untyped]
 from dbrownell_Common.Types import override  # type: ignore[import-untyped]
 

@@ -10,7 +10,6 @@ import pluggy
 
 from RepoAuditor import APP_NAME
 from RepoAuditor.Module import Module
-
 from RepoAuditor.Plugins.GitHubRulesets.Module import GitHubRulesetsModule
 
 

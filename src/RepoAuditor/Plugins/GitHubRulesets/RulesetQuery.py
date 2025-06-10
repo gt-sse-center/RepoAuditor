@@ -9,11 +9,12 @@
 from typing import Any, Optional
 
 from dbrownell_Common.Types import override
+
 from RepoAuditor.Impl.ParallelSequentialProcessor import ExecutionStyle
-from RepoAuditor.Query import Query
 from RepoAuditor.Plugins.GitHubRulesets.Requirements.RequirePullRequests import RequirePullRequests
 from RepoAuditor.Plugins.GitHubRulesets.Requirements.RequireSignedCommits import RequireSignedCommits
 from RepoAuditor.Plugins.GitHubRulesets.Requirements.RequireStatusChecks import RequireStatusChecks
+from RepoAuditor.Query import Query
 
 
 class RulesetQuery(Query):

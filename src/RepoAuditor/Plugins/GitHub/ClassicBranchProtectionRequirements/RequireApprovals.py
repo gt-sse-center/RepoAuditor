@@ -7,10 +7,12 @@
 """Contains the RequireApprovals object."""
 
 import textwrap
-
 from typing import Any
 
-from .Impl.ClassicValueRequirementImpl import ClassicValueRequirementImpl, DoesNotApplyResult
+from RepoAuditor.Plugins.GitHub.ClassicBranchProtectionRequirements.Impl.ClassicValueRequirementImpl import (
+    ClassicValueRequirementImpl,
+    DoesNotApplyResult,
+)
 
 
 # ----------------------------------------------------------------------

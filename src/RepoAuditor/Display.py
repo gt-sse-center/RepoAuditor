@@ -9,13 +9,13 @@
 import textwrap
 from typing import Optional
 
-from dbrownell_Common.Streams.DoneManager import DoneManager  # type: ignore[import-untyped]
 from dbrownell_Common import TextwrapEx  # type: ignore[import-untyped]
+from dbrownell_Common.Streams.DoneManager import DoneManager  # type: ignore[import-untyped]
 from rich import print as rich_print
 from rich.console import Group
 from rich.panel import Panel
 
-from .Module import EvaluateResult, Module
+from RepoAuditor.Module import EvaluateResult, Module
 
 
 def GetInternalPanelContent(

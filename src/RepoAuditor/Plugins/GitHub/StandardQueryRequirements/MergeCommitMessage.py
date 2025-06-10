@@ -7,10 +7,12 @@
 """Contains the MergeCommitMessage object."""
 
 import textwrap
-
 from typing import Any
 
-from .Impl.StandardValueRequirementImpl import DoesNotApplyResult, StandardValueRequirementImpl
+from RepoAuditor.Plugins.GitHub.StandardQueryRequirements.Impl.StandardValueRequirementImpl import (
+    DoesNotApplyResult,
+    StandardValueRequirementImpl,
+)
 
 
 # ----------------------------------------------------------------------

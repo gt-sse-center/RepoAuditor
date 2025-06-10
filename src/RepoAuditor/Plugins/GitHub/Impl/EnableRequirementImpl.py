@@ -6,17 +6,15 @@
 # -------------------------------------------------------------------------------
 """Contains the EnableRequirementImpl object."""
 
-from typing import Any, Optional
 from collections.abc import Callable
+from typing import Any, Optional
 
 import typer
-
 from dbrownell_Common.TyperEx import TypeDefinitionItemType  # type: ignore[import-untyped]
 from dbrownell_Common.Types import override  # type: ignore[import-untyped]
 
+from RepoAuditor.Plugins.GitHub.Impl.Common import CreateIncompleteDataResult
 from RepoAuditor.Requirement import EvaluateResult, ExecutionStyle, Requirement
-
-from .Common import CreateIncompleteDataResult
 
 
 # ----------------------------------------------------------------------

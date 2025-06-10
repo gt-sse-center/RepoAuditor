@@ -7,10 +7,11 @@
 """Contains the SecretScanning object."""
 
 import textwrap
-
 from typing import Any, Optional
 
-from .Impl.StandardEnableRequirementImpl import StandardEnableRequirementImpl
+from RepoAuditor.Plugins.GitHub.StandardQueryRequirements.Impl.StandardEnableRequirementImpl import (
+    StandardEnableRequirementImpl,
+)
 
 
 # ----------------------------------------------------------------------

@@ -8,7 +8,9 @@
 
 import textwrap
 
-from .Impl.StandardValueRequirementImpl import StandardValueRequirementImpl
+from RepoAuditor.Plugins.GitHub.StandardQueryRequirements.Impl.StandardValueRequirementImpl import (
+    StandardValueRequirementImpl,
+)
 
 
 # ----------------------------------------------------------------------

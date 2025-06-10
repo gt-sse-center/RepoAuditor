@@ -7,10 +7,11 @@
 """Contains the License object."""
 
 import textwrap
-
 from typing import Any, Optional
 
-from .Impl.StandardValueRequirementImpl import StandardValueRequirementImpl
+from RepoAuditor.Plugins.GitHub.StandardQueryRequirements.Impl.StandardValueRequirementImpl import (
+    StandardValueRequirementImpl,
+)
 
 
 # ----------------------------------------------------------------------

@@ -7,15 +7,14 @@
 """Contains the Module object and types used in its definition."""
 
 import threading
-
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from typing import Any, Optional
 
 from dbrownell_Common.TyperEx import TypeDefinitionItemType  # type: ignore[import-untyped]
 
-from .Impl.ParallelSequentialProcessor import ParallelSequentialProcessor
-from .Query import EvaluateResult, ExecutionStyle, OnStatusFunc, Query, StatusInfo
+from RepoAuditor.Impl.ParallelSequentialProcessor import ParallelSequentialProcessor
+from RepoAuditor.Query import EvaluateResult, ExecutionStyle, OnStatusFunc, Query, StatusInfo
 
 
 # ----------------------------------------------------------------------

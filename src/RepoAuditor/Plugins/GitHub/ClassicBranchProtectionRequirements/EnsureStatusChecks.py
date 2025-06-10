@@ -7,13 +7,12 @@
 """Contains the EnsureStatusChecks object."""
 
 import textwrap
-
 from typing import Any
 
 import typer
-
 from dbrownell_Common.TyperEx import TypeDefinitionItemType  # type: ignore[import-untyped]
 from dbrownell_Common.Types import override  # type: ignore[import-untyped]
+
 from RepoAuditor.Requirement import EvaluateResult, ExecutionStyle, Requirement
 
 

@@ -11,7 +11,7 @@ from typing import Any, Protocol
 
 from dbrownell_Common.Streams.DoneManager import DoneManager  # type: ignore[import-untyped]
 
-from .ExecuteModules import Execute, Module, ModuleInfo
+from RepoAuditor.ExecuteModules import Execute, Module, ModuleInfo
 
 
 # ----------------------------------------------------------------------

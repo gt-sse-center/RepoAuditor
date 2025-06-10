@@ -7,10 +7,11 @@
 """Contains the RequireUpToDateBranches object."""
 
 import textwrap
-
 from typing import Any, Optional
 
-from .Impl.ClassicEnableRequirementImpl import ClassicEnableRequirementImpl
+from RepoAuditor.Plugins.GitHub.ClassicBranchProtectionRequirements.Impl.ClassicEnableRequirementImpl import (
+    ClassicEnableRequirementImpl,
+)
 
 
 # ----------------------------------------------------------------------

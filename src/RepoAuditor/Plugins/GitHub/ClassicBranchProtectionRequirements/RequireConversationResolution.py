@@ -8,7 +8,9 @@
 
 import textwrap
 
-from .Impl.ClassicEnableRequirementImpl import ClassicEnableRequirementImpl
+from RepoAuditor.Plugins.GitHub.ClassicBranchProtectionRequirements.Impl.ClassicEnableRequirementImpl import (
+    ClassicEnableRequirementImpl,
+)
 
 
 # ----------------------------------------------------------------------
