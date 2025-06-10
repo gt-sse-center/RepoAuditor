@@ -131,7 +131,7 @@ select = [
     "D",
     "F",
     "PGH",
-    # "PL", # 11
+    "PL",
     "UP",
     "FURB",
     "RUF",

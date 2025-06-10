@@ -37,9 +37,9 @@ def ParallelSequentialProcessor(
 ) -> list[OutputType]:
     """Process a list of items in parallel and/or sequentially."""
     if dm is None:
-        with DoneManager.Create(StreamDecorator(None), "", line_prefix="") as dm:
+        with DoneManager.Create(StreamDecorator(None), "", line_prefix="") as _dm:
             return _Impl(
-                dm,
+                _dm,
                 items,
                 calculate_result_func,
                 max_num_threads,

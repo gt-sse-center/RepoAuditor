@@ -61,6 +61,7 @@ RESPONSE:
 
 from typing import Any, Optional
 
+import requests
 from dbrownell_Common.Types import override  # type: ignore[import-untyped]
 
 from RepoAuditor.Query import ExecutionStyle, Query
@@ -149,7 +150,7 @@ class ClassicBranchProtectionQuery(Query):
         # and then see if rule sets are in use if the classic information is not found.
         response = module_data["session"].get(f"/branches/{module_data['branch']}/protection")
 
-        if response.status_code == 404:
+        if response.status_code == requests.codes.NOT_FOUND:
             # Does this branch use rule sets?
             ruleset_response = module_data["session"].get(f"rules/branches/{module_data['branch']}")
 

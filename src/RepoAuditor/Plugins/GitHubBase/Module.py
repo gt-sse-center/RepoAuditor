@@ -104,7 +104,8 @@ class _GitHubSession(requests.Session):
         url_parts = urlparse(github_url)
         path_parts = url_parts.path.split("/")
 
-        if len(path_parts) != 3:
+        # The URL should be of the form <github_server>/<username>/<repo>
+        if len(path_parts) != 3:  # noqa: PLR2004
             msg = f"'{github_url}' is not a valid GitHub repository URL."
             raise ValueError(msg)
 
