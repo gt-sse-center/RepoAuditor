@@ -19,7 +19,7 @@ class StandardEnableRequirementImpl(EnableRequirementImpl):
     """Implementation of requirement for standard enables of GitHub settings."""
 
     # ----------------------------------------------------------------------
-    def __init__(
+    def __init__(  # noqa: PLR0913
         self,
         name: str,
         default_value: bool,  # noqa: FBT001
