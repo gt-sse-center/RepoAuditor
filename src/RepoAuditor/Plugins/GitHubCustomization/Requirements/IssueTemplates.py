@@ -21,6 +21,9 @@ class IssueTemplates(ExistsRequirementImpl):
                 ".github/ISSUE_TEMPLATE.md",
                 "docs/ISSUE_TEMPLATE.md",
                 "ISSUE_TEMPLATE.md",
+                ".github/issue_template.md",
+                "docs/issue_template.md",
+                "issue_template.md",
                 # Directories
                 ".github/ISSUE_TEMPLATE",
             ],

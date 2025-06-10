@@ -44,6 +44,7 @@ class ExistsRequirementImpl(Requirement):
 
         self.dynamic_arg_name = dynamic_arg_name
         self.github_file = github_file
+
         self.possible_locations = possible_locations
 
     # ----------------------------------------------------------------------
