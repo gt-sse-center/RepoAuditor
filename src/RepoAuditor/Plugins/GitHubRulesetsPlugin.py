@@ -15,5 +15,5 @@ from RepoAuditor.Plugins.GitHubRulesets.Module import GitHubRulesetsModule
 
 @pluggy.HookimplMarker(APP_NAME)
 def GetModule() -> Module:
-    """Return GitHubRulesetModule Module."""
+    """Return GitHub Rulesets Module."""
     return GitHubRulesetsModule()
