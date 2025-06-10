@@ -14,6 +14,8 @@
 
 <!-- Content above this delimiter will be copied to the generated README.md file. DO NOT REMOVE THIS COMMENT, as it will cause regeneration to fail. -->
 
+Hello, world!
+
 ## Contents
 - [Overview](#overview)
   - [How to use RepoAuditor](#how-to-use-repoauditor)
