@@ -21,6 +21,9 @@ class PullRequestTemplate(ExistsRequirementImpl):
                 ".github/PULL_REQUEST_TEMPLATE.md",
                 "docs/PULL_REQUEST_TEMPLATE.md",
                 "PULL_REQUEST_TEMPLATE.md",
+                ".github/pull_request_template.md",
+                "docs/pull_request_template.md",
+                "pull_request_template.md",
                 # Directory with multiple templates
                 ".github/PULL_REQUEST_TEMPLATE",
             ],
