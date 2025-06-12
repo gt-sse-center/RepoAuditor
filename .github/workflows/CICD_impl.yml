@@ -70,7 +70,7 @@ jobs:
         run: uv run pre-commit run --verbose
 
       - name: Validate Tests
-        run: uv run pytest -k 'not EndToEndTest' --cov-fail-under=90.0
+        run: uv run pytest -k 'not EndToEndTest' --cov-fail-under=95.0
         env:
           COVERAGE_FILE: .coverage.${{ matrix.os }}.${{ matrix.python_version }}
 
