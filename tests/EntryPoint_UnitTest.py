@@ -7,12 +7,14 @@
 """Unit tests for EntryPoint.py"""
 
 import pytest
+import typer
 
 from dbrownell_Common.TestHelpers.StreamTestHelpers import InitializeStreamCapabilities
+from dbrownell_Common.TyperEx import TypeDefinitionItem  # type: ignore [import-untyped]
 from typer.testing import CliRunner
 
 from RepoAuditor import __version__
-from RepoAuditor.EntryPoint import app
+from RepoAuditor.EntryPoint import app, TypeInfoToString
 
 from Plugins.utilities import GetGithubUrl
 
@@ -58,3 +60,39 @@ def test_Help() -> None:
 
     assert result.exit_code == 0
     assert "Module Information" in result.output
+
+
+def test_TypeInfoToString() -> None:
+    """Test the TypeInfoToString function to ensure valid command line output."""
+    result = TypeInfoToString(
+        "test_arg",
+        (
+            bool,
+            typer.Option(
+                False,
+                help="Help text.",
+            ),
+        ),
+    )
+    expected_string = "    test_arg                                           bool    Help text."
+    assert expected_string == result
+
+    result = TypeInfoToString(
+        "test_arg",
+        TypeDefinitionItem(
+            bool,
+            typer.models.ParameterInfo(
+                default=False,
+                help="TypeDefinitionItem",
+            ),
+        ),
+    )
+    expected_string = "    test_arg                                           bool    TypeDefinitionItem"
+    assert expected_string == result
+
+    result = TypeInfoToString(
+        "test_none",
+        bool,
+    )
+    expected_string = "    test_none                                          bool    "
+    assert expected_string == result

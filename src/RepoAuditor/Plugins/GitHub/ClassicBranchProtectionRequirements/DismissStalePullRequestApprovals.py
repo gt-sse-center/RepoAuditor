@@ -54,4 +54,4 @@ def _GetValue(
     if settings is None:
         return None
 
-    return settings["dismiss_stale_reviews"]
+    return settings.get("dismiss_stale_reviews", None)
