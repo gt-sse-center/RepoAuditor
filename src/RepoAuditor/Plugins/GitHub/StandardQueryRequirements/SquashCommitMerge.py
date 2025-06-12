@@ -33,7 +33,8 @@ class SquashCommitMerge(StandardEnableRequirementImpl):
 
                 Reasons for this Default
                 ------------------------
-                - Rebase merging is not compatible with signed commits, as GitHub creates a new commit when squashing.
+                - When performing a Squash & Merge, GitHub creates a new merge commit with its key.
+                This makes it difficult to verify author signatures when looking at the commit history.
 
                 Reasons to Override this Default
                 --------------------------------
