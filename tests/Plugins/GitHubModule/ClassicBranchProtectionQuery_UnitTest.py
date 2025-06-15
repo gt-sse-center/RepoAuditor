@@ -6,17 +6,7 @@
 # -------------------------------------------------------------------------------
 """Unit tests for ClassicBranchProtectionQuery.py"""
 
-import pytest
-
 from RepoAuditor.Plugins.GitHub.ClassicBranchProtectionQuery import ClassicBranchProtectionQuery
-from RepoAuditor.Plugins.GitHubBase.Module import _GitHubSession
-
-
-@pytest.fixture
-def module_data():
-    return {
-        "session": _GitHubSession("https://github.com/gt-sse-center/RepoAuditor", "pat"),
-    }
 
 
 def get_mock_request(

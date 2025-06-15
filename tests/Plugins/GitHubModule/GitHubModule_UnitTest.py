@@ -8,8 +8,6 @@
 
 from pathlib import Path
 
-import pytest
-
 from RepoAuditor.Plugins.GitHub.Module import GitHubModule
 from RepoAuditor.Plugins.GitHubBase.Module import _GitHubSession
 
