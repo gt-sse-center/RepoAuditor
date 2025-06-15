@@ -79,7 +79,7 @@ class ExistsRequirementImpl(Requirement):
                     if full_file_path.is_dir() and any(full_file_path.iterdir()):
                         return Requirement.EvaluateImplResult(
                             EvaluateResult.Success,
-                            f"File found in {self.github_file} directory of the repository",
+                            f"File found in {location} directory of the repository",
                         )
 
                     return Requirement.EvaluateImplResult(
