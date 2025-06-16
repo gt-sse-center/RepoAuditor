@@ -6,17 +6,16 @@
 # -------------------------------------------------------------------------------
 """End-to-end tests for the GitHubCustomization plugin."""
 
-import pytest
 from pathlib import Path
 
+import pytest
 from dbrownell_Common.TestHelpers.StreamTestHelpers import (
     InitializeStreamCapabilities,
 )
 from typer.testing import CliRunner
+from utilities import CheckPATFileExists, GetGithubUrl, ScrubDurationGithuburlAndSpaces
 
 from RepoAuditor.EntryPoint import app
-
-from utilities import ScrubDurationGithuburlAndSpaces, GetGithubUrl, CheckPATFileExists
 
 # ----------------------------------------------------------------------
 pytest.fixture(InitializeStreamCapabilities(), scope="session", autouse=True)

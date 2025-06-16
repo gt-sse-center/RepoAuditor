@@ -7,16 +7,15 @@
 """End-to-end tests for the GitHubRulesets plugin."""
 
 from pathlib import Path
-import pytest
 
+import pytest
 from dbrownell_Common.TestHelpers.StreamTestHelpers import (
     InitializeStreamCapabilities,
 )
 from typer.testing import CliRunner
+from utilities import CheckPATFileExists, GetGithubUrl, ScrubDurationGithuburlAndSpaces
 
 from RepoAuditor.EntryPoint import app
-
-from utilities import ScrubDurationGithuburlAndSpaces, GetGithubUrl, CheckPATFileExists
 
 # ----------------------------------------------------------------------
 pytest.fixture(InitializeStreamCapabilities(), scope="session", autouse=True)

@@ -267,7 +267,7 @@ def Execute(
 
     for results in all_results:
         if results is None:
-            continue
+            continue  # pragma: no cover
 
         final_results.append(list(itertools.chain(*results)))
 

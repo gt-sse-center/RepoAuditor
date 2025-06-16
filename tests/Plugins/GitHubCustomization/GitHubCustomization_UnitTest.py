@@ -7,8 +7,9 @@
 """Unit tests for the GitHub Customization Plugin"""
 
 import sys
-import pluggy
 from pathlib import Path
+
+import pluggy
 
 from RepoAuditor import APP_NAME
 from RepoAuditor.Plugins.GitHubCustomizationPlugin import GetModule
