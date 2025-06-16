@@ -4,9 +4,9 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Unit tests for DefaultBranchQuery.py"""
+"""Unit tests for RulesetQuery.py"""
 
-from RepoAuditor.Plugins.GitHub.DefaultBranchQuery import DefaultBranchQuery
+from RepoAuditor.Plugins.GitHubRulesets.RulesetQuery import RulesetQuery
 
 
 def get_mock_request(
@@ -35,17 +35,28 @@ def get_mock_request(
         if method.lower() == "get":
             if url == "":
                 return MockedResponse({"default_branch": "main"}, status_code)
-            elif url == "branches/main":
+            elif url == "rules/branches/main":
+                return MockedResponse(
+                    [
+                        {
+                            "ruleset_id": 117,
+                        },
+                    ],
+                    status_code,
+                )
+            elif url == "rulesets/117":
                 return MockedResponse("valid-test-data", status_code)
 
     return mock_request
 
 
-class TestDefaultBranchQuery:
+class TestRulesetQuery:
     def test_GetData(self, module_data, monkeypatch):
-        """Test successful GetData"""
+        """Test the GetData method."""
         monkeypatch.setattr(module_data["session"], "request", get_mock_request())
-        query = DefaultBranchQuery()
+        query = RulesetQuery()
         query_data = query.GetData(module_data)
 
-        assert query_data["default_branch_data"] == "valid-test-data"
+        assert len(query_data["rules"]) == 1
+        assert query_data["rules"][0]["ruleset_id"] == 117
+        assert query_data["rules"][0]["ruleset"] == "valid-test-data"
