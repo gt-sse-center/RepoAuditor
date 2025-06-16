@@ -7,7 +7,7 @@ authors = [
 ]
 requires-python = ">= 3.10"
 dependencies = [
-    "dbrownell-common>=0.14.6",
+    "dbrownell-common>=0.14.10",
     "pluggy>=1.5.0",
     "requests>=2.32.3",
     "typer>=0.15.3",
