@@ -151,7 +151,7 @@ def Execute(
                 # ----------------------------------------------------------------------
                 def Transform(
                     status: ExecuteTasks.Status,
-                ) -> ExecuteTasks.TransformResultComplete:
+                ) -> ExecuteTasks.CompleteTransformResult:
                     # ----------------------------------------------------------------------
                     def OnStatus(num_completed: int, *args, **kwargs) -> None:
                         status.OnProgress(
@@ -169,7 +169,7 @@ def Execute(
                         ignore_warnings_module_names=ignore_warnings_module_names,
                     )
 
-                    return ExecuteTasks.TransformResultComplete(evaluate_results, result_code, result_status)
+                    return ExecuteTasks.CompleteTransformResult(evaluate_results, result_code, result_status)
 
                 # ----------------------------------------------------------------------
 

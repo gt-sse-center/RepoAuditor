@@ -8,7 +8,7 @@
 
 from collections.abc import Callable
 from enum import Enum, auto
-from typing import Optional, TypeVar, cast
+from typing import Optional, TypeVar, Union, cast
 
 from dbrownell_Common import ExecuteTasks  # type: ignore[import-untyped]
 from dbrownell_Common.Streams.DoneManager import DoneManager  # type: ignore[import-untyped]
@@ -87,18 +87,18 @@ def _Impl(
     def Execute(
         results_index: int,
         item: ItemType,
-    ) -> ExecuteTasks.TransformResultComplete:
+    ) -> ExecuteTasks.CompleteTransformResult:
         return_code, result = calculate_result_func(item)
 
         assert results[results_index] is None
         results[results_index] = result
 
-        return ExecuteTasks.TransformResultComplete(None, return_code)
+        return ExecuteTasks.CompleteTransformResult(None, return_code)
 
     # ----------------------------------------------------------------------
 
     if parallel:
-        transform_results: list[Optional[Exception]] = ExecuteTasks.TransformTasks(
+        transform_results: list[Union[None, object, Exception]] = ExecuteTasks.TransformTasks(
             dm,
             "Processing",
             [
@@ -111,7 +111,7 @@ def _Impl(
         )
 
         for transform_result in transform_results:
-            if transform_result is not None:
+            if transform_result is not None and isinstance(transform_result, Exception):
                 raise transform_result
 
     for sequential_index, (results_index, item) in enumerate(sequential):
