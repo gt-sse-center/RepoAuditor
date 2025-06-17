@@ -178,6 +178,7 @@ class TestExecute:
             (EvaluateResult.Warning, 1, False, False),
             (EvaluateResult.Warning, -1, True, False),
             (EvaluateResult.Warning, 0, False, True),
+            (EvaluateResult.DoesNotApply, 0, False, False),
         ],
     )
     def test_NotSuccess(self, data):

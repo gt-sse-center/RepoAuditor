@@ -133,7 +133,19 @@ class Module(ABC):
                     status_info.num_does_not_apply += len(query.requirements)
 
                     status_func(*status_info.__dict__.values())
-                    return 0, []
+                    # Since query returned None, it means it was not valid.
+                    return 2, [
+                        Module.EvaluateInfo(
+                            result=EvaluateResult.DoesNotApply,
+                            context=f"{query.name} did not return valid data.",
+                            resolution="",
+                            rationale="",
+                            requirement=requirement,
+                            query=query,
+                            module=self,
+                        )
+                        for requirement in query.requirements
+                    ]
 
             prev_query_status_info = StatusInfo()
 

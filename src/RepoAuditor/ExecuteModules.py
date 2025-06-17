@@ -75,8 +75,11 @@ def CalcResultInfo(
 
     Returns a code value indicating success, warning, or error,
     as well as a string description of the result.
+    If the result is a warning or error, return immediately.
+    "Does Not Apply" is considered as a success.
     """
     return_code = 0
+    return_msg = ""
 
     if not all_eval_infos:
         return 0, "module does not apply"
@@ -87,6 +90,7 @@ def CalcResultInfo(
 
             if result == EvaluateResult.Warning:
                 if eval_info.module.name in warnings_as_errors_module_names:
+                    # Treat warnings as errors enabled so recast the result type
                     result = EvaluateResult.Error
                 elif eval_info.module.name in ignore_warnings_module_names:
                     continue
@@ -95,9 +99,9 @@ def CalcResultInfo(
                 return -1, "errors were encountered"
 
             if result == EvaluateResult.Warning:
-                return_code = 1
+                return_code, return_msg = 1, "warnings were encountered"
 
-    return return_code, "" if return_code == 0 else "warnings were encountered"
+    return return_code, return_msg
 
 
 def Execute(
