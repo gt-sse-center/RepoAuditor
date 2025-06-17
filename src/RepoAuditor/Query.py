@@ -12,7 +12,7 @@ from dataclasses import dataclass
 from typing import Any, Optional, Protocol
 
 from RepoAuditor.Impl.ParallelSequentialProcessor import ParallelSequentialProcessor
-from RepoAuditor.Requirement import EvaluateResult, ExecutionStyle, Requirement
+from RepoAuditor.Requirement import EvaluateResult, ExecutionStyle, Requirement, ReturnCode
 
 
 # ----------------------------------------------------------------------
@@ -90,21 +90,22 @@ class Query(ABC):
                 query_data,
                 requirement_args.get(requirement.name, {}),
             )
-            return_code = 0
+            return_code = ReturnCode.SUCCESS
 
             with status_info_lock:
                 status_info.num_completed += 1
 
                 if result_info.result == EvaluateResult.DoesNotApply:
                     status_info.num_does_not_apply += 1
+                    return_code = ReturnCode.DOESNOTAPPLY
                 elif result_info.result == EvaluateResult.Success:
                     status_info.num_success += 1
                 elif result_info.result == EvaluateResult.Error:
                     status_info.num_error += 1
-                    return_code = -1
+                    return_code = ReturnCode.ERROR
                 elif result_info.result == EvaluateResult.Warning:
                     status_info.num_warning += 1
-                    return_code = 1
+                    return_code = ReturnCode.WARNING
                 else:
                     raise RuntimeError(result_info.result)  # pragma: no cover
 

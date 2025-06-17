@@ -46,7 +46,6 @@ class TestEnableRulesetRequirementImpl:
         query_data = {}
         requirement_args = {"true": False}
         result = requirement.Evaluate(query_data, requirement_args)
-        print(result)
         assert result.result == EvaluateResult.DoesNotApply
 
     def test_Evaluate_InvalidRule(self):
