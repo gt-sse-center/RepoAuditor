@@ -1,3 +1,22 @@
+# Fork setup
+
+| Step | Command Line | Additional Information |
+| --- | --- | --- |
+| 1. Fork the repository | -- | https://github.com/gt-sse-center/RepoAuditor/fork |
+| 2. Create a PAT for your forked repository | -- | See [PAT setup instructions](README.md#personal-access-token-pat) |
+| 3. Sync the `test-GitHubCustomization` branch | see instructions below | In the web interface, select "New Branch", then choose `gt-sse-center/RepoAuditor` and `test-GitHubCustomization` as source, and enter `test-GitHubCustomization` as branch name. |
+| 4. Update your forked repository settings to match RepoAuditor's defaults | -- | 
+
+
+To sync the `test-GitHubCustomization` branch using the command line:
+```bash
+git clone <REPOAUDITOR_FORK_URL>
+git remote add upstream https://github.com/gt-sse-center/RepoAuditor
+git fetch upstream
+git checkout -b test-GitHubCustomization upstream/test-GitHubCustomization
+git push origin test-GitHubCustomization
+```
+
 # Local Development
 
 ## Enlistment
