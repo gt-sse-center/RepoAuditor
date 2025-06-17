@@ -15,6 +15,7 @@ from dbrownell_Common.TyperEx import TypeDefinitionItemType  # type: ignore[impo
 
 from RepoAuditor.Impl.ParallelSequentialProcessor import ParallelSequentialProcessor
 from RepoAuditor.Query import EvaluateResult, ExecutionStyle, OnStatusFunc, Query, StatusInfo
+from RepoAuditor.Requirement import ReturnCode
 
 
 # ----------------------------------------------------------------------
@@ -183,15 +184,18 @@ class Module(ABC):
                 max_num_threads=max_num_threads,
             )
 
-            return_code = 0
+            return_code = ReturnCode.SUCCESS
 
             for evaluate_info in evaluate_infos:
                 if evaluate_info.result == EvaluateResult.Error:
-                    return_code = -1
+                    return_code = ReturnCode.ERROR
                     break
 
                 if evaluate_info.result == EvaluateResult.Warning:
-                    return_code = 1
+                    return_code = ReturnCode.WARNING
+
+                if evaluate_info.result == EvaluateResult.DoesNotApply:
+                    return_code = ReturnCode.DOESNOTAPPLY
 
             # Cleanup any resources created during the query
             query.Cleanup(query_data)
