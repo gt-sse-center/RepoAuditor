@@ -9,7 +9,6 @@
 import re
 import sys
 import textwrap
-
 from pathlib import Path
 from typing import Match
 

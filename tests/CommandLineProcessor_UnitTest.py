@@ -8,12 +8,10 @@
 
 import re
 import textwrap
-
-from typing import cast, Optional
+from typing import Optional, cast
 from unittest.mock import patch
 
 import pytest
-
 from dbrownell_Common.TestHelpers.StreamTestHelpers import GenerateDoneManagerAndContent
 from dbrownell_Common.Types import override
 

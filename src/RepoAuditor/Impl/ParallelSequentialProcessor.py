@@ -112,7 +112,7 @@ def _Impl(
 
         for transform_result in transform_results:
             if transform_result is not None and isinstance(transform_result, Exception):
-                raise transform_result
+                raise transform_result  # pragma: no cover
 
     for sequential_index, (results_index, item) in enumerate(sequential):
         with dm.Nested(

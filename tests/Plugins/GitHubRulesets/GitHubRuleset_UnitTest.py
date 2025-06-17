@@ -8,12 +8,12 @@
 
 from typing import Any
 
-from RepoAuditor.Requirement import EvaluateResult
 from RepoAuditor.Plugins.GitHubRulesets.Requirements.RequirePullRequests import RequirePullRequests
-from RepoAuditor.Plugins.GitHubRulesets.Requirements.RequireStatusChecks import RequireStatusChecks
 from RepoAuditor.Plugins.GitHubRulesets.Requirements.RequireSignedCommits import (
     RequireSignedCommits,
 )
+from RepoAuditor.Plugins.GitHubRulesets.Requirements.RequireStatusChecks import RequireStatusChecks
+from RepoAuditor.Requirement import EvaluateResult
 
 
 def create_rule(name: str, rule_type: str, ruleset_name: str, parameters: dict[str, Any]):

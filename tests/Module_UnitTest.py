@@ -7,11 +7,12 @@
 """Unit test for Module.py"""
 
 import copy
-
+from typing import Optional, cast
 from unittest.mock import Mock
 
 import pytest
-
+from dbrownell_Common.Streams.DoneManager import DoneManager
+from dbrownell_Common.TestHelpers.StreamTestHelpers import GenerateDoneManagerAndContent
 from dbrownell_Common.Types import override
 
 from RepoAuditor.Module import *
@@ -387,6 +388,53 @@ def test_ModuleNoData():
 
     initial_data = module.GenerateInitialData({})
     assert initial_data is None
+
+
+# ----------------------------------------------------------------------
+def test_Module_SingleParallel():
+    """Test parallel execution of the module when only 1 query is present."""
+    # Since we have only one query with parallel execution style,
+    # it should default to sequential processing.
+    module = MyModule(
+        "MyModule",
+        "The only module",
+        ExecutionStyle.Sequential,
+        [queryA],
+        produce_data=True,
+    )
+
+    status_func = Mock()
+
+    initial_data = module.GenerateInitialData({})
+    results = module.Evaluate(
+        initial_data,
+        {},
+        status_func,
+        max_num_threads=1,
+    )
+    assert results[0][0].result == EvaluateResult.Success
+    assert results[0][0].context is None
+    assert results[0][0].resolution is None
+    assert results[0][0].rationale is None
+    assert results[0][0].requirement is requirementA1
+    assert results[0][0].query is queryA
+    assert results[0][0].module is module
+
+
+# ----------------------------------------------------------------------
+def test_ProvidedDoneManager():
+    """Test for when a DoneManager is provided to the ParallelSequentialProcessor."""
+    module = MyModule(
+        "MyModule",
+        "The only module",
+        ExecutionStyle.Sequential,
+        [queryA],
+        produce_data=True,
+    )
+    dm_and_sink = GenerateDoneManagerAndContent()
+    dm = cast(DoneManager, next(dm_and_sink))
+    result = ParallelSequentialProcessor(module.queries, lambda query: (0, []), dm)
+    assert isinstance(result, list)
 
 
 # ----------------------------------------------------------------------
