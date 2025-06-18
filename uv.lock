@@ -193,7 +193,7 @@ toml = [
 
 [[package]]
 name = "dbrownell-common"
-version = "0.14.10"
+version = "0.14.12"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "inflect" },
@@ -201,9 +201,9 @@ dependencies = [
     { name = "typer" },
     { name = "typer-config" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/4e/48/824d637bb51b3f91370b805ad9679560b6d1464e92630c6a3cb4da041af6/dbrownell_common-0.14.10.tar.gz", hash = "sha256:4b62397f5ff9f66f1c0ddb51457f00431b202576581831862a0ae40c0c21bb65", size = 96802, upload-time = "2025-06-12T21:25:18.535Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/d9/41/2a0f0f8fb7985755fc9678564215a971d5beabb50c4a47be9b4717935338/dbrownell_common-0.14.12.tar.gz", hash = "sha256:2359536fcf418a2f35497c2082209c067e141ed5538a05a20d73bb04b927e938", size = 97337, upload-time = "2025-06-18T13:41:35.339Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/4d/62/3f20e4b9b5afe3cdfcd57433c553aa6a86e3b2c20f5297e418911120b925/dbrownell_common-0.14.10-py3-none-any.whl", hash = "sha256:bf7fa471bb2372ad7ce0809d2a472fb03ed390fb2c70f2ada45a96e176f12dd6", size = 42837, upload-time = "2025-06-12T21:25:17.413Z" },
+    { url = "https://files.pythonhosted.org/packages/f2/b1/5d7806492892d37dc1b2220f7b10edcfcdc701a5c4fd0bab897025544981/dbrownell_common-0.14.12-py3-none-any.whl", hash = "sha256:9e11370a94bdf546d0f25c8de346dccaf145474dd213bc0f940f1bdbd7c080d1", size = 43027, upload-time = "2025-06-18T13:41:34.47Z" },
 ]
 
 [[package]]
@@ -520,6 +520,7 @@ dependencies = [
     { name = "pluggy" },
     { name = "requests" },
     { name = "typer" },
+    { name = "typer-config", extra = ["yaml"] },
 ]
 
 [package.dev-dependencies]
@@ -539,6 +540,7 @@ requires-dist = [
     { name = "pluggy", specifier = ">=1.5.0" },
     { name = "requests", specifier = ">=2.32.3" },
     { name = "typer", specifier = ">=0.15.3" },
+    { name = "typer-config", extras = ["yaml"], specifier = ">=1.4.2" },
 ]
 
 [package.metadata.requires-dev]
@@ -829,6 +831,11 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/2e/af/78f802bc49eaa5855082cca10e9c9d7d03469c957c149aa159561dc3d744/typer_config-1.4.2.tar.gz", hash = "sha256:69dffc0e06095b57754bfe9fb3e4caf28ab9c2c430dade6433b0ca128510f600", size = 10919, upload-time = "2024-11-08T01:59:06.635Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/df/bd/2e9d407d7ed3f33a40d8211a481b76a0507ba4f117da9dec116c0de9871e/typer_config-1.4.2-py3-none-any.whl", hash = "sha256:b3e1f59bacc8276e5b830f35c9ca403cd85f14173169c23c3756fa816357a34f", size = 11698, upload-time = "2024-11-08T01:59:05.787Z" },
+]
+
+[package.optional-dependencies]
+yaml = [
+    { name = "pyyaml" },
 ]
 
 [[package]]

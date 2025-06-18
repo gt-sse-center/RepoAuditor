@@ -21,6 +21,7 @@ from dbrownell_Common import (
 from dbrownell_Common.Streams.DoneManager import DoneManager
 from dbrownell_Common.Streams.DoneManager import Flags as DoneManagerFlags  # type: ignore [import-untyped]
 from typer.core import TyperGroup  # type: ignore [import-untyped]
+from typer_config.decorators import use_yaml_config
 
 from RepoAuditor import APP_NAME, Plugin, __version__
 from RepoAuditor.CommandLineProcessor import CommandLineProcessor, Module
@@ -192,6 +193,7 @@ def _VersionCallback(value: bool) -> None:  # noqa: FBT001
     epilog=_HelpEpilog(),
     no_args_is_help=False,
 )
+@use_yaml_config()
 def EntryPoint(  # noqa: PLR0913  # pragma: no cover
     ctx: typer.Context,
     version: Annotated[  # noqa: ARG001, FBT002
