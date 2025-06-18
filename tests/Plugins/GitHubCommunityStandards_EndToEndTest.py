@@ -4,7 +4,7 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""End-to-end tests for the GitHubCustomization plugin."""
+"""End-to-end tests for the GitHubCommunityStandards plugin."""
 
 from pathlib import Path
 
@@ -22,13 +22,13 @@ pytest.fixture(InitializeStreamCapabilities(), scope="session", autouse=True)
 
 
 # ----------------------------------------------------------------------
-class TestCustomization:
-    """End-to-end tests for customization files in a GitHub repository."""
+class TestCommunityStandards:
+    """End-to-end tests for community standards files in a GitHub repository."""
 
     # ----------------------------------------------------------------------
     def test_CodeOwners(self, pat_args, snapshot):
         """Test if a CODEOWNERS file exists in the repository."""
-        result = CliRunner().invoke(app, pat_args + ["--GitHubCustomization-CodeOwners-exists"])
+        result = CliRunner().invoke(app, pat_args + ["--GitHubCommunityStandards-CodeOwners-exists"])
 
         assert result.exit_code == 0, result.output
         assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
@@ -39,9 +39,9 @@ class TestCustomization:
             app,
             pat_args
             + [
-                "--GitHubCustomization-CodeOwners-exists",
-                "--GitHubCustomization-branch",
-                "test-GitHubCustomization",
+                "--GitHubCommunityStandards-CodeOwners-exists",
+                "--GitHubCommunityStandards-branch",
+                "test-GitHubCommunityStandards",
             ],
         )
 
@@ -50,7 +50,7 @@ class TestCustomization:
 
     def test_Contributing(self, pat_args, snapshot):
         """Test if a CONTRIBUTING.md file exists in the repository."""
-        result = CliRunner().invoke(app, pat_args + ["--GitHubCustomization-Contributing-exists"])
+        result = CliRunner().invoke(app, pat_args + ["--GitHubCommunityStandards-Contributing-exists"])
 
         assert result.exit_code == 0, result.output
         assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
@@ -61,9 +61,9 @@ class TestCustomization:
             app,
             pat_args
             + [
-                "--GitHubCustomization-Contributing-exists",
-                "--GitHubCustomization-branch",
-                "test-GitHubCustomization",
+                "--GitHubCommunityStandards-Contributing-exists",
+                "--GitHubCommunityStandards-branch",
+                "test-GitHubCommunityStandards",
             ],
         )
 
@@ -72,7 +72,7 @@ class TestCustomization:
 
     def test_IssueTemplate(self, pat_args, snapshot):
         """Test if an Issue template file (e.g. ISSUE_TEMPLATE.md) exists in the repository."""
-        result = CliRunner().invoke(app, pat_args + ["--GitHubCustomization-IssueTemplates-exists"])
+        result = CliRunner().invoke(app, pat_args + ["--GitHubCommunityStandards-IssueTemplates-exists"])
 
         assert result.exit_code == 0, result.output
         assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
@@ -83,9 +83,9 @@ class TestCustomization:
             app,
             pat_args
             + [
-                "--GitHubCustomization-IssueTemplates-exists",
-                "--GitHubCustomization-branch",
-                "test-GitHubCustomization",
+                "--GitHubCommunityStandards-IssueTemplates-exists",
+                "--GitHubCommunityStandards-branch",
+                "test-GitHubCommunityStandards",
             ],
         )
 
@@ -94,7 +94,7 @@ class TestCustomization:
 
     def test_PullRequestTemplate(self, pat_args, snapshot):
         """Test if a Pull Request template file (e.g. PULL_REQUEST_TEMPLATE.md) exists in the repository."""
-        result = CliRunner().invoke(app, pat_args + ["--GitHubCustomization-PullRequestTemplate-exists"])
+        result = CliRunner().invoke(app, pat_args + ["--GitHubCommunityStandards-PullRequestTemplate-exists"])
 
         assert result.exit_code == 0, result.output
         assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
@@ -105,9 +105,9 @@ class TestCustomization:
             app,
             pat_args
             + [
-                "--GitHubCustomization-PullRequestTemplate-exists",
-                "--GitHubCustomization-branch",
-                "test-GitHubCustomization",
+                "--GitHubCommunityStandards-PullRequestTemplate-exists",
+                "--GitHubCommunityStandards-branch",
+                "test-GitHubCommunityStandards",
             ],
         )
 
@@ -116,7 +116,7 @@ class TestCustomization:
 
     def test_SecurityPolicy(self, pat_args, snapshot):
         """Test if a Security policy file (e.g. SECURITY.md) exists in the repository."""
-        result = CliRunner().invoke(app, pat_args + ["--GitHubCustomization-SecurityPolicy-exists"])
+        result = CliRunner().invoke(app, pat_args + ["--GitHubCommunityStandards-SecurityPolicy-exists"])
 
         assert result.exit_code == 0, result.output
         assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
@@ -127,9 +127,9 @@ class TestCustomization:
             app,
             pat_args
             + [
-                "--GitHubCustomization-SecurityPolicy-exists",
-                "--GitHubCustomization-branch",
-                "test-GitHubCustomization",
+                "--GitHubCommunityStandards-SecurityPolicy-exists",
+                "--GitHubCommunityStandards-branch",
+                "test-GitHubCommunityStandards",
             ],
         )
 
@@ -144,8 +144,8 @@ class TestCustomization:
 def args() -> list[str]:
     return [
         "--include",
-        "GitHubCustomization",
-        "--GitHubCustomization-url",
+        "GitHubCommunityStandards",
+        "--GitHubCommunityStandards-url",
         GetGithubUrl(),
     ]
 
@@ -159,4 +159,4 @@ def pat_args(args) -> list[str]:
     with _github_pat_filename.open() as f:
         pat_value = f.read().strip()
 
-    return args + ["--GitHubCustomization-pat", pat_value]
+    return args + ["--GitHubCommunityStandards-pat", pat_value]

@@ -10,11 +10,11 @@ import pluggy
 
 from RepoAuditor import APP_NAME
 from RepoAuditor.Module import Module
-from RepoAuditor.Plugins.GitHubCustomization.Module import GitHubCustomizationModule
+from RepoAuditor.Plugins.GitHubCommunityStandards.Module import GitHubCommunityStandardsModule
 
 
 # ----------------------------------------------------------------------
 @pluggy.HookimplMarker(APP_NAME)
 def GetModule() -> Module:
     """Return GitHub Customization Module."""
-    return GitHubCustomizationModule()
+    return GitHubCommunityStandardsModule()

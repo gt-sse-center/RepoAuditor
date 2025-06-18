@@ -56,7 +56,7 @@ class ExistsRequirementImpl(Requirement):
                 bool,
                 typer.Option(
                     False,
-                    help=f"Ensures that the customization file {self.github_file} exists.",
+                    help=f"Ensures that the file {self.github_file} exists.",
                 ),
             ),
         }

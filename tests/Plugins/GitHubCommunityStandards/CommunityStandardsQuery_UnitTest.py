@@ -4,12 +4,15 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Unit tests for CustomizationQuery.py"""
+"""Unit tests for CommunityStandardsQuery.py"""
 
 import pytest
 from git import Repo
 
-from RepoAuditor.Plugins.GitHubCustomization.CustomizationQuery import CustomizationQuery, TemporaryDirectory
+from RepoAuditor.Plugins.GitHubCommunityStandards.CommunityStandardsQuery import (
+    CommunityStandardsQuery,
+    TemporaryDirectory,
+)
 
 
 def mock_clone_from(github_url, repo_dirname, branch="main"):
@@ -32,7 +35,7 @@ def patch_temp_directory(monkeypatch):
     monkeypatch.delattr("tempfile.TemporaryDirectory")
 
 
-class TestCustomizationQuery:
+class TestCommunityStandardsQuery:
     def test_GetData(self, module_data, monkeypatch):
         """Test the GetData method."""
         monkeypatch.setattr(
@@ -46,14 +49,14 @@ class TestCustomizationQuery:
             mock_clone_from,
         )
 
-        query = CustomizationQuery()
+        query = CommunityStandardsQuery()
         query_data = query.GetData(module_data)
 
         assert query_data["repo_dir"].name == "test_temp_directory"
 
     def test_Cleanup(self, module_data):
         """Test the Cleanup method."""
-        query = CustomizationQuery()
+        query = CommunityStandardsQuery()
         module_data["repo_dir"] = MockTemporaryDirectory()
         result = query.Cleanup(module_data)
 

@@ -4,23 +4,23 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the GitHubCustomizationModule object."""
+"""Contains the GitHubCommunityStandardsModule object."""
 
 from RepoAuditor.Module import ExecutionStyle
 from RepoAuditor.Plugins.GitHubBase.Module import GitHubBaseModule
-from RepoAuditor.Plugins.GitHubCustomization.CustomizationQuery import CustomizationQuery
+from RepoAuditor.Plugins.GitHubCommunityStandards.CommunityStandardsQuery import CommunityStandardsQuery
 
 
-class GitHubCustomizationModule(GitHubBaseModule):
-    """Module that validates GitHub repository customization files."""
+class GitHubCommunityStandardsModule(GitHubBaseModule):
+    """Module that validates GitHub repository files for Community Standards."""
 
     def __init__(self) -> None:
         super().__init__(
-            "GitHubCustomization",
-            "Validates GitHub repository customization files.",
+            "GitHubCommunityStandards",
+            "Validates GitHub repository files for Community Standards.",
             ExecutionStyle.Parallel,
             [
-                CustomizationQuery(),
+                CommunityStandardsQuery(),
             ],
             requires_explicit_include=True,
         )
