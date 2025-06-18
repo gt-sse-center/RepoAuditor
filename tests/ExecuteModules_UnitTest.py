@@ -322,8 +322,24 @@ class TestExecute:
 
         assert all_results == [[]]
 
-        assert cast(str, next(dm_and_content)) == textwrap.dedent(
-            """\
+        # Assuming major version is 3
+        if sys.version_info[1] < 11:
+            expected_content = textwrap.dedent(
+                """\
+            Heading...
+              Processing 1 module...
+                Processing 'MyModule' (1 of 1)...
+
+
+                DONE! (ReturnCode.DOESNOTAPPLY, <scrubbed duration>)
+              DONE! (ReturnCode.DOESNOTAPPLY, <scrubbed duration>)
+            DONE! (ReturnCode.DOESNOTAPPLY, <scrubbed duration>)
+            """,
+            )
+        else:
+            # From version 3.11 onwards, IntEnum.__str__ returns the int value.
+            expected_content = textwrap.dedent(
+                """\
             Heading...
               Processing 1 module...
                 Processing 'MyModule' (1 of 1)...
@@ -333,7 +349,9 @@ class TestExecute:
               DONE! (2, <scrubbed duration>)
             DONE! (2, <scrubbed duration>)
             """,
-        )
+            )
+
+        assert cast(str, next(dm_and_content)) == expected_content
 
 
 # ----------------------------------------------------------------------
