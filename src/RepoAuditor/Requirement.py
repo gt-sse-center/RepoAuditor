@@ -8,7 +8,7 @@
 
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
-from enum import Enum, auto
+from enum import Enum, IntEnum, auto
 from typing import Any, Optional
 
 from dbrownell_Common.TyperEx import TypeDefinitionItemType  # type: ignore[import-untyped]
@@ -25,6 +25,15 @@ class EvaluateResult(Enum):
     Success = auto()
     Warning = auto()
     Error = auto()
+
+
+class ReturnCode(IntEnum):
+    """Various return codes for operations, indicating success, failure, warning, etc."""
+
+    SUCCESS = 0
+    ERROR = -1
+    WARNING = 1
+    DOESNOTAPPLY = 2
 
 
 # ----------------------------------------------------------------------

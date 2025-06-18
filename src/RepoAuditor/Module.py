@@ -15,6 +15,7 @@ from dbrownell_Common.TyperEx import TypeDefinitionItemType  # type: ignore[impo
 
 from RepoAuditor.Impl.ParallelSequentialProcessor import ParallelSequentialProcessor
 from RepoAuditor.Query import EvaluateResult, ExecutionStyle, OnStatusFunc, Query, StatusInfo
+from RepoAuditor.Requirement import ReturnCode
 
 
 # ----------------------------------------------------------------------
@@ -133,7 +134,19 @@ class Module(ABC):
                     status_info.num_does_not_apply += len(query.requirements)
 
                     status_func(*status_info.__dict__.values())
-                    return 0, []
+                    # Since query returned None, it means it was not valid.
+                    return 2, [
+                        Module.EvaluateInfo(
+                            result=EvaluateResult.DoesNotApply,
+                            context=f"{query.name} did not return valid data.",
+                            resolution="",
+                            rationale="",
+                            requirement=requirement,
+                            query=query,
+                            module=self,
+                        )
+                        for requirement in query.requirements
+                    ]
 
             prev_query_status_info = StatusInfo()
 
@@ -171,15 +184,18 @@ class Module(ABC):
                 max_num_threads=max_num_threads,
             )
 
-            return_code = 0
+            return_code = ReturnCode.SUCCESS
 
             for evaluate_info in evaluate_infos:
                 if evaluate_info.result == EvaluateResult.Error:
-                    return_code = -1
+                    return_code = ReturnCode.ERROR
                     break
 
                 if evaluate_info.result == EvaluateResult.Warning:
-                    return_code = 1
+                    return_code = ReturnCode.WARNING
+
+                if evaluate_info.result == EvaluateResult.DoesNotApply:
+                    return_code = ReturnCode.DOESNOTAPPLY
 
             # Cleanup any resources created during the query
             query.Cleanup(query_data)

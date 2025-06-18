@@ -19,6 +19,7 @@ from dbrownell_Common.Streams.DoneManager import DoneManager  # type: ignore[imp
 from rich.progress import Progress, TimeElapsedColumn
 
 from RepoAuditor.Module import EvaluateResult, ExecutionStyle, Module, OnStatusFunc
+from RepoAuditor.Requirement import ReturnCode
 
 
 # ----------------------------------------------------------------------
@@ -75,11 +76,14 @@ def CalcResultInfo(
 
     Returns a code value indicating success, warning, or error,
     as well as a string description of the result.
+    If the result is a warning or error, return immediately.
+    "Does Not Apply" is considered as a success.
     """
-    return_code = 0
+    return_code = ReturnCode.SUCCESS
+    return_msg = ""
 
     if not all_eval_infos:
-        return 0, "module does not apply"
+        return ReturnCode.DOESNOTAPPLY, "module does not apply"
 
     for eval_infos in all_eval_infos:
         for eval_info in eval_infos:
@@ -87,17 +91,18 @@ def CalcResultInfo(
 
             if result == EvaluateResult.Warning:
                 if eval_info.module.name in warnings_as_errors_module_names:
+                    # Treat warnings as errors enabled so recast the result type
                     result = EvaluateResult.Error
                 elif eval_info.module.name in ignore_warnings_module_names:
                     continue
 
             if result == EvaluateResult.Error:
-                return -1, "errors were encountered"
+                return ReturnCode.ERROR, "errors were encountered"
 
             if result == EvaluateResult.Warning:
-                return_code = 1
+                return_code, return_msg = ReturnCode.WARNING, "warnings were encountered"
 
-    return return_code, "" if return_code == 0 else "warnings were encountered"
+    return return_code, return_msg
 
 
 def Execute(

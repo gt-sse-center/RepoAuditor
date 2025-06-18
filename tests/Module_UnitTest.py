@@ -357,7 +357,20 @@ def test_Module(single_threaded):
     assert results[1][3].module is module
 
     # QueryC
-    assert results[2] == []
+    query_c_expected_results = [
+        Module.EvaluateInfo(
+            result=EvaluateResult.DoesNotApply,
+            context="QueryC did not return valid data.",
+            rationale="",
+            resolution="",
+            requirement=requirement,
+            query=queryC,
+            module=module,
+        )
+        for requirement in queryC.requirements
+    ]
+    for idx, result in enumerate(results[2]):
+        assert result == query_c_expected_results[idx]
 
     # Validate the notifications
     if single_threaded:
