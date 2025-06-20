@@ -4,7 +4,7 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Unit tests for the GitHub Customization Plugin"""
+"""Unit tests for the GitHub Community Standards Plugin"""
 
 import sys
 from pathlib import Path
@@ -12,7 +12,7 @@ from pathlib import Path
 import pluggy
 
 from RepoAuditor import APP_NAME
-from RepoAuditor.Plugins.GitHubCustomizationPlugin import GetModule
+from RepoAuditor.Plugins.GitHubCommunityStandardsPlugin import GetModule
 
 
 # ----------------------------------------------------------------------
@@ -28,7 +28,7 @@ def test_get_module_returns_object():
     module = GetModule()
     assert module is not None
     assert hasattr(module, "name")
-    assert module.name == "GitHubCustomization"
+    assert module.name == "GitHubCommunityStandards"
 
 
 # ----------------------------------------------------------------------
@@ -55,7 +55,7 @@ def test_plugin_registration():
 
 
 # ----------------------------------------------------------------------
-class TestGitHubCustomizationModule:
+class TestGitHubCommunityStandardsModule:
     """Unit tests for the GitHubCustomizaton module."""
 
     def test_Construct(self):
@@ -63,11 +63,11 @@ class TestGitHubCustomizationModule:
         module = GetModule()
 
         assert module is not None
-        assert module.name == "GitHubCustomization"
+        assert module.name == "GitHubCommunityStandards"
         # Comment out checks that would fail with minimal implementation
         # assert module.execution_style.name == "Parallel"
         # assert len(module.queries) == 1
-        # assert isinstance(module.queries[0], CustomizationQuery)
+        # assert isinstance(module.queries[0], CommunityStandardsQuery)
         # assert module.requires_explicit_include is False
 
     def test_GetDynamicArgDefinitions(self):

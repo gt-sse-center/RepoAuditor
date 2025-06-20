@@ -4,7 +4,7 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the CustomizationQuery object."""
+"""Contains the CommunityStandardsQuery object."""
 
 from tempfile import TemporaryDirectory
 from typing import Any, Optional
@@ -12,20 +12,20 @@ from typing import Any, Optional
 from dbrownell_Common.Types import override  # type: ignore[import-untyped]
 from git import Repo
 
-from RepoAuditor.Plugins.GitHubCustomization.Requirements.CodeOwners import CodeOwners
-from RepoAuditor.Plugins.GitHubCustomization.Requirements.Contributing import Contributing
-from RepoAuditor.Plugins.GitHubCustomization.Requirements.IssueTemplates import IssueTemplates
-from RepoAuditor.Plugins.GitHubCustomization.Requirements.PullRequestTemplates import PullRequestTemplate
-from RepoAuditor.Plugins.GitHubCustomization.Requirements.SecurityPolicy import SecurityPolicy
+from RepoAuditor.Plugins.GitHubCommunityStandards.Requirements.CodeOwners import CodeOwners
+from RepoAuditor.Plugins.GitHubCommunityStandards.Requirements.Contributing import Contributing
+from RepoAuditor.Plugins.GitHubCommunityStandards.Requirements.IssueTemplates import IssueTemplates
+from RepoAuditor.Plugins.GitHubCommunityStandards.Requirements.PullRequestTemplates import PullRequestTemplate
+from RepoAuditor.Plugins.GitHubCommunityStandards.Requirements.SecurityPolicy import SecurityPolicy
 from RepoAuditor.Query import ExecutionStyle, Query
 
 
-class CustomizationQuery(Query):
-    """Query with requirements that check for GitHub customization files."""
+class CommunityStandardsQuery(Query):
+    """Query with requirements that check for GitHub CommunityStandards files."""
 
     def __init__(self) -> None:
         super().__init__(
-            "CustomizationQuery",
+            "CommunityStandardsQuery",
             ExecutionStyle.Parallel,
             [
                 CodeOwners(),
