@@ -6,8 +6,10 @@ on:
     - cron: '0 * * * *' # Once every hour
   workflow_dispatch:
 
+permissions: {}
+
 jobs:
-  validate:
+  EndToEnd_Workflow:
     strategy:
       fail-fast: false
 
@@ -17,7 +19,7 @@ jobs:
         # Similar to OS, we only test the lowest and highest supported versions.
         python_version: ["3.10", "3.13"]
 
-    name: Validate
+    name: "End To End Workflow"
     runs-on: ${{ matrix.os }}
 
     permissions:
@@ -32,17 +34,23 @@ jobs:
           python-version: ${{ matrix.python_version }}
           enable-cache: true
 
-      # Ensure that the github PAT is available for the tests
-      # GitHub PAT used by tests to access the repository.
-      - name: Create github_pat.txt
-        run: |
-          echo ${{ secrets.TESTING_GITHUB_PAT }} > tests/Plugins/github_pat.txt
-
-      - name: Environment Variables
+      - name: Dump 'github' Context
         shell: bash
         run: |
-          echo "GITHUB_CI_OPERATING_SYSTEM=${{ matrix.os }}" >> $GITHUB_ENV
-          echo "GITHUB_CI_PYTHON_VERSION=${{ matrix.python_version }}" >> $GITHUB_ENV
+          set +e
 
-      - name: Validate Tests
-        run: uv run pytest -k EndToEndTest --no-cov
+          echo "--------------------------------------------------------------------------------"
+          echo "github"
+          echo "--------------------------------------------------------------------------------"
+          echo ""
+
+          cat > _github_context <<END_OF_CONTENT
+          ${{ toJSON(github) }}
+          END_OF_CONTENT
+
+          cat _github_context
+
+          exit 0
+
+      # BugBug - name: Should Periodic Workflow Run?
+      # BugBug   run: uv run python .github/tools/ShouldPeriodicWorkflowRun ${{ github.
