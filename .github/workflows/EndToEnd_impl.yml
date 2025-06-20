@@ -1,0 +1,32 @@
+name: "[Callable] EndToEnd Workflow Impl"
+
+on:
+  workflow_call:
+    inputs:
+      operating_system_json_string:
+        type: string
+        description: "The operating systems to run the job on. Note that this is JSON content embedded within a string."
+        required: true
+
+      python_version_json_string:
+        type: string
+        description: "The Python versions to run the job with. Note that this is JSON content embedded within a string."
+        required: true
+
+jobs:
+  validate:
+    strategy:
+      fail-fast: false
+
+      matrix:
+        os: ${{ fromJson(inputs.operating_system_json_string) }}
+        python_version: ${{ fromJson(inputs.python_version_json_string) }}
+
+    name: Validate
+    runs-on: ${{ matrix.os }}
+
+    permissions:
+      contents: read
+
+    steps:
+      - run: echo BugBug

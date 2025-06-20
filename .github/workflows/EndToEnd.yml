@@ -10,17 +10,8 @@ permissions: {}
 
 jobs:
   EndToEnd_Workflow:
-    strategy:
-      fail-fast: false
-
-      matrix:
-        # Since the system under test here is the GitHub API, it is sufficient to test using only a single OS.
-        os: ["ubuntu-latest"]
-        # Similar to OS, we only test the lowest and highest supported versions.
-        python_version: ["3.10", "3.13"]
-
-    name: "End To End Workflow"
-    runs-on: ${{ matrix.os }}
+    name: "EndToEnd Workflow"
+    runs-on: ubuntu-latest
 
     permissions:
       contents: read
@@ -34,23 +25,5 @@ jobs:
           python-version: ${{ matrix.python_version }}
           enable-cache: true
 
-      - name: Dump 'github' Context
-        shell: bash
-        run: |
-          set +e
-
-          echo "--------------------------------------------------------------------------------"
-          echo "github"
-          echo "--------------------------------------------------------------------------------"
-          echo ""
-
-          cat > _github_context <<END_OF_CONTENT
-          ${{ toJSON(github) }}
-          END_OF_CONTENT
-
-          cat _github_context
-
-          exit 0
-
-      # BugBug - name: Should Periodic Workflow Run?
-      # BugBug   run: uv run python .github/tools/ShouldPeriodicWorkflowRun ${{ github.
+      - name: Should Periodic Workflow Run?
+        run: uv run python .github/tools/ShouldPeriodicWorkflowRun.py ${{ github.api_url }}/repos/${{ github.repository }} "EndToEnd_Impl.yml
