@@ -26,4 +26,4 @@ jobs:
           enable-cache: true
 
       - name: Should Periodic Workflow Run?
-        run: uv run python .github/tools/ShouldPeriodicWorkflowRun.py ${{ github.api_url }}/repos/${{ github.repository }} "[Callable] EndToEnd Workflow Impl"
+        run: uv run python .github/tools/ShouldPeriodicWorkflowRun.py ${{ github.api_url }}/repos/${{ github.repository }} "[Callable] CI+CD Workflow Impl" # BugBug "[Callable] EndToEnd Workflow Impl"
