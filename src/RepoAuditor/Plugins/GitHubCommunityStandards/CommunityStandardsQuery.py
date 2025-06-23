@@ -11,10 +11,12 @@ from typing import Any, Optional
 
 from dbrownell_Common.Types import override  # type: ignore[import-untyped]
 
+from RepoAuditor.Plugins.GitHubCommunityStandards.Requirements.CodeOfConduct import CodeOfConduct
 from RepoAuditor.Plugins.GitHubCommunityStandards.Requirements.CodeOwners import CodeOwners
 from RepoAuditor.Plugins.GitHubCommunityStandards.Requirements.Contributing import Contributing
 from RepoAuditor.Plugins.GitHubCommunityStandards.Requirements.IssueTemplates import IssueTemplates
 from RepoAuditor.Plugins.GitHubCommunityStandards.Requirements.PullRequestTemplates import PullRequestTemplate
+from RepoAuditor.Plugins.GitHubCommunityStandards.Requirements.ReadMe import ReadMe
 from RepoAuditor.Plugins.GitHubCommunityStandards.Requirements.SecurityPolicy import SecurityPolicy
 from RepoAuditor.Query import ExecutionStyle, Query
 
@@ -27,10 +29,12 @@ class CommunityStandardsQuery(Query):
             "CommunityStandardsQuery",
             ExecutionStyle.Parallel,
             [
+                CodeOfConduct(),
                 CodeOwners(),
                 Contributing(),
                 IssueTemplates(),
                 PullRequestTemplate(),
+                ReadMe(),
                 SecurityPolicy(),
             ],
         )
