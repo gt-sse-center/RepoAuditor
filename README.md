@@ -46,6 +46,11 @@ To get a list of command line options, you can run
 uv run repo_auditor --help
 ```
 
+`RepoAuditor` accepts both a set of flags as well as a configuratin YAML file. We have provided a sample configuration file called `default_config.yaml`, which can be used as:
+```shell
+uv run repo_auditor --config default_config.yaml
+```
+
 ### Personal Access Token (PAT)
 
 The most common use case for `RepoAuditor` would be to audit a GitHub repository.
