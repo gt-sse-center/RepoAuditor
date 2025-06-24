@@ -21,7 +21,7 @@ class StandardEnableRequirementImpl(EnableRequirementImpl):
     def __init__(  # noqa: PLR0913
         self,
         name: str,
-        default_value: bool,  # noqa: FBT001
+        enabled_by_default: bool,  # noqa: FBT001
         dynamic_arg_name: str,
         github_settings_url_suffix: str,
         github_settings_section: str,
@@ -36,7 +36,7 @@ class StandardEnableRequirementImpl(EnableRequirementImpl):
     ) -> None:
         super().__init__(
             name,
-            default_value,
+            enabled_by_default,
             dynamic_arg_name,
             github_settings_value,
             get_configuration_value_func,

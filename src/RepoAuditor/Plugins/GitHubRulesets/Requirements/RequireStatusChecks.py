@@ -15,10 +15,10 @@ class RequireStatusChecks(EnableRulesetRequirementImpl):
     def __init__(self) -> None:
         super().__init__(
             name="RequireStatusChecks",
-            default_value=False,
-            dynamic_arg_name="true",
-            github_ruleset_type="Status Checks",
-            github_ruleset_value="required_status_checks",
+            enabled_by_default=False,
+            dynamic_arg_name="enabled",
+            github_ruleset_type="required_status_checks",
+            github_ruleset_value="Status Checks",
             get_configuration_value_func=lambda rule: rule.get("type", "") == "required_status_checks",
             resolution="Configure required status checks in repository rulesets",
             rationale="Status checks ensure code quality and compatibility",

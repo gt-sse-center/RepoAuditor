@@ -15,10 +15,10 @@ class RequirePullRequests(EnableRulesetRequirementImpl):
     def __init__(self) -> None:
         super().__init__(
             name="RequirePullRequests",
-            default_value=False,
-            dynamic_arg_name="true",
-            github_ruleset_type="Pull Requests",
-            github_ruleset_value="pull_request",
+            enabled_by_default=False,
+            dynamic_arg_name="enabled",
+            github_ruleset_type="pull_request",
+            github_ruleset_value="Pull Requests",
             get_configuration_value_func=lambda rule: rule.get("type", "") == "pull_request",
             resolution="Enable pull request requirements in repository rulesets",
             rationale="Pull request reviews help maintain code quality and collaboration",

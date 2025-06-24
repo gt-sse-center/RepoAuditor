@@ -43,9 +43,9 @@ class TestRequirePullRequests:
                 )
             ]
         }
-        result = requirement.Evaluate(context, {"true": True})
+        result = requirement.Evaluate(context, {"enabled": True})
         assert result.result == EvaluateResult.Success
-        assert "enforces Pull Requests" in result.context
+        assert "enforces 'Pull Requests'" in result.context
 
     def test_Disabled(self):
         """Test if the required rule is disabled on the main branch
@@ -63,7 +63,7 @@ class TestRequirePullRequests:
                 )
             ]
         }
-        result = requirement.Evaluate(context, {"true": True})
+        result = requirement.Evaluate(context, {"enabled": True})
         assert result.result == EvaluateResult.Error
 
     def test_WrongTarget(self):
@@ -75,16 +75,16 @@ class TestRequirePullRequests:
                 # Hence the rules here will be empty.
             ]
         }
-        result = requirement.Evaluate(context, {"true": True})
+        result = requirement.Evaluate(context, {"enabled": True})
         assert result.result == EvaluateResult.Error
 
     def test_NoRulesets(self):
         """Test if no rules are applied on the main branch."""
         requirement = RequirePullRequests()
         context = {"rules": []}
-        result = requirement.Evaluate(context, {"true": True})
+        result = requirement.Evaluate(context, {"enabled": True})
         assert result.result == EvaluateResult.Error
-        assert "No active branch ruleset requiring Pull Requests found" in result.context
+        assert "No active branch ruleset requiring 'Pull Requests' found" in result.context
 
 
 # ----------------------------------------------------------------------
@@ -104,9 +104,9 @@ class TestRequireSignedCommits:
                 )
             ]
         }
-        result = requirement.Evaluate(context, {"true": True})
+        result = requirement.Evaluate(context, {"enabled": True})
         assert result.result == EvaluateResult.Success
-        assert "enforces Signed Commits" in result.context
+        assert "enforces 'Signed Commits'" in result.context
 
     def test_Disabled(self):
         """Test if the required rule is disabled on the main branch
@@ -124,7 +124,7 @@ class TestRequireSignedCommits:
                 )
             ]
         }
-        result = requirement.Evaluate(context, {"true": True})
+        result = requirement.Evaluate(context, {"enabled": True})
         assert result.result == EvaluateResult.Error
 
     def test_PartialConfig(self):
@@ -135,16 +135,16 @@ class TestRequireSignedCommits:
                 # GitHub only returns rules that are actively enforced
             ]
         }
-        result = requirement.Evaluate(context, {"true": True})
+        result = requirement.Evaluate(context, {"enabled": True})
         assert result.result == EvaluateResult.Error
 
     def test_NoRulesets(self):
         """Test if no rules are applied on the main branch."""
         requirement = RequireSignedCommits()
         context = {"rules": []}
-        result = requirement.Evaluate(context, {"true": True})
+        result = requirement.Evaluate(context, {"enabled": True})
         assert result.result == EvaluateResult.Error
-        assert "No active branch ruleset requiring Signed Commits found" in result.context
+        assert "No active branch ruleset requiring 'Signed Commits' found" in result.context
 
 
 # ----------------------------------------------------------------------
@@ -164,9 +164,9 @@ class TestRequireStatusChecks:
                 )
             ]
         }
-        result = requirement.Evaluate(context, {"true": True})
+        result = requirement.Evaluate(context, {"enabled": True})
         assert result.result == EvaluateResult.Success
-        assert "enforces Status Checks" in result.context
+        assert "enforces 'Status Checks'" in result.context
 
     def test_EmptyChecks(self):
         """Test for Status Check rules which don't have an associated CI check."""
@@ -178,13 +178,13 @@ class TestRequireStatusChecks:
                 # Hence empty.
             ]
         }
-        result = requirement.Evaluate(context, {"true": True})
+        result = requirement.Evaluate(context, {"enabled": True})
         assert result.result == EvaluateResult.Error
 
     def test_NoRulesets(self):
         """Test if no rules are applied on the main branch."""
         requirement = RequireStatusChecks()
         context = {"rules": []}
-        result = requirement.Evaluate(context, {"true": True})
+        result = requirement.Evaluate(context, {"enabled": True})
         assert result.result == EvaluateResult.Error
-        assert "No active branch ruleset requiring Status Checks found" in result.context
+        assert "No active branch ruleset requiring 'Status Checks' found" in result.context

@@ -15,10 +15,10 @@ class RequireSignedCommits(EnableRulesetRequirementImpl):
     def __init__(self) -> None:
         super().__init__(
             name="RequireSignedCommits",
-            default_value=False,
-            dynamic_arg_name="true",
-            github_ruleset_type="Signed Commits",
-            github_ruleset_value="required_signatures",
+            enabled_by_default=False,
+            dynamic_arg_name="enabled",
+            github_ruleset_type="required_signatures",
+            github_ruleset_value="Signed Commits",
             get_configuration_value_func=lambda rule: rule.get("type", "") == "required_signatures",
             resolution="Enable commit signing requirement in repository rulesets",
             rationale="Signed commits ensure commit authenticity",

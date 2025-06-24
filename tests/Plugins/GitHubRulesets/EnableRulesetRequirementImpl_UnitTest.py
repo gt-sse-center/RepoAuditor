@@ -17,7 +17,7 @@ class TestEnableRulesetRequirementImpl:
         """Test the EnableRulesetRequirementImpl constructor."""
         requirement = EnableRulesetRequirementImpl(
             name="Test Name",
-            default_value=False,
+            enabled_by_default=False,
             dynamic_arg_name="true",
             github_ruleset_type="Test Ruleset",
             github_ruleset_value="test_ruleset",
@@ -27,7 +27,7 @@ class TestEnableRulesetRequirementImpl:
         )
 
         assert requirement.name == "Test Name"
-        assert requirement.default_value is False
+        assert requirement.enabled_by_default is False
         assert requirement.dynamic_arg_name == "true"
         assert requirement.github_ruleset_type == "Test Ruleset"
 
@@ -35,7 +35,7 @@ class TestEnableRulesetRequirementImpl:
         """Test the _EvaluateImpl method when dynamic_arg_name is False."""
         requirement = EnableRulesetRequirementImpl(
             name="Test Name",
-            default_value=False,
+            enabled_by_default=False,
             dynamic_arg_name="true",
             github_ruleset_type="Test Ruleset",
             github_ruleset_value="test_ruleset",
@@ -52,7 +52,7 @@ class TestEnableRulesetRequirementImpl:
         """Test the _EvaluateImpl method when dynamic_arg_name is False."""
         requirement = EnableRulesetRequirementImpl(
             name="Test Name",
-            default_value=False,
+            enabled_by_default=False,
             dynamic_arg_name="true",
             github_ruleset_type="Test Ruleset",
             github_ruleset_value="test_ruleset",
@@ -79,7 +79,7 @@ class TestEnableRulesetRequirementImpl:
         """Test the _EvaluateImpl method when dynamic_arg_name is False."""
         requirement = EnableRulesetRequirementImpl(
             name="Test Name",
-            default_value=False,
+            enabled_by_default=False,
             dynamic_arg_name="true",
             github_ruleset_type="Test Ruleset",
             github_ruleset_value="test_ruleset",

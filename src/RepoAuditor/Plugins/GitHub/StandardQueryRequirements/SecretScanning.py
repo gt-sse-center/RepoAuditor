@@ -23,14 +23,14 @@ class SecretScanning(StandardEnableRequirementImpl):
         super().__init__(
             "SecretScanning",
             True,
-            "false",
+            "disabled",
             "settings/security_analysis",
             "Secret Protection",
             "Secret protection",
             _GetValue,
             textwrap.dedent(
                 """\
-                The default behavior is to enable secret protection.
+                The default behavior is to ensure secret protection is enabled.
 
                 Reasons for this Default
                 ------------------------

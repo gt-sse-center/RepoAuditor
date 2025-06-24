@@ -23,7 +23,7 @@ class EnableRulesetRequirementImpl(EnableRequirementImpl):
     def __init__(  # noqa: PLR0913
         self,
         name: str,
-        default_value: bool,  # noqa: FBT001
+        enabled_by_default: bool,  # noqa: FBT001
         dynamic_arg_name: str,
         github_ruleset_type: str,
         github_ruleset_value: str,
@@ -38,7 +38,7 @@ class EnableRulesetRequirementImpl(EnableRequirementImpl):
     ) -> None:
         super().__init__(
             name=name,
-            default_value=default_value,
+            enabled_by_default=enabled_by_default,
             dynamic_arg_name=dynamic_arg_name,
             github_settings_value=github_ruleset_value,
             get_configuration_value_func=get_configuration_value_func,
@@ -69,12 +69,12 @@ class EnableRulesetRequirementImpl(EnableRequirementImpl):
                     ruleset = rule["ruleset"]
                     return self.EvaluateImplResult(
                         EvaluateResult.Success,
-                        f"Ruleset '{ruleset['name']}' enforces {self.github_ruleset_type}",
+                        f"Ruleset '{ruleset['name']}' enforces {self.github_settings_value}",
                     )
 
             return self.EvaluateImplResult(
                 EvaluateResult.Error,
-                f"No active branch ruleset requiring {self.github_ruleset_type} found",
+                f"No active branch ruleset requiring {self.github_settings_value} found",
                 provide_resolution=True,
                 provide_rationale=True,
             )
