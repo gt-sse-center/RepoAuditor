@@ -15,6 +15,7 @@ from RepoAuditor.Plugins.GitHubCommunityStandards.Requirements.CodeOfConduct imp
 from RepoAuditor.Plugins.GitHubCommunityStandards.Requirements.CodeOwners import CodeOwners
 from RepoAuditor.Plugins.GitHubCommunityStandards.Requirements.Contributing import Contributing
 from RepoAuditor.Plugins.GitHubCommunityStandards.Requirements.IssueTemplates import IssueTemplates
+from RepoAuditor.Plugins.GitHubCommunityStandards.Requirements.LicenseFile import LicenseFile
 from RepoAuditor.Plugins.GitHubCommunityStandards.Requirements.PullRequestTemplates import PullRequestTemplate
 from RepoAuditor.Plugins.GitHubCommunityStandards.Requirements.ReadMe import ReadMe
 from RepoAuditor.Plugins.GitHubCommunityStandards.Requirements.SecurityPolicy import SecurityPolicy
@@ -33,6 +34,7 @@ class CommunityStandardsQuery(Query):
                 CodeOwners(),
                 Contributing(),
                 IssueTemplates(),
+                LicenseFile(),
                 PullRequestTemplate(),
                 ReadMe(),
                 SecurityPolicy(),
