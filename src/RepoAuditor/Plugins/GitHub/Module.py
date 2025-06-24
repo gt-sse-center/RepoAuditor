@@ -9,6 +9,7 @@
 from RepoAuditor.Module import ExecutionStyle
 from RepoAuditor.Plugins.GitHub.ClassicBranchProtectionQuery import ClassicBranchProtectionQuery
 from RepoAuditor.Plugins.GitHub.DefaultBranchQuery import DefaultBranchQuery
+from RepoAuditor.Plugins.GitHub.RulesetQuery import RulesetQuery
 from RepoAuditor.Plugins.GitHub.StandardQuery import StandardQuery
 from RepoAuditor.Plugins.GitHubBase.Module import GitHubBaseModule
 
@@ -27,6 +28,7 @@ class GitHubModule(GitHubBaseModule):
                 StandardQuery(),
                 DefaultBranchQuery(),
                 ClassicBranchProtectionQuery(),
+                RulesetQuery(),
             ],
             requires_explicit_include=True,
         )

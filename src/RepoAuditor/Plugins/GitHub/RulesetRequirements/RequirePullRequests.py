@@ -6,7 +6,7 @@
 # -------------------------------------------------------------------------------
 """Contains the RequirePullRequests object."""
 
-from RepoAuditor.Plugins.GitHubRulesets.Impl.EnableRulesetRequirementImpl import EnableRulesetRequirementImpl
+from RepoAuditor.Plugins.GitHub.Impl.EnableRulesetRequirementImpl import EnableRulesetRequirementImpl
 
 
 class RequirePullRequests(EnableRulesetRequirementImpl):

@@ -6,7 +6,7 @@
 # -------------------------------------------------------------------------------
 """Unit tests for the EnableRulesetRequirementImpl requirement implementation."""
 
-from RepoAuditor.Plugins.GitHubRulesets.Impl.EnableRulesetRequirementImpl import EnableRulesetRequirementImpl
+from RepoAuditor.Plugins.GitHub.Impl.EnableRulesetRequirementImpl import EnableRulesetRequirementImpl
 from RepoAuditor.Requirement import EvaluateResult
 
 

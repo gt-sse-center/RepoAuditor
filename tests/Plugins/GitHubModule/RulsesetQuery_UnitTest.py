@@ -6,7 +6,7 @@
 # -------------------------------------------------------------------------------
 """Unit tests for RulesetQuery.py"""
 
-from RepoAuditor.Plugins.GitHubRulesets.RulesetQuery import RulesetQuery
+from RepoAuditor.Plugins.GitHub.RulesetQuery import RulesetQuery
 
 
 def get_mock_request(
