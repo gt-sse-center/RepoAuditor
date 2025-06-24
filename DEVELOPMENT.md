@@ -4,18 +4,8 @@
 | --- | --- | --- |
 | 1. Fork the repository | -- | https://github.com/gt-sse-center/RepoAuditor/fork |
 | 2. Create a PAT for your forked repository | -- | See [PAT setup instructions](README.md#personal-access-token-pat) |
-| 3. Sync the `test-GitHubCommunityStandards` branch | see instructions below | In the web interface, select "New Branch", then choose `gt-sse-center/RepoAuditor` and `test-GitHubCommunityStandards` as source, and enter `test-GitHubCommunityStandards` as branch name. |
-| 4. Update your forked repository settings to match RepoAuditor's defaults | -- | 
+| 3. Update your forked repository settings to match RepoAuditor's defaults | -- | 
 
-
-To sync the `test-GitHubCommunityStandards` branch using the command line:
-```bash
-git clone <REPOAUDITOR_FORK_URL>
-git remote add upstream https://github.com/gt-sse-center/RepoAuditor
-git fetch upstream
-git checkout -b test-GitHubCommunityStandards upstream/test-GitHubCommunityStandards
-git push origin test-GitHubCommunityStandards
-```
 
 # Local Development
 
