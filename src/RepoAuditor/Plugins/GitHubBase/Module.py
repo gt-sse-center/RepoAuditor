@@ -114,7 +114,7 @@ class _GitHubSession(requests.Session):
             api_url = f"https://api.github.com/repos/{username}/{repo}"
             is_enterprise = False
         else:
-            api_url = f"{url_parts.scheme}://{url_parts.netloc}/api/v3/orgs/{username}/repos/{repo}"
+            api_url = f"{url_parts.scheme}://{url_parts.netloc}/api/v3/repos/{username}/{repo}"
             is_enterprise = True
 
         self.github_url = github_url

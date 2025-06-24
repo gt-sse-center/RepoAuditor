@@ -17,6 +17,7 @@
 | 2. Install [uv](https://github.com/astral-sh/uv). | `curl -LsSf https://astral.sh/uv/install.sh \| sh` on macOS and Linux or <br/>`powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 \| iex"` on Windows | https://docs.astral.sh |
 | 3. Install dependencies. | `uv sync` | https://docs.astral.sh/uv/concepts/projects/sync |
 | 4. Install [pre-commit](https://pre-commit.com/) hooks | `uv run pre-commit install` | https://pre-commit.com/#1-install-pre-commit |
+| 5. If you wish to test against an enterprise server, add a remote named `enterprise` with the corresponding URL | E.g. `git remote add enterprise git@github.gatech.edu:sse-center/RepoAuditor.git` | |
 
 ## Development Activities
 
