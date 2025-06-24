@@ -517,6 +517,7 @@ name = "repoauditor"
 source = { editable = "." }
 dependencies = [
     { name = "dbrownell-common" },
+    { name = "gitpython" },
     { name = "pluggy" },
     { name = "requests" },
     { name = "typer" },
@@ -537,6 +538,7 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "dbrownell-common", specifier = ">=0.14.10" },
+    { name = "gitpython", specifier = ">=3.1.44" },
     { name = "pluggy", specifier = ">=1.5.0" },
     { name = "requests", specifier = ">=2.32.3" },
     { name = "typer", specifier = ">=0.15.3" },
