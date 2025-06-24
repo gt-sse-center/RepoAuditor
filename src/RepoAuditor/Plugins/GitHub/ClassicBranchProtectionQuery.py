@@ -39,7 +39,7 @@ RESPONSE:
         "enabled": RequireLinearHistory
     },
     "allow_force_pushes": {
-        "enabled": AllowForcePushes
+        "enabled": AllowMainlineForcePushes
     },
     "allow_deletions": {
         "enabled": AllowDeletions
@@ -65,7 +65,9 @@ import requests
 from dbrownell_Common.Types import override  # type: ignore[import-untyped]
 
 from RepoAuditor.Plugins.GitHub.ClassicBranchProtectionRequirements.AllowDeletions import AllowDeletions
-from RepoAuditor.Plugins.GitHub.ClassicBranchProtectionRequirements.AllowForcePushes import AllowForcePushes
+from RepoAuditor.Plugins.GitHub.ClassicBranchProtectionRequirements.AllowMainlineForcePushes import (
+    AllowMainlineForcePushes,
+)
 from RepoAuditor.Plugins.GitHub.ClassicBranchProtectionRequirements.DismissStalePullRequestApprovals import (
     DismissStalePullRequestApprovals,
 )
@@ -114,7 +116,7 @@ class ClassicBranchProtectionQuery(Query):
             ExecutionStyle.Parallel,
             [
                 AllowDeletions(),
-                AllowForcePushes(),
+                AllowMainlineForcePushes(),
                 DismissStalePullRequestApprovals(),
                 DoNotAllowBypassSettings(),
                 EnsureStatusChecks(),

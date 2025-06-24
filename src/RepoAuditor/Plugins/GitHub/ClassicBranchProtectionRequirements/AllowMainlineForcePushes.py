@@ -4,7 +4,7 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the AllowForcePushes object."""
+"""Contains the AllowMainlineForcePushes object."""
 
 import textwrap
 
@@ -14,13 +14,13 @@ from RepoAuditor.Plugins.GitHub.ClassicBranchProtectionRequirements.Impl.Classic
 
 
 # ----------------------------------------------------------------------
-class AllowForcePushes(ClassicEnableRequirementImpl):
+class AllowMainlineForcePushes(ClassicEnableRequirementImpl):
     """Allow force pushes to the mainline branch."""
 
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
         super().__init__(
-            "AllowForcePushes",
+            "AllowMainlineForcePushes",
             False,
             "true",
             "Rules applied to everyone including administrators",

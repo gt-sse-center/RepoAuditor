@@ -238,10 +238,10 @@ class TestClassic:
         assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
 
     # ----------------------------------------------------------------------
-    def test_AllowForcePush(self, pat_args, snapshot):
+    def test_AllowMainlineForcePush(self, pat_args, snapshot):
         result = CliRunner().invoke(
             app,
-            pat_args + ["--GitHub-AllowForcePushes-true"],
+            pat_args + ["--GitHub-AllowMainlineForcePushes-true"],
         )
 
         assert result.exit_code == -1, result.output
