@@ -10,7 +10,6 @@ from tempfile import TemporaryDirectory
 from typing import Any, Optional
 
 from dbrownell_Common.Types import override  # type: ignore[import-untyped]
-from git import Repo
 
 from RepoAuditor.Plugins.GitHubCommunityStandards.Requirements.CodeOwners import CodeOwners
 from RepoAuditor.Plugins.GitHubCommunityStandards.Requirements.Contributing import Contributing
@@ -48,6 +47,11 @@ class CommunityStandardsQuery(Query):
         github_url = module_data["url"]
         branch = module_data.get("branch", "main")
         temp_repo_dir = TemporaryDirectory()
+
+        # Import git.Repo here so that it is only imported
+        # if the GitHubCommunityStandards plugin is requested.
+        from git import Repo
+
         Repo.clone_from(github_url, temp_repo_dir.name, branch=branch)
 
         # Record the path and the temp directory for later cleanup
