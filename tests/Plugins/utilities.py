@@ -71,7 +71,7 @@ def GetGithubUrl(remote_name: str = "origin") -> str:
     return repo_url.split(".git")[0]
 
 
-def CheckPATFileExists(github_pat_filename: Path):
+def CheckPATFileExists(github_pat_filename: Path, github_url: str = "https://github.com"):
     """Check if PAT file exists, and give error message if not."""
     if not github_pat_filename.is_file():
         sys.stdout.write(
@@ -84,7 +84,7 @@ def CheckPATFileExists(github_pat_filename: Path):
 
             To create a new token:
 
-                1. Visit https://github.com/settings/tokens/new
+                1. Visit {github_url}/settings/tokens/new
                 2. Ensure that 'repo' scope is checked
                 3. Click 'Generate token'
                 4. Copy the token to the clipboard

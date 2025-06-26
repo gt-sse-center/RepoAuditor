@@ -81,6 +81,15 @@ class EnableRequirementImpl(Requirement):
     ) -> Requirement.EvaluateImplResult:
         result = self.get_configuration_value_func(query_data)
         if result is None:
+            if query_data["session"].is_enterprise:
+                return Requirement.EvaluateImplResult(
+                    EvaluateResult.DoesNotApply,
+                    (
+                        "Please verify with your enterprise administrator "
+                        f"that {self.github_settings_value} is enabled."
+                    ),
+                )
+
             if self.missing_value_is_warning:
                 return CreateIncompleteDataResult()
 

@@ -19,5 +19,6 @@ src/RepoAuditor.egg-info/**
 minisign_key.pri
 
 tests/Plugins/github_pat.txt
+tests/Plugins/github_gatech_pat.txt
 .DS_Store
 post_generation_instructions.html

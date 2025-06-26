@@ -19,4 +19,5 @@ def session():
     s = _GithubSession_()
     s.github_url = "https://github.com/gt-sse-center/RepoAuditor"
     s.pat = "dummy_github_pat.txt"
+    s.is_enterprise = False
     return s
