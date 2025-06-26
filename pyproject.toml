@@ -49,6 +49,7 @@ build-backend = "hatchling.build"
 [dependency-groups]
 dev = [
     "autogitsemver>=0.8.0",
+    "poethepoet>=0.35.0",
     "pre-commit>=4.2.0",
     "pyfakefs>=5.8.0",
     "pytest>=8.3.5",
@@ -61,10 +62,13 @@ dev = [
 path = "src/RepoAuditor/__init__.py"
 
 [tool.pytest.ini_options]
-addopts = "--verbose -vv --capture=no --cov=RepoAuditor --cov-fail-under=95.0"
+addopts = "--verbose -vv --capture=no --cov=RepoAuditor --cov-fail-under=95.0 --cov-report term --cov-report xml:coverage.xml"
 python_files = [
     "**/*Test.py",
 ]
+
+[tool.poe.tasks]
+pytest-html = "uv run pytest --cov-report html"
 
 [tool.ruff]
 line-length = 110
