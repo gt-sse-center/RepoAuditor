@@ -25,7 +25,7 @@ class EnableRequirementImpl(Requirement):
     def __init__(  # noqa: PLR0913
         self,
         name: str,
-        default_value: bool,  # noqa: FBT001
+        enabled_by_default: bool,  # noqa: FBT001
         dynamic_arg_name: str,
         github_settings_value: str,
         get_configuration_value_func: Callable[[dict[str, Any]], Optional[bool]],
@@ -53,7 +53,7 @@ class EnableRequirementImpl(Requirement):
 
         self.dynamic_arg_name = dynamic_arg_name
         self.github_settings_value = github_settings_value
-        self.default_value = default_value
+        self.enabled_by_default = enabled_by_default
         self.get_configuration_value_func = get_configuration_value_func
         self.unset_set_terminology = unset_set_terminology
         self.missing_value_is_warning = missing_value_is_warning
@@ -67,7 +67,7 @@ class EnableRequirementImpl(Requirement):
                 bool,
                 typer.Option(
                     False,
-                    help=f"Ensures that the value for {self.github_settings_value} is set to {not self.default_value}.",
+                    help=f"Ensures that the check for {self.github_settings_value} is {'disabled' if self.enabled_by_default else 'enabled'}.",
                 ),
             ),
         }
@@ -86,7 +86,7 @@ class EnableRequirementImpl(Requirement):
 
             return Requirement.EvaluateImplResult(EvaluateResult.DoesNotApply, None)
 
-        expected_value = self.default_value
+        expected_value = self.enabled_by_default
 
         if requirement_args[self.dynamic_arg_name]:
             expected_value = not expected_value

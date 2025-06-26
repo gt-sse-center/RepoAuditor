@@ -65,7 +65,7 @@ class TestDependabotSecurityUpdates:
     def test_Incorrect(self, requirement, query_data):
         """Result doesn't match expected value"""
         query_data["standard"]["security_and_analysis"]["dependabot_security_updates"]["status"] = True
-        requirement_args = {"false": False}
+        requirement_args = {"disabled": False}
         result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.Error
         assert (
@@ -76,6 +76,6 @@ class TestDependabotSecurityUpdates:
     def test_Successful(self, requirement, query_data):
         """Successful"""
         query_data["standard"]["security_and_analysis"]["dependabot_security_updates"]["status"] = True
-        requirement_args = {"false": True}
+        requirement_args = {"disabled": True}
         result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.Success

@@ -73,7 +73,7 @@ class TestStandard:
 
     # ----------------------------------------------------------------------
     def test_NoDependabotSecurityUpdates(self, pat_args, snapshot):
-        result = CliRunner().invoke(app, pat_args + ["--GitHub-DependabotSecurityUpdates-false"])
+        result = CliRunner().invoke(app, pat_args + ["--GitHub-DependabotSecurityUpdates-disabled"])
 
         assert result.exit_code == -1, result.output
         assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
@@ -94,14 +94,14 @@ class TestStandard:
 
     # ----------------------------------------------------------------------
     def test_NoSecretScanning(self, pat_args, snapshot):
-        result = CliRunner().invoke(app, pat_args + ["--GitHub-SecretScanning-false"])
+        result = CliRunner().invoke(app, pat_args + ["--GitHub-SecretScanning-disabled"])
 
         assert result.exit_code == -1, result.output
         assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
 
     # ----------------------------------------------------------------------
     def test_NoSecretScanningPushProtection(self, pat_args, snapshot):
-        result = CliRunner().invoke(app, pat_args + ["--GitHub-SecretScanningPushProtection-false"])
+        result = CliRunner().invoke(app, pat_args + ["--GitHub-SecretScanningPushProtection-disabled"])
 
         assert result.exit_code == -1, result.output
         assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot

@@ -23,14 +23,14 @@ class SecretScanningPushProtection(StandardEnableRequirementImpl):
         super().__init__(
             "SecretScanningPushProtection",
             True,
-            "false",
+            "disabled",
             "settings/security_analysis",
             "Secret Protection",
             "Push protection",
             _GetValue,
             textwrap.dedent(
                 """\
-                The default behavior is to enable secret scanning push protection.
+                The default behavior is to ensure secret scanning push protection is enabled.
 
                 Reasons for this Default
                 ------------------------

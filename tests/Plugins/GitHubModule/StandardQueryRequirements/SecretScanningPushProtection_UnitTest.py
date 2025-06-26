@@ -65,7 +65,7 @@ class TestSecretScanningPushProtection:
     def test_Incorrect(self, requirement, query_data):
         """Test when result doesn't match expected value"""
         query_data["standard"]["security_and_analysis"]["secret_scanning_push_protection"]["status"] = True
-        requirement_args = {"false": False}
+        requirement_args = {"disabled": False}
         result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.Error
         assert "'Push protection' must be set to 'True' (it is currently set to 'False')." in result.context
@@ -73,6 +73,6 @@ class TestSecretScanningPushProtection:
     def test_Successful(self, requirement, query_data):
         """Successful"""
         query_data["standard"]["security_and_analysis"]["secret_scanning_push_protection"]["status"] = True
-        requirement_args = {"false": True}
+        requirement_args = {"disabled": True}
         result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.Success

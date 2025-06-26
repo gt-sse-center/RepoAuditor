@@ -27,21 +27,21 @@ class TestGitHubRuleset:
 
     def test_RequireStatusChecks(self, pat_args, snapshot):
         """Test for Status Checks not required ruleset"""
-        result = CliRunner().invoke(app, pat_args + ["--GitHubRulesets-RequireStatusChecks-true"])
+        result = CliRunner().invoke(app, pat_args + ["--GitHubRulesets-RequireStatusChecks-enabled"])
 
         assert result.exit_code == -1, result.output
         assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
 
     def test_RequirePullRequests(self, pat_args, snapshot):
         """Test for Pull Requests required ruleset"""
-        result = CliRunner().invoke(app, pat_args + ["--GitHubRulesets-RequirePullRequests-true"])
+        result = CliRunner().invoke(app, pat_args + ["--GitHubRulesets-RequirePullRequests-enabled"])
 
         assert result.exit_code == -1, result.output
         assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
 
     def test_RequireSignedCommits(self, pat_args, snapshot):
         """Test for Signed Commits required ruleset"""
-        result = CliRunner().invoke(app, pat_args + ["--GitHubRulesets-RequireSignedCommits-true"])
+        result = CliRunner().invoke(app, pat_args + ["--GitHubRulesets-RequireSignedCommits-enabled"])
 
         assert result.exit_code == -1, result.output
         assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot

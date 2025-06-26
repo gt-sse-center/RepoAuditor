@@ -23,14 +23,14 @@ class DependabotSecurityUpdates(StandardEnableRequirementImpl):
         super().__init__(
             "DependabotSecurityUpdates",
             True,
-            "false",
+            "disabled",
             "settings/security_analysis",
             "Dependabot",
             "Dependabot security updates",
             _GetValue,
             textwrap.dedent(
                 """\
-                The default behavior is to enable Dependabot security updates.
+                The default behavior is to ensure Dependabot security updates are enabled.
 
                 Reasons for this Default
                 ------------------------
