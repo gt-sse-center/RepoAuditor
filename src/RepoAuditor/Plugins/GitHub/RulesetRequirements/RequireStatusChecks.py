@@ -6,7 +6,7 @@
 # -------------------------------------------------------------------------------
 """Contains the RequireStatusChecks object."""
 
-from RepoAuditor.Plugins.GitHubRulesets.Impl.EnableRulesetRequirementImpl import EnableRulesetRequirementImpl
+from RepoAuditor.Plugins.GitHub.Impl.EnableRulesetRequirementImpl import EnableRulesetRequirementImpl
 
 
 class RequireStatusChecks(EnableRulesetRequirementImpl):

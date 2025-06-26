@@ -11,9 +11,9 @@ from typing import Any, Optional
 from dbrownell_Common.Types import override
 
 from RepoAuditor.Impl.ParallelSequentialProcessor import ExecutionStyle
-from RepoAuditor.Plugins.GitHubRulesets.Requirements.RequirePullRequests import RequirePullRequests
-from RepoAuditor.Plugins.GitHubRulesets.Requirements.RequireSignedCommits import RequireSignedCommits
-from RepoAuditor.Plugins.GitHubRulesets.Requirements.RequireStatusChecks import RequireStatusChecks
+from RepoAuditor.Plugins.GitHub.RulesetRequirements.RequirePullRequests import RequirePullRequests
+from RepoAuditor.Plugins.GitHub.RulesetRequirements.RequireSignedCommits import RequireSignedCommits
+from RepoAuditor.Plugins.GitHub.RulesetRequirements.RequireStatusChecks import RequireStatusChecks
 from RepoAuditor.Query import Query
 
 

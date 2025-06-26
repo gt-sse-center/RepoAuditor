@@ -8,11 +8,11 @@
 
 from typing import Any
 
-from RepoAuditor.Plugins.GitHubRulesets.Requirements.RequirePullRequests import RequirePullRequests
-from RepoAuditor.Plugins.GitHubRulesets.Requirements.RequireSignedCommits import (
+from RepoAuditor.Plugins.GitHub.RulesetRequirements.RequirePullRequests import RequirePullRequests
+from RepoAuditor.Plugins.GitHub.RulesetRequirements.RequireSignedCommits import (
     RequireSignedCommits,
 )
-from RepoAuditor.Plugins.GitHubRulesets.Requirements.RequireStatusChecks import RequireStatusChecks
+from RepoAuditor.Plugins.GitHub.RulesetRequirements.RequireStatusChecks import RequireStatusChecks
 from RepoAuditor.Requirement import EvaluateResult
 
 

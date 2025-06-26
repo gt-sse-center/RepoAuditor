@@ -369,6 +369,32 @@ class TestClassic:
 
 
 # ----------------------------------------------------------------------
+class TestRulesets:
+    """End-to-end tests for rulesets in a GitHub repository."""
+
+    def test_RequireStatusChecks(self, pat_args, snapshot):
+        """Test for Status Checks not required ruleset"""
+        result = CliRunner().invoke(app, pat_args + ["--GitHub-RequireStatusChecks-enabled"])
+
+        assert result.exit_code == -1, result.output
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
+
+    def test_RequirePullRequests(self, pat_args, snapshot):
+        """Test for Pull Requests required ruleset"""
+        result = CliRunner().invoke(app, pat_args + ["--GitHub-RequirePullRequests-enabled"])
+
+        assert result.exit_code == -1, result.output
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
+
+    def test_RequireSignedCommits(self, pat_args, snapshot):
+        """Test for Signed Commits required ruleset"""
+        result = CliRunner().invoke(app, pat_args + ["--GitHub-RequireSignedCommits-enabled"])
+
+        assert result.exit_code == -1, result.output
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
+
+
+# ----------------------------------------------------------------------
 # ----------------------------------------------------------------------
 # ----------------------------------------------------------------------
 @pytest.fixture

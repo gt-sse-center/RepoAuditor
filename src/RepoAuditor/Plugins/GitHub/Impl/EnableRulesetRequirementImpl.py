@@ -33,7 +33,7 @@ class EnableRulesetRequirementImpl(EnableRequirementImpl):
         subject: Optional[str] = None,
         *,
         requires_explicit_include: bool = False,
-        unset_set_terminology: tuple[str, str] = ("unchecked", "checked"),
+        unset_set_terminology: tuple[str, str] = ("disabled", "enabled"),
         missing_value_is_warning: bool = True,
     ) -> None:
         super().__init__(
