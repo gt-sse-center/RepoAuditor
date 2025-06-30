@@ -60,8 +60,19 @@ def GetGithubUrl(remote_name: str = "origin") -> str:
     """Get the Github username, repository and URL from the current git repository."""
     repo = Repo(__file__, search_parent_directories=True)
 
-    # Get the URL for the remote specified by `remote_name`.
-    repo_url = getattr(repo.remotes, remote_name).url
+    try:
+        # Get the URL for the remote specified by `remote_name`.
+        repo_url = getattr(repo.remotes, remote_name).url
+    except AttributeError as exc:
+        # The `remote_name` does not exist, so we use a default.
+        # Specifically for main repo CI.
+        if remote_name == "origin":
+            repo_url = "git@github.com:gt-sse-center/RepoAuditor.git"
+        elif remote_name == "enterprise":
+            repo_url = "git@github.gatech.edu:sse-center/RepoAuditor.git"
+        else:
+            # Invalid remote name so we throw exception
+            raise exc
 
     if repo_url.startswith("git@"):
         # If the URL starts with 'git@', it is an SSH URL.

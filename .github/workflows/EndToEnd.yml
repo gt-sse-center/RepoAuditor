@@ -41,7 +41,7 @@ jobs:
       # Create PAT file for Enterprise GitHub server, in this case github.gatech.edu.
       - name: Create github_gatech_pat.txt
         run: |
-          echo ${{ secrets.TESTING_GITHUB_PAT }} > tests/Plugins/github_gatech_pat.txt
+          echo ${{ secrets.TESTING_GITHUB_GATECH_PAT }} > tests/Plugins/github_gatech_pat.txt
 
       - name: Environment Variables
         shell: bash
