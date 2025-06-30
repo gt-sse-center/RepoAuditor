@@ -1,5 +1,5 @@
 name: "End To End Tests"
-run-name: EndToEnd ${{ github.run_number }} [${{ github.actor }}] on ${{ github.ref_name }}
+run-name: EndToEnd ${{ github.run_number }} on ${{ github.ref_name }}
 
 on:
   schedule:
@@ -37,6 +37,11 @@ jobs:
       - name: Create github_pat.txt
         run: |
           echo ${{ secrets.TESTING_GITHUB_PAT }} > tests/Plugins/github_pat.txt
+
+      # Create PAT file for Enterprise GitHub server, in this case github.gatech.edu.
+      - name: Create github_gatech_pat.txt
+        run: |
+          echo ${{ secrets.TESTING_GITHUB_PAT }} > tests/Plugins/github_gatech_pat.txt
 
       - name: Environment Variables
         shell: bash
