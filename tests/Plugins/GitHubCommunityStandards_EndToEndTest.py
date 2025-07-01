@@ -57,6 +57,31 @@ class TestCommunityStandards:
     """End-to-end tests for community standards files in a GitHub repository."""
 
     # ----------------------------------------------------------------------
+    def test_CodeOfConduct(self, pat_args, snapshot):
+        """Test if a CODE_OF_CONDUCT file exists in the repository."""
+        result = CliRunner().invoke(
+            app,
+            pat_args + ["--GitHubCommunityStandards-CodeOfConduct-exists"],
+        )
+
+        assert result.exit_code == 0, result.output
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
+
+    @patch.object(
+        CommunityStandardsQuery,
+        "GetData",
+        GetDataFunctional("CODE_OF_CONDUCT.md"),
+    )
+    def test_NoCodeOfConduct(self, pat_args, snapshot):
+        """Test if a CODE_OF_CONDUCT file does not exist in the repository."""
+        result = CliRunner().invoke(
+            app,
+            pat_args + ["--GitHubCommunityStandards-CodeOfConduct-exists"],
+        )
+
+        assert result.exit_code == -1, result.output
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
+
     def test_CodeOwners(self, pat_args, snapshot):
         """Test if a CODEOWNERS file exists in the repository."""
         result = CliRunner().invoke(
