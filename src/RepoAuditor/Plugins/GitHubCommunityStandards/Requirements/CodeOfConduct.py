@@ -21,8 +21,11 @@ class CodeOfConduct(ExistsRequirementImpl):
             "CODE_OF_CONDUCT",
             [
                 ".github/CODE_OF_CONDUCT",
+                ".github/CODE_OF_CONDUCT.md",
                 "docs/CODE_OF_CONDUCT",
+                "docs/CODE_OF_CONDUCT.md",
                 "CODE_OF_CONDUCT",
+                "CODE_OF_CONDUCT.md",
             ],
             textwrap.dedent(
                 """\
