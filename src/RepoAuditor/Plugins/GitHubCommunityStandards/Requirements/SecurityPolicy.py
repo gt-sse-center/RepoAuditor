@@ -17,7 +17,6 @@ class SecurityPolicy(ExistsRequirementImpl):
     def __init__(self) -> None:
         super().__init__(
             "SecurityPolicy",
-            "exists",
             "SECURITY",
             [
                 ".github/SECURITY.md",

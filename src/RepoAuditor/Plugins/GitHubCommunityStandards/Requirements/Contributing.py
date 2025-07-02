@@ -17,7 +17,6 @@ class Contributing(ExistsRequirementImpl):
     def __init__(self) -> None:
         super().__init__(
             "Contributing",
-            "exists",
             "CONTRIBUTING",
             [
                 ".github/CONTRIBUTING.md",

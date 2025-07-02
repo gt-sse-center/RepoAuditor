@@ -17,7 +17,6 @@ class ReadMe(ExistsRequirementImpl):
     def __init__(self) -> None:
         super().__init__(
             "ReadMe",
-            "exists",
             "README",
             [
                 "README.md",

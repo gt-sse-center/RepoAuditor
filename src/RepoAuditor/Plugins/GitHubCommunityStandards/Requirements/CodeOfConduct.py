@@ -17,7 +17,6 @@ class CodeOfConduct(ExistsRequirementImpl):
     def __init__(self) -> None:
         super().__init__(
             "CodeOfConduct",
-            "exists",
             "CODE_OF_CONDUCT",
             [
                 ".github/CODE_OF_CONDUCT",

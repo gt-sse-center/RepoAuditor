@@ -61,7 +61,16 @@ class TestCommunityStandards:
         """Test if a CODE_OF_CONDUCT file exists in the repository."""
         result = CliRunner().invoke(
             app,
-            pat_args + ["--GitHubCommunityStandards-CodeOfConduct-exists"],
+            pat_args
+            + [
+                "--GitHubCommunityStandards-CodeOwners-unrequired",
+                "--GitHubCommunityStandards-Contributing-unrequired",
+                "--GitHubCommunityStandards-IssueTemplates-unrequired",
+                "--GitHubCommunityStandards-LicenseFile-unrequired",
+                "--GitHubCommunityStandards-PullRequestTemplate-unrequired",
+                "--GitHubCommunityStandards-ReadMe-unrequired",
+                "--GitHubCommunityStandards-SecurityPolicy-unrequired",
+            ],
         )
 
         assert result.exit_code == 0, result.output
@@ -76,7 +85,16 @@ class TestCommunityStandards:
         """Test if a CODE_OF_CONDUCT file does not exist in the repository."""
         result = CliRunner().invoke(
             app,
-            pat_args + ["--GitHubCommunityStandards-CodeOfConduct-exists"],
+            pat_args
+            + [
+                "--GitHubCommunityStandards-CodeOwners-unrequired",
+                "--GitHubCommunityStandards-Contributing-unrequired",
+                "--GitHubCommunityStandards-IssueTemplates-unrequired",
+                "--GitHubCommunityStandards-LicenseFile-unrequired",
+                "--GitHubCommunityStandards-PullRequestTemplate-unrequired",
+                "--GitHubCommunityStandards-ReadMe-unrequired",
+                "--GitHubCommunityStandards-SecurityPolicy-unrequired",
+            ],
         )
 
         assert result.exit_code == -1, result.output
@@ -86,7 +104,16 @@ class TestCommunityStandards:
         """Test if a CODEOWNERS file exists in the repository."""
         result = CliRunner().invoke(
             app,
-            pat_args + ["--GitHubCommunityStandards-CodeOwners-exists"],
+            pat_args
+            + [
+                "--GitHubCommunityStandards-CodeOfConduct-unrequired",
+                "--GitHubCommunityStandards-Contributing-unrequired",
+                "--GitHubCommunityStandards-IssueTemplates-unrequired",
+                "--GitHubCommunityStandards-LicenseFile-unrequired",
+                "--GitHubCommunityStandards-PullRequestTemplate-unrequired",
+                "--GitHubCommunityStandards-ReadMe-unrequired",
+                "--GitHubCommunityStandards-SecurityPolicy-unrequired",
+            ],
         )
 
         assert result.exit_code == 0, result.output
@@ -101,7 +128,16 @@ class TestCommunityStandards:
         """Test if a CODEOWNERS file does not exist in the repository."""
         result = CliRunner().invoke(
             app,
-            pat_args + ["--GitHubCommunityStandards-CodeOwners-exists"],
+            pat_args
+            + [
+                "--GitHubCommunityStandards-CodeOfConduct-unrequired",
+                "--GitHubCommunityStandards-Contributing-unrequired",
+                "--GitHubCommunityStandards-IssueTemplates-unrequired",
+                "--GitHubCommunityStandards-LicenseFile-unrequired",
+                "--GitHubCommunityStandards-PullRequestTemplate-unrequired",
+                "--GitHubCommunityStandards-ReadMe-unrequired",
+                "--GitHubCommunityStandards-SecurityPolicy-unrequired",
+            ],
         )
 
         assert result.exit_code == -1, result.output
@@ -111,7 +147,16 @@ class TestCommunityStandards:
         """Test if a CONTRIBUTING.md file exists in the repository."""
         result = CliRunner().invoke(
             app,
-            pat_args + ["--GitHubCommunityStandards-Contributing-exists"],
+            pat_args
+            + [
+                "--GitHubCommunityStandards-CodeOfConduct-unrequired",
+                "--GitHubCommunityStandards-CodeOwners-unrequired",
+                "--GitHubCommunityStandards-IssueTemplates-unrequired",
+                "--GitHubCommunityStandards-LicenseFile-unrequired",
+                "--GitHubCommunityStandards-PullRequestTemplate-unrequired",
+                "--GitHubCommunityStandards-ReadMe-unrequired",
+                "--GitHubCommunityStandards-SecurityPolicy-unrequired",
+            ],
         )
 
         assert result.exit_code == 0, result.output
@@ -126,7 +171,16 @@ class TestCommunityStandards:
         """Test if a CONTRIBUTING file does not exist in the repository."""
         result = CliRunner().invoke(
             app,
-            pat_args + ["--GitHubCommunityStandards-Contributing-exists"],
+            pat_args
+            + [
+                "--GitHubCommunityStandards-CodeOfConduct-unrequired",
+                "--GitHubCommunityStandards-CodeOwners-unrequired",
+                "--GitHubCommunityStandards-IssueTemplates-unrequired",
+                "--GitHubCommunityStandards-LicenseFile-unrequired",
+                "--GitHubCommunityStandards-PullRequestTemplate-unrequired",
+                "--GitHubCommunityStandards-ReadMe-unrequired",
+                "--GitHubCommunityStandards-SecurityPolicy-unrequired",
+            ],
         )
 
         assert result.exit_code == -1, result.output
@@ -134,8 +188,19 @@ class TestCommunityStandards:
 
     def test_IssueTemplate(self, pat_args, snapshot):
         """Test if an Issue template file (e.g. ISSUE_TEMPLATE.md) exists in the repository."""
-        result = CliRunner().invoke(app, pat_args + ["--GitHubCommunityStandards-IssueTemplates-exists"])
-
+        result = CliRunner().invoke(
+            app,
+            pat_args
+            + [
+                "--GitHubCommunityStandards-CodeOfConduct-unrequired",
+                "--GitHubCommunityStandards-CodeOwners-unrequired",
+                "--GitHubCommunityStandards-Contributing-unrequired",
+                "--GitHubCommunityStandards-LicenseFile-unrequired",
+                "--GitHubCommunityStandards-PullRequestTemplate-unrequired",
+                "--GitHubCommunityStandards-ReadMe-unrequired",
+                "--GitHubCommunityStandards-SecurityPolicy-unrequired",
+            ],
+        )
         assert result.exit_code == 0, result.output
         assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
 
@@ -148,7 +213,16 @@ class TestCommunityStandards:
         """Test if no Issue template file exists in the repository."""
         result = CliRunner().invoke(
             app,
-            pat_args + ["--GitHubCommunityStandards-IssueTemplates-exists"],
+            pat_args
+            + [
+                "--GitHubCommunityStandards-CodeOfConduct-unrequired",
+                "--GitHubCommunityStandards-CodeOwners-unrequired",
+                "--GitHubCommunityStandards-Contributing-unrequired",
+                "--GitHubCommunityStandards-LicenseFile-unrequired",
+                "--GitHubCommunityStandards-PullRequestTemplate-unrequired",
+                "--GitHubCommunityStandards-ReadMe-unrequired",
+                "--GitHubCommunityStandards-SecurityPolicy-unrequired",
+            ],
         )
 
         assert result.exit_code == -1, result.output
@@ -161,7 +235,16 @@ class TestCommunityStandards:
         """
         result = CliRunner().invoke(
             app,
-            pat_args + ["--GitHubCommunityStandards-PullRequestTemplate-exists"],
+            pat_args
+            + [
+                "--GitHubCommunityStandards-CodeOfConduct-unrequired",
+                "--GitHubCommunityStandards-CodeOwners-unrequired",
+                "--GitHubCommunityStandards-Contributing-unrequired",
+                "--GitHubCommunityStandards-IssueTemplates-unrequired",
+                "--GitHubCommunityStandards-LicenseFile-unrequired",
+                "--GitHubCommunityStandards-ReadMe-unrequired",
+                "--GitHubCommunityStandards-SecurityPolicy-unrequired",
+            ],
         )
 
         assert result.exit_code == 0, result.output
@@ -176,7 +259,16 @@ class TestCommunityStandards:
         """Test if no Pull Request template file exists in the repository."""
         result = CliRunner().invoke(
             app,
-            pat_args + ["--GitHubCommunityStandards-PullRequestTemplate-exists"],
+            pat_args
+            + [
+                "--GitHubCommunityStandards-CodeOfConduct-unrequired",
+                "--GitHubCommunityStandards-CodeOwners-unrequired",
+                "--GitHubCommunityStandards-Contributing-unrequired",
+                "--GitHubCommunityStandards-IssueTemplates-unrequired",
+                "--GitHubCommunityStandards-LicenseFile-unrequired",
+                "--GitHubCommunityStandards-ReadMe-unrequired",
+                "--GitHubCommunityStandards-SecurityPolicy-unrequired",
+            ],
         )
 
         assert result.exit_code == -1, result.output
@@ -186,7 +278,16 @@ class TestCommunityStandards:
         """Test if a Security policy file (e.g. SECURITY.md) exists in the repository."""
         result = CliRunner().invoke(
             app,
-            pat_args + ["--GitHubCommunityStandards-SecurityPolicy-exists"],
+            pat_args
+            + [
+                "--GitHubCommunityStandards-CodeOfConduct-unrequired",
+                "--GitHubCommunityStandards-CodeOwners-unrequired",
+                "--GitHubCommunityStandards-Contributing-unrequired",
+                "--GitHubCommunityStandards-IssueTemplates-unrequired",
+                "--GitHubCommunityStandards-LicenseFile-unrequired",
+                "--GitHubCommunityStandards-PullRequestTemplate-unrequired",
+                "--GitHubCommunityStandards-ReadMe-unrequired",
+            ],
         )
 
         assert result.exit_code == 0, result.output
@@ -201,7 +302,16 @@ class TestCommunityStandards:
         """Test if no Security policy file exists in the repository."""
         result = CliRunner().invoke(
             app,
-            pat_args + ["--GitHubCommunityStandards-SecurityPolicy-exists"],
+            pat_args
+            + [
+                "--GitHubCommunityStandards-CodeOfConduct-unrequired",
+                "--GitHubCommunityStandards-CodeOwners-unrequired",
+                "--GitHubCommunityStandards-Contributing-unrequired",
+                "--GitHubCommunityStandards-IssueTemplates-unrequired",
+                "--GitHubCommunityStandards-LicenseFile-unrequired",
+                "--GitHubCommunityStandards-PullRequestTemplate-unrequired",
+                "--GitHubCommunityStandards-ReadMe-unrequired",
+            ],
         )
 
         assert result.exit_code == -1, result.output
