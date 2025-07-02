@@ -15,18 +15,28 @@
 <!-- Content above this delimiter will be copied to the generated README.md file. DO NOT REMOVE THIS COMMENT, as it will cause regeneration to fail. -->
 
 ## Contents
+- [Installation](#installation)
 - [Overview](#overview)
   - [How to use RepoAuditor](#how-to-use-repoauditor)
   - [Personal Access Token](#personal-access-token)
   - [Example Usage](#example-usage)
-- [Installation](#installation)
 - [Development](#development)
+  - [Verifying Signed Artifacts](#verifying-signed-artifacts)
 - [Additional Information](#additional-information)
 - [License](#license)
 
-## Overview
+## Installation
+
+You can install `RepoAuditor` via `uv` or `pip`.
 
 We recommend using [uv](https://docs.astral.sh/uv/#uv) since `RepoAuditor` uses `uv` to create and manage a virtual environment.
+
+| Installation Method | Command |
+| --- | --- |
+| Via [uv](https://github.com/astral-sh/uv) | `uv add repoauditor` |
+| Via [pip](https://pip.pypa.io/en/stable/) | `pip install repoauditor` |
+
+## Overview
 
 ### How to use RepoAuditor
 
@@ -86,12 +96,8 @@ uv run repo_auditor --include GitHub --GitHub-url https://github.com/<username>/
 
 `RepoAuditor` will generate a series of messages describing all the issues in the repository, along with the rationale behind them and the steps for resolution.
 
-## Installation
-
-| Installation Method | Command |
-| --- | --- |
-| Via [uv](https://github.com/astral-sh/uv) | `uv add repoauditor` |
-| Via [pip](https://pip.pypa.io/en/stable/) | `pip install repoauditor` |
+## Development
+Please visit [Contributing](https://github.com/gt-sse-center/RepoAuditor/blob/main/CONTRIBUTING.md) and [Development](https://github.com/gt-sse-center/RepoAuditor/blob/main/DEVELOPMENT.md) for information on contributing to this project.
 
 ### Verifying Signed Artifacts
 Artifacts are signed and validated using [py-minisign](https://github.com/x13a/py-minisign) and the public key in the file `./minisign_key.pub`.
@@ -101,9 +107,6 @@ To verify that an artifact is valid, visit [the latest release](https://github.c
 ```shell
 uv run --with py-minisign python -c "import minisign; minisign.PublicKey.from_file('minisign_key.pub').verify_file('<filename>')"
 ```
-
-## Development
-Please visit [Contributing](https://github.com/gt-sse-center/RepoAuditor/blob/main/CONTRIBUTING.md) and [Development](https://github.com/gt-sse-center/RepoAuditor/blob/main/DEVELOPMENT.md) for information on contributing to this project.
 
 ## Additional Information
 Additional information can be found at these locations.
