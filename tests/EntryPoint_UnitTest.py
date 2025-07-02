@@ -16,7 +16,7 @@ from typer.testing import CliRunner
 from RepoAuditor import __version__
 from RepoAuditor.EntryPoint import app, TypeInfoToString
 
-from Plugins.utilities import GetGithubUrl
+from .Plugins.utilities import GetGithubUrl
 
 
 # ----------------------------------------------------------------------
