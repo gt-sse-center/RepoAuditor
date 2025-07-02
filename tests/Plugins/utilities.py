@@ -17,29 +17,18 @@ from git import Repo
 
 
 # ----------------------------------------------------------------------
-def ScrubSpaces(content: str) -> str:
-    """
-    Function to remove variable spaces after a match with a Github URL from a string.
-    """
-
-    def replace_func(match: Match) -> str:
-        return match.group("scrubbed_github_url") + "<scrubbed-space>"
-
-    return re.sub(
-        r"(?P<scrubbed_github_url>'<scrubbed-github-url>')(\s+)",
-        replace_func,
-        content,
-    )
-
-
-# ----------------------------------------------------------------------
 def ScrubGithubUrl(content: str) -> str:
     """
     Function to replace the GitHub username and (possibly) alternative repository name with the default one.
     """
 
-    def replace_func(_: Match) -> str:
-        return "'<scrubbed-github-url>'"
+    def replace_func(m: Match) -> str:
+        # Scrub the URL and fill in the spaces to maintain the output panel width
+        start, end = m.span()
+        length = int(end - start)
+        val = "'<scrubbed-github-url>'"
+        template = f"{val:{length}}"
+        return template.format(length)
 
     return re.sub(
         r"('https?:\/\/.+')",
@@ -52,8 +41,7 @@ def ScrubDurationGithuburlAndSpaces(content: str) -> str:
     """Scrub the duration, GitHub urls, and variable spaces from the content."""
     scrubbed_duration = ScrubDuration(content)
     replaced_github_url = ScrubGithubUrl(scrubbed_duration)
-    scrubbed_spaces = ScrubSpaces(replaced_github_url)
-    return scrubbed_spaces
+    return replaced_github_url
 
 
 def GetGithubUrl(remote_name: str = "origin") -> str:
