@@ -161,5 +161,6 @@ def DisplayResults(
                 padding=1 if internal_content else 0,
                 title=results[0].module.name,
                 width=panel_width,
+                expand=False,
             ),
         )
