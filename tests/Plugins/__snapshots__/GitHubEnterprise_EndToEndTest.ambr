@@ -29,7 +29,7 @@
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m Resolution                                                                                                       [31m│[0m │
   │ [31m│[0m ----------                                                                                                       [31m│[0m │
-  │ [31m│[0m   1) Visit '<scrubbed-github-url>'<scrubbed-space>[31m│[0m │
+  │ [31m│[0m   1) Visit '<scrubbed-github-url>'                                                                               [31m│[0m │
   │ [31m│[0m   2) Locate the 'Branch protection rules' section                                                                [31m│[0m │
   │ [31m│[0m   3) Click the 'Edit' button next to the branch 'main'                                                           [31m│[0m │
   │ [31m│[0m   4) Locate the 'Rules applied to everyone including administrators' section                                     [31m│[0m │
@@ -83,7 +83,7 @@
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m Resolution                                                                                                       [31m│[0m │
   │ [31m│[0m ----------                                                                                                       [31m│[0m │
-  │ [31m│[0m   1) Visit '<scrubbed-github-url>'<scrubbed-space>[31m│[0m │
+  │ [31m│[0m   1) Visit '<scrubbed-github-url>'                                                                               [31m│[0m │
   │ [31m│[0m   2) Locate the 'Branch protection rules' section                                                                [31m│[0m │
   │ [31m│[0m   3) Click the 'Edit' button next to the branch 'main'                                                           [31m│[0m │
   │ [31m│[0m   4) Locate the 'Rules applied to everyone including administrators' section                                     [31m│[0m │
@@ -139,7 +139,7 @@
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m Resolution                                                                                                       [31m│[0m │
   │ [31m│[0m ----------                                                                                                       [31m│[0m │
-  │ [31m│[0m   1) Visit '<scrubbed-github-url>'<scrubbed-space>[31m│[0m │
+  │ [31m│[0m   1) Visit '<scrubbed-github-url>'                                                                               [31m│[0m │
   │ [31m│[0m   2) Locate the 'Branch protection rules' section                                                                [31m│[0m │
   │ [31m│[0m   3) Click the 'Edit' button next to the branch 'main'                                                           [31m│[0m │
   │ [31m│[0m   4) Locate the 'Protect matching branches' section                                                              [31m│[0m │
@@ -194,7 +194,7 @@
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m Resolution                                                                                                       [31m│[0m │
   │ [31m│[0m ----------                                                                                                       [31m│[0m │
-  │ [31m│[0m   1) Visit '<scrubbed-github-url>'<scrubbed-space>[31m│[0m │
+  │ [31m│[0m   1) Visit '<scrubbed-github-url>'                                                                               [31m│[0m │
   │ [31m│[0m   2) Locate the 'Branch protection rules' section                                                                [31m│[0m │
   │ [31m│[0m   3) Click the 'Edit' button next to the branch 'main'                                                           [31m│[0m │
   │ [31m│[0m   4) Locate the 'Protect matching branches' section                                                              [31m│[0m │
@@ -250,7 +250,7 @@
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m Resolution                                                                                                       [31m│[0m │
   │ [31m│[0m ----------                                                                                                       [31m│[0m │
-  │ [31m│[0m   1) Visit '<scrubbed-github-url>'<scrubbed-space>[31m│[0m │
+  │ [31m│[0m   1) Visit '<scrubbed-github-url>'                                                                               [31m│[0m │
   │ [31m│[0m   2) Locate the 'Branch protection rules' section                                                                [31m│[0m │
   │ [31m│[0m   3) Click the 'Edit' button next to the branch 'main'                                                           [31m│[0m │
   │ [31m│[0m   4) Locate the 'Protect matching branches' section                                                              [31m│[0m │
@@ -306,7 +306,7 @@
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m Resolution                                                                                                       [31m│[0m │
   │ [31m│[0m ----------                                                                                                       [31m│[0m │
-  │ [31m│[0m   1) Visit '<scrubbed-github-url>'.                                 [31m│[0m │
+  │ [31m│[0m   1) Visit '<scrubbed-github-url>'                                             .                                 [31m│[0m │
   │ [31m│[0m   2) Locate the 'Branch protection rules' section.                                                               [31m│[0m │
   │ [31m│[0m   3) Click the 'Edit' button next to the branch 'main'.                                                          [31m│[0m │
   │ [31m│[0m   4) Locate the 'Protect matching branches' section.                                                             [31m│[0m │
@@ -361,7 +361,7 @@
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m Resolution                                                                                                       [31m│[0m │
   │ [31m│[0m ----------                                                                                                       [31m│[0m │
-  │ [31m│[0m   1) Visit '<scrubbed-github-url>'<scrubbed-space>[31m│[0m │
+  │ [31m│[0m   1) Visit '<scrubbed-github-url>'                                                                               [31m│[0m │
   │ [31m│[0m   2) Locate the 'Branch protection rules' section                                                                [31m│[0m │
   │ [31m│[0m   3) Click the 'Edit' button next to the branch 'main'                                                           [31m│[0m │
   │ [31m│[0m   4) Locate the 'Protect matching branches' section                                                              [31m│[0m │
@@ -415,7 +415,7 @@
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m Resolution                                                                                                       [31m│[0m │
   │ [31m│[0m ----------                                                                                                       [31m│[0m │
-  │ [31m│[0m   1) Visit '<scrubbed-github-url>'<scrubbed-space>[31m│[0m │
+  │ [31m│[0m   1) Visit '<scrubbed-github-url>'                                                                               [31m│[0m │
   │ [31m│[0m   2) Locate the 'Branch protection rules' section                                                                [31m│[0m │
   │ [31m│[0m   3) Click the 'Edit' button next to the branch 'main'                                                           [31m│[0m │
   │ [31m│[0m   4) Locate the 'Protect matching branches' section                                                              [31m│[0m │
@@ -469,7 +469,7 @@
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m Resolution                                                                                                       [31m│[0m │
   │ [31m│[0m ----------                                                                                                       [31m│[0m │
-  │ [31m│[0m   1) Visit '<scrubbed-github-url>'<scrubbed-space>[31m│[0m │
+  │ [31m│[0m   1) Visit '<scrubbed-github-url>'                                                                               [31m│[0m │
   │ [31m│[0m   2) Locate the 'Branch protection rules' section                                                                [31m│[0m │
   │ [31m│[0m   3) Click the 'Edit' button next to the branch 'main'                                                           [31m│[0m │
   │ [31m│[0m   4) Locate the 'Protect matching branches' section                                                              [31m│[0m │
@@ -523,7 +523,7 @@
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m Resolution                                                                                                       [31m│[0m │
   │ [31m│[0m ----------                                                                                                       [31m│[0m │
-  │ [31m│[0m   1) Visit '<scrubbed-github-url>'<scrubbed-space>[31m│[0m │
+  │ [31m│[0m   1) Visit '<scrubbed-github-url>'                                                                               [31m│[0m │
   │ [31m│[0m   2) Locate the 'Branch protection rules' section                                                                [31m│[0m │
   │ [31m│[0m   3) Click the 'Edit' button next to the branch 'main'                                                           [31m│[0m │
   │ [31m│[0m   4) Locate the 'Protect matching branches' section                                                              [31m│[0m │
@@ -577,7 +577,7 @@
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m Resolution                                                                                                       [31m│[0m │
   │ [31m│[0m ----------                                                                                                       [31m│[0m │
-  │ [31m│[0m   1) Visit '<scrubbed-github-url>'<scrubbed-space>[31m│[0m │
+  │ [31m│[0m   1) Visit '<scrubbed-github-url>'                                                                               [31m│[0m │
   │ [31m│[0m   2) Locate the 'Branch protection rules' section                                                                [31m│[0m │
   │ [31m│[0m   3) Click the 'Edit' button next to the branch 'main'                                                           [31m│[0m │
   │ [31m│[0m   4) Locate the 'Protect matching branches' section                                                              [31m│[0m │
@@ -631,7 +631,7 @@
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m Resolution                                                                                                       [31m│[0m │
   │ [31m│[0m ----------                                                                                                       [31m│[0m │
-  │ [31m│[0m   1) Visit '<scrubbed-github-url>'<scrubbed-space>[31m│[0m │
+  │ [31m│[0m   1) Visit '<scrubbed-github-url>'                                                                               [31m│[0m │
   │ [31m│[0m   2) Locate the 'Branch protection rules' section                                                                [31m│[0m │
   │ [31m│[0m   3) Click the 'Edit' button next to the branch 'main'                                                           [31m│[0m │
   │ [31m│[0m   4) Locate the 'Protect matching branches' section                                                              [31m│[0m │
@@ -687,7 +687,7 @@
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m Resolution                                                                                                       [31m│[0m │
   │ [31m│[0m ----------                                                                                                       [31m│[0m │
-  │ [31m│[0m   1) Visit '<scrubbed-github-url>'<scrubbed-space>[31m│[0m │
+  │ [31m│[0m   1) Visit '<scrubbed-github-url>'                                                                               [31m│[0m │
   │ [31m│[0m   2) Locate the 'Branch protection rules' section                                                                [31m│[0m │
   │ [31m│[0m   3) Click the 'Edit' button next to the branch 'main'                                                           [31m│[0m │
   │ [31m│[0m   4) Locate the 'Protect matching branches' section                                                              [31m│[0m │
@@ -742,7 +742,7 @@
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m Resolution                                                                                                       [31m│[0m │
   │ [31m│[0m ----------                                                                                                       [31m│[0m │
-  │ [31m│[0m   1) Visit '<scrubbed-github-url>'.                                          [31m│[0m │
+  │ [31m│[0m   1) Visit '<scrubbed-github-url>'                                    .                                          [31m│[0m │
   │ [31m│[0m   2) Locate the 'Default Branch' section.                                                                        [31m│[0m │
   │ [31m│[0m   3) Ensure that 'Default Branch' is set to 'not_main'.                                                          [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
@@ -848,7 +848,7 @@
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m Resolution                                                                                                       [31m│[0m │
   │ [31m│[0m ----------                                                                                                       [31m│[0m │
-  │ [31m│[0m   1) Visit '<scrubbed-github-url>'.                                          [31m│[0m │
+  │ [31m│[0m   1) Visit '<scrubbed-github-url>'                                    .                                          [31m│[0m │
   │ [31m│[0m   2) Locate the 'Pull Requests' section.                                                                         [31m│[0m │
   │ [31m│[0m   3) Ensure that 'Allow merge commits -> Default...' is set to 'This is not a valid merge commit message'.       [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
@@ -900,7 +900,7 @@
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m Resolution                                                                                                       [31m│[0m │
   │ [31m│[0m ----------                                                                                                       [31m│[0m │
-  │ [31m│[0m   1) Visit '<scrubbed-github-url>'<scrubbed-space>[31m│[0m │
+  │ [31m│[0m   1) Visit '<scrubbed-github-url>'                                                                               [31m│[0m │
   │ [31m│[0m   2) Locate the 'Pull Requests' section                                                                          [31m│[0m │
   │ [31m│[0m   3) Ensure that 'Allow auto-merge' is unchecked                                                                 [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
@@ -952,7 +952,7 @@
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m Resolution                                                                                                       [31m│[0m │
   │ [31m│[0m ----------                                                                                                       [31m│[0m │
-  │ [31m│[0m   1) Visit '<scrubbed-github-url>'<scrubbed-space>[31m│[0m │
+  │ [31m│[0m   1) Visit '<scrubbed-github-url>'                                                                               [31m│[0m │
   │ [31m│[0m   2) Locate the 'Pull Requests' section                                                                          [31m│[0m │
   │ [31m│[0m   3) Ensure that 'Automatically delete head branches' is unchecked                                               [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
@@ -1004,7 +1004,7 @@
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m Resolution                                                                                                       [31m│[0m │
   │ [31m│[0m ----------                                                                                                       [31m│[0m │
-  │ [31m│[0m   1) Visit '<scrubbed-github-url>'<scrubbed-space>[31m│[0m │
+  │ [31m│[0m   1) Visit '<scrubbed-github-url>'                                                                               [31m│[0m │
   │ [31m│[0m   2) Locate the 'Pull Requests' section                                                                          [31m│[0m │
   │ [31m│[0m   3) Ensure that 'Allow merge commits' is unchecked                                                              [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
@@ -1056,7 +1056,7 @@
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m Resolution                                                                                                       [31m│[0m │
   │ [31m│[0m ----------                                                                                                       [31m│[0m │
-  │ [31m│[0m   1) Visit '<scrubbed-github-url>'<scrubbed-space>[31m│[0m │
+  │ [31m│[0m   1) Visit '<scrubbed-github-url>'                                                                               [31m│[0m │
   │ [31m│[0m   2) Locate the 'Features' section                                                                               [31m│[0m │
   │ [31m│[0m   3) Ensure that 'Issues' is unchecked                                                                           [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
@@ -1108,7 +1108,7 @@
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m Resolution                                                                                                       [31m│[0m │
   │ [31m│[0m ----------                                                                                                       [31m│[0m │
-  │ [31m│[0m   1) Visit '<scrubbed-github-url>'<scrubbed-space>[31m│[0m │
+  │ [31m│[0m   1) Visit '<scrubbed-github-url>'                                                                               [31m│[0m │
   │ [31m│[0m   2) Locate the 'Features' section                                                                               [31m│[0m │
   │ [31m│[0m   3) Ensure that 'Projects' is unchecked                                                                         [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
@@ -1160,7 +1160,7 @@
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m Resolution                                                                                                       [31m│[0m │
   │ [31m│[0m ----------                                                                                                       [31m│[0m │
-  │ [31m│[0m   1) Visit '<scrubbed-github-url>'<scrubbed-space>[31m│[0m │
+  │ [31m│[0m   1) Visit '<scrubbed-github-url>'                                                                               [31m│[0m │
   │ [31m│[0m   2) Locate the 'Features' section                                                                               [31m│[0m │
   │ [31m│[0m   3) Ensure that 'Wikis' is unchecked                                                                            [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
@@ -1213,7 +1213,7 @@
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m Resolution                                                                                                       [31m│[0m │
   │ [31m│[0m ----------                                                                                                       [31m│[0m │
-  │ [31m│[0m   1) Visit '<scrubbed-github-url>'<scrubbed-space>[31m│[0m │
+  │ [31m│[0m   1) Visit '<scrubbed-github-url>'                                                                               [31m│[0m │
   │ [31m│[0m   2) Locate the 'General' section                                                                                [31m│[0m │
   │ [31m│[0m   3) Ensure that 'Require contributors to sign off on web-based commits' is unchecked                            [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
@@ -1265,7 +1265,7 @@
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m Resolution                                                                                                       [31m│[0m │
   │ [31m│[0m ----------                                                                                                       [31m│[0m │
-  │ [31m│[0m   1) Visit '<scrubbed-github-url>'<scrubbed-space>[31m│[0m │
+  │ [31m│[0m   1) Visit '<scrubbed-github-url>'                                                                               [31m│[0m │
   │ [31m│[0m   2) Locate the 'Danger Zone' section                                                                            [31m│[0m │
   │ [31m│[0m   3) Click the 'Change visibility button'                                                                        [31m│[0m │
   │ [31m│[0m   4) Select 'Change to private'                                                                                  [31m│[0m │
@@ -1318,7 +1318,7 @@
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m Resolution                                                                                                       [31m│[0m │
   │ [31m│[0m ----------                                                                                                       [31m│[0m │
-  │ [31m│[0m   1) Visit '<scrubbed-github-url>'<scrubbed-space>[31m│[0m │
+  │ [31m│[0m   1) Visit '<scrubbed-github-url>'                                                                               [31m│[0m │
   │ [31m│[0m   2) Locate the 'Branch protection rules' section                                                                [31m│[0m │
   │ [31m│[0m   3) Protect the branch with a ruleset or classic branch protection rule                                         [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
@@ -1417,7 +1417,7 @@
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m Resolution                                                                                                       [31m│[0m │
   │ [31m│[0m ----------                                                                                                       [31m│[0m │
-  │ [31m│[0m   1) Visit '<scrubbed-github-url>'<scrubbed-space>[31m│[0m │
+  │ [31m│[0m   1) Visit '<scrubbed-github-url>'                                                                               [31m│[0m │
   │ [31m│[0m   2) Locate the 'Pull Requests' section                                                                          [31m│[0m │
   │ [31m│[0m   3) Ensure that 'Allow rebase merging' is checked                                                               [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
@@ -1469,7 +1469,7 @@
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m Resolution                                                                                                       [31m│[0m │
   │ [31m│[0m ----------                                                                                                       [31m│[0m │
-  │ [31m│[0m   1) Visit '<scrubbed-github-url>'<scrubbed-space>[31m│[0m │
+  │ [31m│[0m   1) Visit '<scrubbed-github-url>'                                                                               [31m│[0m │
   │ [31m│[0m   2) Locate the 'Pull Requests' section                                                                          [31m│[0m │
   │ [31m│[0m   3) Ensure that 'Allow squash merging' is checked                                                               [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
@@ -1521,7 +1521,7 @@
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m Resolution                                                                                                       [31m│[0m │
   │ [31m│[0m ----------                                                                                                       [31m│[0m │
-  │ [31m│[0m   1) Visit '<scrubbed-github-url>'<scrubbed-space>[31m│[0m │
+  │ [31m│[0m   1) Visit '<scrubbed-github-url>'                                                                               [31m│[0m │
   │ [31m│[0m   2) Locate the 'Pull Requests' section                                                                          [31m│[0m │
   │ [31m│[0m   3) Ensure that 'Always suggest updating pull request branches' is checked                                      [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
@@ -1573,7 +1573,7 @@
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m Resolution                                                                                                       [31m│[0m │
   │ [31m│[0m ----------                                                                                                       [31m│[0m │
-  │ [31m│[0m   1) Visit '<scrubbed-github-url>'<scrubbed-space>[31m│[0m │
+  │ [31m│[0m   1) Visit '<scrubbed-github-url>'                                                                               [31m│[0m │
   │ [31m│[0m   2) Locate the 'Features' section                                                                               [31m│[0m │
   │ [31m│[0m   3) Ensure that 'Discussions' is checked                                                                        [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
@@ -1625,7 +1625,7 @@
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m Resolution                                                                                                       [31m│[0m │
   │ [31m│[0m ----------                                                                                                       [31m│[0m │
-  │ [31m│[0m   1) Visit '<scrubbed-github-url>'<scrubbed-space>[31m│[0m │
+  │ [31m│[0m   1) Visit '<scrubbed-github-url>'                                                                               [31m│[0m │
   │ [31m│[0m   2) Locate the 'General' section                                                                                [31m│[0m │
   │ [31m│[0m   3) Ensure that 'Template repository' is checked                                                                [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
