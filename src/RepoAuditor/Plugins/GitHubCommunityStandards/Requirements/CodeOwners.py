@@ -17,7 +17,6 @@ class CodeOwners(ExistsRequirementImpl):
     def __init__(self) -> None:
         super().__init__(
             "CodeOwners",
-            "exists",
             "CODEOWNERS",
             [
                 ".github/CODEOWNERS",

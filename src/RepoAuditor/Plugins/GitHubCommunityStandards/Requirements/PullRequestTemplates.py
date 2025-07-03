@@ -15,7 +15,6 @@ class PullRequestTemplate(ExistsRequirementImpl):
     def __init__(self) -> None:
         super().__init__(
             "PullRequestTemplate",
-            "exists",
             "PULL_REQUESTS_TEMPLATE",
             [
                 ".github/PULL_REQUEST_TEMPLATE.md",

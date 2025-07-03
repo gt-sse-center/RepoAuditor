@@ -19,7 +19,6 @@ class LicenseFile(ExistsRequirementImpl):
     def __init__(self) -> None:
         super().__init__(
             "LicenseFile",
-            "exists",
             "LICENSE",
             [
                 "LICENSE",

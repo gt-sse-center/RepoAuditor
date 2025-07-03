@@ -15,7 +15,6 @@ class IssueTemplates(ExistsRequirementImpl):
     def __init__(self) -> None:
         super().__init__(
             "IssueTemplates",
-            "exists",
             "ISSUE_TEMPLATES",
             [
                 ".github/ISSUE_TEMPLATE.md",

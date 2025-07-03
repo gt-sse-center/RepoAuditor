@@ -19,20 +19,32 @@ from RepoAuditor.Requirement import EvaluateResult, ExecutionStyle, Requirement
 
 # ----------------------------------------------------------------------
 class ExistsRequirementImpl(Requirement):
-    """Object that implements check if a file exists."""
+    """Requirement which implements check if a file exists."""
 
     # ----------------------------------------------------------------------
     def __init__(
         self,
         name: str,
-        dynamic_arg_name: str,
         github_file: str,
         possible_locations: Sequence[str],
         resolution: str,
         rationale: str,
         *,
+        dynamic_arg_name: str = "unrequired",
         requires_explicit_include: bool = False,
     ) -> None:
+        """Construct.
+
+        Args:
+            name (str): The name of the requirement. Used for unique identification.
+            github_file (str): The name of the file in the GitHub repository being checked for.
+            possible_locations (Sequence[str]): List of potential paths in the repo to check if `github_file` exists.
+            resolution (str): Message on how to resolve the requirement in case of an error.
+            rationale (str): Rationale message on why this requirement is needed.
+            dynamic_arg_name (str, optional): Name of the runtime argument (e.g. from command line) to this requirement.Defaults to "unrequired", which if enabled causes the requirement to be skipped.
+            requires_explicit_include (bool, optional): Flag checking if this requirement needs to be explicitly included in the invocation. Defaults to False.
+
+        """
         super().__init__(
             name,
             f"Validates that {github_file} file exists.",
@@ -56,7 +68,7 @@ class ExistsRequirementImpl(Requirement):
                 bool,
                 typer.Option(
                     False,
-                    help=f"Ensures that the file {self.github_file} exists.",
+                    help=f"Disable requirement that the file {self.github_file} exists.",
                 ),
             ),
         }
@@ -68,7 +80,8 @@ class ExistsRequirementImpl(Requirement):
         query_data: dict[str, Any],
         requirement_args: dict[str, Any],
     ) -> Requirement.EvaluateImplResult:
-        if requirement_args[self.dynamic_arg_name]:
+        # Check if `dynamic_arg_name` is `not unrequired`.
+        if not requirement_args[self.dynamic_arg_name]:
             for location in self.possible_locations:
                 # Get full file path in temporary repo directory and check if it exists
                 # This checks both upper case and lower case variants

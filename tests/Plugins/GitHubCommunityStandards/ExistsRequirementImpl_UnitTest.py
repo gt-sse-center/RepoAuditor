@@ -23,7 +23,6 @@ class TestExistsRequirementImpl:
         """Test the requirement implementation constructor."""
         requirement = ExistsRequirementImpl(
             name="Exists Some Value",
-            dynamic_arg_name="exists",
             github_file="README.md",
             possible_locations=[
                 "README.md",
@@ -37,7 +36,6 @@ class TestExistsRequirementImpl:
         """Test disabled requirement."""
         requirement = ExistsRequirementImpl(
             name="Exists Some Value",
-            dynamic_arg_name="exists",
             github_file="README.md",
             possible_locations=[
                 "README.md",
@@ -47,7 +45,7 @@ class TestExistsRequirementImpl:
         )
 
         query_data = {}
-        requirement_args = {"exists": False}
+        requirement_args = {"unrequired": True}
         result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.DoesNotApply
 
@@ -55,7 +53,6 @@ class TestExistsRequirementImpl:
         """Test for when file is not found."""
         requirement = ExistsRequirementImpl(
             name="Exists Some Value",
-            dynamic_arg_name="exists",
             github_file="README.md",
             possible_locations=[
                 "MEREAD.md",
@@ -65,7 +62,7 @@ class TestExistsRequirementImpl:
         )
 
         query_data = {"repo_dir": MockDirectory()}
-        requirement_args = {"exists": True}
+        requirement_args = {"unrequired": False}
         result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.Error
         assert "No README.md file found" in result.context
@@ -74,7 +71,6 @@ class TestExistsRequirementImpl:
         """Test for when file is found as is."""
         requirement = ExistsRequirementImpl(
             name="Exists Some Value",
-            dynamic_arg_name="exists",
             github_file="README.md",
             possible_locations=[
                 "README.md",
@@ -88,7 +84,7 @@ class TestExistsRequirementImpl:
             f.write("temp file in temp directory")
 
         query_data = {"repo_dir": tempdir}
-        requirement_args = {"exists": True}
+        requirement_args = {"unrequired": False}
         result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.Success
         assert "README.md found in repository" in result.context
@@ -97,7 +93,6 @@ class TestExistsRequirementImpl:
         """Test if provided path is directory."""
         requirement = ExistsRequirementImpl(
             name="Exists Some Value",
-            dynamic_arg_name="exists",
             github_file="README.md",
             possible_locations=[
                 "docs",
@@ -115,7 +110,7 @@ class TestExistsRequirementImpl:
             f.write("temp file in temp directory")
 
         query_data = {"repo_dir": tempdir}
-        requirement_args = {"exists": True}
+        requirement_args = {"unrequired": False}
         result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.Success
         assert "File found in docs directory of the repository" in result.context
