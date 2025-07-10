@@ -8,6 +8,7 @@
 
 from tempfile import TemporaryDirectory
 from typing import Any, Optional
+from urllib.parse import urlparse
 
 from dbrownell_Common.Types import override  # type: ignore[import-untyped]
 
@@ -50,15 +51,33 @@ class CommunityStandardsQuery(Query):
         """Get the repo data."""
 
         # Clone the GitHub repository to a temp directory
-        github_url = module_data["url"]
         branch = module_data.get("branch", "main")
         temp_repo_dir = TemporaryDirectory()
+        github_url = module_data["url"]
+
+        # Add PAT to GitHub URL, if present
+        github_pat = module_data.get("pat")
+        if github_pat:
+            url = urlparse(github_url)
+            github_url = f"https://{github_pat}@{url.netloc}{url.path}"
 
         # Import git.Repo here so that it is only imported
         # if the GitHubCommunityStandards plugin is requested.
         from git import Repo
 
-        Repo.clone_from(github_url, temp_repo_dir.name, branch=branch)
+        try:
+            Repo.clone_from(github_url, temp_repo_dir.name, branch=branch)
+        except Exception as e:
+            error_msg = f"""
+            An error occurred while attempting to clone the target repository.
+            If you are auditing a private repository, {
+                "please ensure your PAT has access to the repository."
+                if github_pat
+                else "please provide a PAT with access to the repository."
+            }
+            Error: {e}
+            """
+            raise RuntimeError(error_msg) from e
 
         # Record the path and the temp directory for later cleanup
         module_data["repo_dir"] = temp_repo_dir
