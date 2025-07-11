@@ -11,6 +11,7 @@ Deactivate*.sh
 **/.coverage
 **/lcov.info
 **/.vscode
+**/coverage.xml
 
 build/**
 dist/**
