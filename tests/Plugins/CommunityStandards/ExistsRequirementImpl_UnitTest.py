@@ -9,7 +9,7 @@
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
-from RepoAuditor.Plugins.GitHubCommunityStandards.Impl.ExistsRequirementImpl import ExistsRequirementImpl
+from RepoAuditor.Plugins.CommunityStandards.Impl.ExistsRequirementImpl import ExistsRequirementImpl
 from RepoAuditor.Requirement import EvaluateResult
 
 
@@ -23,20 +23,20 @@ class TestExistsRequirementImpl:
         """Test the requirement implementation constructor."""
         requirement = ExistsRequirementImpl(
             name="Exists Some Value",
-            github_file="README.md",
+            filename="README.md",
             possible_locations=[
                 "README.md",
             ],
             resolution="Get test to pass",
             rationale="For testing",
         )
-        assert requirement.github_file == "README.md"
+        assert requirement.filename == "README.md"
 
     def test_Disabled(self):
         """Test disabled requirement."""
         requirement = ExistsRequirementImpl(
             name="Exists Some Value",
-            github_file="README.md",
+            filename="README.md",
             possible_locations=[
                 "README.md",
             ],
@@ -53,7 +53,7 @@ class TestExistsRequirementImpl:
         """Test for when file is not found."""
         requirement = ExistsRequirementImpl(
             name="Exists Some Value",
-            github_file="README.md",
+            filename="README.md",
             possible_locations=[
                 "MEREAD.md",
             ],
@@ -71,7 +71,7 @@ class TestExistsRequirementImpl:
         """Test for when file is found as is."""
         requirement = ExistsRequirementImpl(
             name="Exists Some Value",
-            github_file="README.md",
+            filename="README.md",
             possible_locations=[
                 "README.md",
             ],
@@ -93,7 +93,7 @@ class TestExistsRequirementImpl:
         """Test if provided path is directory."""
         requirement = ExistsRequirementImpl(
             name="Exists Some Value",
-            github_file="README.md",
+            filename="README.md",
             possible_locations=[
                 "docs",
             ],

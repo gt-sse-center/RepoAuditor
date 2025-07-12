@@ -4,20 +4,20 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the GitHubCommunityStandardsModule object."""
+"""Contains the CommunityStandardsModule object."""
 
 from RepoAuditor.Module import ExecutionStyle
+from RepoAuditor.Plugins.CommunityStandards.CommunityStandardsQuery import CommunityStandardsQuery
 from RepoAuditor.Plugins.GitHubBase.Module import GitHubBaseModule
-from RepoAuditor.Plugins.GitHubCommunityStandards.CommunityStandardsQuery import CommunityStandardsQuery
 
 
-class GitHubCommunityStandardsModule(GitHubBaseModule):
-    """Module that validates GitHub repository files for Community Standards."""
+class CommunityStandardsModule(GitHubBaseModule):
+    """Module that validates existence of repository files for Community Standards."""
 
     def __init__(self) -> None:
         super().__init__(
-            "GitHubCommunityStandards",
-            "Validates GitHub repository files for Community Standards.",
+            "CommunityStandards",
+            "Validates existence of repository files for Community Standards.",
             ExecutionStyle.Parallel,
             [
                 CommunityStandardsQuery(),
