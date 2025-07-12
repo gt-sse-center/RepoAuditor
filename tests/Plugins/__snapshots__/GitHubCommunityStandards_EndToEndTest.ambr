@@ -13,7 +13,7 @@
   
   ╭──────────────────────────────────────────────────────────────────────────── GitHubCommunityStandards ────────────────────────────────────────────────────────────────────────────╮
   │                                                                                                                                                                                  │
-  │ Validates GitHub repository files for Community Standards.                                                                                                                       │
+  │ Validates existence of repository files for Community Standards.                                                                                                                 │
   │                                                                                                                                                                                  │
   │ Successful:     1 (12.50%)                                                                                                                                                       │
   │ Warnings:       0 (0.00%)                                                                                                                                                        │
@@ -42,7 +42,7 @@
   
   ╭──────────────────────────────────────────────────────────────────────────── GitHubCommunityStandards ────────────────────────────────────────────────────────────────────────────╮
   │                                                                                                                                                                                  │
-  │ Validates GitHub repository files for Community Standards.                                                                                                                       │
+  │ Validates existence of repository files for Community Standards.                                                                                                                 │
   │                                                                                                                                                                                  │
   │ Successful:     1 (12.50%)                                                                                                                                                       │
   │ Warnings:       0 (0.00%)                                                                                                                                                        │
@@ -71,7 +71,7 @@
   
   ╭──────────────────────────────────────────────────────────────────────────── GitHubCommunityStandards ────────────────────────────────────────────────────────────────────────────╮
   │                                                                                                                                                                                  │
-  │ Validates GitHub repository files for Community Standards.                                                                                                                       │
+  │ Validates existence of repository files for Community Standards.                                                                                                                 │
   │                                                                                                                                                                                  │
   │ Successful:     1 (12.50%)                                                                                                                                                       │
   │ Warnings:       0 (0.00%)                                                                                                                                                        │
@@ -100,7 +100,7 @@
   
   ╭──────────────────────────────────────────────────────────────────────────── GitHubCommunityStandards ────────────────────────────────────────────────────────────────────────────╮
   │                                                                                                                                                                                  │
-  │ Validates GitHub repository files for Community Standards.                                                                                                                       │
+  │ Validates existence of repository files for Community Standards.                                                                                                                 │
   │                                                                                                                                                                                  │
   │ Successful:     1 (12.50%)                                                                                                                                                       │
   │ Warnings:       0 (0.00%)                                                                                                                                                        │
@@ -129,7 +129,7 @@
   
   ╭──────────────────────────────────────────────────────────────────────────── GitHubCommunityStandards ────────────────────────────────────────────────────────────────────────────╮
   │                                                                                                                                                                                  │
-  │ Validates GitHub repository files for Community Standards.                                                                                                                       │
+  │ Validates existence of repository files for Community Standards.                                                                                                                 │
   │                                                                                                                                                                                  │
   │ Successful:     0 (0.00%)                                                                                                                                                        │
   │ Warnings:       0 (0.00%)                                                                                                                                                        │
@@ -190,7 +190,7 @@
   
   ╭──────────────────────────────────────────────────────────────────────────── GitHubCommunityStandards ────────────────────────────────────────────────────────────────────────────╮
   │                                                                                                                                                                                  │
-  │ Validates GitHub repository files for Community Standards.                                                                                                                       │
+  │ Validates existence of repository files for Community Standards.                                                                                                                 │
   │                                                                                                                                                                                  │
   │ Successful:     0 (0.00%)                                                                                                                                                        │
   │ Warnings:       0 (0.00%)                                                                                                                                                        │
@@ -248,7 +248,7 @@
   
   ╭──────────────────────────────────────────────────────────────────────────── GitHubCommunityStandards ────────────────────────────────────────────────────────────────────────────╮
   │                                                                                                                                                                                  │
-  │ Validates GitHub repository files for Community Standards.                                                                                                                       │
+  │ Validates existence of repository files for Community Standards.                                                                                                                 │
   │                                                                                                                                                                                  │
   │ Successful:     0 (0.00%)                                                                                                                                                        │
   │ Warnings:       0 (0.00%)                                                                                                                                                        │
@@ -303,7 +303,7 @@
   
   ╭──────────────────────────────────────────────────────────────────────────── GitHubCommunityStandards ────────────────────────────────────────────────────────────────────────────╮
   │                                                                                                                                                                                  │
-  │ Validates GitHub repository files for Community Standards.                                                                                                                       │
+  │ Validates existence of repository files for Community Standards.                                                                                                                 │
   │                                                                                                                                                                                  │
   │ Successful:     0 (0.00%)                                                                                                                                                        │
   │ Warnings:       0 (0.00%)                                                                                                                                                        │
@@ -347,7 +347,7 @@
   
   ╭──────────────────────────────────────────────────────────────────────────── GitHubCommunityStandards ────────────────────────────────────────────────────────────────────────────╮
   │                                                                                                                                                                                  │
-  │ Validates GitHub repository files for Community Standards.                                                                                                                       │
+  │ Validates existence of repository files for Community Standards.                                                                                                                 │
   │                                                                                                                                                                                  │
   │ Successful:     0 (0.00%)                                                                                                                                                        │
   │ Warnings:       0 (0.00%)                                                                                                                                                        │
@@ -392,7 +392,7 @@
   
   ╭──────────────────────────────────────────────────────────────────────────── GitHubCommunityStandards ────────────────────────────────────────────────────────────────────────────╮
   │                                                                                                                                                                                  │
-  │ Validates GitHub repository files for Community Standards.                                                                                                                       │
+  │ Validates existence of repository files for Community Standards.                                                                                                                 │
   │                                                                                                                                                                                  │
   │ Successful:     0 (0.00%)                                                                                                                                                        │
   │ Warnings:       0 (0.00%)                                                                                                                                                        │
@@ -447,7 +447,7 @@
   
   ╭──────────────────────────────────────────────────────────────────────────── GitHubCommunityStandards ────────────────────────────────────────────────────────────────────────────╮
   │                                                                                                                                                                                  │
-  │ Validates GitHub repository files for Community Standards.                                                                                                                       │
+  │ Validates existence of repository files for Community Standards.                                                                                                                 │
   │                                                                                                                                                                                  │
   │ Successful:     1 (12.50%)                                                                                                                                                       │
   │ Warnings:       0 (0.00%)                                                                                                                                                        │
@@ -476,7 +476,7 @@
   
   ╭──────────────────────────────────────────────────────────────────────────── GitHubCommunityStandards ────────────────────────────────────────────────────────────────────────────╮
   │                                                                                                                                                                                  │
-  │ Validates GitHub repository files for Community Standards.                                                                                                                       │
+  │ Validates existence of repository files for Community Standards.                                                                                                                 │
   │                                                                                                                                                                                  │
   │ Successful:     1 (12.50%)                                                                                                                                                       │
   │ Warnings:       0 (0.00%)                                                                                                                                                        │
