@@ -40,7 +40,7 @@ repo_auditor = "RepoAuditor:EntryPoint.app"
 
 [project.entry-points.RepoAuditor]
 GitHubPlugin = "RepoAuditor.Plugins.GitHubPlugin"
-GitHubCommunityStandardsPlugin = "RepoAuditor.Plugins.GitHubCommunityStandardsPlugin"
+CommunityStandardsPlugin = "RepoAuditor.Plugins.CommunityStandardsPlugin"
 
 [build-system]
 requires = ["hatchling"]

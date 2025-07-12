@@ -9,7 +9,7 @@
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
-from RepoAuditor.Plugins.GitHubCommunityStandards.Impl.ExistsRequirementImpl import ExistsRequirementImpl
+from RepoAuditor.Plugins.CommunityStandards.Impl.ExistsRequirementImpl import ExistsRequirementImpl
 from RepoAuditor.Requirement import EvaluateResult
 
 

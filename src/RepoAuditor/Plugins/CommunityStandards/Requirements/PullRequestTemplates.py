@@ -6,7 +6,7 @@
 # -------------------------------------------------------------------------------
 """Contains the PullRequestTemplate requirement."""
 
-from RepoAuditor.Plugins.GitHubCommunityStandards.Impl.ExistsRequirementImpl import ExistsRequirementImpl
+from RepoAuditor.Plugins.CommunityStandards.Impl.ExistsRequirementImpl import ExistsRequirementImpl
 
 
 class PullRequestTemplate(ExistsRequirementImpl):

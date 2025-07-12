@@ -12,14 +12,14 @@ from urllib.parse import urlparse
 
 from dbrownell_Common.Types import override  # type: ignore[import-untyped]
 
-from RepoAuditor.Plugins.GitHubCommunityStandards.Requirements.CodeOfConduct import CodeOfConduct
-from RepoAuditor.Plugins.GitHubCommunityStandards.Requirements.CodeOwners import CodeOwners
-from RepoAuditor.Plugins.GitHubCommunityStandards.Requirements.Contributing import Contributing
-from RepoAuditor.Plugins.GitHubCommunityStandards.Requirements.IssueTemplates import IssueTemplates
-from RepoAuditor.Plugins.GitHubCommunityStandards.Requirements.LicenseFile import LicenseFile
-from RepoAuditor.Plugins.GitHubCommunityStandards.Requirements.PullRequestTemplates import PullRequestTemplate
-from RepoAuditor.Plugins.GitHubCommunityStandards.Requirements.ReadMe import ReadMe
-from RepoAuditor.Plugins.GitHubCommunityStandards.Requirements.SecurityPolicy import SecurityPolicy
+from RepoAuditor.Plugins.CommunityStandards.Requirements.CodeOfConduct import CodeOfConduct
+from RepoAuditor.Plugins.CommunityStandards.Requirements.CodeOwners import CodeOwners
+from RepoAuditor.Plugins.CommunityStandards.Requirements.Contributing import Contributing
+from RepoAuditor.Plugins.CommunityStandards.Requirements.IssueTemplates import IssueTemplates
+from RepoAuditor.Plugins.CommunityStandards.Requirements.LicenseFile import LicenseFile
+from RepoAuditor.Plugins.CommunityStandards.Requirements.PullRequestTemplates import PullRequestTemplate
+from RepoAuditor.Plugins.CommunityStandards.Requirements.ReadMe import ReadMe
+from RepoAuditor.Plugins.CommunityStandards.Requirements.SecurityPolicy import SecurityPolicy
 from RepoAuditor.Query import ExecutionStyle, Query
 
 
@@ -62,7 +62,7 @@ class CommunityStandardsQuery(Query):
             url = f"https://{pat}@{parsed_url.netloc}{parsed_url.path}"
 
         # Import git.Repo here so that it is only imported
-        # if the GitHubCommunityStandards plugin is requested.
+        # if the CommunityStandards plugin is requested.
         from git import Repo
 
         try:

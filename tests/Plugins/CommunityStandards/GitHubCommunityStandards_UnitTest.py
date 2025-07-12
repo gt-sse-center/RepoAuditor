@@ -12,7 +12,7 @@ from pathlib import Path
 import pluggy
 
 from RepoAuditor import APP_NAME
-from RepoAuditor.Plugins.GitHubCommunityStandardsPlugin import GetModule
+from RepoAuditor.Plugins.CommunityStandardsPlugin import GetModule
 
 
 # ----------------------------------------------------------------------
@@ -28,7 +28,7 @@ def test_get_module_returns_object():
     module = GetModule()
     assert module is not None
     assert hasattr(module, "name")
-    assert module.name == "GitHubCommunityStandards"
+    assert module.name == "CommunityStandards"
 
 
 # ----------------------------------------------------------------------
@@ -55,7 +55,7 @@ def test_plugin_registration():
 
 
 # ----------------------------------------------------------------------
-class TestGitHubCommunityStandardsModule:
+class TestCommunityStandardsModule:
     """Unit tests for the GitHubCustomizaton module."""
 
     def test_Construct(self):
@@ -63,7 +63,7 @@ class TestGitHubCommunityStandardsModule:
         module = GetModule()
 
         assert module is not None
-        assert module.name == "GitHubCommunityStandards"
+        assert module.name == "CommunityStandards"
         # Comment out checks that would fail with minimal implementation
         # assert module.execution_style.name == "Parallel"
         # assert len(module.queries) == 1
