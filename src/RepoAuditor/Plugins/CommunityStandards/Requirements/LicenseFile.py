@@ -8,7 +8,7 @@
 
 import textwrap
 
-from RepoAuditor.Plugins.GitHubCommunityStandards.Impl.ExistsRequirementImpl import (
+from RepoAuditor.Plugins.CommunityStandards.Impl.ExistsRequirementImpl import (
     ExistsRequirementImpl,
 )
 

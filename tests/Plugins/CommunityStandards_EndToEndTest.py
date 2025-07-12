@@ -4,7 +4,7 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""End-to-end tests for the GitHubCommunityStandards plugin."""
+"""End-to-end tests for the CommunityStandards plugin."""
 
 import shutil
 from pathlib import Path
@@ -20,7 +20,7 @@ from typer.testing import CliRunner
 from utilities import CheckPATFileExists, GetGithubUrl, ScrubDurationGithuburlAndSpaces
 
 from RepoAuditor.EntryPoint import app
-from RepoAuditor.Plugins.GitHubCommunityStandards.CommunityStandardsQuery import CommunityStandardsQuery
+from RepoAuditor.Plugins.CommunityStandards.CommunityStandardsQuery import CommunityStandardsQuery
 
 # ----------------------------------------------------------------------
 pytest.fixture(InitializeStreamCapabilities(), scope="session", autouse=True)
@@ -63,13 +63,13 @@ class TestCommunityStandards:
             app,
             pat_args
             + [
-                "--GitHubCommunityStandards-CodeOwners-unrequired",
-                "--GitHubCommunityStandards-Contributing-unrequired",
-                "--GitHubCommunityStandards-IssueTemplates-unrequired",
-                "--GitHubCommunityStandards-LicenseFile-unrequired",
-                "--GitHubCommunityStandards-PullRequestTemplate-unrequired",
-                "--GitHubCommunityStandards-ReadMe-unrequired",
-                "--GitHubCommunityStandards-SecurityPolicy-unrequired",
+                "--CommunityStandards-CodeOwners-unrequired",
+                "--CommunityStandards-Contributing-unrequired",
+                "--CommunityStandards-IssueTemplates-unrequired",
+                "--CommunityStandards-LicenseFile-unrequired",
+                "--CommunityStandards-PullRequestTemplate-unrequired",
+                "--CommunityStandards-ReadMe-unrequired",
+                "--CommunityStandards-SecurityPolicy-unrequired",
             ],
         )
 
@@ -87,13 +87,13 @@ class TestCommunityStandards:
             app,
             pat_args
             + [
-                "--GitHubCommunityStandards-CodeOwners-unrequired",
-                "--GitHubCommunityStandards-Contributing-unrequired",
-                "--GitHubCommunityStandards-IssueTemplates-unrequired",
-                "--GitHubCommunityStandards-LicenseFile-unrequired",
-                "--GitHubCommunityStandards-PullRequestTemplate-unrequired",
-                "--GitHubCommunityStandards-ReadMe-unrequired",
-                "--GitHubCommunityStandards-SecurityPolicy-unrequired",
+                "--CommunityStandards-CodeOwners-unrequired",
+                "--CommunityStandards-Contributing-unrequired",
+                "--CommunityStandards-IssueTemplates-unrequired",
+                "--CommunityStandards-LicenseFile-unrequired",
+                "--CommunityStandards-PullRequestTemplate-unrequired",
+                "--CommunityStandards-ReadMe-unrequired",
+                "--CommunityStandards-SecurityPolicy-unrequired",
             ],
         )
 
@@ -106,13 +106,13 @@ class TestCommunityStandards:
             app,
             pat_args
             + [
-                "--GitHubCommunityStandards-CodeOfConduct-unrequired",
-                "--GitHubCommunityStandards-Contributing-unrequired",
-                "--GitHubCommunityStandards-IssueTemplates-unrequired",
-                "--GitHubCommunityStandards-LicenseFile-unrequired",
-                "--GitHubCommunityStandards-PullRequestTemplate-unrequired",
-                "--GitHubCommunityStandards-ReadMe-unrequired",
-                "--GitHubCommunityStandards-SecurityPolicy-unrequired",
+                "--CommunityStandards-CodeOfConduct-unrequired",
+                "--CommunityStandards-Contributing-unrequired",
+                "--CommunityStandards-IssueTemplates-unrequired",
+                "--CommunityStandards-LicenseFile-unrequired",
+                "--CommunityStandards-PullRequestTemplate-unrequired",
+                "--CommunityStandards-ReadMe-unrequired",
+                "--CommunityStandards-SecurityPolicy-unrequired",
             ],
         )
 
@@ -130,13 +130,13 @@ class TestCommunityStandards:
             app,
             pat_args
             + [
-                "--GitHubCommunityStandards-CodeOfConduct-unrequired",
-                "--GitHubCommunityStandards-Contributing-unrequired",
-                "--GitHubCommunityStandards-IssueTemplates-unrequired",
-                "--GitHubCommunityStandards-LicenseFile-unrequired",
-                "--GitHubCommunityStandards-PullRequestTemplate-unrequired",
-                "--GitHubCommunityStandards-ReadMe-unrequired",
-                "--GitHubCommunityStandards-SecurityPolicy-unrequired",
+                "--CommunityStandards-CodeOfConduct-unrequired",
+                "--CommunityStandards-Contributing-unrequired",
+                "--CommunityStandards-IssueTemplates-unrequired",
+                "--CommunityStandards-LicenseFile-unrequired",
+                "--CommunityStandards-PullRequestTemplate-unrequired",
+                "--CommunityStandards-ReadMe-unrequired",
+                "--CommunityStandards-SecurityPolicy-unrequired",
             ],
         )
 
@@ -149,13 +149,13 @@ class TestCommunityStandards:
             app,
             pat_args
             + [
-                "--GitHubCommunityStandards-CodeOfConduct-unrequired",
-                "--GitHubCommunityStandards-CodeOwners-unrequired",
-                "--GitHubCommunityStandards-IssueTemplates-unrequired",
-                "--GitHubCommunityStandards-LicenseFile-unrequired",
-                "--GitHubCommunityStandards-PullRequestTemplate-unrequired",
-                "--GitHubCommunityStandards-ReadMe-unrequired",
-                "--GitHubCommunityStandards-SecurityPolicy-unrequired",
+                "--CommunityStandards-CodeOfConduct-unrequired",
+                "--CommunityStandards-CodeOwners-unrequired",
+                "--CommunityStandards-IssueTemplates-unrequired",
+                "--CommunityStandards-LicenseFile-unrequired",
+                "--CommunityStandards-PullRequestTemplate-unrequired",
+                "--CommunityStandards-ReadMe-unrequired",
+                "--CommunityStandards-SecurityPolicy-unrequired",
             ],
         )
 
@@ -173,13 +173,13 @@ class TestCommunityStandards:
             app,
             pat_args
             + [
-                "--GitHubCommunityStandards-CodeOfConduct-unrequired",
-                "--GitHubCommunityStandards-CodeOwners-unrequired",
-                "--GitHubCommunityStandards-IssueTemplates-unrequired",
-                "--GitHubCommunityStandards-LicenseFile-unrequired",
-                "--GitHubCommunityStandards-PullRequestTemplate-unrequired",
-                "--GitHubCommunityStandards-ReadMe-unrequired",
-                "--GitHubCommunityStandards-SecurityPolicy-unrequired",
+                "--CommunityStandards-CodeOfConduct-unrequired",
+                "--CommunityStandards-CodeOwners-unrequired",
+                "--CommunityStandards-IssueTemplates-unrequired",
+                "--CommunityStandards-LicenseFile-unrequired",
+                "--CommunityStandards-PullRequestTemplate-unrequired",
+                "--CommunityStandards-ReadMe-unrequired",
+                "--CommunityStandards-SecurityPolicy-unrequired",
             ],
         )
 
@@ -192,13 +192,13 @@ class TestCommunityStandards:
             app,
             pat_args
             + [
-                "--GitHubCommunityStandards-CodeOfConduct-unrequired",
-                "--GitHubCommunityStandards-CodeOwners-unrequired",
-                "--GitHubCommunityStandards-Contributing-unrequired",
-                "--GitHubCommunityStandards-LicenseFile-unrequired",
-                "--GitHubCommunityStandards-PullRequestTemplate-unrequired",
-                "--GitHubCommunityStandards-ReadMe-unrequired",
-                "--GitHubCommunityStandards-SecurityPolicy-unrequired",
+                "--CommunityStandards-CodeOfConduct-unrequired",
+                "--CommunityStandards-CodeOwners-unrequired",
+                "--CommunityStandards-Contributing-unrequired",
+                "--CommunityStandards-LicenseFile-unrequired",
+                "--CommunityStandards-PullRequestTemplate-unrequired",
+                "--CommunityStandards-ReadMe-unrequired",
+                "--CommunityStandards-SecurityPolicy-unrequired",
             ],
         )
         assert result.exit_code == 0, result.output
@@ -215,13 +215,13 @@ class TestCommunityStandards:
             app,
             pat_args
             + [
-                "--GitHubCommunityStandards-CodeOfConduct-unrequired",
-                "--GitHubCommunityStandards-CodeOwners-unrequired",
-                "--GitHubCommunityStandards-Contributing-unrequired",
-                "--GitHubCommunityStandards-LicenseFile-unrequired",
-                "--GitHubCommunityStandards-PullRequestTemplate-unrequired",
-                "--GitHubCommunityStandards-ReadMe-unrequired",
-                "--GitHubCommunityStandards-SecurityPolicy-unrequired",
+                "--CommunityStandards-CodeOfConduct-unrequired",
+                "--CommunityStandards-CodeOwners-unrequired",
+                "--CommunityStandards-Contributing-unrequired",
+                "--CommunityStandards-LicenseFile-unrequired",
+                "--CommunityStandards-PullRequestTemplate-unrequired",
+                "--CommunityStandards-ReadMe-unrequired",
+                "--CommunityStandards-SecurityPolicy-unrequired",
             ],
         )
 
@@ -237,13 +237,13 @@ class TestCommunityStandards:
             app,
             pat_args
             + [
-                "--GitHubCommunityStandards-CodeOfConduct-unrequired",
-                "--GitHubCommunityStandards-CodeOwners-unrequired",
-                "--GitHubCommunityStandards-Contributing-unrequired",
-                "--GitHubCommunityStandards-IssueTemplates-unrequired",
-                "--GitHubCommunityStandards-LicenseFile-unrequired",
-                "--GitHubCommunityStandards-ReadMe-unrequired",
-                "--GitHubCommunityStandards-SecurityPolicy-unrequired",
+                "--CommunityStandards-CodeOfConduct-unrequired",
+                "--CommunityStandards-CodeOwners-unrequired",
+                "--CommunityStandards-Contributing-unrequired",
+                "--CommunityStandards-IssueTemplates-unrequired",
+                "--CommunityStandards-LicenseFile-unrequired",
+                "--CommunityStandards-ReadMe-unrequired",
+                "--CommunityStandards-SecurityPolicy-unrequired",
             ],
         )
 
@@ -261,13 +261,13 @@ class TestCommunityStandards:
             app,
             pat_args
             + [
-                "--GitHubCommunityStandards-CodeOfConduct-unrequired",
-                "--GitHubCommunityStandards-CodeOwners-unrequired",
-                "--GitHubCommunityStandards-Contributing-unrequired",
-                "--GitHubCommunityStandards-IssueTemplates-unrequired",
-                "--GitHubCommunityStandards-LicenseFile-unrequired",
-                "--GitHubCommunityStandards-ReadMe-unrequired",
-                "--GitHubCommunityStandards-SecurityPolicy-unrequired",
+                "--CommunityStandards-CodeOfConduct-unrequired",
+                "--CommunityStandards-CodeOwners-unrequired",
+                "--CommunityStandards-Contributing-unrequired",
+                "--CommunityStandards-IssueTemplates-unrequired",
+                "--CommunityStandards-LicenseFile-unrequired",
+                "--CommunityStandards-ReadMe-unrequired",
+                "--CommunityStandards-SecurityPolicy-unrequired",
             ],
         )
 
@@ -280,13 +280,13 @@ class TestCommunityStandards:
             app,
             pat_args
             + [
-                "--GitHubCommunityStandards-CodeOfConduct-unrequired",
-                "--GitHubCommunityStandards-CodeOwners-unrequired",
-                "--GitHubCommunityStandards-Contributing-unrequired",
-                "--GitHubCommunityStandards-IssueTemplates-unrequired",
-                "--GitHubCommunityStandards-LicenseFile-unrequired",
-                "--GitHubCommunityStandards-PullRequestTemplate-unrequired",
-                "--GitHubCommunityStandards-ReadMe-unrequired",
+                "--CommunityStandards-CodeOfConduct-unrequired",
+                "--CommunityStandards-CodeOwners-unrequired",
+                "--CommunityStandards-Contributing-unrequired",
+                "--CommunityStandards-IssueTemplates-unrequired",
+                "--CommunityStandards-LicenseFile-unrequired",
+                "--CommunityStandards-PullRequestTemplate-unrequired",
+                "--CommunityStandards-ReadMe-unrequired",
             ],
         )
 
@@ -304,13 +304,13 @@ class TestCommunityStandards:
             app,
             pat_args
             + [
-                "--GitHubCommunityStandards-CodeOfConduct-unrequired",
-                "--GitHubCommunityStandards-CodeOwners-unrequired",
-                "--GitHubCommunityStandards-Contributing-unrequired",
-                "--GitHubCommunityStandards-IssueTemplates-unrequired",
-                "--GitHubCommunityStandards-LicenseFile-unrequired",
-                "--GitHubCommunityStandards-PullRequestTemplate-unrequired",
-                "--GitHubCommunityStandards-ReadMe-unrequired",
+                "--CommunityStandards-CodeOfConduct-unrequired",
+                "--CommunityStandards-CodeOwners-unrequired",
+                "--CommunityStandards-Contributing-unrequired",
+                "--CommunityStandards-IssueTemplates-unrequired",
+                "--CommunityStandards-LicenseFile-unrequired",
+                "--CommunityStandards-PullRequestTemplate-unrequired",
+                "--CommunityStandards-ReadMe-unrequired",
             ],
         )
 
@@ -325,8 +325,8 @@ class TestCommunityStandards:
 def args() -> list[str]:
     return [
         "--include",
-        "GitHubCommunityStandards",
-        "--GitHubCommunityStandards-url",
+        "CommunityStandards",
+        "--CommunityStandards-url",
         GetGithubUrl(),
     ]
 
@@ -340,4 +340,4 @@ def pat_args(args) -> list[str]:
     with _github_pat_filename.open() as f:
         pat_value = f.read().strip()
 
-    return args + ["--GitHubCommunityStandards-pat", pat_value]
+    return args + ["--CommunityStandards-pat", pat_value]
