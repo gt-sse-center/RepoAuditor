@@ -12,12 +12,12 @@ from RepoAuditor.Plugins.GitHubCommunityStandards.CommunityStandardsQuery import
 
 
 class GitHubCommunityStandardsModule(GitHubBaseModule):
-    """Module that validates GitHub repository files for Community Standards."""
+    """Module that validates existence of repository files for Community Standards."""
 
     def __init__(self) -> None:
         super().__init__(
             "GitHubCommunityStandards",
-            "Validates GitHub repository files for Community Standards.",
+            "Validates existence of repository files for Community Standards.",
             ExecutionStyle.Parallel,
             [
                 CommunityStandardsQuery(),
