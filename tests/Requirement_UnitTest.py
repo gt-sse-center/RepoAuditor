@@ -64,7 +64,7 @@ class MyRequirement(Requirement):
 # ----------------------------------------------------------------------
 def test_Construct():
     name = Mock()
-    description = Mock()
+    description = ""
     style = Mock()
     resolution_template = Mock()
     rationale_template = Mock()
@@ -96,7 +96,7 @@ def test_Construct():
 # ----------------------------------------------------------------------
 def test_Success():
     requirement = MyRequirement(Mock(), Mock(), Mock(), Mock(), Mock(), EvaluateResult.Success, "testing")
-    result_info = requirement.Evaluate(Mock(), {})
+    result_info = requirement.Evaluate({"key": "value"}, {})
 
     assert result_info.result == EvaluateResult.Success
     assert result_info.context == "testing"
@@ -108,7 +108,7 @@ def test_Success():
 # ----------------------------------------------------------------------
 def test_DoesNotApply():
     requirement = MyRequirement(Mock(), Mock(), Mock(), Mock(), Mock(), EvaluateResult.DoesNotApply, None)
-    result_info = requirement.Evaluate(Mock(), {})
+    result_info = requirement.Evaluate({"key": "value"}, {})
 
     assert result_info.result == EvaluateResult.DoesNotApply
     assert result_info.context is None

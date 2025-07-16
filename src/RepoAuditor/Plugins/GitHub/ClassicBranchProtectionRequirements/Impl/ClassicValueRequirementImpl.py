@@ -40,11 +40,11 @@ class ClassicValueRequirementImpl(ValueRequirementImpl):
 
             resolution = textwrap.dedent(
                 f"""\
-                1) Visit '{{session.github_url}}/settings/branches'
-                2) Locate the 'Branch protection rules' section
-                3) Click the 'Edit' button next to the branch '{{branch}}'
-                4) Locate the '{github_settings_section}' section
-                5) Ensure that {github_settings_value_display} is {{__expected_value}}
+                1) Visit '{{session.github_url}}/settings/branches'.
+                2) Locate the 'Branch protection rules' section.
+                3) Click the 'Edit' button next to the branch '{{branch}}'.
+                4) Locate the '{github_settings_section}' section.
+                5) Ensure that {github_settings_value_display} is '{{__expected_value}}'.
                 """,
             )
 

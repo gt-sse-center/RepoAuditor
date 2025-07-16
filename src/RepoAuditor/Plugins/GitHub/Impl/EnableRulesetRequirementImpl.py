@@ -61,13 +61,15 @@ class EnableRulesetRequirementImpl(EnableRequirementImpl):
     ) -> Requirement.EvaluateImplResult:
         expected_rule_enabled = self.enabled_by_default
 
-        if requirement_args[self.dynamic_arg_name]:
+        # The value of the dynamic arg doesn't matter as much as whether it was provided
+        if requirement_args.get(self.dynamic_arg_name, False):
             expected_rule_enabled = not expected_rule_enabled
             provide_rationale = False
         else:
             provide_rationale = True
 
-        query_data["__expected_value"] = "Enable" if expected_rule_enabled else "Disable"
+        query_data["__expected_value"] = expected_rule_enabled
+        query_data["__enabled_str"] = "Enable" if expected_rule_enabled else "Disable"
 
         # Get the rules for the specified branch
         rules = query_data.get("rules", [])

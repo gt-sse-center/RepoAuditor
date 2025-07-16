@@ -44,9 +44,9 @@ class StandardValueRequirementImpl(
 
             resolution = textwrap.dedent(
                 f"""\
-                1) Visit '{{session.github_url}}/{github_settings_url_suffix}'
-                2) Locate the '{github_settings_section}' section
-                3) Ensure that {github_settings_value_display} is set to {{__expected_value}}
+                1) Visit '{{session.github_url}}/{github_settings_url_suffix}'.
+                2) Locate the '{github_settings_section}' section.
+                3) Ensure that {github_settings_value_display} is set to '{{__expected_value}}'.
                 """,
             )
 

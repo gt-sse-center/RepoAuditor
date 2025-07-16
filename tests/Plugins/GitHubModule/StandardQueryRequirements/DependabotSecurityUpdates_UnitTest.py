@@ -37,28 +37,32 @@ class TestDependabotSecurityUpdates:
     def test_security_and_analysis_missing(self, requirement, query_data):
         """Test if `security_and_analysis` is missing"""
         query_data["standard"] = {}
-        result = requirement.Evaluate(query_data, requirement_args={})
+        requirement_args = {}
+        result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.Warning
         assert "Incomplete data was encountered" in result.context
 
     def test_dependabot_security_updates_missing(self, requirement, query_data):
         """Test if `dependabot_security_updates` is missing"""
         query_data["standard"]["security_and_analysis"] = {}
-        result = requirement.Evaluate(query_data, requirement_args={})
+        requirement_args = {}
+        result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.Warning
         assert "Incomplete data was encountered" in result.context
 
     def test_status_missing(self, requirement, query_data):
         """Test if `status` is missing"""
         query_data["standard"]["security_and_analysis"]["dependabot_security_updates"] = {}
-        result = requirement.Evaluate(query_data, requirement_args={})
+        requirement_args = {}
+        result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.Warning
         assert "Incomplete data was encountered" in result.context
 
     def test_status_none(self, requirement, query_data):
         """Test if `status` is None"""
         query_data["standard"]["security_and_analysis"]["dependabot_security_updates"]["status"] = None
-        result = requirement.Evaluate(query_data, requirement_args={})
+        requirement_args = {}
+        result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.Warning
         assert "Incomplete data was encountered" in result.context
 
