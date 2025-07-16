@@ -22,7 +22,7 @@ class SquashCommitMerge(StandardEnableRequirementImpl):
         super().__init__(
             "SquashCommitMerge",
             False,
-            "true",
+            "enabled",
             "settings",
             "Pull Requests",
             "Allow squash merging",

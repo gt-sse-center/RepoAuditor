@@ -22,7 +22,7 @@ class RequireSignedCommits(ClassicEnableRequirementImpl):
         super().__init__(
             "RequireSignedCommits",
             True,
-            "false",
+            "disabled",
             "Protect matching branches",
             "Require signed commits",
             lambda data: data["branch_protection_data"]["required_signatures"]["enabled"],

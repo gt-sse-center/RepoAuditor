@@ -45,7 +45,7 @@ class TestPrivate:
     def test_PublicRepo(self, requirement, query_data):
         """Test when repository is expected to be public."""
         query_data["standard"]["private"] = True
-        requirement_args = {"true": False}
+        requirement_args = {"enabled": False}
         result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.Error
         assert "The repository's visibility must be public." in result.context
@@ -53,7 +53,7 @@ class TestPrivate:
     def test_Incorrect(self, requirement, query_data):
         """Test when repository is expected to be private but is actually not."""
         query_data["standard"]["private"] = False
-        requirement_args = {"true": True}
+        requirement_args = {"enabled": True}
         result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.Error
         assert "The repository's visibility must be private." in result.context
@@ -61,13 +61,13 @@ class TestPrivate:
     def test_Successful(self, requirement, query_data):
         """Test when repository is private"""
         query_data["standard"]["private"] = True
-        requirement_args = {"true": True}
+        requirement_args = {"enabled": True}
         result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.Success
 
         # Test when repository is public
         query_data["standard"]["private"] = False
-        requirement_args = {"true": False}
+        requirement_args = {"enabled": False}
         result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.Success
 

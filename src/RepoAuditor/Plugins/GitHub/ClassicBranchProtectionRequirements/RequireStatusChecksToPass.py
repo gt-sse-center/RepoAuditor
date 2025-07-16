@@ -22,7 +22,7 @@ class RequireStatusChecksToPass(ClassicEnableRequirementImpl):
         super().__init__(
             "RequireStatusChecksToPass",
             True,
-            "false",
+            "disabled",
             "Protect matching branches",
             "Require status checks to pass before merging",
             lambda data: "required_status_checks" in data["branch_protection_data"],

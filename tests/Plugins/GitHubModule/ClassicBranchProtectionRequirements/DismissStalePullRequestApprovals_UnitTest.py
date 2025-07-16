@@ -70,6 +70,6 @@ class TestDismissStalePullRequestApprovals:
     def test_successful(self, requirement, query_data):
         """Test successful"""
         query_data["branch_protection_data"]["required_pull_request_reviews"]["dismiss_stale_reviews"] = True
-        requirement_args = {"false": False}
+        requirement_args = {"disabled": False}
         result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.Success
