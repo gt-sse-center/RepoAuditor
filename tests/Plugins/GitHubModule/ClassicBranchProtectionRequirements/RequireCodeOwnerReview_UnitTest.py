@@ -32,47 +32,47 @@ def requirement():
     return RequireCodeOwnerReview()
 
 
+@pytest.fixture(name="requirement_args")
+def requirement_args_fixture():
+    return {"enabled": True}
+
+
 class TestRequireCodeOwnerReview:
-    def test_required_pull_request_reviews_missing(self, requirement, query_data):
+    def test_required_pull_request_reviews_missing(self, requirement, query_data, requirement_args):
         """Test when `required_pull_request_reviews` is missing"""
         query_data["branch_protection_data"] = {}
-        requirement_args = {}
         result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.DoesNotApply
         assert result.context is None
 
-    def test_required_pull_request_reviews_none(self, requirement, query_data):
+    def test_required_pull_request_reviews_none(self, requirement, query_data, requirement_args):
         """Test when `required_pull_request_reviews` is None"""
         query_data["branch_protection_data"]["required_pull_request_reviews"] = None
-        requirement_args = {}
         result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.DoesNotApply
         assert result.context is None
 
-    def test_require_code_owner_reviews_missing(self, requirement, query_data):
+    def test_require_code_owner_reviews_missing(self, requirement, query_data, requirement_args):
         """Test when `require_code_owner_reviews` is missing"""
         query_data["branch_protection_data"]["required_pull_request_reviews"] = {}
-        requirement_args = {}
         result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.DoesNotApply
         assert result.context is None
 
-    def test_require_code_owner_reviews_none(self, requirement, query_data):
+    def test_require_code_owner_reviews_none(self, requirement, query_data, requirement_args):
         """Test when `require_code_owner_reviews` is None"""
         query_data["branch_protection_data"]["required_pull_request_reviews"][
             "require_code_owner_reviews"
         ] = None
-        requirement_args = {}
         result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.DoesNotApply
         assert result.context is None
 
-    def test_IncorrectValue(self, requirement, query_data):
+    def test_IncorrectValue(self, requirement, query_data, requirement_args):
         """Test incorrect"""
         query_data["branch_protection_data"]["required_pull_request_reviews"][
             "require_code_owner_reviews"
         ] = False
-        requirement_args = {"enabled": True}
         result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.Error
         assert (
@@ -80,11 +80,10 @@ class TestRequireCodeOwnerReview:
             in result.context
         )
 
-    def test_Successful(self, requirement, query_data):
+    def test_Successful(self, requirement, query_data, requirement_args):
         """Test successful"""
         query_data["branch_protection_data"]["required_pull_request_reviews"][
             "require_code_owner_reviews"
         ] = True
-        requirement_args = {"enabled": True}
         result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.Success

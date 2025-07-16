@@ -112,6 +112,9 @@ class Requirement(ABC):
         """Evaluate the requirements given the query data and specific arguments."""
         result_info = self._EvaluateImpl(query_data, requirement_args)
 
+        # Fill in templates in description string
+        self.description = self.description.format(**query_data)
+
         if result_info.result == EvaluateResult.Error:
             return Requirement.EvaluateInfo(
                 result_info.result,

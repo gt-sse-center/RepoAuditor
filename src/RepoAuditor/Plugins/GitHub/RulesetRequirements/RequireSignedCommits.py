@@ -20,6 +20,6 @@ class RequireSignedCommits(EnableRulesetRequirementImpl):
             github_ruleset_type="required_signatures",
             github_ruleset_value="Require signed commits",
             get_configuration_value_func=lambda rule: rule.get("type", "") == "required_signatures",
-            resolution="Enable commit signing requirement in repository rulesets",
+            resolution="{__enabled_str} commit signing requirement in repository rulesets",
             rationale="Signed commits ensure commit authenticity",
         )
