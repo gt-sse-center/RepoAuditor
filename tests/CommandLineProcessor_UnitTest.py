@@ -105,7 +105,7 @@ class MyRequirement(Requirement):
 
     # ----------------------------------------------------------------------
     @override
-    def GetDynamicArgDefinitions(self) -> dict[str, TypeDefinitionItemType]:
+    def GetDynamicArgDefinitions(self, _) -> dict[str, TypeDefinitionItemType]:
         if not self._has_dynamic_args:
             return {}
 

@@ -69,7 +69,7 @@ class TestSecretScanning:
     def test_Incorrect(self, requirement, query_data):
         """Test when result doesn't match expected value"""
         query_data["standard"]["security_and_analysis"]["secret_scanning"]["status"] = True
-        requirement_args = {"disabled": False}
+        requirement_args = {"no": False}
         result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.Error
         assert "'Secret protection' must be set to 'True' (it is currently set to 'False')." in result.context
@@ -77,6 +77,6 @@ class TestSecretScanning:
     def test_Successful(self, requirement, query_data):
         """Test successful"""
         query_data["standard"]["security_and_analysis"]["secret_scanning"]["status"] = True
-        requirement_args = {"disabled": True}
+        requirement_args = {"no": True}
         result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.Success

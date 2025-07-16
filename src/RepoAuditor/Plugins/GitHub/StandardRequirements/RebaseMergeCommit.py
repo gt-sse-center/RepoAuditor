@@ -22,7 +22,7 @@ class RebaseMergeCommit(StandardEnableRequirementImpl):
         super().__init__(
             "RebaseMergeCommit",
             False,
-            "enabled",
+            "yes",
             "settings",
             "Pull Requests",
             "Allow rebase merging",

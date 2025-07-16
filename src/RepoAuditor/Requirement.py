@@ -100,7 +100,7 @@ class Requirement(ABC):
 
     # ----------------------------------------------------------------------
     @extension
-    def GetDynamicArgDefinitions(self) -> dict[str, TypeDefinitionItemType]:
+    def GetDynamicArgDefinitions(self, argument_separator: str) -> dict[str, TypeDefinitionItemType]:  # noqa: ARG002
         """Return information about dynamic arguments that the requirement can consume (often from the command line)."""
 
         # No dynamic arguments by default

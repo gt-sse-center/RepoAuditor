@@ -60,10 +60,11 @@ class EnableRequirementImpl(Requirement):
 
     # ----------------------------------------------------------------------
     @override
-    def GetDynamicArgDefinitions(self) -> dict[str, TypeDefinitionItemType]:
+    def GetDynamicArgDefinitions(self, argument_separator: str) -> dict[str, TypeDefinitionItemType]:
         """Get the definitions for the arguments to this requirement."""
+        arg = f"no{argument_separator}{self.name}" if self.dynamic_arg_name == "no" else f"{self.name}"
         return {
-            self.dynamic_arg_name: (
+            arg: (
                 bool,
                 typer.Option(
                     False,

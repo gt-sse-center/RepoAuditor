@@ -125,10 +125,10 @@ def _HelpEpilog() -> str:
 
         for query in module.queries:
             for requirement in query.requirements:
-                for key, value in requirement.GetDynamicArgDefinitions().items():
+                for key, value in requirement.GetDynamicArgDefinitions(ARGUMENT_SEPARATOR).items():
                     requirement_arguments.append(
                         TypeInfoToString(
-                            f"--{module.name}{ARGUMENT_SEPARATOR}{requirement.name}{ARGUMENT_SEPARATOR}{key}",
+                            f"--{module.name}{ARGUMENT_SEPARATOR}{key}",
                             value,
                         ),
                     )

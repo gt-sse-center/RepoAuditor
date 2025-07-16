@@ -65,8 +65,8 @@ class TestValueRequirementImpl:
     def test_SuccessfulGetDynamicArgDefinitions(self, requirement):
         """Test successful with GetDynamicArgDefinitions/"""
         query_data = {"result": "42"}
-        requirement_args = {}
-        for key, value in requirement.GetDynamicArgDefinitions().items():
+        requirement_args = {"value": "42"}
+        for key, value in requirement.GetDynamicArgDefinitions("-").items():
             requirement_args[key] = value[1].default
         result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.Success

@@ -22,7 +22,7 @@ class DoNotAllowBypassSettings(ClassicEnableRequirementImpl):
         super().__init__(
             "DoNotAllowBypassSettings",
             True,
-            "disabled",
+            "no",
             "Protect matching branches",
             "Do not allow bypassing the above settings",
             lambda data: data["branch_protection_data"]["enforce_admins"]["enabled"],

@@ -72,7 +72,7 @@ class TestRequireUpToDateBranches:
     def test_IncorrectValue(self, requirement, query_data):
         """Test incorrect"""
         query_data["branch_protection_data"]["required_status_checks"]["strict"] = False
-        requirement_args = {"disabled": False}
+        requirement_args = {"no": False}
         result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.Error
         assert (
@@ -83,6 +83,6 @@ class TestRequireUpToDateBranches:
     def test_Successful(self, requirement, query_data):
         """Test successful"""
         query_data["branch_protection_data"]["required_status_checks"]["strict"] = False
-        requirement_args = {"disabled": True}
+        requirement_args = {"no": True}
         result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.Success
