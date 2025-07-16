@@ -59,25 +59,63 @@ class EnableRulesetRequirementImpl(EnableRequirementImpl):
         query_data: dict[str, Any],
         requirement_args: dict[str, Any],
     ) -> Requirement.EvaluateImplResult:
-        if requirement_args[self.dynamic_arg_name]:
-            # Get the rules for the specified branch
-            rules = query_data.get("rules", [])
+        expected_rule_enabled = self.enabled_by_default
 
-            for rule in rules:
-                if self.get_configuration_value_func(rule):
-                    # Get the ruleset associated with the rule
-                    ruleset = rule["ruleset"]
-                    return self.EvaluateImplResult(
-                        EvaluateResult.Success,
-                        f"Ruleset '{ruleset['name']}' enforces {self.github_settings_value}",
-                    )
+        if requirement_args[self.dynamic_arg_name]:
+            expected_rule_enabled = not expected_rule_enabled
+            provide_rationale = False
+        else:
+            provide_rationale = True
+
+        query_data["__expected_value"] = "Enable" if expected_rule_enabled else "Disable"
+
+        # Get the rules for the specified branch
+        rules = query_data.get("rules", [])
+
+        # Check if the rule is checked in the ruleset
+        rule_enabled = False
+        ruleset = None
+        for rule in rules:
+            # If the rule is present, it is checked
+            if self.get_configuration_value_func(rule):
+                rule_enabled = True
+                # Get the ruleset associated with the rule
+                ruleset = rule["ruleset"]
+                break
+
+        # If rule is active and we want it enabled,
+        # or rule is inactive and we want it disabled,
+        # return success.
+        if rule_enabled == expected_rule_enabled:
+            context = (
+                f"{self.github_settings_value} is enabled in Ruleset '{ruleset['name']}'"
+                if expected_rule_enabled
+                else f"{self.github_settings_value} is disabled"
+            )
+            return self.EvaluateImplResult(
+                EvaluateResult.Success,
+                context,
+            )
+
+        # When rule is active but we want it disabled
+        if rule_enabled:
+            assert expected_rule_enabled is False
 
             return self.EvaluateImplResult(
                 EvaluateResult.Error,
-                f"No active branch ruleset requiring {self.github_settings_value} found",
+                f"{self.github_settings_value} rule active in ruleset '{ruleset['name']}'."
+                f"It should be set to {expected_rule_enabled}",
                 provide_resolution=True,
-                provide_rationale=True,
+                provide_rationale=provide_rationale,
             )
 
-        # Requirement flag not set so DoesNotApply
-        return Requirement.EvaluateImplResult(EvaluateResult.DoesNotApply, None)
+        # Rule is inactive but we want it on
+        assert rule_enabled is False
+        assert expected_rule_enabled is True
+
+        return self.EvaluateImplResult(
+            EvaluateResult.Error,
+            f"No active branch ruleset requiring {self.github_settings_value} found",
+            provide_resolution=True,
+            provide_rationale=provide_rationale,
+        )
