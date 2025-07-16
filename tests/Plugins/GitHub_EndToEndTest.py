@@ -427,7 +427,7 @@ class TestRulesets:
 
     def test_RequireStatusChecks(self, pat_args, snapshot):
         """Test for requirement `Require status checks to pass` is disabled in the ruleset for the `main` branch."""
-        result = CliRunner().invoke(app, pat_args + ["--GitHub-RequireStatusChecks-disabled"])
+        result = CliRunner().invoke(app, pat_args + ["--GitHub-RequireStatusChecksRule-disabled"])
 
         # Since the repo ruleset has the requirement enabled,
         # we should get an error.
@@ -436,7 +436,7 @@ class TestRulesets:
 
     def test_RequirePullRequests(self, pat_args, snapshot):
         """Test for requirement `Require a pull request before merging` is disabled in the ruleset for the `main` branch."""
-        result = CliRunner().invoke(app, pat_args + ["--GitHub-RequirePullRequests-disabled"])
+        result = CliRunner().invoke(app, pat_args + ["--GitHub-RequirePullRequestsRule-disabled"])
 
         # Since the repo ruleset has the requirement disabled,
         # we should get an error.
@@ -445,7 +445,7 @@ class TestRulesets:
 
     def test_RequireSignedCommits(self, pat_args, snapshot):
         """Test for requirement `Require signed commits` is disabled in the ruleset for the `main` branch."""
-        result = CliRunner().invoke(app, pat_args + ["--GitHub-RequireSignedCommits-disabled"])
+        result = CliRunner().invoke(app, pat_args + ["--GitHub-RequireSignedCommitsRule-disabled"])
 
         # Since the repo ruleset has the requirement disabled,
         # we should get an error.
