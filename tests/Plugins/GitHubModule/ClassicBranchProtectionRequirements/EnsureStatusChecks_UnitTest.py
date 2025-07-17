@@ -35,7 +35,7 @@ def requirement():
 class TestEnsureStatusChecks:
     def test_disabled(self, requirement, query_data):
         """Test disabled requirement"""
-        requirement_args = {"disable": True}
+        requirement_args = {"disabled": True}
         result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.DoesNotApply
         assert "The status check requirement has been explicitly disabled." in result.context
@@ -43,7 +43,7 @@ class TestEnsureStatusChecks:
     def test_required_status_checks_missing(self, requirement, query_data):
         """Test when `required_status_checks` is missing"""
         query_data["branch_protection_data"] = {}
-        requirement_args = {"disable": False}
+        requirement_args = {"disabled": False}
         result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.DoesNotApply
         assert result.context is None
@@ -51,7 +51,7 @@ class TestEnsureStatusChecks:
     def test_required_status_checks_none(self, requirement, query_data):
         """Test when `required_status_checks` is None"""
         query_data["branch_protection_data"] = {"required_status_checks": None}
-        requirement_args = {"disable": False}
+        requirement_args = {"disabled": False}
         result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.DoesNotApply
         assert result.context is None
@@ -59,7 +59,7 @@ class TestEnsureStatusChecks:
     def test_checks_missing(self, requirement, query_data):
         """Test when `checks` is missing"""
         query_data["branch_protection_data"]["required_status_checks"] = {}
-        requirement_args = {"disable": False}
+        requirement_args = {"disabled": False}
         result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.Error
         assert "No status checks are configured." in result.context
@@ -67,7 +67,7 @@ class TestEnsureStatusChecks:
     def test_checks_none(self, requirement, query_data):
         """Test when `checks` is None"""
         query_data["branch_protection_data"]["required_status_checks"] = {"checks": None}
-        requirement_args = {"disable": False}
+        requirement_args = {"disabled": False}
         result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.Error
         assert "No status checks are configured." in result.context
@@ -75,7 +75,7 @@ class TestEnsureStatusChecks:
     def test_Successful(self, requirement, query_data):
         """Test successful"""
         query_data["branch_protection_data"]["required_status_checks"]["checks"] = ["check1", "check2"]
-        requirement_args = {"disable": False}
+        requirement_args = {"disabled": False}
         result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.Success
 
