@@ -12,8 +12,8 @@ from RepoAuditor.Plugins.GitHub.StandardRequirements.Description import Descript
 from RepoAuditor.Requirement import EvaluateResult
 
 
-@pytest.fixture
-def query_data(session):
+@pytest.fixture(name="query_data")
+def query_data_fixture(session):
     return {
         "session": session,
         "standard": {
@@ -22,12 +22,14 @@ def query_data(session):
     }
 
 
-@pytest.fixture
-def requirement():
+@pytest.fixture(name="requirement")
+def requirement_fixture():
     return Description()
 
 
 class TestDescription:
+    """Tests for the Description requirement class."""
+
     def test_description_missing(self, requirement, query_data):
         """Test if `description` is missing"""
         query_data["standard"] = {}

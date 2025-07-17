@@ -27,10 +27,15 @@ class MockTemporaryDirectory:
 
 @pytest.fixture(autouse=True)
 def patch_temp_directory(monkeypatch):
+    """Prevent creation of TemporaryDirectory within GetData calls,
+    so we don't need to perform cleanup.
+    """
     monkeypatch.delattr("tempfile.TemporaryDirectory")
 
 
 class TestCommunityStandardsQuery:
+    """Tests for CommunityStandardsQuery class."""
+
     def test_GetData(self, module_data, monkeypatch):
         """Test the GetData method."""
         monkeypatch.setattr(
@@ -41,7 +46,6 @@ class TestCommunityStandardsQuery:
 
         def mock_clone_from(github_url, repo_dirname, branch="main"):
             """A mocked clone_from method for the git.Repo class."""
-            pass
 
         monkeypatch.setattr(
             Repo,

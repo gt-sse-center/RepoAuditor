@@ -12,8 +12,8 @@ from RepoAuditor.Plugins.GitHub.DefaultBranchRequirements.Protected import Prote
 from RepoAuditor.Requirement import EvaluateResult
 
 
-@pytest.fixture
-def query_data(session):
+@pytest.fixture(name="query_data")
+def query_data_fixture(session):
     return {
         "session": session,
         "default_branch_data": {
@@ -22,12 +22,14 @@ def query_data(session):
     }
 
 
-@pytest.fixture
-def requirement():
+@pytest.fixture(name="requirement")
+def requirement_fixture():
     return Protected()
 
 
 class TestProtected:
+    """Tests for the Protected requirement class."""
+
     def test_Incomplete(self, requirement, query_data):
         """Test for incomplete result"""
         query_data["default_branch_data"] = {}
