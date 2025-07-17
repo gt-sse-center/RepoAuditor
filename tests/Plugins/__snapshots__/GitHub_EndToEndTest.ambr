@@ -592,11 +592,11 @@
   │ Errors:         1 (2.56%)                                                                                                                                                        │
   │ Skipped:        1 (2.56%)                                                                                                                                                        │
   │                                                                                                                                                                                  │
-  │ [31m╭─[0m[31m [Error] RequirePullRequests [0m[31m───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m[31m─╮[0m │
+  │ [31m╭─[0m[31m [Error] RequirePullRequestsRule [0m[31m───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m[31m─╮[0m │
   │ [31m│[0m                                                                                                                                                                              [31m│[0m │
-  │ [31m│[0m Validates that 'Pull Requests' is set to the expected value.                                                                                                                 [31m│[0m │
+  │ [31m│[0m Validates that 'Require a pull request before merging' is set to the expected value.                                                                                         [31m│[0m │
   │ [31m│[0m                                                                                                                                                                              [31m│[0m │
-  │ [31m│[0m ERROR: No active branch ruleset requiring 'Pull Requests' found                                                                                                              [31m│[0m │
+  │ [31m│[0m ERROR: No active branch ruleset with 'Require a pull request before merging' found                                                                                           [31m│[0m │
   │ [31m│[0m                                                                                                                                                                              [31m│[0m │
   │ [31m│[0m Resolution                                                                                                                                                                   [31m│[0m │
   │ [31m│[0m ----------                                                                                                                                                                   [31m│[0m │
@@ -632,11 +632,11 @@
   │ Errors:         1 (2.56%)                                                                                                                                                        │
   │ Skipped:        1 (2.56%)                                                                                                                                                        │
   │                                                                                                                                                                                  │
-  │ [31m╭─[0m[31m [Error] RequireSignedCommits [0m[31m──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m[31m─╮[0m │
+  │ [31m╭─[0m[31m [Error] RequireSignedCommitsRule [0m[31m──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m[31m─╮[0m │
   │ [31m│[0m                                                                                                                                                                              [31m│[0m │
-  │ [31m│[0m Validates that 'Signed Commits' is set to the expected value.                                                                                                                [31m│[0m │
+  │ [31m│[0m Validates that 'Require signed commits' is set to the expected value.                                                                                                        [31m│[0m │
   │ [31m│[0m                                                                                                                                                                              [31m│[0m │
-  │ [31m│[0m ERROR: No active branch ruleset requiring 'Signed Commits' found                                                                                                             [31m│[0m │
+  │ [31m│[0m ERROR: No active branch ruleset with 'Require signed commits' found                                                                                                          [31m│[0m │
   │ [31m│[0m                                                                                                                                                                              [31m│[0m │
   │ [31m│[0m Resolution                                                                                                                                                                   [31m│[0m │
   │ [31m│[0m ----------                                                                                                                                                                   [31m│[0m │
@@ -672,11 +672,11 @@
   │ Errors:         1 (2.56%)                                                                                                                                                        │
   │ Skipped:        1 (2.56%)                                                                                                                                                        │
   │                                                                                                                                                                                  │
-  │ [31m╭─[0m[31m [Error] RequireStatusChecks [0m[31m───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m[31m─╮[0m │
+  │ [31m╭─[0m[31m [Error] RequireStatusChecksRule [0m[31m───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m[31m─╮[0m │
   │ [31m│[0m                                                                                                                                                                              [31m│[0m │
-  │ [31m│[0m Validates that 'Status Checks' is set to the expected value.                                                                                                                 [31m│[0m │
+  │ [31m│[0m Validates that 'Require status checks to pass' is set to the expected value.                                                                                                 [31m│[0m │
   │ [31m│[0m                                                                                                                                                                              [31m│[0m │
-  │ [31m│[0m ERROR: No active branch ruleset requiring 'Status Checks' found                                                                                                              [31m│[0m │
+  │ [31m│[0m ERROR: No active branch ruleset with 'Require status checks to pass' found                                                                                                   [31m│[0m │
   │ [31m│[0m                                                                                                                                                                              [31m│[0m │
   │ [31m│[0m Resolution                                                                                                                                                                   [31m│[0m │
   │ [31m│[0m ----------                                                                                                                                                                   [31m│[0m │

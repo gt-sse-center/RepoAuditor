@@ -96,7 +96,7 @@ class EnableRulesetRequirementImpl(EnableRequirementImpl):
 
         return self.EvaluateImplResult(
             EvaluateResult.Error,
-            f"No active branch ruleset requiring {self.github_settings_value} found",
+            f"No active branch ruleset with {self.github_settings_value} found",
             provide_resolution=True,
             provide_rationale=provide_rationale,
         )

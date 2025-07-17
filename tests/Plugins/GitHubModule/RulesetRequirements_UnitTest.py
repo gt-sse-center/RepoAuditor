@@ -84,7 +84,7 @@ class TestRequirePullRequests:
         context = {"rules": []}
         result = requirement.Evaluate(context, {"disabled": False})
         assert result.result == EvaluateResult.Error
-        assert "No active branch ruleset requiring 'Pull Requests' found" in result.context
+        assert f"No active branch ruleset with {requirement.github_settings_value} found" in result.context
 
 
 # ----------------------------------------------------------------------
@@ -144,7 +144,7 @@ class TestRequireSignedCommits:
         context = {"rules": []}
         result = requirement.Evaluate(context, {"disabled": False})
         assert result.result == EvaluateResult.Error
-        assert "No active branch ruleset requiring 'Signed Commits' found" in result.context
+        assert f"No active branch ruleset with {requirement.github_settings_value} found" in result.context
 
 
 # ----------------------------------------------------------------------
@@ -187,4 +187,4 @@ class TestRequireStatusChecks:
         context = {"rules": []}
         result = requirement.Evaluate(context, {"disabled": False})
         assert result.result == EvaluateResult.Error
-        assert "No active branch ruleset requiring 'Status Checks' found" in result.context
+        assert f"No active branch ruleset with {requirement.github_settings_value} found" in result.context
