@@ -8,7 +8,7 @@
 
 import pytest
 
-from RepoAuditor.Plugins.GitHub.StandardQueryRequirements.SecretScanning import SecretScanning
+from RepoAuditor.Plugins.GitHub.StandardRequirements.SecretScanning import SecretScanning
 from RepoAuditor.Requirement import EvaluateResult
 
 

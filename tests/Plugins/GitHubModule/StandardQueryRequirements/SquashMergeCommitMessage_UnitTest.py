@@ -8,7 +8,7 @@
 
 import pytest
 
-from RepoAuditor.Plugins.GitHub.StandardQueryRequirements.SquashMergeCommitMessage import (
+from RepoAuditor.Plugins.GitHub.StandardRequirements.SquashMergeCommitMessage import (
     SquashMergeCommitMessage,
 )
 from RepoAuditor.Requirement import EvaluateResult

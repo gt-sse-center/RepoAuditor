@@ -4,42 +4,42 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the SquashCommitMerge object."""
+"""Contains the RebaseMergeCommit object."""
 
 import textwrap
 
-from RepoAuditor.Plugins.GitHub.StandardQueryRequirements.Impl.StandardEnableRequirementImpl import (
+from RepoAuditor.Plugins.GitHub.StandardRequirements.Impl.StandardEnableRequirementImpl import (
     StandardEnableRequirementImpl,
 )
 
 
 # ----------------------------------------------------------------------
-class SquashCommitMerge(StandardEnableRequirementImpl):
-    """Allow squash merging."""
+class RebaseMergeCommit(StandardEnableRequirementImpl):
+    """Allow rebase merging requirement."""
 
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
         super().__init__(
-            "SquashCommitMerge",
+            "RebaseMergeCommit",
             False,
             "true",
             "settings",
             "Pull Requests",
-            "Allow squash merging",
-            lambda data: data["standard"].get("allow_squash_merge", None),
+            "Allow rebase merging",
+            lambda data: data["standard"].get("allow_rebase_merge", None),
             textwrap.dedent(
                 """\
-                The default behavior is to not allow squash merging.
+                The default behavior is to not allow rebase merging.
 
                 Reasons for this Default
                 ------------------------
-                - When performing a Squash & Merge, GitHub creates a new merge commit with its key.
-                This makes it difficult to verify author signatures when looking at the commit history.
+                - Rebase merging is not compatible with signed commits, as GitHub creates a new commit when rebasing.
 
                 Reasons to Override this Default
                 --------------------------------
                 - Your repository does not require signatures.
-                - You want to ensure that single-commit-changes are merged into the mainline branch to simplify the branch's history.
+                - You want GitHub to rebase for you as part of the pull request process when changes by others are frequent or the
+                  pull request process can last for an extended period of time.
                 """,
             ),
         )

@@ -4,41 +4,40 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the WebCommitSignoff object."""
+"""Contains the TemplateRepository object."""
 
 import textwrap
 
-from RepoAuditor.Plugins.GitHub.StandardQueryRequirements.Impl.StandardEnableRequirementImpl import (
+from RepoAuditor.Plugins.GitHub.StandardRequirements.Impl.StandardEnableRequirementImpl import (
     StandardEnableRequirementImpl,
 )
 
 
 # ----------------------------------------------------------------------
-class WebCommitSignoff(StandardEnableRequirementImpl):
-    """Require contributors to sign off on web-based commits."""
+class TemplateRepository(StandardEnableRequirementImpl):
+    """Template repository."""
 
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
         super().__init__(
-            "WebCommitSignoff",
-            True,
-            "false",
+            "TemplateRepository",
+            False,
+            "true",
             "settings",
             "General",
-            "Require contributors to sign off on web-based commits",
-            lambda data: data["standard"].get("web_commit_signoff_required", None),
+            "Template repository",
+            lambda data: data["standard"].get("is_template", None),
             rationale=textwrap.dedent(
                 """\
-                The default behavior is to require contributors to sign off on web-based commits.
+                The default behavior is that this is not a template repository.
 
                 Reasons for this Default
                 ------------------------
-                - All changes (regardless of where they were made) should go through the same validation process.
+                - Most repositories are not templates.
 
                 Reasons to Override this Default
                 --------------------------------
-                - Changes made via the web interface are considered to be benign and should not be subject to
-                  the standard validation process.
+                - Your repository is a template repository.
                 """,
             ),
         )

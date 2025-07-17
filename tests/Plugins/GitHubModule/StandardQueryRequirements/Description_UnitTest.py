@@ -8,7 +8,7 @@
 
 import pytest
 
-from RepoAuditor.Plugins.GitHub.StandardQueryRequirements.Description import Description
+from RepoAuditor.Plugins.GitHub.StandardRequirements.Description import Description
 from RepoAuditor.Requirement import EvaluateResult
 
 

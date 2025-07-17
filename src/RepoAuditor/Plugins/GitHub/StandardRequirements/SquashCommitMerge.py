@@ -4,40 +4,42 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the AutoMerge object."""
+"""Contains the SquashCommitMerge object."""
 
 import textwrap
 
-from RepoAuditor.Plugins.GitHub.StandardQueryRequirements.Impl.StandardEnableRequirementImpl import (
+from RepoAuditor.Plugins.GitHub.StandardRequirements.Impl.StandardEnableRequirementImpl import (
     StandardEnableRequirementImpl,
 )
 
 
 # ----------------------------------------------------------------------
-class AutoMerge(StandardEnableRequirementImpl):
-    """Requirement to enable auto-merge for pull requests."""
+class SquashCommitMerge(StandardEnableRequirementImpl):
+    """Allow squash merging."""
 
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
         super().__init__(
-            "AutoMerge",
-            True,
-            "false",
+            "SquashCommitMerge",
+            False,
+            "true",
             "settings",
             "Pull Requests",
-            "Allow auto-merge",
-            lambda data: data["standard"].get("allow_auto_merge", None),
+            "Allow squash merging",
+            lambda data: data["standard"].get("allow_squash_merge", None),
             textwrap.dedent(
                 """\
-                The default behavior is to enable the option to auto-merge once all the required status checks associated with a pull request have passed.
+                The default behavior is to not allow squash merging.
 
                 Reasons for this Default
                 ------------------------
-                - Reduces mean resolution time by triggering the merge once all the required status checks pass.
+                - When performing a Squash & Merge, GitHub creates a new merge commit with its key.
+                This makes it difficult to verify author signatures when looking at the commit history.
 
                 Reasons to Override this Default
                 --------------------------------
-                <unknown>
+                - Your repository does not require signatures.
+                - You want to ensure that single-commit-changes are merged into the mainline branch to simplify the branch's history.
                 """,
             ),
         )

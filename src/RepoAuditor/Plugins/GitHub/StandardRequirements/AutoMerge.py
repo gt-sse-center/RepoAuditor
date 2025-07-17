@@ -4,40 +4,40 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the TemplateRepository object."""
+"""Contains the AutoMerge object."""
 
 import textwrap
 
-from RepoAuditor.Plugins.GitHub.StandardQueryRequirements.Impl.StandardEnableRequirementImpl import (
+from RepoAuditor.Plugins.GitHub.StandardRequirements.Impl.StandardEnableRequirementImpl import (
     StandardEnableRequirementImpl,
 )
 
 
 # ----------------------------------------------------------------------
-class TemplateRepository(StandardEnableRequirementImpl):
-    """Template repository."""
+class AutoMerge(StandardEnableRequirementImpl):
+    """Requirement to enable auto-merge for pull requests."""
 
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
         super().__init__(
-            "TemplateRepository",
-            False,
-            "true",
+            "AutoMerge",
+            True,
+            "false",
             "settings",
-            "General",
-            "Template repository",
-            lambda data: data["standard"].get("is_template", None),
-            rationale=textwrap.dedent(
+            "Pull Requests",
+            "Allow auto-merge",
+            lambda data: data["standard"].get("allow_auto_merge", None),
+            textwrap.dedent(
                 """\
-                The default behavior is that this is not a template repository.
+                The default behavior is to enable the option to auto-merge once all the required status checks associated with a pull request have passed.
 
                 Reasons for this Default
                 ------------------------
-                - Most repositories are not templates.
+                - Reduces mean resolution time by triggering the merge once all the required status checks pass.
 
                 Reasons to Override this Default
                 --------------------------------
-                - Your repository is a template repository.
+                <unknown>
                 """,
             ),
         )

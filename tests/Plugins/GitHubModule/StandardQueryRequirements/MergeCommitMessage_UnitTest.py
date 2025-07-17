@@ -8,7 +8,7 @@
 
 import pytest
 
-from RepoAuditor.Plugins.GitHub.StandardQueryRequirements.MergeCommitMessage import MergeCommitMessage
+from RepoAuditor.Plugins.GitHub.StandardRequirements.MergeCommitMessage import MergeCommitMessage
 from RepoAuditor.Requirement import EvaluateResult
 
 

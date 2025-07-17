@@ -4,59 +4,58 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the SecretScanningPushProtection object."""
+"""Contains the License object."""
 
 import textwrap
 from typing import Any, Optional
 
-from RepoAuditor.Plugins.GitHub.StandardQueryRequirements.Impl.StandardEnableRequirementImpl import (
-    StandardEnableRequirementImpl,
+from RepoAuditor.Plugins.GitHub.StandardRequirements.Impl.StandardValueRequirementImpl import (
+    StandardValueRequirementImpl,
 )
 
 
 # ----------------------------------------------------------------------
-class SecretScanningPushProtection(StandardEnableRequirementImpl):
-    """Push protection for secret scanning."""
+class License(StandardValueRequirementImpl):
+    """Default License as MIT Requirement."""
 
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
         super().__init__(
-            "SecretScanningPushProtection",
-            True,
-            "disabled",
-            "settings/security_analysis",
-            "Secret Protection",
-            "Push protection",
+            "License",
+            "MIT License",
+            "settings",
+            None,
+            None,
             _GetValue,
             textwrap.dedent(
                 """\
-                The default behavior is to ensure secret scanning push protection is enabled.
+                The default behavior is to use the MIT License.
 
                 Reasons for this Default
                 ------------------------
-                - Secrets should not be checked into code.
+                - The MIT License is a permissive license that allows for the use of the code in any way and
+                  a reasonable default for open source software.
 
                 Reasons to Override this Default
                 --------------------------------
-                <unknown>
+                - There are many good open source licenses and the MIT License may not be appropriate in all scenarios.
                 """,
             ),
-            unset_set_terminology=("disabled", "enabled"),
         )
 
 
 # ----------------------------------------------------------------------
 # ----------------------------------------------------------------------
 # ----------------------------------------------------------------------
-def _GetValue(data: dict[str, Any]) -> Optional[bool]:
-    result = (
-        data["standard"]
-        .get("security_and_analysis", {})
-        .get("secret_scanning_push_protection", {})
-        .get("status", None)
-    )
+def _GetValue(data: dict[str, Any]) -> Optional[str]:
+    # Differentiate between "license is not set" and "license cannot be returned due to PAT"
+    data = data["standard"]
 
-    if result is None:
+    if "license" not in data:
         return None
 
-    return result == "enabled"
+    data = data["license"]
+    if data is None:
+        return ""
+
+    return data["name"]

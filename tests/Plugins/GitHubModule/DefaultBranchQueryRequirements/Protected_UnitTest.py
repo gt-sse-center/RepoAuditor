@@ -8,7 +8,7 @@
 
 import pytest
 
-from RepoAuditor.Plugins.GitHub.DefaultBranchQueryRequirements.Protected import Protected
+from RepoAuditor.Plugins.GitHub.DefaultBranchRequirements.Protected import Protected
 from RepoAuditor.Requirement import EvaluateResult
 
 
