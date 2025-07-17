@@ -4,33 +4,33 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the SupportDiscussions object."""
+"""Contains the SupportWikis object."""
 
 import textwrap
 
-from RepoAuditor.Plugins.GitHub.StandardQueryRequirements.Impl.StandardEnableRequirementImpl import (
+from RepoAuditor.Plugins.GitHub.StandardRequirements.Impl.StandardEnableRequirementImpl import (
     StandardEnableRequirementImpl,
 )
 
 
 # ----------------------------------------------------------------------
-class SupportDiscussions(StandardEnableRequirementImpl):
-    """Support for Discussions."""
+class SupportWikis(StandardEnableRequirementImpl):
+    """Support for Wikis."""
 
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
         super().__init__(
-            "SupportDiscussions",
-            False,
-            "true",
+            "SupportWikis",
+            True,
+            "false",
             "settings",
             "Features",
-            "Discussions",
-            lambda data: data["standard"].get("has_discussions", None),
+            "Wikis",
+            lambda data: data["standard"].get("has_wiki", None),
             rationale=textwrap.dedent(
                 """\
                 No rationale for this default.
                 """,
             ),
-            subject="Support for Discussions",
+            subject="Support for Wikis",
         )

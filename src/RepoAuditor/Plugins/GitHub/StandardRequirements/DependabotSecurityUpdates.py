@@ -4,41 +4,42 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the SecretScanning object."""
+"""Contains the DependabotSecurityUpdates object."""
 
 import textwrap
 from typing import Any, Optional
 
-from RepoAuditor.Plugins.GitHub.StandardQueryRequirements.Impl.StandardEnableRequirementImpl import (
+from RepoAuditor.Plugins.GitHub.StandardRequirements.Impl.StandardEnableRequirementImpl import (
     StandardEnableRequirementImpl,
 )
 
 
 # ----------------------------------------------------------------------
-class SecretScanning(StandardEnableRequirementImpl):
-    """Secret scanning enable requirement."""
+class DependabotSecurityUpdates(StandardEnableRequirementImpl):
+    """Requirement of Dependabot security updates."""
 
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
         super().__init__(
-            "SecretScanning",
+            "DependabotSecurityUpdates",
             True,
             "disabled",
             "settings/security_analysis",
-            "Secret Protection",
-            "Secret protection",
+            "Dependabot",
+            "Dependabot security updates",
             _GetValue,
             textwrap.dedent(
                 """\
-                The default behavior is to ensure secret protection is enabled.
+                The default behavior is to ensure Dependabot security updates are enabled.
 
                 Reasons for this Default
                 ------------------------
-                - Secrets should not be checked into code.
+                - Increases the overall security of the repository by automatically applying security updates.
 
                 Reasons to Override this Default
                 --------------------------------
-                <unknown>
+                - Dependabot security updates are not supported for the repository or by the organization.
+                - A manual test pass is required before changes can be deployed.
                 """,
             ),
             unset_set_terminology=("disabled", "enabled"),
@@ -49,7 +50,12 @@ class SecretScanning(StandardEnableRequirementImpl):
 # ----------------------------------------------------------------------
 # ----------------------------------------------------------------------
 def _GetValue(data: dict[str, Any]) -> Optional[bool]:
-    result = data["standard"].get("security_and_analysis", {}).get("secret_scanning", {}).get("status", None)
+    result = (
+        data["standard"]
+        .get("security_and_analysis", {})
+        .get("dependabot_security_updates", {})
+        .get("status", None)
+    )
 
     if result is None:
         return None

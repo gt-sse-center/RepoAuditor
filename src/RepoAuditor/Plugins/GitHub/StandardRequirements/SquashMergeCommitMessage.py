@@ -4,50 +4,50 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the MergeCommitMessage object."""
+"""Contains the SquashMergeCommitMessage object."""
 
 import textwrap
 from typing import Any
 
-from RepoAuditor.Plugins.GitHub.StandardQueryRequirements.Impl.StandardValueRequirementImpl import (
+from RepoAuditor.Plugins.GitHub.StandardRequirements.Impl.StandardValueRequirementImpl import (
     DoesNotApplyResult,
     StandardValueRequirementImpl,
 )
 
 
 # ----------------------------------------------------------------------
-class MergeCommitMessage(StandardValueRequirementImpl):
-    """Allow merge commit message requirement."""
+class SquashMergeCommitMessage(StandardValueRequirementImpl):
+    """Set default commit message for squash merges."""
 
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
         super().__init__(
-            "MergeCommitMessage",
-            "BLANK",
+            "SquashMergeCommitMessage",
+            "COMMIT_MESSAGES",
             "settings",
             "Pull Requests",
-            "Allow merge commits -> Default...",
+            "Allow squash merging -> Default...",
             _GetValue,
             textwrap.dedent(
                 """\
                 Available values:
 
-                PR_TITLE [Default message]
-                    Pull Request number and head branch on the first line; pull request title on the third line
-
                 BLANK [Default to pull request title]
                     Pull Request title and number on the first line.
 
-                PR_BODY [Default to pull request title and description]
-                    Pull Request title and number on the first line; pull request description starting on the third line.
+                COMMIT_MESSAGES [Default to pull request title and commit details]
+                    Commit title and...
+                        [Single Commit] ...commit message
+                        [Multiple Commits] ...pull request title and number and list of commits
 
-            The default setting is BLANK.
+                PR_BODY [Default to pull request title and description]
+                    Pull Request title and number on the first line; commit description starting on the third line.
+
+            The default setting is COMMIT_MESSAGES.
 
             Reasons for this Default
             ------------------------
-            - Reduce redundant information by only duplicating the title of the commit(s).
-            - PR_TITLE includes the head branch name, which oftentimes is not relevant information to preserve over time.
-            - PR_BODY duplicates the title and description of the commit(s).
+            - Preserves the information in the original commits.
 
             Reasons to Override this Default
             --------------------------------
@@ -63,11 +63,11 @@ class MergeCommitMessage(StandardValueRequirementImpl):
 def _GetValue(data: dict[str, Any]) -> str | DoesNotApplyResult | None:
     data = data["standard"]
 
-    result = data.get("allow_merge_commit", None)
+    result = data.get("allow_squash_merge", None)
     if result is None:
         return None
 
     if not result:
-        return DoesNotApplyResult("Merge commits are not enabled.")
+        return DoesNotApplyResult("Squash merge commits are not enabled.")
 
-    return data.get("merge_commit_message", None)
+    return data.get("squash_merge_commit_message", None)

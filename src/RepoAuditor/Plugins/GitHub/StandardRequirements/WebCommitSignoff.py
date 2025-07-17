@@ -4,40 +4,41 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the MergeCommit object."""
+"""Contains the WebCommitSignoff object."""
 
 import textwrap
 
-from RepoAuditor.Plugins.GitHub.StandardQueryRequirements.Impl.StandardEnableRequirementImpl import (
+from RepoAuditor.Plugins.GitHub.StandardRequirements.Impl.StandardEnableRequirementImpl import (
     StandardEnableRequirementImpl,
 )
 
 
 # ----------------------------------------------------------------------
-class MergeCommit(StandardEnableRequirementImpl):
-    """Allow merge commits requirement."""
+class WebCommitSignoff(StandardEnableRequirementImpl):
+    """Require contributors to sign off on web-based commits."""
 
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
         super().__init__(
-            "MergeCommit",
+            "WebCommitSignoff",
             True,
             "false",
             "settings",
-            "Pull Requests",
-            "Allow merge commits",
-            lambda data: data["standard"].get("allow_merge_commit", None),
-            textwrap.dedent(
+            "General",
+            "Require contributors to sign off on web-based commits",
+            lambda data: data["standard"].get("web_commit_signoff_required", None),
+            rationale=textwrap.dedent(
                 """\
-                The default behavior is to allow merge commits.
+                The default behavior is to require contributors to sign off on web-based commits.
 
                 Reasons for this Default
                 ------------------------
-                - Merge commits are the most basic way to merge from a branch into another branch.
+                - All changes (regardless of where they were made) should go through the same validation process.
 
                 Reasons to Override this Default
                 --------------------------------
-                <unknown>
+                - Changes made via the web interface are considered to be benign and should not be subject to
+                  the standard validation process.
                 """,
             ),
         )

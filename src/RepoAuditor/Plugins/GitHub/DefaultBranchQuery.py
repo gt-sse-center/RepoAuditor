@@ -10,7 +10,7 @@ from typing import Any, Optional
 
 from dbrownell_Common.Types import override  # type: ignore[import-untyped]
 
-from RepoAuditor.Plugins.GitHub.DefaultBranchQueryRequirements.Protected import Protected
+from RepoAuditor.Plugins.GitHub.DefaultBranchRequirements.Protected import Protected
 from RepoAuditor.Query import ExecutionStyle, Query
 
 

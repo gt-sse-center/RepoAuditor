@@ -8,7 +8,7 @@
 
 import pytest
 
-from RepoAuditor.Plugins.GitHub.StandardQueryRequirements.DependabotSecurityUpdates import (
+from RepoAuditor.Plugins.GitHub.StandardRequirements.DependabotSecurityUpdates import (
     DependabotSecurityUpdates,
 )
 from RepoAuditor.Requirement import EvaluateResult

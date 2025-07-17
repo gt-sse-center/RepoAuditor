@@ -170,35 +170,35 @@ from typing import Any, Optional
 
 from dbrownell_Common.Types import override  # type: ignore[import-untyped]
 
-from RepoAuditor.Plugins.GitHub.StandardQueryRequirements.AutoMerge import AutoMerge
-from RepoAuditor.Plugins.GitHub.StandardQueryRequirements.DefaultBranch import DefaultBranch
-from RepoAuditor.Plugins.GitHub.StandardQueryRequirements.DeleteHeadBranches import DeleteHeadBranches
-from RepoAuditor.Plugins.GitHub.StandardQueryRequirements.DependabotSecurityUpdates import (
+from RepoAuditor.Plugins.GitHub.StandardRequirements.AutoMerge import AutoMerge
+from RepoAuditor.Plugins.GitHub.StandardRequirements.DefaultBranch import DefaultBranch
+from RepoAuditor.Plugins.GitHub.StandardRequirements.DeleteHeadBranches import DeleteHeadBranches
+from RepoAuditor.Plugins.GitHub.StandardRequirements.DependabotSecurityUpdates import (
     DependabotSecurityUpdates,
 )
-from RepoAuditor.Plugins.GitHub.StandardQueryRequirements.Description import Description
-from RepoAuditor.Plugins.GitHub.StandardQueryRequirements.License import License
-from RepoAuditor.Plugins.GitHub.StandardQueryRequirements.MergeCommit import MergeCommit
-from RepoAuditor.Plugins.GitHub.StandardQueryRequirements.MergeCommitMessage import MergeCommitMessage
-from RepoAuditor.Plugins.GitHub.StandardQueryRequirements.Private import Private
-from RepoAuditor.Plugins.GitHub.StandardQueryRequirements.RebaseMergeCommit import RebaseMergeCommit
-from RepoAuditor.Plugins.GitHub.StandardQueryRequirements.SecretScanning import SecretScanning
-from RepoAuditor.Plugins.GitHub.StandardQueryRequirements.SecretScanningPushProtection import (
+from RepoAuditor.Plugins.GitHub.StandardRequirements.Description import Description
+from RepoAuditor.Plugins.GitHub.StandardRequirements.License import License
+from RepoAuditor.Plugins.GitHub.StandardRequirements.MergeCommit import MergeCommit
+from RepoAuditor.Plugins.GitHub.StandardRequirements.MergeCommitMessage import MergeCommitMessage
+from RepoAuditor.Plugins.GitHub.StandardRequirements.Private import Private
+from RepoAuditor.Plugins.GitHub.StandardRequirements.RebaseMergeCommit import RebaseMergeCommit
+from RepoAuditor.Plugins.GitHub.StandardRequirements.SecretScanning import SecretScanning
+from RepoAuditor.Plugins.GitHub.StandardRequirements.SecretScanningPushProtection import (
     SecretScanningPushProtection,
 )
-from RepoAuditor.Plugins.GitHub.StandardQueryRequirements.SquashCommitMerge import SquashCommitMerge
-from RepoAuditor.Plugins.GitHub.StandardQueryRequirements.SquashMergeCommitMessage import (
+from RepoAuditor.Plugins.GitHub.StandardRequirements.SquashCommitMerge import SquashCommitMerge
+from RepoAuditor.Plugins.GitHub.StandardRequirements.SquashMergeCommitMessage import (
     SquashMergeCommitMessage,
 )
-from RepoAuditor.Plugins.GitHub.StandardQueryRequirements.SuggestUpdatingPullRequestBranches import (
+from RepoAuditor.Plugins.GitHub.StandardRequirements.SuggestUpdatingPullRequestBranches import (
     SuggestUpdatingPullRequestBranches,
 )
-from RepoAuditor.Plugins.GitHub.StandardQueryRequirements.SupportDiscussions import SupportDiscussions
-from RepoAuditor.Plugins.GitHub.StandardQueryRequirements.SupportIssues import SupportIssues
-from RepoAuditor.Plugins.GitHub.StandardQueryRequirements.SupportProjects import SupportProjects
-from RepoAuditor.Plugins.GitHub.StandardQueryRequirements.SupportWikis import SupportWikis
-from RepoAuditor.Plugins.GitHub.StandardQueryRequirements.TemplateRepository import TemplateRepository
-from RepoAuditor.Plugins.GitHub.StandardQueryRequirements.WebCommitSignoff import WebCommitSignoff
+from RepoAuditor.Plugins.GitHub.StandardRequirements.SupportDiscussions import SupportDiscussions
+from RepoAuditor.Plugins.GitHub.StandardRequirements.SupportIssues import SupportIssues
+from RepoAuditor.Plugins.GitHub.StandardRequirements.SupportProjects import SupportProjects
+from RepoAuditor.Plugins.GitHub.StandardRequirements.SupportWikis import SupportWikis
+from RepoAuditor.Plugins.GitHub.StandardRequirements.TemplateRepository import TemplateRepository
+from RepoAuditor.Plugins.GitHub.StandardRequirements.WebCommitSignoff import WebCommitSignoff
 from RepoAuditor.Query import ExecutionStyle, Query
 
 
