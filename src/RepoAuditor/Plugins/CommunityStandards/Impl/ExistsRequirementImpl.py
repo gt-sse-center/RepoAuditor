@@ -25,7 +25,7 @@ class ExistsRequirementImpl(Requirement):
     def __init__(
         self,
         name: str,
-        github_file: str,
+        filename: str,
         possible_locations: Sequence[str],
         resolution: str,
         rationale: str,
@@ -37,8 +37,8 @@ class ExistsRequirementImpl(Requirement):
 
         Args:
             name (str): The name of the requirement. Used for unique identification.
-            github_file (str): The name of the file in the GitHub repository being checked for.
-            possible_locations (Sequence[str]): List of potential paths in the repo to check if `github_file` exists.
+            filename (str): The name of the file in the git repository being checked for.
+            possible_locations (Sequence[str]): List of potential paths in the repo to check if `filename` exists.
             resolution (str): Message on how to resolve the requirement in case of an error.
             rationale (str): Rationale message on why this requirement is needed.
             dynamic_arg_name (str, optional): Name of the runtime argument (e.g. from command line) to this requirement.Defaults to "unrequired", which if enabled causes the requirement to be skipped.
@@ -47,7 +47,7 @@ class ExistsRequirementImpl(Requirement):
         """
         super().__init__(
             name,
-            f"Validates that {github_file} file exists.",
+            f"Validates that {filename} file exists.",
             ExecutionStyle.Parallel,
             resolution,
             rationale,
@@ -55,7 +55,7 @@ class ExistsRequirementImpl(Requirement):
         )
 
         self.dynamic_arg_name = dynamic_arg_name
-        self.github_file = github_file
+        self.filename = filename
 
         self.possible_locations = possible_locations
 
@@ -68,7 +68,7 @@ class ExistsRequirementImpl(Requirement):
                 bool,
                 typer.Option(
                     False,
-                    help=f"Disable requirement that the file {self.github_file} exists.",
+                    help=f"Disable requirement that the file {self.filename} exists.",
                 ),
             ),
         }
@@ -97,12 +97,12 @@ class ExistsRequirementImpl(Requirement):
 
                     return Requirement.EvaluateImplResult(
                         EvaluateResult.Success,
-                        f"{self.github_file} found in repository",
+                        f"{self.filename} found in repository",
                     )
 
             return Requirement.EvaluateImplResult(
                 EvaluateResult.Error,
-                f"No {self.github_file} file found.",
+                f"No {self.filename} file found.",
                 provide_resolution=True,
                 provide_rationale=True,
             )

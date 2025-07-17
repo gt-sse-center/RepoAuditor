@@ -9,7 +9,7 @@
 import pytest
 from git import Repo
 
-from RepoAuditor.Plugins.GitHubCommunityStandards.CommunityStandardsQuery import (
+from RepoAuditor.Plugins.CommunityStandards.CommunityStandardsQuery import (
     CommunityStandardsQuery,
     TemporaryDirectory,
 )

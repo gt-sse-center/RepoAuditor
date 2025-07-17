@@ -12,19 +12,19 @@ from urllib.parse import urlparse
 
 from dbrownell_Common.Types import override  # type: ignore[import-untyped]
 
-from RepoAuditor.Plugins.GitHubCommunityStandards.Requirements.CodeOfConduct import CodeOfConduct
-from RepoAuditor.Plugins.GitHubCommunityStandards.Requirements.CodeOwners import CodeOwners
-from RepoAuditor.Plugins.GitHubCommunityStandards.Requirements.Contributing import Contributing
-from RepoAuditor.Plugins.GitHubCommunityStandards.Requirements.IssueTemplates import IssueTemplates
-from RepoAuditor.Plugins.GitHubCommunityStandards.Requirements.LicenseFile import LicenseFile
-from RepoAuditor.Plugins.GitHubCommunityStandards.Requirements.PullRequestTemplates import PullRequestTemplate
-from RepoAuditor.Plugins.GitHubCommunityStandards.Requirements.ReadMe import ReadMe
-from RepoAuditor.Plugins.GitHubCommunityStandards.Requirements.SecurityPolicy import SecurityPolicy
+from RepoAuditor.Plugins.CommunityStandards.Requirements.CodeOfConduct import CodeOfConduct
+from RepoAuditor.Plugins.CommunityStandards.Requirements.CodeOwners import CodeOwners
+from RepoAuditor.Plugins.CommunityStandards.Requirements.Contributing import Contributing
+from RepoAuditor.Plugins.CommunityStandards.Requirements.IssueTemplates import IssueTemplates
+from RepoAuditor.Plugins.CommunityStandards.Requirements.LicenseFile import LicenseFile
+from RepoAuditor.Plugins.CommunityStandards.Requirements.PullRequestTemplates import PullRequestTemplate
+from RepoAuditor.Plugins.CommunityStandards.Requirements.ReadMe import ReadMe
+from RepoAuditor.Plugins.CommunityStandards.Requirements.SecurityPolicy import SecurityPolicy
 from RepoAuditor.Query import ExecutionStyle, Query
 
 
 class CommunityStandardsQuery(Query):
-    """Query with requirements that check for GitHub CommunityStandards files."""
+    """Query with requirements that check for repository Community Standards files."""
 
     def __init__(self) -> None:
         super().__init__(
@@ -50,29 +50,29 @@ class CommunityStandardsQuery(Query):
     ) -> Optional[dict[str, Any]]:
         """Get the repo data."""
 
-        # Clone the GitHub repository to a temp directory
+        # Clone the git repository to a temp directory
         branch = module_data.get("branch", "main")
         temp_repo_dir = TemporaryDirectory()
-        github_url = module_data["url"]
+        url = module_data["url"]
 
-        # Add PAT to GitHub URL, if present
-        github_pat = module_data.get("pat")
-        if github_pat:
-            url = urlparse(github_url)
-            github_url = f"https://{github_pat}@{url.netloc}{url.path}"
+        # Add PAT to git URL, if present
+        pat = module_data.get("pat")
+        if pat:
+            parsed_url = urlparse(url)
+            url = f"https://{pat}@{parsed_url.netloc}{parsed_url.path}"
 
         # Import git.Repo here so that it is only imported
-        # if the GitHubCommunityStandards plugin is requested.
+        # if the CommunityStandards plugin is requested.
         from git import Repo
 
         try:
-            Repo.clone_from(github_url, temp_repo_dir.name, branch=branch)
+            Repo.clone_from(url, temp_repo_dir.name, branch=branch)
         except Exception as e:
             error_msg = f"""
             An error occurred while attempting to clone the target repository.
             If you are auditing a private repository, {
                 "please ensure your PAT has access to the repository."
-                if github_pat
+                if pat
                 else "please provide a PAT with access to the repository."
             }
             Error: {e}
