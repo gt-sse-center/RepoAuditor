@@ -10,13 +10,13 @@ from RepoAuditor.Plugins.GitHub.Impl.EnableRulesetRequirementImpl import EnableR
 
 
 class RequireSignedCommits(EnableRulesetRequirementImpl):
-    """Require signed commits."""
+    """Check that the "Require signed commits" rule is disabled."""
 
     def __init__(self) -> None:
         super().__init__(
             name="RequireSignedCommits",
-            enabled_by_default=False,
-            dynamic_arg_name="enabled",
+            enabled_by_default=True,
+            dynamic_arg_name="disabled",
             github_ruleset_type="required_signatures",
             github_ruleset_value="Signed Commits",
             get_configuration_value_func=lambda rule: rule.get("type", "") == "required_signatures",

@@ -15,8 +15,8 @@ class RequireStatusChecks(EnableRulesetRequirementImpl):
     def __init__(self) -> None:
         super().__init__(
             name="RequireStatusChecks",
-            enabled_by_default=False,
-            dynamic_arg_name="enabled",
+            enabled_by_default=True,
+            dynamic_arg_name="disabled",
             github_ruleset_type="required_status_checks",
             github_ruleset_value="Status Checks",
             get_configuration_value_func=lambda rule: rule.get("type", "") == "required_status_checks",

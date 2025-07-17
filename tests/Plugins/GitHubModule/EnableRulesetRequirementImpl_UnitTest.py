@@ -18,7 +18,7 @@ class TestEnableRulesetRequirementImpl:
         requirement = EnableRulesetRequirementImpl(
             name="Test Name",
             enabled_by_default=False,
-            dynamic_arg_name="true",
+            dynamic_arg_name="enabled",
             github_ruleset_type="Test Ruleset",
             github_ruleset_value="test_ruleset",
             get_configuration_value_func=lambda _: True,
@@ -28,15 +28,15 @@ class TestEnableRulesetRequirementImpl:
 
         assert requirement.name == "Test Name"
         assert requirement.enabled_by_default is False
-        assert requirement.dynamic_arg_name == "true"
+        assert requirement.dynamic_arg_name == "enabled"
         assert requirement.github_ruleset_type == "Test Ruleset"
 
-    def test_Evaluate_DoesNotApply(self):
+    def test_Evaluate_Disabled(self):
         """Test the _EvaluateImpl method when dynamic_arg_name is False."""
         requirement = EnableRulesetRequirementImpl(
             name="Test Name",
             enabled_by_default=False,
-            dynamic_arg_name="true",
+            dynamic_arg_name="enabled",
             github_ruleset_type="Test Ruleset",
             github_ruleset_value="test_ruleset",
             get_configuration_value_func=lambda _: True,
@@ -44,16 +44,17 @@ class TestEnableRulesetRequirementImpl:
             rationale="Test rationale",
         )
         query_data = {}
-        requirement_args = {"true": False}
+        requirement_args = {"enabled": False}
         result = requirement.Evaluate(query_data, requirement_args)
-        assert result.result == EvaluateResult.DoesNotApply
+        # No rule and should be disabled, hence result is success
+        assert result.result == EvaluateResult.Success
 
     def test_Evaluate_InvalidRule(self):
         """Test the _EvaluateImpl method when dynamic_arg_name is False."""
         requirement = EnableRulesetRequirementImpl(
             name="Test Name",
             enabled_by_default=False,
-            dynamic_arg_name="true",
+            dynamic_arg_name="enabled",
             github_ruleset_type="Test Ruleset",
             github_ruleset_value="test_ruleset",
             get_configuration_value_func=lambda rule: rule.get("type", "") == "valid rule",
@@ -71,7 +72,7 @@ class TestEnableRulesetRequirementImpl:
                 },
             ]
         }
-        requirement_args = {"true": True}
+        requirement_args = {"enabled": True}
         result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.Error
 
@@ -80,7 +81,7 @@ class TestEnableRulesetRequirementImpl:
         requirement = EnableRulesetRequirementImpl(
             name="Test Name",
             enabled_by_default=False,
-            dynamic_arg_name="true",
+            dynamic_arg_name="enabled",
             github_ruleset_type="Test Ruleset",
             github_ruleset_value="test_ruleset",
             get_configuration_value_func=lambda rule: rule.get("type", "") == "valid_rule",
@@ -98,7 +99,7 @@ class TestEnableRulesetRequirementImpl:
                 }
             ]
         }
-        requirement_args = {"true": True}
+        requirement_args = {"enabled": True}
         result = requirement.Evaluate(query_data, requirement_args)
 
         assert result.result == EvaluateResult.Success
