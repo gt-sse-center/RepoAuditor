@@ -19,11 +19,24 @@
 | 4. Install [pre-commit](https://pre-commit.com/) hooks | `uv run pre-commit install` | https://pre-commit.com/#1-install-pre-commit |
 | 5. If you wish to test against an enterprise server, add a remote named `enterprise` with the corresponding URL | E.g. `git remote add enterprise git@github.gatech.edu:sse-center/RepoAuditor.git` | |
 
+## Setup
+
+Please follow these steps to allow for local testing.
+TODO(Varun): Need to complete this.
+
+- Set the repository which you wish to test against as the `origin` remote.
+- Create a ruleset called `Protect Main`, and enable:
+  - 'Restrict deletions'
+  - 'Require signed commits'
+  - 'Require a pull request before merging' with 1 required approval.
+  - 'Require status checks to pass' with the `CI+CD Workflow / Validate (ubuntu-latest, 3.12)` check.
+
 ## Development Activities
 
 | Activity | Command Line | Description | Used During Local Development | Invoked by Continuous Integration |
 | --- | --- | --- | :-: | :-: |
 | Code Formatting | `uv run ruff format` or<br>`uv run ruff format --check` | Format source code using [ruff](https://github.com/astral-sh/ruff) based on settings in `pyproject.toml`. | :white_check_mark: | :white_check_mark: (via [pre-commit](https://pre-commit.com/)) |
+| Sort Imports | `uv run ruff check --fix --select I` | Sort imports in source files. | :white_check_mark: | |
 | Static Code Analysis | `uv run ruff check` | Validate source code using [ruff](https://github.com/astral-sh/ruff) based on settings in `pyproject.toml`. | :white_check_mark: | :white_check_mark: (via [pre-commit](https://pre-commit.com/)) |
 | Run pre-commit scripts | `uv run pre-commit run` | Run [pre-commit](https://pre-commit.com/) scripts based on settings in `.pre-commit-config.yaml`. | :white_check_mark: | :white_check_mark: |
 | Automated Testing | `uv run pytest` or<br/>`uv run pytest --no-cov` | Run automated tests using [pytest](https://docs.pytest.org/) and extract code coverage using [coverage](https://coverage.readthedocs.io/) based on settings in `pyproject.toml`. | :white_check_mark: | :white_check_mark: |
