@@ -12,8 +12,8 @@ from RepoAuditor.Plugins.GitHub.StandardRequirements.License import License
 from RepoAuditor.Requirement import EvaluateResult
 
 
-@pytest.fixture
-def query_data(session):
+@pytest.fixture(name="query_data")
+def query_data_fixture(session):
     return {
         "session": session,
         "standard": {
@@ -24,12 +24,14 @@ def query_data(session):
     }
 
 
-@pytest.fixture
-def requirement():
+@pytest.fixture(name="requirement")
+def requirement_fixture():
     return License()
 
 
 class TestLicense:
+    """Tests for the License requirement class."""
+
     def test_license_missing(self, requirement, query_data):
         """Check if no "license" key in query_data
         We should get a `IncompleteDataResult`.

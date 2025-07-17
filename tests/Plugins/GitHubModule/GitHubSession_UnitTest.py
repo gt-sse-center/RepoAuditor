@@ -14,8 +14,8 @@ import requests
 from RepoAuditor.Plugins.GitHubBase.Module import _GitHubSession
 
 
-@pytest.fixture
-def github_pat(fs):
+@pytest.fixture(name="github_pat")
+def github_pat_fixture(fs):
     """Fixture for GitHub PAT file, which creates a fake PAT file and returns the path."""
     pat_path = Path(__file__).parent / "dummy_github_pat.txt"
     fs.create_file(pat_path, contents="github_path_abcdefghijklmnop")

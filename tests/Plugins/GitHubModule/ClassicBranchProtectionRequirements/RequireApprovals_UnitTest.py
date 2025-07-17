@@ -12,8 +12,8 @@ from RepoAuditor.Plugins.GitHub.ClassicBranchProtectionRequirements.RequireAppro
 from RepoAuditor.Requirement import EvaluateResult
 
 
-@pytest.fixture
-def query_data(session):
+@pytest.fixture(name="query_data")
+def query_data_fixture(session):
     return {
         "session": session,
         "branch": "main",
@@ -25,12 +25,14 @@ def query_data(session):
     }
 
 
-@pytest.fixture
-def requirement():
+@pytest.fixture(name="requirement")
+def requirement_fixture():
     return RequireApprovals()
 
 
 class TestRequireApprovals:
+    """Tests for the RequireApprovals requirement class."""
+
     def test_required_pull_request_reviews_missing(self, requirement, query_data):
         """Test when `required_pull_request_reviews` is missing"""
         query_data["branch_protection_data"] = {}
