@@ -18,18 +18,23 @@
 - [Installation](#installation)
 - [Overview](#overview)
   - [How to use RepoAuditor](#how-to-use-repoauditor)
-  - [Personal Access Token](#personal-access-token)
+  - [Personal Access Token](#personal-access-token-pat)
   - [Example Usage](#example-usage)
+  - [Config File](#config-file)
 - [Development](#development)
-  - [Verifying Signed Artifacts](#verifying-signed-artifacts)
 - [Additional Information](#additional-information)
 - [License](#license)
 
 ## Installation
 
-You can install `RepoAuditor` via `uv` or `pip`.
+We recommend using [uv](https://docs.astral.sh/uv/#uv) since it can install `RepoAuditor` as a tool via `uvx` into a sandbox environment for quick use.
+This lets you directly run `RepoAuditor`.
+```sh
+uvx RepoAuditor
+```
 
-We recommend using [uv](https://docs.astral.sh/uv/#uv) since `RepoAuditor` uses `uv` to create and manage a virtual environment.
+Alternatively, yuou can install `RepoAuditor` via `uv` or `pip`.
+`uv` is preferred to `pip` since it creates and manages a virtual environment.
 
 | Installation Method | Command |
 | --- | --- |
@@ -44,7 +49,7 @@ We recommend using [uv](https://docs.astral.sh/uv/#uv) since `RepoAuditor` uses 
 
 Once installed, you can invoke the following to verify if `RepoAuditor` is installed correctly:
 ```shell
-uv run repo_auditor --version
+uvx RepoAuditor --version
 ```
 and you should see something like
 ```shell
@@ -53,18 +58,13 @@ RepoAuditor vX.X.X
 
 To get a list of command line options, you can run
 ```shell
-uv run repo_auditor --help
-```
-
-`RepoAuditor` accepts both a set of flags as well as a configuratin YAML file. We have provided a sample configuration file called `default_config.yaml`, which can be used as:
-```shell
-uv run repo_auditor --config default_config.yaml
+uvx RepoAuditor --help
 ```
 
 ### Personal Access Token (PAT)
 
 The most common use case for `RepoAuditor` would be to audit a GitHub repository.
-In order to allow `RepoAuditor` to read the repository, you first need to generate a Personal Access Token or PAT.
+In order to allow `RepoAuditor` to read the repository, you first need to generate a Personal Access Token or **PAT**.
 
 Please refer to the [GitHub documentation on Personal Access Tokens](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) for details about a `Fine-grained PAT` which we will be using.
 
@@ -76,37 +76,47 @@ To generate the Fine-grained PAT, we perform the following steps:
 4. Set an appropriate expiration date.
 5. Under `Repository Access`, select `All repositories`.
 6. For permissions, we need to go to `Repository permissions`.
-7. Enable Read-Write access to `Contents`, and Read access to `Administration`, `Secret Scanning` and `Dependabot Alerts`.
+7. Enable the following permissions:
+   - Read-Write access to `Contents`.
+   - Read access to `Administration` and `Secret scanning alerts`.
 8. Click on `Generate token`.
 9. Copy the generated string. This is your PAT.
+10. Save the PAT to a convenient location on your machine (such as your hime directory `~/`) in the file `PAT.txt`.
 
-After obtaining the PAT, you can save it in a file (e.g. `PAT`) which `RepoAuditor` can read on operation.
+The path to the `PAT.txt` will be passed into `RepoAuditor`. E.g.
+```shell
+uvx RepoAuditor --GitHub-pat ~/PAT.txt
+```
 
 ### Example Usage
 
 With the above generated PAT file, you can now run `RepoAuditor` on your GitHub repository.
-As an example, we will use the [python-helloworld](https://github.com/dbarnett/python-helloworld) repo.
 
-**NOTE** You need to fork the repository since your default PAT only has access to repos under your account.
+As a general example, we will use the [python-helloworld](https://github.com/dbarnett/python-helloworld) repository.
+
+> **NOTE** You need to fork the repository since your default PAT only has access to repos under your account.
 
 To run `RepoAuditor`, we can enter the following in the command-line:
 ```shell
-uv run repo_auditor --include GitHub --GitHub-url https://github.com/<username>/python-helloworld --GitHub-pat PAT
+uvx RepoAuditor --include GitHub \
+  --GitHub-url https://github.com/<username>/python-helloworld \
+  --GitHub-pat ~/PAT.txt
 ```
 
 `RepoAuditor` will generate a series of messages describing all the issues in the repository, along with the rationale behind them and the steps for resolution.
 
+### Config File
+
+`RepoAuditor` accepts both a set of flags as well as a configuratin YAML file.
+
+The configuration (or config) file can make usage easier by recording preferences as well as facilitating sharing of enforced requirements within an organization.
+We have provided a sample configuration file called [default_config.yaml](https://github.com/gt-sse-center/RepoAuditor/blob/main/default_config.yaml), which can be used as:
+```shell
+uvx run RepoAuditor --config default_config.yaml
+```
+
 ## Development
 Please visit [Contributing](https://github.com/gt-sse-center/RepoAuditor/blob/main/CONTRIBUTING.md) and [Development](https://github.com/gt-sse-center/RepoAuditor/blob/main/DEVELOPMENT.md) for information on contributing to this project.
-
-### Verifying Signed Artifacts
-Artifacts are signed and validated using [py-minisign](https://github.com/x13a/py-minisign) and the public key in the file `./minisign_key.pub`.
-
-To verify that an artifact is valid, visit [the latest release](https://github.com/gt-sse-center/RepoAuditor/releases/latest) and download the `.minisign` signature file that corresponds to the artifact, then run the following command, replacing `<filename>` with the name of the artifact to be verified:
-
-```shell
-uv run --with py-minisign python -c "import minisign; minisign.PublicKey.from_file('minisign_key.pub').verify_file('<filename>')"
-```
 
 ## Additional Information
 Additional information can be found at these locations.
