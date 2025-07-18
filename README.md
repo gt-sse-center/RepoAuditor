@@ -44,7 +44,7 @@ We recommend using [uv](https://docs.astral.sh/uv/#uv) since `RepoAuditor` uses 
 
 Once installed, you can invoke the following to verify if `RepoAuditor` is installed correctly:
 ```shell
-uv run repo_auditor --version
+uvx RepoAuditor --version
 ```
 and you should see something like
 ```shell
@@ -53,12 +53,7 @@ RepoAuditor vX.X.X
 
 To get a list of command line options, you can run
 ```shell
-uv run repo_auditor --help
-```
-
-`RepoAuditor` accepts both a set of flags as well as a configuratin YAML file. We have provided a sample configuration file called `default_config.yaml`, which can be used as:
-```shell
-uv run repo_auditor --config default_config.yaml
+uvx RepoAuditor --help
 ```
 
 ### Personal Access Token (PAT)
@@ -76,11 +71,16 @@ To generate the Fine-grained PAT, we perform the following steps:
 4. Set an appropriate expiration date.
 5. Under `Repository Access`, select `All repositories`.
 6. For permissions, we need to go to `Repository permissions`.
-7. Enable Read-Write access to `Contents`, and Read access to `Administration`, `Secret Scanning` and `Dependabot Alerts`.
+7. Enable the following permissions:
+   - Read-Write access to `Contents`.
+   - Read access to `Administration` and `Secret scanning alerts`.
 8. Click on `Generate token`.
 9. Copy the generated string. This is your PAT.
 
-After obtaining the PAT, you can save it in a file (e.g. `PAT`) which `RepoAuditor` can read on operation.
+After obtaining the PAT, save it in a file (e.g. `PAT`) whose path will then be passed into `RepoAuditor`.
+```shell
+uvx RepoAuditor --GitHub-pat PAT
+```
 
 ### Example Usage
 
@@ -91,10 +91,18 @@ As an example, we will use the [python-helloworld](https://github.com/dbarnett/p
 
 To run `RepoAuditor`, we can enter the following in the command-line:
 ```shell
-uv run repo_auditor --include GitHub --GitHub-url https://github.com/<username>/python-helloworld --GitHub-pat PAT
+uvx RepoAuditor --include GitHub --GitHub-url https://github.com/<username>/python-helloworld --GitHub-pat PAT
 ```
 
 `RepoAuditor` will generate a series of messages describing all the issues in the repository, along with the rationale behind them and the steps for resolution.
+
+### Config File
+
+`RepoAuditor` accepts both a set of flags as well as a configuratin YAML file.
+We have provided a sample configuration file called `default_config.yaml`, which can be used as:
+```shell
+uvx run RepoAuditor --config default_config.yaml
+```
 
 ## Development
 Please visit [Contributing](https://github.com/gt-sse-center/RepoAuditor/blob/main/CONTRIBUTING.md) and [Development](https://github.com/gt-sse-center/RepoAuditor/blob/main/DEVELOPMENT.md) for information on contributing to this project.
