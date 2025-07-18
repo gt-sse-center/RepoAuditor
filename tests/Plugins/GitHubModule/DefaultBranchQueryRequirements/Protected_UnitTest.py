@@ -40,7 +40,7 @@ class TestProtected:
         """Test for unprotected mainline branch."""
         query_data["default_branch_data"] = {"protected": True}
         # Don't protect mainline branch
-        requirement_args = {"false": True}
+        requirement_args = {"disabled": True}
         result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.Error
         assert result.rationale is None
@@ -48,7 +48,7 @@ class TestProtected:
 
     def test_ProtectedMainlineBranch(self, requirement, query_data):
         """Test for protected mainline branch"""
-        requirement_args = {"false": False}
+        requirement_args = {"disabled": False}
         result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.Success
         assert result.rationale is None
@@ -57,7 +57,7 @@ class TestProtected:
     def test_is_protected_False(self, requirement, query_data):
         """Test when is_protected is False"""
         query_data["default_branch_data"]["protected"] = False
-        requirement_args = {"false": False}
+        requirement_args = {"disabled": False}
         result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.Error
         assert result.rationale is not None

@@ -22,7 +22,7 @@ class TemplateRepository(StandardEnableRequirementImpl):
         super().__init__(
             "TemplateRepository",
             False,
-            "true",
+            "enabled",
             "settings",
             "General",
             "Template repository",

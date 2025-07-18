@@ -22,7 +22,7 @@ class RequirePullRequests(ClassicEnableRequirementImpl):
         super().__init__(
             "RequirePullRequests",
             True,
-            "false",
+            "disabled",
             "Protect matching branches",
             "Require a pull request before merging",
             lambda data: "required_pull_request_reviews" in data["branch_protection_data"],

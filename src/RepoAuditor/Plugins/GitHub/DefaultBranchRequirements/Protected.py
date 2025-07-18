@@ -56,7 +56,7 @@ class Protected(Requirement):
     def GetDynamicArgDefinitions(self) -> dict[str, TypeDefinitionItemType]:
         """Get the definitions for the arguments to this requirement."""
         return {
-            "false": (
+            "disabled": (
                 bool,
                 typer.Option(
                     default=False,
@@ -78,7 +78,7 @@ class Protected(Requirement):
         if is_protected is None:
             return CreateIncompleteDataResult()
 
-        if requirement_args["false"]:
+        if requirement_args["disabled"]:
             expected_value = False
             provide_rationale = False
         else:

@@ -72,6 +72,6 @@ class TestRequireApprovalMostRecentPush:
         query_data["branch_protection_data"]["required_pull_request_reviews"][
             "require_last_push_approval"
         ] = True
-        requirement_args = {"false": False}
+        requirement_args = {"disabled": False}
         result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.Success

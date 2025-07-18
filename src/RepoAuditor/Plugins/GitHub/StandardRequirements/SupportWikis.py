@@ -22,7 +22,7 @@ class SupportWikis(StandardEnableRequirementImpl):
         super().__init__(
             "SupportWikis",
             True,
-            "false",
+            "disabled",
             "settings",
             "Features",
             "Wikis",

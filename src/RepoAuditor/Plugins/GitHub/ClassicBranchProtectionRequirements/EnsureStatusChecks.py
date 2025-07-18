@@ -57,7 +57,7 @@ class EnsureStatusChecks(Requirement):
     def GetDynamicArgDefinitions(self) -> dict[str, TypeDefinitionItemType]:
         """Get the definitions for the arguments to this requirement."""
         return {
-            "disable": (
+            "disabled": (
                 bool,
                 typer.Option(
                     default=False,
@@ -73,7 +73,7 @@ class EnsureStatusChecks(Requirement):
         query_data: dict[str, Any],
         requirement_args: dict[str, Any],
     ) -> Requirement.EvaluateImplResult:
-        if requirement_args["disable"]:
+        if requirement_args["disabled"]:
             return Requirement.EvaluateImplResult(
                 EvaluateResult.DoesNotApply,
                 "The status check requirement has been explicitly disabled.",

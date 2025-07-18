@@ -22,7 +22,7 @@ class RequireConversationResolution(ClassicEnableRequirementImpl):
         super().__init__(
             "RequireConversationResolution",
             True,
-            "false",
+            "disabled",
             "Protect matching branches",
             "Require conversation resolution before merging",
             lambda data: data["branch_protection_data"]["required_conversation_resolution"]["enabled"],

@@ -23,7 +23,7 @@ class DismissStalePullRequestApprovals(ClassicEnableRequirementImpl):
         super().__init__(
             "DismissStalePullRequestApprovals",
             True,
-            "false",
+            "disabled",
             "Protect matching branches",
             "Require a pull request before merging -> Dismiss stale pull request approvals when new commits are pushed",
             _GetValue,

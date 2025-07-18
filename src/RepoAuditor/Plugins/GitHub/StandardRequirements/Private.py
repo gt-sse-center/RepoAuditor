@@ -55,7 +55,7 @@ class Private(Requirement):
     def GetDynamicArgDefinitions(self) -> dict[str, TypeDefinitionItemType]:
         """Get the definitions for the arguments to this requirement."""
         return {
-            "true": (
+            "enabled": (
                 bool,
                 typer.Option(
                     default=False,
@@ -76,7 +76,7 @@ class Private(Requirement):
         if result is None:
             return CreateIncompleteDataResult()
 
-        expect_private = requirement_args["true"]
+        expect_private = requirement_args["enabled"]
 
         if result != expect_private:
             query_data["__expected_visibility"] = "private" if expect_private else "public"

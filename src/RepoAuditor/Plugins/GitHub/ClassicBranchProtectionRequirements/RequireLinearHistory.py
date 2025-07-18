@@ -22,7 +22,7 @@ class RequireLinearHistory(ClassicEnableRequirementImpl):
         super().__init__(
             "RequireLinearHistory",
             False,
-            "true",
+            "enabled",
             "Protect matching branches",
             "Require linear history",
             lambda data: data["branch_protection_data"]["required_linear_history"]["enabled"],
