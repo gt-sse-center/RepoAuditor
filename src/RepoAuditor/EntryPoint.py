@@ -6,6 +6,7 @@
 # ----------------------------------------------------------------------
 """Audits a repository against a set of requirements."""
 
+import os
 import sys
 import textwrap
 import traceback
@@ -308,11 +309,23 @@ def EntryPoint(  # noqa: PLR0913  # pragma: no cover
 
             dm.WriteLine("\n\n")
 
+            # Try to set panel width
+            try:
+                panel_width = min(
+                    os.get_terminal_size().columns,
+                    dm.capabilities.DEFAULT_COLUMNS,
+                )
+            except OSError:
+                # Exception if not connected to a terminal
+                # in which case default to None
+                panel_width = None
+
             DisplayResults(
                 dm,
                 all_results,
                 display_resolution=not no_resolution,
                 display_rationale=not no_rationale,
+                panel_width=panel_width,
             )
         except Exception as ex:
             error = traceback.format_exc() if dm.is_debug else str(ex)
