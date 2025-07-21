@@ -25,9 +25,9 @@ class RulesetQuery(Query):
             "RulesetQuery",
             ExecutionStyle.Parallel,
             [
-                RequireStatusChecks(),
-                RequirePullRequests(),
                 RequireSignedCommits(),
+                RequirePullRequests(),
+                RequireStatusChecks(),
             ],
         )
 

@@ -212,27 +212,33 @@ class StandardQuery(Query):
             "StandardQuery",
             ExecutionStyle.Parallel,
             [
-                AutoMerge(),
-                DefaultBranch(),
-                DeleteHeadBranches(),
+                # metadata
                 Description(),
-                DependabotSecurityUpdates(),
                 License(),
-                MergeCommit(),
-                MergeCommitMessage(),
-                Private(),
-                RebaseMergeCommit(),
-                SecretScanning(),
-                SecretScanningPushProtection(),
-                SquashCommitMerge(),
-                SquashMergeCommitMessage(),
-                SuggestUpdatingPullRequestBranches(),
-                SupportDiscussions(),
-                SupportIssues(),
-                SupportProjects(),
-                SupportWikis(),
+                # settings page
                 TemplateRepository(),
                 WebCommitSignoff(),
+                DefaultBranch(),
+                # settings page (Features)
+                SupportWikis(),
+                SupportIssues(),
+                SupportDiscussions(),
+                SupportProjects(),
+                # settings page (Pull Requests)
+                MergeCommit(),
+                MergeCommitMessage(),
+                SquashCommitMerge(),
+                SquashMergeCommitMessage(),
+                RebaseMergeCommit(),
+                SuggestUpdatingPullRequestBranches(),
+                AutoMerge(),
+                DeleteHeadBranches(),
+                # settings page (Danger Zone)
+                Private(),
+                # settings/security_analysis
+                DependabotSecurityUpdates(),
+                SecretScanning(),
+                SecretScanningPushProtection(),
             ],
         )
 
