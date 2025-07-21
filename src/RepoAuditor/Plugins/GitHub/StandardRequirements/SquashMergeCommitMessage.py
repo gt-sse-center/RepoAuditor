@@ -30,20 +30,20 @@ class SquashMergeCommitMessage(StandardValueRequirementImpl):
             _GetValue,
             textwrap.dedent(
                 """\
-                Available values:
+                Available values on GitHub:
 
-                BLANK [Default to pull request title]
+                Default to pull request title [BLANK]
                     Pull Request title and number on the first line.
 
-                COMMIT_MESSAGES [Default to pull request title and commit details]
+                Default to pull request title and commit details [COMMIT_MESSAGES]
                     Commit title and...
                         [Single Commit] ...commit message
                         [Multiple Commits] ...pull request title and number and list of commits
 
-                PR_BODY [Default to pull request title and description]
+                Default to pull request title and description [PR_BODY]
                     Pull Request title and number on the first line; commit description starting on the third line.
 
-            The default setting is COMMIT_MESSAGES.
+            The default setting is "Default to pull request title and commit details [COMMIT_MESSAGES]".
 
             Reasons for this Default
             ------------------------
