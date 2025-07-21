@@ -37,16 +37,16 @@ def GetInternalPanelContent(
     if module.description:
         internal_content.append(f"{module.description.strip()}\n")
 
-    internal_content.append(
-        textwrap.dedent(
-            f"""\
-                Successful:     {num_success} ({(num_success / num_requirements):.02%})
-                Warnings:       {num_warning} ({(num_warning / num_requirements):.02%})
-                Errors:         {num_error} ({(num_error / num_requirements):.02%})
-                Skipped:        {num_does_not_apply} ({(num_does_not_apply / num_requirements):.02%})
-                """,
-        ),
+    metrics_display = textwrap.dedent(
+        f"""\
+            [grey66]
+            Successful:     {num_success} ({(num_success / num_requirements):.02%})
+            Warnings:       {num_warning} ({(num_warning / num_requirements):.02%})
+            Errors:         {num_error} ({(num_error / num_requirements):.02%})
+            Skipped:        {num_does_not_apply} ({(num_does_not_apply / num_requirements):.02%})
+        """,
     )
+    internal_content.append(metrics_display)
 
     for result in results:
         if not dm.is_verbose and result.result in [
@@ -105,6 +105,17 @@ def GetInternalPanelContent(
                 padding=(1, 1, 0, 1) if content else 0,
             ),
         )
+
+    # Finally print statistics at the end in a panel if verbose
+    internal_content.append(
+        Panel(
+            metrics_display,
+            title="Metrics",
+            title_align="left",
+            border_style="grey66",
+            padding=(1, 1, 0, 1),
+        ),
+    )
 
     return internal_content
 
