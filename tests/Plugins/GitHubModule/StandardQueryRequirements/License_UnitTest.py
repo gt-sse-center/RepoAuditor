@@ -52,7 +52,7 @@ class TestLicense:
             requirement_args={"value": requirement.default_value},
         )
         assert result.result == EvaluateResult.Error
-        assert "the entity must be set to 'MIT License' (it is currently set to '')." in result.context
+        assert "'License' must be set to 'MIT License' (it is currently set to '')." in result.context
 
     def test_Succesful(self, requirement, query_data):
         """Test successful"""

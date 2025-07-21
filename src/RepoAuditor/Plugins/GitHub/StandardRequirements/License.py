@@ -9,25 +9,29 @@
 import textwrap
 from typing import Any, Optional
 
-from RepoAuditor.Plugins.GitHub.StandardRequirements.Impl.StandardValueRequirementImpl import (
-    StandardValueRequirementImpl,
-)
+from RepoAuditor.Plugins.GitHub.Impl.ValueRequirementImpl import ValueRequirementImpl
 
 
 # ----------------------------------------------------------------------
-class License(StandardValueRequirementImpl):
+class License(ValueRequirementImpl):
     """Default License as MIT Requirement."""
 
     # ----------------------------------------------------------------------
     def __init__(self) -> None:
         super().__init__(
-            "License",
-            "MIT License",
-            "settings",
-            None,
-            None,
-            _GetValue,
-            textwrap.dedent(
+            name="License",
+            default_value="MIT License",
+            github_value="License",
+            get_configuration_value_func=_GetValue,
+            resolution=textwrap.dedent(
+                """\
+                1) Create a LICENSE/LICENSE.md file in your main branch at the root of your repository.
+                2) Add the appropriate licensing information in the above file.
+
+                For detailed information about open source licenses, you can visit: https://choosealicense.com/
+                """
+            ),
+            rationale=textwrap.dedent(
                 """\
                 The default behavior is to use the MIT License.
 

@@ -28,14 +28,14 @@ class DoesNotApplyResult:
 
 # ----------------------------------------------------------------------
 class ValueRequirementImpl(Requirement):
-    """Object that implements settings specified by a value."""
+    """Object that implements checking of metadata/settings are set to the specified value."""
 
     # ----------------------------------------------------------------------
     def __init__(
         self,
         name: str,
         default_value: str,
-        github_settings_value: Optional[str],
+        github_value: Optional[str],
         get_configuration_value_func: Callable[[dict[str, Any]], str | DoesNotApplyResult | None],
         resolution: str,
         rationale: str,
@@ -44,13 +44,10 @@ class ValueRequirementImpl(Requirement):
         requires_explicit_include: bool = False,
         missing_value_is_warning: bool = True,
     ) -> None:
-        if github_settings_value is None:
-            github_settings_value = "the entity"
-        else:
-            github_settings_value = f"'{github_settings_value}'"
+        github_value = f"'{github_value}'" if github_value else "the entity"
 
         if subject is None:
-            subject = github_settings_value
+            subject = github_value
 
         super().__init__(
             name,
@@ -61,7 +58,7 @@ class ValueRequirementImpl(Requirement):
             requires_explicit_include=requires_explicit_include,
         )
 
-        self.github_settings_value = github_settings_value
+        self.github_value = github_value
         self.default_value = default_value
         self.get_configuration_value_func = get_configuration_value_func
         self.missing_value_is_warning = missing_value_is_warning
@@ -75,7 +72,7 @@ class ValueRequirementImpl(Requirement):
                 str,
                 typer.Option(
                     self.default_value,
-                    help=f"Ensures that {self.github_settings_value} is set to the provided value.",
+                    help=f"Ensures that {self.github_value} is set to the provided value.",
                 ),
             ),
         }
@@ -103,7 +100,7 @@ class ValueRequirementImpl(Requirement):
 
             return Requirement.EvaluateImplResult(
                 EvaluateResult.Error,
-                f"{self.github_settings_value} cannot be set to '{expected_value}' because {result.reason}",
+                f"{self.github_value} cannot be set to '{expected_value}' because {result.reason}",
             )
 
         result = str(result)
@@ -113,7 +110,7 @@ class ValueRequirementImpl(Requirement):
 
             return Requirement.EvaluateImplResult(
                 EvaluateResult.Error,
-                f"{self.github_settings_value} must be set to '{expected_value}' (it is currently set to '{result}').",
+                f"{self.github_value} must be set to '{expected_value}' (it is currently set to '{result}').",
                 provide_resolution=True,
                 provide_rationale=is_default_expected_value,
             )
