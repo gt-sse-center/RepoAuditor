@@ -13,7 +13,6 @@ import typer
 from dbrownell_Common.TyperEx import TypeDefinitionItemType  # type: ignore[import-untyped]
 from dbrownell_Common.Types import override  # type: ignore[import-untyped]
 
-from RepoAuditor.Plugins.GitHub.Impl.Common import CreateIncompleteDataResult
 from RepoAuditor.Requirement import EvaluateResult, ExecutionStyle, Requirement
 
 
@@ -73,10 +72,9 @@ class Description(Requirement):
     ) -> Requirement.EvaluateImplResult:
         standard_data = query_data["standard"]
 
+        # If result is None, it means the description is empty.
+        # It is not a permissions issue, since "Read Metadata" is a mandatory permission for all PATs
         result = standard_data.get("description", None)
-        if result is None:
-            return CreateIncompleteDataResult()
-
         expect_description = not requirement_args["allow-empty"]
 
         if expect_description and not result:

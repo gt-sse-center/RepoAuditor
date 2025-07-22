@@ -28,21 +28,27 @@ def requirement():
 
 
 class TestDescription:
+    """Unit tests for the Description requirement."""
+
     def test_description_missing(self, requirement, query_data):
-        """Test if `description` is missing"""
+        """Test if `description` is missing.
+        This happens if no `description` key is present in API response.
+        """
         query_data["standard"] = {}
-        result = requirement.Evaluate(query_data, requirement_args={})
-        assert result.result == EvaluateResult.Warning
-        assert "Incomplete data was encountered" in result.context
+        requirement_args = {"allow-empty": False}
+        result = requirement.Evaluate(query_data, requirement_args)
+        assert result.result == EvaluateResult.Error
+        assert "The repository's description must be not be empty." in result.context
 
     def test_description_none(self, requirement, query_data):
-        """Test if `description` is None"""
+        """Test if `description` is None."""
         query_data["standard"]["description"] = None
-        result = requirement.Evaluate(query_data, requirement_args={})
-        assert result.result == EvaluateResult.Warning
-        assert "Incomplete data was encountered" in result.context
+        requirement_args = {"allow-empty": False}
+        result = requirement.Evaluate(query_data, requirement_args)
+        assert result.result == EvaluateResult.Error
+        assert "The repository's description must be not be empty." in result.context
 
-    def test_NotAllowedEmpty(self, requirement, query_data):
+    def test_NotAllowEmpty(self, requirement, query_data):
         """Test when description is not allowed to be empty"""
         query_data["standard"]["description"] = ""
         requirement_args = {"allow-empty": False}
@@ -50,7 +56,7 @@ class TestDescription:
         assert result.result == EvaluateResult.Error
         assert "The repository's description must be not be empty." in result.context
 
-    def test_Empty(self, requirement, query_data):
+    def test_AllowEmpty(self, requirement, query_data):
         """Test when description is allowed to be empty"""
         query_data["standard"]["description"] = ""
         requirement_args = {"allow-empty": True}

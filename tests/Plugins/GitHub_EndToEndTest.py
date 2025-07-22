@@ -170,8 +170,36 @@ class TestStandard:
         assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
 
     # ----------------------------------------------------------------------
+    def test_NoDescription(self, pat_args, snapshot, monkeypatch):
+        """Test if no repository description is available.
+        The way this test works is that we use the default `--GitHub-Description-allow-empty=false`
+        and monkey-patch the response to set `description` to empty.
+        """
+        from RepoAuditor.Plugins.GitHub.StandardQuery import StandardQuery
+
+        def MockedGetData(
+            self,
+            module_data,
+        ):
+            """Monkey-patched class method to set description to empty."""
+            response = module_data["session"].get("").json()
+            response["description"] = ""
+            module_data["standard"] = response
+            return module_data
+
+        monkeypatch.setattr(StandardQuery, "GetData", MockedGetData)
+
+        result = CliRunner().invoke(app, pat_args)
+
+        assert result.exit_code == -1, result.output
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
+
+    # ----------------------------------------------------------------------
     def test_LicenseValue(self, pat_args, snapshot):
-        result = CliRunner().invoke(app, pat_args + ["--GitHub-License-value", "Not the MIT License"])
+        result = CliRunner().invoke(
+            app,
+            pat_args + ["--GitHub-License-value", "Not the MIT License"],
+        )
 
         assert result.exit_code == -1, result.output
         assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
