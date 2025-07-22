@@ -22,7 +22,7 @@ class TestClassicValueRequirementImpl:
             get_configuration_value_func=lambda _: "yes",
             rationale="For testing",
         )
-        assert requirement.github_settings_value == "'No Settings Section'"
+        assert requirement.github_value == "'No Settings Section'"
 
     def test_NoSettingsValue(self):
         """Test for when no github_settings_value is provided."""
@@ -34,4 +34,4 @@ class TestClassicValueRequirementImpl:
             get_configuration_value_func=lambda _: "yes",
             rationale="For testing",
         )
-        assert requirement.github_settings_value == "the entity"
+        assert requirement.github_value == "the entity"

@@ -648,13 +648,16 @@
   │                                                                                                                      │
   │ [31m╭─[0m[31m [Error] License [0m[31m───────────────────────────────────────────────────────────────────────────────────────────────[0m[31m─╮[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
-  │ [31m│[0m Validates that the entity is set to the expected value.                                                          [31m│[0m │
+  │ [31m│[0m Validates that 'License' is set to the expected value.                                                           [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
-  │ [31m│[0m ERROR: the entity must be set to 'Not the MIT License' (it is currently set to 'MIT License').                   [31m│[0m │
+  │ [31m│[0m ERROR: 'License' must be set to 'Not the MIT License' (it is currently set to 'MIT License').                    [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m Resolution                                                                                                       [31m│[0m │
   │ [31m│[0m ----------                                                                                                       [31m│[0m │
-  │ [31m│[0m   No Resolution Instructions are available.                                                                      [31m│[0m │
+  │ [31m│[0m   1) Create a LICENSE/LICENSE.md file in your main branch at the root of your repository.                        [31m│[0m │
+  │ [31m│[0m   2) Add the appropriate licensing information in the above file.                                                [31m│[0m │
+  │ [31m│[0m                                                                                                                  [31m│[0m │
+  │ [31m│[0m   For detailed information about open source licenses, you can visit: https://choosealicense.com/                [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯[0m │
   │                                                                                                                      │
