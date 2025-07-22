@@ -1,4 +1,4 @@
-includes: ["GitHub", "GitHubCommunityStandards"]
+includes: ["GitHub", "CommunityStandards"]
 GitHub-url: "https://github.com/gt-sse-center/RepoAuditor"
-GitHubCommunityStandards-url: "https://github.com/gt-sse-center/RepoAuditor"
+CommunityStandards-url: "https://github.com/gt-sse-center/RepoAuditor"
 # GitHub-pat: "PAT"
