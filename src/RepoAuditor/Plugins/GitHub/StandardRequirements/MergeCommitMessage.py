@@ -30,18 +30,18 @@ class MergeCommitMessage(StandardValueRequirementImpl):
             _GetValue,
             textwrap.dedent(
                 """\
-                Available values:
+                Available values on GitHub:
 
-                PR_TITLE [Default message]
+                Default message [PR_TITLE]
                     Pull Request number and head branch on the first line; pull request title on the third line
 
-                BLANK [Default to pull request title]
+                Default to pull request title [BLANK]
                     Pull Request title and number on the first line.
 
-                PR_BODY [Default to pull request title and description]
+                Default to pull request title and description [PR_BODY]
                     Pull Request title and number on the first line; pull request description starting on the third line.
 
-            The default setting is BLANK.
+            The default setting is "Default to pull request title [BLANK]".
 
             Reasons for this Default
             ------------------------
