@@ -103,8 +103,7 @@ class EnableRulesetRequirementImpl(EnableRequirementImpl):
 
             return self.EvaluateImplResult(
                 EvaluateResult.Error,
-                f"{self.github_settings_value} rule active in ruleset '{ruleset['name']}'."
-                f"It should be set to {expected_rule_enabled}",
+                f"{self.github_settings_value} rule active in ruleset '{ruleset['name']}'. It should be set to {expected_rule_enabled}",
                 provide_resolution=True,
                 provide_rationale=provide_rationale,
             )
@@ -115,7 +114,7 @@ class EnableRulesetRequirementImpl(EnableRequirementImpl):
 
         return self.EvaluateImplResult(
             EvaluateResult.Error,
-            f"No active branch ruleset requiring {self.github_settings_value} found",
+            f"No active branch ruleset with {self.github_settings_value} found",
             provide_resolution=True,
             provide_rationale=provide_rationale,
         )
