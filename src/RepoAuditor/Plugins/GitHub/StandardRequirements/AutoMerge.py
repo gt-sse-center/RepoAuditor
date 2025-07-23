@@ -22,7 +22,7 @@ class AutoMerge(StandardEnableRequirementImpl):
         super().__init__(
             "AutoMerge",
             True,
-            "false",
+            "disabled",
             "settings",
             "Pull Requests",
             "Allow auto-merge",

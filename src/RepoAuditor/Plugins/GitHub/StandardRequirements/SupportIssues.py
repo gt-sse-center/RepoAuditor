@@ -22,7 +22,7 @@ class SupportIssues(StandardEnableRequirementImpl):
         super().__init__(
             "SupportIssues",
             True,
-            "false",
+            "disabled",
             "settings",
             "Features",
             "Issues",

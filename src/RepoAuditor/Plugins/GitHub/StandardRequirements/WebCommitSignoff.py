@@ -22,7 +22,7 @@ class WebCommitSignoff(StandardEnableRequirementImpl):
         super().__init__(
             "WebCommitSignoff",
             True,
-            "false",
+            "disabled",
             "settings",
             "General",
             "Require contributors to sign off on web-based commits",

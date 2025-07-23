@@ -22,7 +22,7 @@ class MergeCommit(StandardEnableRequirementImpl):
         super().__init__(
             "MergeCommit",
             True,
-            "false",
+            "disabled",
             "settings",
             "Pull Requests",
             "Allow merge commits",

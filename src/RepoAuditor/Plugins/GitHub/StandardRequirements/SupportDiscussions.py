@@ -22,7 +22,7 @@ class SupportDiscussions(StandardEnableRequirementImpl):
         super().__init__(
             "SupportDiscussions",
             False,
-            "true",
+            "enabled",
             "settings",
             "Features",
             "Discussions",
