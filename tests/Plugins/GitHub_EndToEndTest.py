@@ -24,6 +24,7 @@ pytest.fixture(InitializeStreamCapabilities(), scope="session", autouse=True)
 
 # ----------------------------------------------------------------------
 def test_Successful(pat_args, snapshot):
+    """Test if all requirements of the GitHub plugin successfully pass."""
     result = CliRunner().invoke(app, pat_args)
 
     assert result.exit_code == 0, result.output
@@ -49,6 +50,7 @@ def _skip_test_NoPAT():
     reason="Only run this test on the CI machine in specific configurations to avoid GitHub's request throttling.",
 )
 def test_NoPAT(snapshot, args):
+    """Only run this test for specific CI conditions."""
     result = CliRunner().invoke(app, args)
 
     assert result.exit_code == 1, result.output
@@ -398,26 +400,55 @@ class TestClassic:
 
 # ----------------------------------------------------------------------
 class TestRulesets:
-    """End-to-end tests for rulesets in a GitHub repository."""
+    """End-to-end tests for enabled/disabled rules within a ruleset in a GitHub repository."""
+
+    def test_Default(self, pat_args, snapshot, monkeypatch):
+        """Test for default case when no rulesets are present on the branch."""
+
+        from RepoAuditor.Plugins.GitHub.RulesetQuery import RulesetQuery
+
+        def MockGetData(
+            self,
+            module_data,
+        ):
+            """Mock version for GetData for RulesetQuery"""
+            # Specify empty ruleset data as the default
+            module_data["rules"] = []
+
+            return module_data
+
+        monkeypatch.setattr(RulesetQuery, "GetData", MockGetData)
+
+        result = CliRunner().invoke(app, pat_args)
+
+        # Error since no enabled rulesets
+        assert result.exit_code == -1, result.output
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
 
     def test_RequireStatusChecks(self, pat_args, snapshot):
-        """Test for Status Checks not required ruleset"""
-        result = CliRunner().invoke(app, pat_args + ["--GitHub-RequireStatusChecks-enabled"])
+        """Test for requirement `Require status checks to pass` is disabled in the ruleset for the `main` branch."""
+        result = CliRunner().invoke(app, pat_args + ["--GitHub-RequireStatusChecks-disabled"])
 
+        # Since the repo ruleset has the requirement enabled,
+        # we should get an error.
         assert result.exit_code == -1, result.output
         assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
 
     def test_RequirePullRequests(self, pat_args, snapshot):
-        """Test for Pull Requests required ruleset"""
-        result = CliRunner().invoke(app, pat_args + ["--GitHub-RequirePullRequests-enabled"])
+        """Test for requirement `Require a pull request before merging` is disabled in the ruleset for the `main` branch."""
+        result = CliRunner().invoke(app, pat_args + ["--GitHub-RequirePullRequests-disabled"])
 
+        # Since the repo ruleset has the requirement disabled,
+        # we should get an error.
         assert result.exit_code == -1, result.output
         assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
 
     def test_RequireSignedCommits(self, pat_args, snapshot):
-        """Test for Signed Commits required ruleset"""
-        result = CliRunner().invoke(app, pat_args + ["--GitHub-RequireSignedCommits-enabled"])
+        """Test for requirement `Require signed commits` is disabled in the ruleset for the `main` branch."""
+        result = CliRunner().invoke(app, pat_args + ["--GitHub-RequireSignedCommits-disabled"])
 
+        # Since the repo ruleset has the requirement disabled,
+        # we should get an error.
         assert result.exit_code == -1, result.output
         assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
 
@@ -427,6 +458,7 @@ class TestRulesets:
 # ----------------------------------------------------------------------
 @pytest.fixture
 def args() -> list[str]:
+    """Common arguments for GitHub plugin and corresponding URL."""
     return [
         "--include",
         "GitHub",

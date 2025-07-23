@@ -56,6 +56,9 @@ class RulesetQuery(Query):
 
             branch = response["default_branch"]
 
+        # Record the branch name
+        module_data["branch"] = branch
+
         # Fetch ruleset data for a specific branch.
         # This only returns active rules on the branch
         rules_response = module_data["session"].get(f"rules/branches/{branch}")
