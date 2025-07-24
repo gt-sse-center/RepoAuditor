@@ -6,10 +6,12 @@
 # ----------------------------------------------------------------------
 """Audits a repository against a set of requirements."""
 
+import contextlib
 import os
 import sys
 import textwrap
 import traceback
+from pathlib import Path
 from typing import Annotated, Optional
 
 import pluggy
@@ -91,11 +93,7 @@ def TypeInfoToString(
         python_type = type_info
         parameter_info = None
 
-    return "    {arg_name:<50} {type_description:<7} {help}".format(
-        arg_name=arg_name,
-        type_description=python_type.__name__,
-        help="" if parameter_info is None else parameter_info.help,
-    )
+    return f"    {arg_name:<50} {python_type.__name__:<7} {parameter_info.help if parameter_info else ''}"
 
 
 # ----------------------------------------------------------------------
@@ -265,6 +263,13 @@ def EntryPoint(  # noqa: PLR0913  # pragma: no cover
             help="Write verbose information to the terminal.",
         ),
     ] = False,
+    output: Annotated[
+        Optional[str],
+        typer.Option(
+            "--output",
+            help="File name to save the output to.",
+        ),
+    ] = None,
     debug: Annotated[  # noqa: FBT002
         bool,
         typer.Option(
@@ -320,13 +325,19 @@ def EntryPoint(  # noqa: PLR0913  # pragma: no cover
                 # in which case default to None
                 panel_width = None
 
-            DisplayResults(
-                dm,
-                all_results,
-                display_resolution=not no_resolution,
-                display_rationale=not no_rationale,
-                panel_width=panel_width,
-            )
+            # Since `output` can be None, we use the nullcontext manager to represent None
+            with (
+                Path.open(output, mode="w+", encoding="UTF-8") if output else contextlib.nullcontext() as file
+            ):
+                DisplayResults(
+                    dm,
+                    all_results,
+                    display_resolution=not no_resolution,
+                    display_rationale=not no_rationale,
+                    panel_width=panel_width,
+                    file=file,
+                )
+
         except Exception as ex:
             error = traceback.format_exc() if dm.is_debug else str(ex)
             dm.WriteError(error)

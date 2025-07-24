@@ -7,7 +7,7 @@
 """Contains functionality to display the results of executing modules."""
 
 import textwrap
-from typing import Optional
+from typing import IO, Optional
 
 from dbrownell_Common import TextwrapEx  # type: ignore[import-untyped]
 from dbrownell_Common.Streams.DoneManager import DoneManager  # type: ignore[import-untyped]
@@ -128,8 +128,22 @@ def DisplayResults(
     display_resolution: bool,
     display_rationale: bool,
     panel_width: Optional[int] = None,
+    file: Optional[IO[str]] = None,
 ) -> None:
-    """Display the results of executing the modules."""
+    """Display the results of executing the modules.
+
+    Args:
+        dm (DoneManager): Manager of all the tasks that need to be executed.
+        all_results (list[list[Module.EvaluateInfo]]): List of results of executing each module.
+        display_resolution (bool): Flag indicating if the resolution steps should be displayed in the output.
+        display_rationale (bool): Flag indicating if the rationale for the error should be displayed in the output.
+        panel_width (Optional[int], optional): The width of the output panel. Defaults to None.
+        file (Optional[IO[str]], optional): File to write to, or None for stdout. Defaults to None.
+
+    Raises:
+        RuntimeError: Exception if printing or writing to file encounters any issue.
+
+    """
     for results in all_results:
         assert results
         module = results[0].module
@@ -173,4 +187,5 @@ def DisplayResults(
                 title=results[0].module.name,
                 width=panel_width,
             ),
+            file=file,
         )
