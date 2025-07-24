@@ -334,10 +334,7 @@ def args() -> list[str]:
 # ----------------------------------------------------------------------
 @pytest.fixture
 def pat_args(args) -> list[str]:
-    _github_pat_filename = (Path(__file__).parent / "github_pat.txt").resolve()
-    CheckPATFileExists(_github_pat_filename)
+    github_pat_filename = (Path(__file__).parent / "github_pat.txt").resolve()
+    CheckPATFileExists(github_pat_filename)
 
-    with _github_pat_filename.open() as f:
-        pat_value = f.read().strip()
-
-    return args + ["--CommunityStandards-pat", pat_value]
+    return args + ["--CommunityStandards-pat", str(github_pat_filename)]

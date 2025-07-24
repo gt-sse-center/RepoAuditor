@@ -58,6 +58,17 @@ class GitHubBaseModule(Module):
     @override
     def GenerateInitialData(self, dynamic_args: dict[str, Any]) -> Optional[dict[str, Any]]:
         """Generate the initial data to be used in the `dynamic_args`, such as session info, etc."""
+        # Read the PAT (if provided) as a filename or a value.
+        # This also decouples the PAT reading logic from the GitHubSession class (which may be mocked for testing).
+        github_pat = dynamic_args.get("pat")
+        if github_pat:
+            potential_file = Path(github_pat)
+            if potential_file.is_file():
+                with potential_file.open("r") as f:
+                    github_pat = f.read().strip()
+        # Re-assign github_pat so it can be used within the subclassed modules.
+        dynamic_args["pat"] = github_pat
+
         # Create a GitHub API session
         dynamic_args["session"] = _GitHubSession(dynamic_args["url"], dynamic_args.get("pat"))
 
@@ -90,12 +101,6 @@ class _GitHubSession(requests.Session):
         )
 
         if github_pat:
-            potential_file = Path(github_pat)
-
-            if potential_file.is_file():
-                with potential_file.open("r") as f:
-                    github_pat = f.read().strip()
-
             self.headers["Authorization"] = f"Bearer {github_pat}"
 
         github_url = github_url.removesuffix("/")

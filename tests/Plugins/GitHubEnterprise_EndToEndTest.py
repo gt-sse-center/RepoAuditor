@@ -39,15 +39,12 @@ def args() -> list[str]:
 # ----------------------------------------------------------------------
 @pytest.fixture
 def pat_args(args) -> list[str]:
-    _github_pat_filename = (Path(__file__).parent / "github_gatech_pat.txt").resolve()
+    github_pat_filename = (Path(__file__).parent / "github_gatech_pat.txt").resolve()
     parsed = urllib.parse.urlparse(GetGithubUrl("enterprise"))
     parsed = parsed._replace(path="")
-    CheckPATFileExists(_github_pat_filename, github_url=parsed.geturl())
+    CheckPATFileExists(github_pat_filename, github_url=parsed.geturl())
 
-    with _github_pat_filename.open() as f:
-        pat_value = f.read().strip()
-
-    return args + ["--GitHub-pat", pat_value]
+    return args + ["--GitHub-pat", str(github_pat_filename)]
 
 
 # ----------------------------------------------------------------------
