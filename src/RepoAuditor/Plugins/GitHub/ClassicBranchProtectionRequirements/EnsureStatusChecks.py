@@ -24,7 +24,7 @@ class EnsureStatusChecks(Requirement):
     def __init__(self) -> None:
         super().__init__(
             "EnsureStatusChecks",
-            "Ensure that status checks have been enabled for the '{branch}' branch.",
+            "Ensure that status checks have been enabled for the branch.",
             ExecutionStyle.Parallel,
             textwrap.dedent(
                 """\

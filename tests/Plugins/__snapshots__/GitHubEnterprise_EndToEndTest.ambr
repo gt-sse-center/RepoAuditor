@@ -23,7 +23,7 @@
   │                                                                                                                      │
   │ [31m╭─[0m[31m [Error] AllowDeletions [0m[31m────────────────────────────────────────────────────────────────────────────────────────[0m[31m─╮[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
-  │ [31m│[0m Validates that 'Allow deletions' is set to False.                                                                [31m│[0m │
+  │ [31m│[0m Validates that 'Allow deletions' is set to the expected value.                                                   [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m ERROR: 'Allow deletions' must be set to 'True' (it is currently set to 'False').                                 [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
@@ -77,7 +77,7 @@
   │                                                                                                                      │
   │ [31m╭─[0m[31m [Error] AllowMainlineForcePushes [0m[31m──────────────────────────────────────────────────────────────────────────────[0m[31m─╮[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
-  │ [31m│[0m Validates that 'Allow force pushes' is set to False.                                                             [31m│[0m │
+  │ [31m│[0m Validates that 'Allow force pushes' is set to the expected value.                                                [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m ERROR: 'Allow force pushes' must be set to 'True' (it is currently set to 'False').                              [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
@@ -132,7 +132,7 @@
   │ [31m╭─[0m[31m [Error] DismissStalePullRequestApprovals [0m[31m──────────────────────────────────────────────────────────────────────[0m[31m─╮[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m Validates that 'Require a pull request before merging -> Dismiss stale pull request approvals when new commits   [31m│[0m │
-  │ [31m│[0m are pushed' is set to True.                                                                                      [31m│[0m │
+  │ [31m│[0m are pushed' is set to the expected value.                                                                        [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m ERROR: 'Require a pull request before merging -> Dismiss stale pull request approvals when new commits are       [31m│[0m │
   │ [31m│[0m pushed' must be set to 'False' (it is currently set to 'True').                                                  [31m│[0m │
@@ -188,7 +188,7 @@
   │                                                                                                                      │
   │ [31m╭─[0m[31m [Error] DoNotAllowBypassSettings [0m[31m──────────────────────────────────────────────────────────────────────────────[0m[31m─╮[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
-  │ [31m│[0m Validates that 'Do not allow bypassing the above settings' is set to True.                                       [31m│[0m │
+  │ [31m│[0m Validates that 'Do not allow bypassing the above settings' is set to the expected value.                         [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m ERROR: 'Do not allow bypassing the above settings' must be set to 'False' (it is currently set to 'True').       [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
@@ -243,7 +243,7 @@
   │ [31m╭─[0m[31m [Error] RequireApprovalMostRecentPush [0m[31m─────────────────────────────────────────────────────────────────────────[0m[31m─╮[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m Validates that 'Require a pull request before merging -> Require approval of the most recent reviewable push' is [31m│[0m │
-  │ [31m│[0m set to True.                                                                                                     [31m│[0m │
+  │ [31m│[0m set to the expected value.                                                                                       [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m ERROR: 'Require a pull request before merging -> Require approval of the most recent reviewable push' must be    [31m│[0m │
   │ [31m│[0m set to 'False' (it is currently set to 'True').                                                                  [31m│[0m │
@@ -299,7 +299,7 @@
   │                                                                                                                      │
   │ [31m╭─[0m[31m [Error] RequireApprovals [0m[31m──────────────────────────────────────────────────────────────────────────────────────[0m[31m─╮[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
-  │ [31m│[0m Validates that 'Require a pull request before merging -> Require approvals' is set to '1'.                       [31m│[0m │
+  │ [31m│[0m Validates that 'Require a pull request before merging -> Require approvals' is set to the expected value.        [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m ERROR: 'Require a pull request before merging -> Require approvals' must be set to '2' (it is currently set to   [31m│[0m │
   │ [31m│[0m '1').                                                                                                            [31m│[0m │
@@ -310,7 +310,7 @@
   │ [31m│[0m   2) Locate the 'Branch protection rules' section                                                                [31m│[0m │
   │ [31m│[0m   3) Click the 'Edit' button next to the branch 'main'                                                           [31m│[0m │
   │ [31m│[0m   4) Locate the 'Protect matching branches' section                                                              [31m│[0m │
-  │ [31m│[0m   5) Ensure that 'Require a pull request before merging -> Require approvals' is 2                               [31m│[0m │
+  │ [31m│[0m   5) Ensure that 'Require a pull request before merging -> Require approvals' is '2'                             [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯[0m │
   │ [37m╭─[0m[37m Metrics [0m[37m───────────────────────────────────────────────────────────────────────────────────────────────────────[0m[37m─╮[0m │
@@ -354,7 +354,8 @@
   │                                                                                                                      │
   │ [31m╭─[0m[31m [Error] RequireCodeOwnerReview [0m[31m────────────────────────────────────────────────────────────────────────────────[0m[31m─╮[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
-  │ [31m│[0m Validates that 'Require a pull request before merging -> Require review from Code Owners' is set to False.       [31m│[0m │
+  │ [31m│[0m Validates that 'Require a pull request before merging -> Require review from Code Owners' is set to the expected [31m│[0m │
+  │ [31m│[0m value.                                                                                                           [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m ERROR: 'Require a pull request before merging -> Require review from Code Owners' must be set to 'True' (it is   [31m│[0m │
   │ [31m│[0m currently set to 'False').                                                                                       [31m│[0m │
@@ -409,7 +410,7 @@
   │                                                                                                                      │
   │ [31m╭─[0m[31m [Error] RequireConversationResolution [0m[31m─────────────────────────────────────────────────────────────────────────[0m[31m─╮[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
-  │ [31m│[0m Validates that 'Require conversation resolution before merging' is set to True.                                  [31m│[0m │
+  │ [31m│[0m Validates that 'Require conversation resolution before merging' is set to the expected value.                    [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m ERROR: 'Require conversation resolution before merging' must be set to 'False' (it is currently set to 'True').  [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
@@ -463,7 +464,7 @@
   │                                                                                                                      │
   │ [31m╭─[0m[31m [Error] RequireLinearHistory [0m[31m──────────────────────────────────────────────────────────────────────────────────[0m[31m─╮[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
-  │ [31m│[0m Validates that 'Require linear history' is set to False.                                                         [31m│[0m │
+  │ [31m│[0m Validates that 'Require linear history' is set to the expected value.                                            [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m ERROR: 'Require linear history' must be set to 'True' (it is currently set to 'False').                          [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
@@ -517,7 +518,7 @@
   │                                                                                                                      │
   │ [31m╭─[0m[31m [Error] RequirePullRequests [0m[31m───────────────────────────────────────────────────────────────────────────────────[0m[31m─╮[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
-  │ [31m│[0m Validates that 'Require a pull request before merging' is set to True.                                           [31m│[0m │
+  │ [31m│[0m Validates that 'Require a pull request before merging' is set to the expected value.                             [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m ERROR: 'Require a pull request before merging' must be set to 'False' (it is currently set to 'True').           [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
@@ -571,7 +572,7 @@
   │                                                                                                                      │
   │ [31m╭─[0m[31m [Error] RequireSignedCommits [0m[31m──────────────────────────────────────────────────────────────────────────────────[0m[31m─╮[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
-  │ [31m│[0m Validates that 'Require signed commits' is set to True.                                                          [31m│[0m │
+  │ [31m│[0m Validates that 'Require signed commits' is set to the expected value.                                            [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m ERROR: 'Require signed commits' must be set to 'False' (it is currently set to 'True').                          [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
@@ -625,7 +626,7 @@
   │                                                                                                                      │
   │ [31m╭─[0m[31m [Error] RequireStatusChecksToPass [0m[31m─────────────────────────────────────────────────────────────────────────────[0m[31m─╮[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
-  │ [31m│[0m Validates that 'Require status checks to pass before merging' is set to True.                                    [31m│[0m │
+  │ [31m│[0m Validates that 'Require status checks to pass before merging' is set to the expected value.                      [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m ERROR: 'Require status checks to pass before merging' must be set to 'False' (it is currently set to 'True').    [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
@@ -680,7 +681,7 @@
   │ [31m╭─[0m[31m [Error] RequireUpToDateBranches [0m[31m───────────────────────────────────────────────────────────────────────────────[0m[31m─╮[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m Validates that 'Require status checks to pass before merging -> Require branches to be up to date before         [31m│[0m │
-  │ [31m│[0m merging' is set to True.                                                                                         [31m│[0m │
+  │ [31m│[0m merging' is set to the expected value.                                                                           [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m ERROR: 'Require status checks to pass before merging -> Require branches to be up to date before merging' must   [31m│[0m │
   │ [31m│[0m be set to 'False' (it is currently set to 'True').                                                               [31m│[0m │
@@ -736,15 +737,15 @@
   │                                                                                                                      │
   │ [31m╭─[0m[31m [Error] DefaultBranch [0m[31m─────────────────────────────────────────────────────────────────────────────────────────[0m[31m─╮[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
-  │ [31m│[0m Validates that 'Default Branch' is set to 'main'.                                                                [31m│[0m │
+  │ [31m│[0m Validates that the entity is set to the expected value.                                                          [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
-  │ [31m│[0m ERROR: 'Default Branch' must be set to 'not_main' (it is currently set to 'main').                               [31m│[0m │
+  │ [31m│[0m ERROR: the entity must be set to 'not_main' (it is currently set to 'main').                                     [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m Resolution                                                                                                       [31m│[0m │
   │ [31m│[0m ----------                                                                                                       [31m│[0m │
   │ [31m│[0m   1) Visit '<scrubbed-github-url>'<scrubbed-space>[31m│[0m │
   │ [31m│[0m   2) Locate the 'Default Branch' section                                                                         [31m│[0m │
-  │ [31m│[0m   3) Ensure that 'Default Branch' is set to not_main                                                             [31m│[0m │
+  │ [31m│[0m   3) Ensure that the entity is set to 'not_main'                                                                 [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯[0m │
   │ [37m╭─[0m[37m Metrics [0m[37m───────────────────────────────────────────────────────────────────────────────────────────────────────[0m[37m─╮[0m │
@@ -788,7 +789,7 @@
   │                                                                                                                      │
   │ [31m╭─[0m[31m [Error] License [0m[31m───────────────────────────────────────────────────────────────────────────────────────────────[0m[31m─╮[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
-  │ [31m│[0m Validates that 'License' is set to 'MIT License'.                                                                [31m│[0m │
+  │ [31m│[0m Validates that 'License' is set to the expected value.                                                           [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m ERROR: 'License' must be set to 'Not the MIT License' (it is currently set to 'MIT License').                    [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
@@ -841,7 +842,7 @@
   │                                                                                                                      │
   │ [31m╭─[0m[31m [Error] MergeCommitMessage [0m[31m────────────────────────────────────────────────────────────────────────────────────[0m[31m─╮[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
-  │ [31m│[0m Validates that 'Allow merge commits -> Default...' is set to 'BLANK'.                                            [31m│[0m │
+  │ [31m│[0m Validates that 'Allow merge commits -> Default...' is set to the expected value.                                 [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m ERROR: 'Allow merge commits -> Default...' must be set to 'This is not a valid merge commit message' (it is      [31m│[0m │
   │ [31m│[0m currently set to 'BLANK').                                                                                       [31m│[0m │
@@ -850,7 +851,7 @@
   │ [31m│[0m ----------                                                                                                       [31m│[0m │
   │ [31m│[0m   1) Visit '<scrubbed-github-url>'<scrubbed-space>[31m│[0m │
   │ [31m│[0m   2) Locate the 'Pull Requests' section                                                                          [31m│[0m │
-  │ [31m│[0m   3) Ensure that 'Allow merge commits -> Default...' is set to This is not a valid merge commit message          [31m│[0m │
+  │ [31m│[0m   3) Ensure that 'Allow merge commits -> Default...' is set to 'This is not a valid merge commit message'        [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯[0m │
   │ [37m╭─[0m[37m Metrics [0m[37m───────────────────────────────────────────────────────────────────────────────────────────────────────[0m[37m─╮[0m │
@@ -894,7 +895,7 @@
   │                                                                                                                      │
   │ [31m╭─[0m[31m [Error] AutoMerge [0m[31m─────────────────────────────────────────────────────────────────────────────────────────────[0m[31m─╮[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
-  │ [31m│[0m Validates that 'Allow auto-merge' is set to True.                                                                [31m│[0m │
+  │ [31m│[0m Validates that 'Allow auto-merge' is set to the expected value.                                                  [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m ERROR: 'Allow auto-merge' must be set to 'False' (it is currently set to 'True').                                [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
@@ -946,7 +947,7 @@
   │                                                                                                                      │
   │ [31m╭─[0m[31m [Error] DeleteHeadBranches [0m[31m────────────────────────────────────────────────────────────────────────────────────[0m[31m─╮[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
-  │ [31m│[0m Validates that 'Automatically delete head branches' is set to True.                                              [31m│[0m │
+  │ [31m│[0m Validates that 'Automatically delete head branches' is set to the expected value.                                [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m ERROR: 'Automatically delete head branches' must be set to 'False' (it is currently set to 'True').              [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
@@ -998,7 +999,7 @@
   │                                                                                                                      │
   │ [31m╭─[0m[31m [Error] MergeCommit [0m[31m───────────────────────────────────────────────────────────────────────────────────────────[0m[31m─╮[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
-  │ [31m│[0m Validates that 'Allow merge commits' is set to True.                                                             [31m│[0m │
+  │ [31m│[0m Validates that 'Allow merge commits' is set to the expected value.                                               [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m ERROR: 'Allow merge commits' must be set to 'False' (it is currently set to 'True').                             [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
@@ -1050,7 +1051,7 @@
   │                                                                                                                      │
   │ [31m╭─[0m[31m [Error] SupportIssues [0m[31m─────────────────────────────────────────────────────────────────────────────────────────[0m[31m─╮[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
-  │ [31m│[0m Validates that Support for Issues is set to True.                                                                [31m│[0m │
+  │ [31m│[0m Validates that Support for Issues is set to the expected value.                                                  [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m ERROR: 'Issues' must be set to 'False' (it is currently set to 'True').                                          [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
@@ -1102,7 +1103,7 @@
   │                                                                                                                      │
   │ [31m╭─[0m[31m [Error] SupportProjects [0m[31m───────────────────────────────────────────────────────────────────────────────────────[0m[31m─╮[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
-  │ [31m│[0m Validates that Support for Projects is set to True.                                                              [31m│[0m │
+  │ [31m│[0m Validates that Support for Projects is set to the expected value.                                                [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m ERROR: 'Projects' must be set to 'False' (it is currently set to 'True').                                        [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
@@ -1154,7 +1155,7 @@
   │                                                                                                                      │
   │ [31m╭─[0m[31m [Error] SupportWikis [0m[31m──────────────────────────────────────────────────────────────────────────────────────────[0m[31m─╮[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
-  │ [31m│[0m Validates that Support for Wikis is set to True.                                                                 [31m│[0m │
+  │ [31m│[0m Validates that Support for Wikis is set to the expected value.                                                   [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m ERROR: 'Wikis' must be set to 'False' (it is currently set to 'True').                                           [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
@@ -1206,7 +1207,7 @@
   │                                                                                                                      │
   │ [31m╭─[0m[31m [Error] WebCommitSignoff [0m[31m──────────────────────────────────────────────────────────────────────────────────────[0m[31m─╮[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
-  │ [31m│[0m Validates that 'Require contributors to sign off on web-based commits' is set to True.                           [31m│[0m │
+  │ [31m│[0m Validates that 'Require contributors to sign off on web-based commits' is set to the expected value.             [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m ERROR: 'Require contributors to sign off on web-based commits' must be set to 'False' (it is currently set to    [31m│[0m │
   │ [31m│[0m 'True').                                                                                                         [31m│[0m │
@@ -1259,7 +1260,7 @@
   │                                                                                                                      │
   │ [31m╭─[0m[31m [Error] Private [0m[31m───────────────────────────────────────────────────────────────────────────────────────────────[0m[31m─╮[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
-  │ [31m│[0m Validates that the repository's visibility is set to 'public'.                                                   [31m│[0m │
+  │ [31m│[0m Validates that the repository is set to the expected visibility.                                                 [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m ERROR: The repository's visibility must be private.                                                              [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
@@ -1364,7 +1365,7 @@
   │                                                                                                                      │
   │ [31m╭─[0m[31m [Error] SquashMergeCommitMessage [0m[31m──────────────────────────────────────────────────────────────────────────────[0m[31m─╮[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
-  │ [31m│[0m Validates that 'Allow squash merging -> Default...' is set to 'COMMIT_MESSAGES'.                                 [31m│[0m │
+  │ [31m│[0m Validates that 'Allow squash merging -> Default...' is set to the expected value.                                [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m ERROR: 'Allow squash merging -> Default...' cannot be set to 'This is not a valid squash merge commit message'   [31m│[0m │
   │ [31m│[0m because Squash merge commits are not enabled.                                                                    [31m│[0m │
@@ -1411,7 +1412,7 @@
   │                                                                                                                      │
   │ [31m╭─[0m[31m [Error] RebaseMergeCommit [0m[31m─────────────────────────────────────────────────────────────────────────────────────[0m[31m─╮[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
-  │ [31m│[0m Validates that 'Allow rebase merging' is set to False.                                                           [31m│[0m │
+  │ [31m│[0m Validates that 'Allow rebase merging' is set to the expected value.                                              [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m ERROR: 'Allow rebase merging' must be set to 'True' (it is currently set to 'False').                            [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
@@ -1463,7 +1464,7 @@
   │                                                                                                                      │
   │ [31m╭─[0m[31m [Error] SquashCommitMerge [0m[31m─────────────────────────────────────────────────────────────────────────────────────[0m[31m─╮[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
-  │ [31m│[0m Validates that 'Allow squash merging' is set to False.                                                           [31m│[0m │
+  │ [31m│[0m Validates that 'Allow squash merging' is set to the expected value.                                              [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m ERROR: 'Allow squash merging' must be set to 'True' (it is currently set to 'False').                            [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
@@ -1515,7 +1516,7 @@
   │                                                                                                                      │
   │ [31m╭─[0m[31m [Error] SuggestUpdatingPullRequestBranches [0m[31m────────────────────────────────────────────────────────────────────[0m[31m─╮[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
-  │ [31m│[0m Validates that 'Always suggest updating pull request branches' is set to False.                                  [31m│[0m │
+  │ [31m│[0m Validates that 'Always suggest updating pull request branches' is set to the expected value.                     [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m ERROR: 'Always suggest updating pull request branches' must be set to 'True' (it is currently set to 'False').   [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
@@ -1567,7 +1568,7 @@
   │                                                                                                                      │
   │ [31m╭─[0m[31m [Error] SupportDiscussions [0m[31m────────────────────────────────────────────────────────────────────────────────────[0m[31m─╮[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
-  │ [31m│[0m Validates that Support for Discussions is set to False.                                                          [31m│[0m │
+  │ [31m│[0m Validates that Support for Discussions is set to the expected value.                                             [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m ERROR: 'Discussions' must be set to 'True' (it is currently set to 'False').                                     [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
@@ -1619,7 +1620,7 @@
   │                                                                                                                      │
   │ [31m╭─[0m[31m [Error] TemplateRepository [0m[31m────────────────────────────────────────────────────────────────────────────────────[0m[31m─╮[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
-  │ [31m│[0m Validates that 'Template repository' is set to False.                                                            [31m│[0m │
+  │ [31m│[0m Validates that 'Template repository' is set to the expected value.                                               [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m ERROR: 'Template repository' must be set to 'True' (it is currently set to 'False').                             [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
