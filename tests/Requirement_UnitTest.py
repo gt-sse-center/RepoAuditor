@@ -129,7 +129,8 @@ def test_GetDynamicArgDefinitions():
         "testing",
     )
 
-    assert requirement.GetDynamicArgDefinitions() == {}
+    # Test if empty dict
+    assert not requirement.GetDynamicArgDefinitions("-")
 
 
 # ----------------------------------------------------------------------

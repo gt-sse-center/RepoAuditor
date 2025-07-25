@@ -65,10 +65,10 @@ class ValueRequirementImpl(Requirement):
 
     # ----------------------------------------------------------------------
     @override
-    def GetDynamicArgDefinitions(self) -> dict[str, TypeDefinitionItemType]:
+    def GetDynamicArgDefinitions(self, argument_separator: str) -> dict[str, TypeDefinitionItemType]:
         """Get the definitions for the arguments to this requirement."""
         return {
-            "value": (
+            f"{self.name}{argument_separator}value": (
                 str,
                 typer.Option(
                     self.default_value,

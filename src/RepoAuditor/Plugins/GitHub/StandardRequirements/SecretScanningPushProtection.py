@@ -23,7 +23,7 @@ class SecretScanningPushProtection(StandardEnableRequirementImpl):
         super().__init__(
             "SecretScanningPushProtection",
             True,
-            "disabled",
+            "no",
             "settings/security_analysis",
             "Secret Protection",
             "Push protection",

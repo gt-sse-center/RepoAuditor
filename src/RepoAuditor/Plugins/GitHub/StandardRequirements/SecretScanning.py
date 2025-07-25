@@ -23,7 +23,7 @@ class SecretScanning(StandardEnableRequirementImpl):
         super().__init__(
             "SecretScanning",
             True,
-            "disabled",
+            "no",
             "settings/security_analysis",
             "Secret Protection",
             "Secret protection",

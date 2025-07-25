@@ -34,7 +34,7 @@ def requirement():
 
 @pytest.fixture(name="requirement_args")
 def requirement_args_fixture():
-    return {"disabled": False}
+    return {"no": False}
 
 
 class TestRequireApprovalMostRecentPush:
@@ -73,6 +73,6 @@ class TestRequireApprovalMostRecentPush:
         query_data["branch_protection_data"]["required_pull_request_reviews"][
             "require_last_push_approval"
         ] = True
-        requirement_args = {"disabled": False}
+        requirement_args = {"no": False}
         result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.Success

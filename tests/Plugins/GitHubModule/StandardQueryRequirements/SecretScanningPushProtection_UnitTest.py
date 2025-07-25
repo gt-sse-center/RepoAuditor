@@ -35,7 +35,7 @@ def requirement():
 
 @pytest.fixture(name="requirement_args")
 def requirement_args_fixture():
-    return {"disabled": False}
+    return {"no": False}
 
 
 class TestSecretScanningPushProtection:
@@ -77,6 +77,6 @@ class TestSecretScanningPushProtection:
     def test_Successful(self, requirement, query_data):
         """Successful"""
         query_data["standard"]["security_and_analysis"]["secret_scanning_push_protection"]["status"] = True
-        requirement_args = {"disabled": True}
+        requirement_args = {"no": True}
         result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.Success

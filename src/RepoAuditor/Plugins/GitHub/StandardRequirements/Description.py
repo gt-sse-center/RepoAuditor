@@ -51,10 +51,10 @@ class Description(Requirement):
 
     # ----------------------------------------------------------------------
     @override
-    def GetDynamicArgDefinitions(self) -> dict[str, TypeDefinitionItemType]:
+    def GetDynamicArgDefinitions(self, argument_separator: str) -> dict[str, TypeDefinitionItemType]:
         """Get the definitions for the arguments to this requirement."""
         return {
-            "allow-empty": (
+            f"{self.name}{argument_separator}allow-empty": (
                 bool,
                 typer.Option(
                     default=False,

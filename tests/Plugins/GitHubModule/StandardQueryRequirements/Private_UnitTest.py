@@ -29,7 +29,7 @@ def requirement():
 
 @pytest.fixture(name="requirement_args")
 def requirement_args_fixture():
-    return {"enabled": False}
+    return {"yes": False}
 
 
 class TestPrivate:
@@ -57,7 +57,7 @@ class TestPrivate:
     def test_Incorrect(self, requirement, query_data):
         """Test when repository is expected to be private but is actually not."""
         query_data["standard"]["private"] = False
-        requirement_args = {"enabled": True}
+        requirement_args = {"yes": True}
         result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.Error
         assert "The repository's visibility must be private." in result.context
@@ -65,20 +65,20 @@ class TestPrivate:
     def test_Successful(self, requirement, query_data):
         """Test when repository is private"""
         query_data["standard"]["private"] = True
-        requirement_args = {"enabled": True}
+        requirement_args = {"yes": True}
         result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.Success
 
         # Test when repository is public
         query_data["standard"]["private"] = False
-        requirement_args = {"enabled": False}
+        requirement_args = {"yes": False}
         result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.Success
 
         # Test using GetDynamicArgDefinitions
         query_data["standard"]["private"] = False
-        requirement_args = {}
-        for key, value in requirement.GetDynamicArgDefinitions().items():
+        requirement_args = {"yes": False}
+        for key, value in requirement.GetDynamicArgDefinitions("-").items():
             requirement_args[key] = value[1].default
         result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.Success

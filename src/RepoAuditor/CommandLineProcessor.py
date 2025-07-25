@@ -144,10 +144,8 @@ class CommandLineProcessor:
             # Requirement-level args
             for query in module.queries:
                 for requirement in query.requirements:
-                    for key, value in requirement.GetDynamicArgDefinitions().items():
-                        dynamic_arg_definitions[
-                            f"{module.name}{argument_separator}{requirement.name}{argument_separator}{key}"
-                        ] = value
+                    for key, value in requirement.GetDynamicArgDefinitions(argument_separator).items():
+                        dynamic_arg_definitions[f"{module.name}{argument_separator}{key}"] = value
 
         # Now we process the definitions to get the dynamic arguments
         dynamic_args: dict[str, dict[str, Any]] = {}
@@ -163,9 +161,19 @@ class CommandLineProcessor:
                 raise ValueError(msg)
 
             if len(parts) == num_acceptable_dynamic_args_parts:
-                dynamic_args.setdefault(parts[0], {})[parts[1]] = value
+                if parts[1][0] == parts[1][0].lower():  # if lowercase, it is a module arg
+                    dynamic_args.setdefault(parts[0], {})[parts[1]] = value
+                else:
+                    # else it is a requirement arg with an implicit yes
+                    dynamic_args.setdefault(parts[0], {}).setdefault(None, {}).setdefault(parts[1], {})[
+                        "yes"
+                    ] = value
+            elif parts[1] == "no":  # Special case
+                dynamic_args.setdefault(parts[0], {}).setdefault(None, {}).setdefault(parts[2], {})[
+                    parts[1]
+                ] = value
             else:
-                dynamic_args.setdefault(parts[0], {}).setdefault(None, {}).setdefault(  # type: ignore[call-overload]
+                dynamic_args.setdefault(parts[0], {}).setdefault(None, {}).setdefault(
                     parts[1],
                     {},
                 )[argument_separator.join(parts[2:])] = value

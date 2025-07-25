@@ -43,7 +43,7 @@ class TestRequirePullRequests:
                 )
             ]
         }
-        result = requirement.Evaluate(context, {"disabled": False})
+        result = requirement.Evaluate(context, {"no": False})
         assert result.result == EvaluateResult.Success
         assert f"{requirement.github_settings_value} is enabled" in result.context
 
@@ -63,7 +63,7 @@ class TestRequirePullRequests:
                 )
             ]
         }
-        result = requirement.Evaluate(context, {"disabled": True})
+        result = requirement.Evaluate(context, {"no": True})
         assert result.result == EvaluateResult.Success
 
     def test_WrongTarget(self):
@@ -75,14 +75,14 @@ class TestRequirePullRequests:
                 # Hence the rules here will be empty.
             ]
         }
-        result = requirement.Evaluate(context, {"disabled": False})
+        result = requirement.Evaluate(context, {"no": False})
         assert result.result == EvaluateResult.Error
 
     def test_NoRulesets(self):
         """Test if no rules are applied on the main branch."""
         requirement = RequirePullRequests()
         context = {"rules": []}
-        result = requirement.Evaluate(context, {"disabled": False})
+        result = requirement.Evaluate(context, {"no": False})
         assert result.result == EvaluateResult.Error
         assert f"No active branch ruleset with {requirement.github_settings_value} found" in result.context
 
@@ -104,7 +104,7 @@ class TestRequireSignedCommits:
                 )
             ]
         }
-        result = requirement.Evaluate(context, {"disabled": False})
+        result = requirement.Evaluate(context, {"no": False})
         assert result.result == EvaluateResult.Success
         assert f"{requirement.github_settings_value} is enabled" in result.context
 
@@ -124,7 +124,7 @@ class TestRequireSignedCommits:
                 )
             ]
         }
-        result = requirement.Evaluate(context, {"disabled": False})
+        result = requirement.Evaluate(context, {"no": False})
         assert result.result == EvaluateResult.Error
 
     def test_PartialConfig(self):
@@ -135,14 +135,14 @@ class TestRequireSignedCommits:
                 # GitHub only returns rules that are actively enforced
             ]
         }
-        result = requirement.Evaluate(context, {"disabled": False})
+        result = requirement.Evaluate(context, {"no": False})
         assert result.result == EvaluateResult.Error
 
     def test_NoRulesets(self):
         """Test if no rules are applied on the main branch."""
         requirement = RequireSignedCommits()
         context = {"rules": []}
-        result = requirement.Evaluate(context, {"disabled": False})
+        result = requirement.Evaluate(context, {"no": False})
         assert result.result == EvaluateResult.Error
         assert f"No active branch ruleset with {requirement.github_settings_value} found" in result.context
 
@@ -164,7 +164,7 @@ class TestRequireStatusChecks:
                 )
             ]
         }
-        result = requirement.Evaluate(context, {"disabled": False})
+        result = requirement.Evaluate(context, {"no": False})
         assert result.result == EvaluateResult.Success
         assert f"{requirement.github_settings_value} is enabled" in result.context
 
@@ -178,13 +178,13 @@ class TestRequireStatusChecks:
                 # Hence empty.
             ]
         }
-        result = requirement.Evaluate(context, {"disabled": False})
+        result = requirement.Evaluate(context, {"no": False})
         assert result.result == EvaluateResult.Error
 
     def test_NoRulesets(self):
         """Test if no rules are applied on the main branch."""
         requirement = RequireStatusChecks()
         context = {"rules": []}
-        result = requirement.Evaluate(context, {"disabled": False})
+        result = requirement.Evaluate(context, {"no": False})
         assert result.result == EvaluateResult.Error
         assert f"No active branch ruleset with {requirement.github_settings_value} found" in result.context

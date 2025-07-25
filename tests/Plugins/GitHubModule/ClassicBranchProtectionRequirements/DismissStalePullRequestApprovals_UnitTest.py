@@ -34,7 +34,7 @@ def requirement():
 
 @pytest.fixture(name="requirement_args")
 def requirement_args_fixture():
-    return {"disabled": False}
+    return {"no": False}
 
 
 class TestDismissStalePullRequestApprovals:

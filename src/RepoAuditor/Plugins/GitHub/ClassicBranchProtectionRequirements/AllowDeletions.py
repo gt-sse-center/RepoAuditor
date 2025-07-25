@@ -22,7 +22,7 @@ class AllowDeletions(ClassicEnableRequirementImpl):
         super().__init__(
             "AllowDeletions",
             False,
-            "enabled",
+            "yes",
             "Rules applied to everyone including administrators",
             "Allow deletions",
             lambda data: data["branch_protection_data"]["allow_deletions"]["enabled"],

@@ -34,7 +34,7 @@ def requirement():
 
 @pytest.fixture(name="requirement_args")
 def requirement_args_fixture():
-    return {"enabled": True}
+    return {"yes": True}
 
 
 class TestRequireCodeOwnerReview:

@@ -23,7 +23,7 @@ class RequireCodeOwnerReview(ClassicEnableRequirementImpl):
         super().__init__(
             "RequireCodeOwnerReview",
             False,
-            "enabled",
+            "yes",
             "Protect matching branches",
             "Require a pull request before merging -> Require review from Code Owners",
             _GetValue,

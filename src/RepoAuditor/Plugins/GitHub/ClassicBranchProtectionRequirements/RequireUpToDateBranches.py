@@ -23,7 +23,7 @@ class RequireUpToDateBranches(ClassicEnableRequirementImpl):
         super().__init__(
             "RequireUpToDateBranches",
             True,
-            "disabled",
+            "no",
             "Protect matching branches",
             "Require status checks to pass before merging -> Require branches to be up to date before merging",
             _GetValue,
