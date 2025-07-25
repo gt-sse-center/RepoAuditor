@@ -12,8 +12,8 @@ from RepoAuditor.Plugins.GitHub.StandardRequirements.SecretScanning import Secre
 from RepoAuditor.Requirement import EvaluateResult
 
 
-@pytest.fixture
-def query_data(session):
+@pytest.fixture(name="query_data")
+def query_data_fixture(session):
     return {
         "session": session,
         "standard": {
@@ -26,12 +26,14 @@ def query_data(session):
     }
 
 
-@pytest.fixture
-def requirement():
+@pytest.fixture(name="requirement")
+def requirement_fixture():
     return SecretScanning()
 
 
 class TestSecretScanning:
+    """Tests for the SecretScanning requirement class."""
+
     def test_security_and_analysis_missing(self, requirement, query_data):
         # Test if `security_and_analysis` is missing
         query_data["standard"] = {}

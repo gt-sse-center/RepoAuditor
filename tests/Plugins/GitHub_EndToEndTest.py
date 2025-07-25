@@ -456,8 +456,8 @@ class TestRulesets:
 # ----------------------------------------------------------------------
 # ----------------------------------------------------------------------
 # ----------------------------------------------------------------------
-@pytest.fixture
-def args() -> list[str]:
+@pytest.fixture(name="args")
+def args_fixture() -> list[str]:
     """Common arguments for GitHub plugin and corresponding URL."""
     return [
         "--include",
@@ -468,8 +468,8 @@ def args() -> list[str]:
 
 
 # ----------------------------------------------------------------------
-@pytest.fixture
-def pat_args(args) -> list[str]:
+@pytest.fixture(name="pat_args")
+def pat_args_fixture(args) -> list[str]:
     github_pat_filename = (Path(__file__).parent / "github_pat.txt").resolve()
     CheckPATFileExists(github_pat_filename)
 
