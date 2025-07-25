@@ -20,6 +20,6 @@ class RequirePullRequests(EnableRulesetRequirementImpl):
             github_ruleset_type="pull_request",
             github_ruleset_value="Require a pull request before merging",
             get_configuration_value_func=lambda rule: rule.get("type", "") == "pull_request",
-            resolution="{__enabled_str} pull request rule in repository rulesets",
+            resolution="{__expected_value} pull request rule in repository rulesets",
             rationale="Pull request reviews help maintain code quality and collaboration",
         )

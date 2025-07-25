@@ -37,7 +37,7 @@ class TestLicense:
         query_data["standard"] = {}
         result = requirement.Evaluate(
             query_data,
-            requirement_args={"value": requirement.default_value},
+            requirement_args={},
         )
         assert result.result == EvaluateResult.Warning
         assert "Incomplete data was encountered" in result.context

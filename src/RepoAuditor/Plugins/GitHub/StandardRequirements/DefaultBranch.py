@@ -24,7 +24,7 @@ class DefaultBranch(StandardValueRequirementImpl):
             "main",
             "settings",
             "Default Branch",
-            "Default Branch",
+            None,
             lambda data: data["standard"].get("default_branch", None),
             textwrap.dedent(
                 """\
