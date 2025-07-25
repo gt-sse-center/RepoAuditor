@@ -31,14 +31,14 @@ class CommunityStandardsQuery(Query):
             "CommunityStandardsQuery",
             ExecutionStyle.Parallel,
             [
-                ReadMe(),
                 CodeOfConduct(),
-                Contributing(),
-                LicenseFile(),
-                SecurityPolicy(),
-                IssueTemplates(),
-                PullRequestTemplate(),
                 CodeOwners(),
+                Contributing(),
+                IssueTemplates(),
+                LicenseFile(),
+                PullRequestTemplate(),
+                ReadMe(),
+                SecurityPolicy(),
             ],
         )
 
