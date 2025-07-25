@@ -31,39 +31,43 @@ def requirement():
     return SecretScanning()
 
 
+@pytest.fixture(name="requirement_args")
+def requirement_args_fixture():
+    return {"disabled": False}
+
+
 class TestSecretScanning:
-    def test_security_and_analysis_missing(self, requirement, query_data):
+    def test_security_and_analysis_missing(self, requirement, query_data, requirement_args):
         # Test if `security_and_analysis` is missing
         query_data["standard"] = {}
-        result = requirement.Evaluate(query_data, requirement_args={})
+        result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.Warning
         assert "Incomplete data was encountered" in result.context
 
-    def test_secret_scanning_missing(self, requirement, query_data):
+    def test_secret_scanning_missing(self, requirement, query_data, requirement_args):
         """Test if `secret_scanning` is missing"""
         query_data["standard"]["security_and_analysis"] = {}
-        result = requirement.Evaluate(query_data, requirement_args={})
+        result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.Warning
         assert "Incomplete data was encountered" in result.context
 
-    def test_status_missing(self, requirement, query_data):
+    def test_status_missing(self, requirement, query_data, requirement_args):
         """Test if `status` is missing"""
         query_data["standard"]["security_and_analysis"]["secret_scanning"] = {}
-        result = requirement.Evaluate(query_data, requirement_args={})
+        result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.Warning
         assert "Incomplete data was encountered" in result.context
 
-    def test_status_none(self, requirement, query_data):
+    def test_status_none(self, requirement, query_data, requirement_args):
         """Test if `status` is None"""
         query_data["standard"]["security_and_analysis"]["secret_scanning"] = {"status": None}
-        result = requirement.Evaluate(query_data, requirement_args={})
+        result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.Warning
         assert "Incomplete data was encountered" in result.context
 
-    def test_Incorrect(self, requirement, query_data):
+    def test_Incorrect(self, requirement, query_data, requirement_args):
         """Test when result doesn't match expected value"""
         query_data["standard"]["security_and_analysis"]["secret_scanning"]["status"] = True
-        requirement_args = {"disabled": False}
         result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.Error
         assert "'Secret protection' must be set to 'True' (it is currently set to 'False')." in result.context

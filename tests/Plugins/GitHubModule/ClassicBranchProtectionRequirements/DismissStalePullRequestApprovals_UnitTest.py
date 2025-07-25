@@ -32,44 +32,44 @@ def requirement():
     return DismissStalePullRequestApprovals()
 
 
+@pytest.fixture(name="requirement_args")
+def requirement_args_fixture():
+    return {"disabled": False}
+
+
 class TestDismissStalePullRequestApprovals:
-    def test_required_pull_request_reviews_missing(self, requirement, query_data):
+    def test_required_pull_request_reviews_missing(self, requirement, query_data, requirement_args):
         """Test when `required_pull_request_reviews` is missing."""
         query_data["branch_protection_data"] = {}
-        requirement_args = {}
         result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.DoesNotApply
         assert result.context is None
 
-    def test_required_pull_request_reviews_none(self, requirement, query_data):
+    def test_required_pull_request_reviews_none(self, requirement, query_data, requirement_args):
         """Test when `required_pull_request_reviews` is None"""
         query_data["branch_protection_data"]["required_pull_request_reviews"] = None
-        requirement_args = {}
         result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.DoesNotApply
         assert result.context is None
 
-    def test_dismiss_stale_reviews_missing(self, requirement, query_data):
+    def test_dismiss_stale_reviews_missing(self, requirement, query_data, requirement_args):
         """Test when `dismiss_stale_reviews` is missing"""
         query_data["branch_protection_data"]["required_pull_request_reviews"] = {}
-        requirement_args = {}
         result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.DoesNotApply
         assert result.context is None
 
-    def test_dismiss_stale_reviews_none(self, requirement, query_data):
+    def test_dismiss_stale_reviews_none(self, requirement, query_data, requirement_args):
         """Test when `dismiss_stale_reviews` is None"""
         query_data["branch_protection_data"]["required_pull_request_reviews"] = {
             "dismiss_stale_reviews": None
         }
-        requirement_args = {}
         result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.DoesNotApply
         assert result.context is None
 
-    def test_successful(self, requirement, query_data):
+    def test_successful(self, requirement, query_data, requirement_args):
         """Test successful"""
         query_data["branch_protection_data"]["required_pull_request_reviews"]["dismiss_stale_reviews"] = True
-        requirement_args = {"disabled": False}
         result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.Success
