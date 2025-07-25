@@ -42,7 +42,7 @@ class TestValueRequirementImpl:
     def test_ResultIsNone(self, requirement):
         """Test pathway where result value is None."""
         query_data = {"result": None}
-        requirement_args = {}
+        requirement_args = {"value": 0}
         result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.Warning
         assert "Incomplete data" in result.context
@@ -84,7 +84,7 @@ class TestValueRequirementImpl:
         )
 
         query_data = {"result": None}
-        requirement_args = {}
+        requirement_args = {"value": 0}
         result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.DoesNotApply
         assert result.context is None

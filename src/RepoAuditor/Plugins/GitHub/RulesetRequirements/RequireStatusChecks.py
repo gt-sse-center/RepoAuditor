@@ -20,6 +20,6 @@ class RequireStatusChecks(EnableRulesetRequirementImpl):
             github_ruleset_type="required_status_checks",
             github_ruleset_value="Require status checks to pass",
             get_configuration_value_func=lambda rule: rule.get("type", "") == "required_status_checks",
-            resolution="Configure required status checks in repository rulesets",
+            resolution="{__enabled_str} required status checks in repository rulesets",
             rationale="Status checks ensure code quality and compatibility",
         )

@@ -32,34 +32,35 @@ def requirement():
     return RequireApprovalMostRecentPush()
 
 
+@pytest.fixture(name="requirement_args")
+def requirement_args_fixture():
+    return {"disabled": False}
+
+
 class TestRequireApprovalMostRecentPush:
-    def test_required_pull_request_reviews_missing(self, requirement, query_data):
+    def test_required_pull_request_reviews_missing(self, requirement, query_data, requirement_args):
         """Test when `required_pull_request_reviews` is missing"""
         query_data["branch_protection_data"] = {}
-        requirement_args = {}
         result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.DoesNotApply
         assert result.context is None
 
-    def test_required_pull_request_reviews_none(self, requirement, query_data):
+    def test_required_pull_request_reviews_none(self, requirement, query_data, requirement_args):
         """Test when `required_pull_request_reviews` is None"""
         query_data["branch_protection_data"]["required_pull_request_reviews"] = None
-        requirement_args = {}
         result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.DoesNotApply
         assert result.context is None
 
-    def test_require_last_push_approval_missing(self, requirement, query_data):
+    def test_require_last_push_approval_missing(self, requirement, query_data, requirement_args):
         """Test when `require_last_push_approval` is missing"""
         query_data["branch_protection_data"]["required_pull_request_reviews"] = {}
-        requirement_args = {}
         result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.DoesNotApply
         assert result.context is None
 
-    def test_require_last_push_approval_none(self, requirement, query_data):
+    def test_require_last_push_approval_none(self, requirement, query_data, requirement_args):
         """Test when `require_last_push_approval` is None"""
-        requirement_args = {}
         query_data["branch_protection_data"]["required_pull_request_reviews"][
             "require_last_push_approval"
         ] = None

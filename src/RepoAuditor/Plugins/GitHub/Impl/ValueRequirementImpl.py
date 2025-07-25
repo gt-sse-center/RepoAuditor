@@ -51,7 +51,7 @@ class ValueRequirementImpl(Requirement):
 
         super().__init__(
             name,
-            f"Validates that {subject} is set to the expected value.",
+            f"Validates that {subject} is set to '{{__expected_value}}'.",
             ExecutionStyle.Parallel,
             resolution,
             rationale,
@@ -84,6 +84,9 @@ class ValueRequirementImpl(Requirement):
         query_data: dict[str, Any],
         requirement_args: dict[str, Any],
     ) -> Requirement.EvaluateImplResult:
+        expected_value = requirement_args["value"]
+        query_data["__expected_value"] = f"{expected_value}"
+
         result = self.get_configuration_value_func(query_data)
         if result is None:
             if self.missing_value_is_warning:
@@ -91,7 +94,6 @@ class ValueRequirementImpl(Requirement):
 
             return Requirement.EvaluateImplResult(EvaluateResult.DoesNotApply, None)
 
-        expected_value = requirement_args["value"]
         is_default_expected_value = expected_value == self.default_value
 
         if isinstance(result, DoesNotApplyResult):
@@ -106,8 +108,6 @@ class ValueRequirementImpl(Requirement):
         result = str(result)
 
         if result != expected_value:
-            query_data["__expected_value"] = f"'{expected_value}'"
-
             return Requirement.EvaluateImplResult(
                 EvaluateResult.Error,
                 f"{self.github_value} must be set to '{expected_value}' (it is currently set to '{result}').",

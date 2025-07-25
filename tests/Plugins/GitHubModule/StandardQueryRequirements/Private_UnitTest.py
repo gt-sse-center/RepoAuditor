@@ -27,25 +27,29 @@ def requirement():
     return Private()
 
 
+@pytest.fixture(name="requirement_args")
+def requirement_args_fixture():
+    return {"enabled": False}
+
+
 class TestPrivate:
-    def test_private_missing(self, requirement, query_data):
+    def test_private_missing(self, requirement, query_data, requirement_args):
         """Test if `private` is missing"""
         query_data["standard"] = {}
-        result = requirement.Evaluate(query_data, requirement_args={})
+        result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.Warning
         assert "Incomplete data was encountered" in result.context
 
-    def test_private_none(self, requirement, query_data):
+    def test_private_none(self, requirement, query_data, requirement_args):
         """Test if `private` is None"""
         query_data["standard"]["private"] = None
-        result = requirement.Evaluate(query_data, requirement_args={})
+        result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.Warning
         assert "Incomplete data was encountered" in result.context
 
-    def test_PublicRepo(self, requirement, query_data):
+    def test_PublicRepo(self, requirement, query_data, requirement_args):
         """Test when repository is expected to be public."""
         query_data["standard"]["private"] = True
-        requirement_args = {"enabled": False}
         result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.Error
         assert "The repository's visibility must be public." in result.context
