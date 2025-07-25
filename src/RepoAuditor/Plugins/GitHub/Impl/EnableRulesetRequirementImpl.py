@@ -67,8 +67,7 @@ class EnableRulesetRequirementImpl(EnableRequirementImpl):
         else:
             provide_rationale = True
 
-        query_data["__expected_value"] = expected_rule_enabled
-        query_data["__enabled_str"] = "Enable" if expected_rule_enabled else "Disable"
+        query_data["__expected_value"] = "Enable" if expected_rule_enabled else "Disable"
 
         # Get the rules for the specified branch
         rules = query_data.get("rules", [])

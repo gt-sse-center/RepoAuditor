@@ -25,7 +25,7 @@ class Private(Requirement):
     def __init__(self) -> None:
         super().__init__(
             "Private",
-            "Validates that the repository's visibility is set to '{__expected_visibility}'.",
+            "Validates that the repository is set to the expected visibility.",
             ExecutionStyle.Parallel,
             textwrap.dedent(
                 """\
@@ -71,15 +71,16 @@ class Private(Requirement):
         query_data: dict[str, Any],
         requirement_args: dict[str, Any],
     ) -> Requirement.EvaluateImplResult:
-        expect_private = requirement_args["enabled"]
-        query_data["__expected_visibility"] = "private" if expect_private else "public"
-
         result = query_data["standard"].get("private", None)
 
         if result is None:
             return CreateIncompleteDataResult()
 
+        expect_private = requirement_args["enabled"]
+
         if result != expect_private:
+            query_data["__expected_visibility"] = "private" if expect_private else "public"
+
             return Requirement.EvaluateImplResult(
                 EvaluateResult.Error,
                 f"The repository's visibility must be {query_data['__expected_visibility']}.",

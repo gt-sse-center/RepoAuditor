@@ -44,7 +44,7 @@ class EnableRequirementImpl(Requirement):
 
         super().__init__(
             name,
-            f"Validates that {subject} is set to {{__expected_value}}.",
+            f"Validates that {subject} is set to the expected value.",
             ExecutionStyle.Parallel,
             resolution,
             rationale,
@@ -79,16 +79,6 @@ class EnableRequirementImpl(Requirement):
         query_data: dict[str, Any],
         requirement_args: dict[str, Any],
     ) -> Requirement.EvaluateImplResult:
-        expected_value = self.enabled_by_default
-
-        if requirement_args[self.dynamic_arg_name]:
-            expected_value = not expected_value
-            provide_rationale = False
-        else:
-            provide_rationale = True
-
-        query_data["__expected_value"] = expected_value
-
         result = self.get_configuration_value_func(query_data)
         if result is None:
             if query_data["session"].is_enterprise:
@@ -104,6 +94,14 @@ class EnableRequirementImpl(Requirement):
                 return CreateIncompleteDataResult()
 
             return Requirement.EvaluateImplResult(EvaluateResult.DoesNotApply, None)
+
+        expected_value = self.enabled_by_default
+
+        if requirement_args[self.dynamic_arg_name]:
+            expected_value = not expected_value
+            provide_rationale = False
+        else:
+            provide_rationale = True
 
         if result != expected_value:
             query_data["__checked_desc"] = self.unset_set_terminology[int(expected_value)]
