@@ -1,3 +1,11 @@
+# -------------------------------------------------------------------------------
+# |
+# |  Copyright (c) 2024 Scientific Software Engineering Center at Georgia Tech
+# |  Distributed under the MIT License.
+# |
+# -------------------------------------------------------------------------------
+"""Unit tests for RequireUpToDateBranches."""
+
 import pytest
 
 from RepoAuditor.Plugins.GitHub.ClassicBranchProtectionRequirements.RequireUpToDateBranches import (
@@ -6,8 +14,9 @@ from RepoAuditor.Plugins.GitHub.ClassicBranchProtectionRequirements.RequireUpToD
 from RepoAuditor.Requirement import EvaluateResult
 
 
-@pytest.fixture
-def query_data(session):
+@pytest.fixture(name="query_data")
+def query_data_fixture(session):
+    """Sample query data fixture."""
     return {
         "session": session,
         "branch": "main",
@@ -19,12 +28,15 @@ def query_data(session):
     }
 
 
-@pytest.fixture
-def requirement():
+@pytest.fixture(name="requirement")
+def requirement_fixture():
+    """RequireUpToDateBranches requirement fixture."""
     return RequireUpToDateBranches()
 
 
 class TestRequireUpToDateBranches:
+    """Tests for RequireUpToDateBranches requirement."""
+
     def test_required_status_checks_missing(self, requirement, query_data):
         """Test when `required_status_checks` is missing"""
         query_data["branch_protection_data"] = {}

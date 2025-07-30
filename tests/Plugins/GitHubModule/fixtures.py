@@ -7,17 +7,22 @@
 """Common fixtures for GitHubModule unit tests."""
 
 import pytest
+from dataclasses import dataclass
 
 
 @pytest.fixture
 def session():
     """Create a dummy GitHub API session object."""
 
+    @dataclass(frozen=True)
     class _GithubSession_:
-        pass
+        github_url: str
+        pat: str
+        is_enterprise: bool
 
-    s = _GithubSession_()
-    s.github_url = "https://github.com/gt-sse-center/RepoAuditor"
-    s.pat = "github_pat_dummy"
-    s.is_enterprise = False
+    s = _GithubSession_(
+        "https://github.com/gt-sse-center/RepoAuditor",
+        pat="github_pat_dummy",
+        is_enterprise=False,
+    )
     return s

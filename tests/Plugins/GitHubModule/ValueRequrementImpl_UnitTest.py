@@ -12,8 +12,8 @@ from RepoAuditor.Plugins.GitHub.Impl.ValueRequirementImpl import DoesNotApplyRes
 from RepoAuditor.Requirement import EvaluateResult
 
 
-@pytest.fixture
-def requirement():
+@pytest.fixture(name="requirement")
+def requirement_fixture():
     return ValueRequirementImpl(
         "TestValueRequirement",
         "42",
@@ -24,8 +24,8 @@ def requirement():
     )
 
 
-@pytest.fixture
-def requirement_does_not_apply_result():
+@pytest.fixture(name="requirement_does_not_apply_result")
+def requirement_does_not_apply_result_fixture():
     return ValueRequirementImpl(
         "TestValueRequirement",
         "42",
