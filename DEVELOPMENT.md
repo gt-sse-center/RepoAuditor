@@ -92,13 +92,13 @@ Please follow the steps below to complete the configuration.
   - Run the `CI+CD` workflow. You will be asked to enable it, please do so.
   - In the `Run workflow` dropdown to the right, click the `Run workflow` button. This should cause the action to run, don't worry if it fails, it is only needed for a check below.
 
-- On the `Rules -> Rulesets` settings page, create a new branch ruleset called `Protect Main`:
+- On the `Rules -> Rulesets` settings page, create a new branch ruleset called `main`:
   - Under `Target branches`, click `Add target -> Include by pattern` and type in `main`. Finalize by clicking `Add Inclusion pattern`.
   - Enable `Restrict deletions`
   - Enable `Require signed commits`
   - Enable `Require a pull request before merging` with 1 required approval.
   - Enable `Require status checks to pass` with the `CI+CD Workflow / Validate (ubuntu-latest, 3.12)` check.
-  - Disable `Block force pushes`.
+  - Enable `Block force pushes`.
   - Be sure to hit `Save changes` at the end.
 
 ### Development Activities
