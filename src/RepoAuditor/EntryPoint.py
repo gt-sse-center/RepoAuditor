@@ -327,7 +327,7 @@ def EntryPoint(  # noqa: PLR0913  # pragma: no cover
 
             # Since `output` can be None, we use the nullcontext manager to represent None
             with (
-                Path.open(output, mode="w+", encoding="UTF-8") if output else contextlib.nullcontext() as file
+                Path(output).open(mode="w+", encoding="UTF-8") if output else contextlib.nullcontext() as file
             ):
                 DisplayResults(
                     dm,

@@ -26,12 +26,12 @@ def ScrubGithubUrl(content: str) -> str:
         # Scrub the URL and fill in the spaces to maintain the output panel width
         start, end = m.span()
         length = int(end - start)
-        val = "'<scrubbed-github-url>'"
+        val = "'<scrubbed-github-url>'."
         template = f"{val:{length}}"
         return template.format(length)
 
     return re.sub(
-        r"('https?:\/\/.+')",
+        r"('https?:\/\/.+'\.?)",
         replace_func,
         content,
     )
