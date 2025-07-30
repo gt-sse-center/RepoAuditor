@@ -108,7 +108,7 @@ As a general example, we will use the [python-helloworld](https://github.com/dba
 To run `RepoAuditor`, we can enter the following in the command-line:
 
 ```shell
-uvx RepoAuditor --include GitHub \
+uvx RepoAuditor --includes GitHub \
   --GitHub-url https://github.com/<username>/python-helloworld \
   --GitHub-pat ~/PAT.txt
 ```

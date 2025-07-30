@@ -26,7 +26,7 @@ pytest.fixture(InitializeStreamCapabilities(), scope="session", autouse=True)
 @pytest.fixture(name="args")
 def args_fixture() -> list[str]:
     return [
-        "--include",
+        "--includes",
         "GitHub",
         "--GitHub-url",
         GetGithubUrl("enterprise"),
