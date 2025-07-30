@@ -53,7 +53,6 @@ class TestSquashMergeCommitMessage:
         """Missing squash_merge_commit_message value"""
         query_data["standard"]["allow_squash_merge"] = True
         query_data["standard"].pop("squash_merge_commit_message", None)
-
         requirement_args = {"value": "COMMIT_MESSAGES"}
         result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.Warning
