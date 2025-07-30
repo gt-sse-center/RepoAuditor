@@ -87,6 +87,9 @@ class Requirement(ABC):
         If `requires_explicit_include` is True, the requirement must be explicitly included on the command line.
         """
         self.name = name
+        # Use description template so we can update this description for each requirement
+        self.description_template = description
+        # Use the description as is as backup
         self.description = description
         self.style = style
 
@@ -111,6 +114,9 @@ class Requirement(ABC):
     ) -> "Requirement.EvaluateInfo":
         """Evaluate the requirements given the query data and specific arguments."""
         result_info = self._EvaluateImpl(query_data, requirement_args)
+
+        # Fill in templates in description string
+        self.description = self.description_template.format(**query_data)
 
         if result_info.result == EvaluateResult.Error:
             return Requirement.EvaluateInfo(

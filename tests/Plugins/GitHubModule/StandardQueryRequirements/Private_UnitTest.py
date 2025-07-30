@@ -31,14 +31,16 @@ class TestPrivate:
     def test_private_missing(self, requirement, query_data):
         """Test if `private` is missing"""
         query_data["standard"] = {}
-        result = requirement.Evaluate(query_data, requirement_args={})
+        requirement_args = {}
+        result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.Warning
         assert "Incomplete data was encountered" in result.context
 
     def test_private_none(self, requirement, query_data):
         """Test if `private` is None"""
         query_data["standard"]["private"] = None
-        result = requirement.Evaluate(query_data, requirement_args={})
+        requirement_args = {}
+        result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.Warning
         assert "Incomplete data was encountered" in result.context
 

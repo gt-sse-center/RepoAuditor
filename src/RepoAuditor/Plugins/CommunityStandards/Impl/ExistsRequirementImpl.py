@@ -80,8 +80,8 @@ class ExistsRequirementImpl(Requirement):
         query_data: dict[str, Any],
         requirement_args: dict[str, Any],
     ) -> Requirement.EvaluateImplResult:
-        # Check if `dynamic_arg_name` is `not unrequired`.
-        if not requirement_args[self.dynamic_arg_name]:
+        # Check if dynamic argument is `not unrequired`.
+        if not requirement_args.get(self.dynamic_arg_name, False):
             for location in self.possible_locations:
                 # Get full file path in temporary repo directory and check if it exists
                 # This checks both upper case and lower case variants

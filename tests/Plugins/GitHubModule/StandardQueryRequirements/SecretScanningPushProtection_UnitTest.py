@@ -37,28 +37,32 @@ class TestSecretScanningPushProtection:
     def test_security_and_analysis_missing(self, requirement, query_data):
         """Test if `security_and_analysis` is missing"""
         query_data["standard"] = {}
-        result = requirement.Evaluate(query_data, requirement_args={})
+        requirement_args = {}
+        result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.Warning
         assert "Incomplete data was encountered" in result.context
 
     def test_secret_scanning_push_protection_missing(self, requirement, query_data):
         """Test if `secret_scanning_push_protection` is missing"""
         query_data["standard"]["security_and_analysis"] = {}
-        result = requirement.Evaluate(query_data, requirement_args={})
+        requirement_args = {}
+        result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.Warning
         assert "Incomplete data was encountered" in result.context
 
     def test_status_missing(self, requirement, query_data):
         """Test if `status` is missing"""
         query_data["standard"]["security_and_analysis"]["secret_scanning_push_protection"] = {}
-        result = requirement.Evaluate(query_data, requirement_args={})
+        requirement_args = {}
+        result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.Warning
         assert "Incomplete data was encountered" in result.context
 
     def test_status_none(self, requirement, query_data):
         """Test if `status` is None"""
         query_data["standard"]["security_and_analysis"]["secret_scanning_push_protection"]["status"] = None
-        result = requirement.Evaluate(query_data, requirement_args={})
+        requirement_args = {}
+        result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.Warning
         assert "Incomplete data was encountered" in result.context
 

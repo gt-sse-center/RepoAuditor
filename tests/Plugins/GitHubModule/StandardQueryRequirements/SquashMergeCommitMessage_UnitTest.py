@@ -34,7 +34,8 @@ class TestSquashMergeCommitMessage:
     def test_allow_merge_commit_missing(self, requirement, query_data):
         """Test if `allow_merge_commit` is missing"""
         query_data["standard"] = {}
-        result = requirement.Evaluate(query_data, requirement_args={})
+        requirement_args = {}
+        result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.Warning
         assert "Incomplete data was encountered" in result.context
 

@@ -24,7 +24,7 @@ class Description(Requirement):
     def __init__(self) -> None:
         super().__init__(
             "Description",
-            "Validates a repository's description.",
+            "Validates if the repository has a description.",
             ExecutionStyle.Parallel,
             textwrap.dedent(
                 """\

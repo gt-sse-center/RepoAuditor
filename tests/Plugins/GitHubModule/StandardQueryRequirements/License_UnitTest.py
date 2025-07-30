@@ -49,7 +49,7 @@ class TestLicense:
         query_data["standard"]["license"] = None
         result = requirement.Evaluate(
             query_data,
-            requirement_args={"value": requirement.default_value},
+            requirement_args={},
         )
         assert result.result == EvaluateResult.Error
         assert "'License' must be set to 'MIT License' (it is currently set to '')." in result.context
@@ -58,6 +58,6 @@ class TestLicense:
         """Test successful"""
         result = requirement.Evaluate(
             query_data,
-            requirement_args={"value": requirement.default_value},
+            requirement_args={},
         )
         assert result.result == EvaluateResult.Success

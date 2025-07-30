@@ -59,10 +59,10 @@ class TestRequireApprovalMostRecentPush:
 
     def test_require_last_push_approval_none(self, requirement, query_data):
         """Test when `require_last_push_approval` is None"""
-        requirement_args = {}
         query_data["branch_protection_data"]["required_pull_request_reviews"][
             "require_last_push_approval"
         ] = None
+        requirement_args = {}
         result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.DoesNotApply
         assert result.context is None
