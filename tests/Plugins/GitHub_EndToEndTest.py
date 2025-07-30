@@ -32,6 +32,17 @@ def test_Successful(pat_args, snapshot):
 
 
 # ----------------------------------------------------------------------
+def test_Successful_To_File(pat_args, tmp_path, snapshot):
+    """Test if all requirements of the GitHub plugin successfully pass and the output is written to a file."""
+    output = tmp_path / "repo_auditor_output.txt"
+    result = CliRunner().invoke(app, pat_args + ["--output", str(output), "--verbose"])
+
+    assert result.exit_code == 0, result.output
+    with open(output, mode="r") as file:
+        assert ScrubDurationGithuburlAndSpaces(file.read()) == snapshot
+
+
+# ----------------------------------------------------------------------
 def _skip_test_NoPAT():
     operating_system = os.getenv("GITHUB_CI_OPERATING_SYSTEM")
     python_version = os.getenv("GITHUB_CI_PYTHON_VERSION")
