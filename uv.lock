@@ -193,7 +193,7 @@ toml = [
 
 [[package]]
 name = "dbrownell-common"
-version = "0.14.12"
+version = "0.16.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "inflect" },
@@ -201,9 +201,9 @@ dependencies = [
     { name = "typer" },
     { name = "typer-config" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/d9/41/2a0f0f8fb7985755fc9678564215a971d5beabb50c4a47be9b4717935338/dbrownell_common-0.14.12.tar.gz", hash = "sha256:2359536fcf418a2f35497c2082209c067e141ed5538a05a20d73bb04b927e938", size = 97337, upload-time = "2025-06-18T13:41:35.339Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/72/e1/3b95222dd52b010b62b7e93d7f7983acf1fe0d1ccb07a3185c9ea9b366ee/dbrownell_common-0.16.0.tar.gz", hash = "sha256:45a46ede7e575e28ba906b5489a671092f429b46b998a5b10d06c09523a20c2f", size = 96133, upload-time = "2025-07-21T14:12:16.596Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/f2/b1/5d7806492892d37dc1b2220f7b10edcfcdc701a5c4fd0bab897025544981/dbrownell_common-0.14.12-py3-none-any.whl", hash = "sha256:9e11370a94bdf546d0f25c8de346dccaf145474dd213bc0f940f1bdbd7c080d1", size = 43027, upload-time = "2025-06-18T13:41:34.47Z" },
+    { url = "https://files.pythonhosted.org/packages/48/54/63aed9214a1e1fdfd84265a7eaef5feed6d7da24fc78ff131fe2f6f825e0/dbrownell_common-0.16.0-py3-none-any.whl", hash = "sha256:5fc4b0f584aad21d5ccc1ca89415803f3f429407f6518d6b0212b44663a29711", size = 43409, upload-time = "2025-07-21T14:12:15.274Z" },
 ]
 
 [[package]]
@@ -537,7 +537,7 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "dbrownell-common", specifier = ">=0.14.10" },
+    { name = "dbrownell-common", specifier = ">=0.16.0" },
     { name = "gitpython", specifier = ">=3.1.44" },
     { name = "pluggy", specifier = ">=1.5.0" },
     { name = "requests", specifier = ">=2.32.3" },
