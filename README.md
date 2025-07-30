@@ -16,154 +16,37 @@
 
 <!-- Content above this delimiter will be copied to the generated README.md file. DO NOT REMOVE THIS COMMENT, as it will cause regeneration to fail. -->
 
-## Contents
-
-- [Installation](#installation)
-- [Overview](#overview)
-  - [How to use RepoAuditor](#how-to-use-repoauditor)
-  - [Personal Access Token](#personal-access-token-pat)
-  - [Example Usage](#example-usage)
-  - [Config File](#config-file)
-- [Development](#development)
-- [Additional Information](#additional-information)
-- [License](#license)
-
-## Installation
-
-We recommend using [uv](https://docs.astral.sh/uv/#uv) since it can install `RepoAuditor` as a tool via `uvx` into a sandbox environment for quick use.
-This lets you directly run `RepoAuditor`.
-
-```sh
-uvx RepoAuditor
-```
-
-Alternatively, yuou can install `RepoAuditor` via `uv` or `pip`.
-`uv` is preferred to `pip` since it creates and manages a virtual environment.
-
-| Installation Method | Command |
-| --- | --- |
-| Via [uv](https://github.com/astral-sh/uv) | `uv add repoauditor` |
-| Via [pip](https://pip.pypa.io/en/stable/) | `pip install repoauditor` |
-
 ## Overview
 
-### How to use RepoAuditor
+`RepoAuditor` is a tool which audits repositories for best practices.
 
-<!-- Content below this delimiter will be copied to the generated README.md file. DO NOT REMOVE THIS COMMENT, as it will cause regeneration to fail. -->
+If you're running an open-source repository, there are many steps involved in being open-source beyond making your repository public.
 
-Once installed, you can invoke the following to verify if `RepoAuditor` is installed correctly:
+In order to make your repository both friendly to maintainers and contributors, you will want to enable/disable some settings (e.g. require reviews, status checks pass), or you may be missing certains files (like `LICENSE` or `CODE_OF_CONDUCT`) that prevent adoption of your project.
 
-```shell
-uvx RepoAuditor --version
-```
+`RepoAuditor` can check and audit your repository so that all the right settings and content are available to make your open-source repository high-quality, even if you are new to maintaining one.
 
-and you should see something like
+E.g. check if various files for maintaining community standards are available:
 
 ```shell
-RepoAuditor vX.X.X
+uvx repoauditor --include CommunityStandards \
+    --CommunityStandards-url https://github.com/gt-sse-center/RepoAuditor \
+    --verbose
 ```
 
-To get a list of command line options, you can run
+This will check if your open-source repository has files like a License, Code of Conduct, README, Code Owners, etc.
 
-```shell
-uvx RepoAuditor --help
-```
+We have set `RepoAuditor` to have defaults which match with best practices in open-source communities, however they can all be overrided.
 
-### Personal Access Token (PAT)
+For more information on how to use `RepoAuditor` and its available features, please refer to the documentation below.
 
-The most common use case for `RepoAuditor` would be to audit a GitHub repository.
-In order to allow `RepoAuditor` to read the repository, you first need to generate a Personal Access Token or **PAT**.
+## Documentation
 
-Please refer to the [GitHub documentation on Personal Access Tokens](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) for details about a `Fine-grained PAT` which we will be using.
-
-To generate the Fine-grained PAT, we perform the following steps:
-
-1. Go to `Settings -> Developer settings -> Personal Access Token -> Fine-grained tokens`.
-2. Click on `Generate new token`.
-3. Give the token a name and a description.
-4. Set an appropriate expiration date.
-5. Under `Repository Access`, select `All repositories`.
-6. For permissions, we need to go to `Repository permissions`.
-7. Enable the following permissions:
-    - Read-Write access to `Contents`.
-    - Read access to `Administration` and `Secret scanning alerts`.
-8. Click on `Generate token`.
-9. Copy the generated string. This is your PAT.
-10. Save the PAT to a convenient location on your machine (such as your hime directory `~/`) in the file `PAT.txt`.
-
-The path to the `PAT.txt` will be passed into `RepoAuditor`. E.g.
-
-```shell
-uvx RepoAuditor --GitHub-pat ~/PAT.txt
-```
-
-### Example Usage
-
-With the above generated PAT file, you can now run `RepoAuditor` on your GitHub repository.
-
-As a general example, we will use the [python-helloworld](https://github.com/dbarnett/python-helloworld) repository.
-
-> **NOTE** You need to fork the repository since your default PAT only has access to repos under your account.
-
-To run `RepoAuditor`, we can enter the following in the command-line:
-
-```shell
-uvx RepoAuditor --include GitHub \
-  --GitHub-url https://github.com/<username>/python-helloworld \
-  --GitHub-pat ~/PAT.txt
-```
-
-`RepoAuditor` will generate a series of messages describing all the issues in the repository, along with the rationale behind them and the steps for resolution.
-
-### Custom Settings
-
-`RepoAuditor` tries to provide default settings and checks which are considered best practices. However, your team or organization may have different ways of doing things.
-You can override the default settings by specifying the appropriate flag.
-
-We have 3 types of flags:
-
-1. Boolean flags for those settings which are checked to be on by default and you wish to check are off, with the form `Module-no-Requirement` (e.g. `--GitHub-no-MergeCommit`).
-2. Conversely, boolean flags for those settings which are checked to be off by default, and you wish to check are on, denoted by the form `Module-Requirement` (e.g. `--GitHub-AllowDeletions`).
-3. Values flags take a string value to determine what value to enforce, and have the form `Module-Requirement-value` (e.g. `--GitHub-License-value "MIT License"`).
-
-Please run `uvx repoauditor --help` to get the list of all flags available.
-
-#### Examples
-
-For example, `RepoAuditor` by default checks that the setting `Allow rebase merging` is off. If you wish to check that this setting is turned on, you can run:
-
-```shell
-uvx repoauditor --GitHub-RebaseMergeCommit
-```
-
-Similarly, `RepoAuditor` checks if `Issues` are enabled. You can set `RepoAuditor` to check if `Issues` is disabled by specifying
-
-```shell
-uvx repoauditor --GitHub-no-SupportIssues
-```
-
-Finally, `RepoAuditor` by default enforces that the `MIT License` exists for the repository. If your organization requires another license (such as `GPL`), you can enforce that by specifying the license keyword such as:
-
-```shell
-uvx repoauditor --GitHub-License-value "GNU General Public License v2.0"
-```
-
-The types of licenses supported by GitHub can be found [here](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository#searching-github-by-license-type). Be sure to specify the full license name, e.g. `GNU General Public License v2.0`.
-
-### Config File
-
-`RepoAuditor` accepts both a set of flags as well as a configuratin YAML file.
-
-The configuration (or config) file can make usage easier by recording preferences as well as facilitating sharing of enforced requirements within an organization.
-We have provided a sample configuration file called [default_config.yaml](https://github.com/gt-sse-center/RepoAuditor/blob/main/default_config.yaml), which can be used as:
-
-```shell
-uvx run RepoAuditor --config default_config.yaml
-```
+Please refer to the documentation hosted [here](docs/index.md).
 
 ## Development
 
-Please visit [Contributing](https://github.com/gt-sse-center/RepoAuditor/blob/main/CONTRIBUTING.md) and [Development](https://github.com/gt-sse-center/RepoAuditor/blob/main/DEVELOPMENT.md) for information on contributing to this project.
+Please visit [Contributing](https://github.com/gt-sse-center/RepoAuditor/blob/main/docs/CONTRIBUTING.md) and [Development](https://github.com/gt-sse-center/RepoAuditor/blob/docs/development.md) for information on contributing to this project.
 
 ## Additional Information
 
@@ -171,12 +54,12 @@ Additional information can be found at these locations.
 
 | Title | Document | Description |
 | --- | --- | --- |
-| Code of Conduct | [CODE_OF_CONDUCT.md](https://github.com/gt-sse-center/RepoAuditor/blob/main/CODE_OF_CONDUCT.md) | Information about the norms, rules, and responsibilities we adhere to when participating in this open source community. |
-| Contributing | [CONTRIBUTING.md](https://github.com/gt-sse-center/RepoAuditor/blob/main/CONTRIBUTING.md) | Information about contributing to this project. |
-| Development | [DEVELOPMENT.md](https://github.com/gt-sse-center/RepoAuditor/blob/main/DEVELOPMENT.md) | Information about development activities involved in making changes to this project. |
-| Governance | [GOVERNANCE.md](https://github.com/gt-sse-center/RepoAuditor/blob/main/GOVERNANCE.md) | Information about how this project is governed. |
-| Maintainers | [MAINTAINERS.md](https://github.com/gt-sse-center/RepoAuditor/blob/main/MAINTAINERS.md) | Information about individuals who maintain this project. |
-| Security | [SECURITY.md](https://github.com/gt-sse-center/RepoAuditor/blob/main/SECURITY.md) | Information about how to privately report security issues associated with this project. |
+| Code of Conduct | [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) | Information about the norms, rules, and responsibilities we adhere to when participating in this open source community. |
+| Contributing | [CONTRIBUTING.md](docs/CONTRIBUTING.md) | Information about contributing to this project. |
+| Development | [DEVELOPMENT.md](docs/DEVELOPMENT.md) | Information about development activities involved in making changes to this project. |
+| Governance | [GOVERNANCE.md](GOVERNANCE.md) | Information about how this project is governed. |
+| Maintainers | [MAINTAINERS.md](MAINTAINERS.md) | Information about individuals who maintain this project. |
+| Security | [SECURITY.md](SECURITY.md) | Information about how to privately report security issues associated with this project. |
 
 ## License
 

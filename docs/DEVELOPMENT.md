@@ -1,11 +1,11 @@
-# DEVELOPMENT GUIDE
+# Development Guide
 
 ## Fork setup
 
 | Step | Command Line | Additional Information |
 | --- | --- | --- |
-| 1. Fork the repository | -- | https://github.com/gt-sse-center/RepoAuditor/fork |
-| 2. Create a PAT for your forked repository | -- | See [PAT setup instructions](README.md#personal-access-token-pat) |
+| 1. Fork the repository | -- | [Fork Link](https://github.com/gt-sse-center/RepoAuditor/fork) |
+| 2. Create a PAT for your forked repository | -- | See [PAT setup instructions](PAT.md) |
 | 3. Update your forked repository settings to match RepoAuditor's defaults | -- | -- |
 
 ## Local Development
@@ -14,10 +14,10 @@
 
 | Step | Command Line | Additional Information |
 | --- | --- | --- |
-| 1. Clone the repository locally. | `git clone https://github.com/gt-sse-center/RepoAuditor` | https://git-scm.com/docs/git-clone |
+| 1. Clone the repository locally. | `git clone https://github.com/gt-sse-center/RepoAuditor` | [git-clone docs](https://git-scm.com/docs/git-clone) |
 | 2. Install [uv](https://github.com/astral-sh/uv). | `curl -LsSf https://astral.sh/uv/install.sh \| sh` on macOS and Linux or <br/>`powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 \| iex"` on Windows | https://docs.astral.sh |
-| 3. Install dependencies. | `uv sync` | https://docs.astral.sh/uv/concepts/projects/sync |
-| 4. Install [pre-commit](https://pre-commit.com/) hooks | `uv run pre-commit install` | https://pre-commit.com/#1-install-pre-commit |
+| 3. Install dependencies. | `uv sync` | [Astral uv sync docs](https://docs.astral.sh/uv/concepts/projects/sync) |
+| 4. Install [pre-commit](https://pre-commit.com/) hooks | `uv run pre-commit install` | [Install pre-commit](https://pre-commit.com/#1-install-pre-commit) |
 | 5. If you wish to test against an enterprise server, add a remote named `enterprise` with the corresponding URL | E.g. `git remote add enterprise git@github.gatech.edu:sse-center/RepoAuditor.git` | |
 
 ### Setup
@@ -30,16 +30,16 @@ Please follow these steps to allow for local testing.
 - Create a PAT file as detailed in the [README](https://github.com/gt-sse-center/RepoAuditor/blob/main/README.md#personal-access-token-pat).
 - Set your forked repository as the `origin` remote (this should already be the case but it's good to verify).
 
-  ```sh
-  git remote add origin git@github.com:<github-username>/RepoAuditor.git
-  ```
+```sh
+git remote add origin git@github.com:<github-username>/RepoAuditor.git
+```
 
 - Update the URL in `default_config.yaml` to point to your fork.
 - You should now be able to run the following and see valid output. There will be errors, which we will tackle next.
 
-  ```sh
-  uv run RepoAuditor --config default_config.yaml --GitHub-pat PAT.txt
-  ```
+```sh
+uv run RepoAuditor --config default_config.yaml --GitHub-pat PAT.txt
+```
 
 #### Local Testing
 
@@ -136,6 +136,23 @@ Artifacts are signed and validated using [py-minisign](https://github.com/x13a/p
 
 To verify that an artifact is valid, visit [the latest release](https://github.com/gt-sse-center/RepoAuditor/releases/latest) and download the `.minisign` signature file that corresponds to the artifact, then run the following command, replacing `<filename>` with the name of the artifact to be verified:
 
-```shell
+```sh
 uv run --with py-minisign python -c "import minisign; minisign.PublicKey.from_file('minisign_key.pub').verify_file('<filename>')"
+```
+
+### Generating Documentation
+
+We use [MkDocs](https://www.mkdocs.org/) to generate the documentation website.
+To generate the docs, please run
+
+```sh
+uv run mkdocs --serve
+```
+
+and go to the specified URL.
+
+To publish the website using [GitHub pages](https://docs.github.com/en/pages), you can simply run
+
+```sh
+uv run mkdocs gh-deploy
 ```
