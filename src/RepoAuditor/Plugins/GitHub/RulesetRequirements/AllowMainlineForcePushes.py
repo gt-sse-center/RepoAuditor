@@ -4,36 +4,37 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the RequireSignedCommits object."""
+"""Contains the AllowMainlineForcePushesRule requirement."""
 
 import textwrap
 
 from RepoAuditor.Plugins.GitHub.Impl.EnableRulesetRequirementImpl import EnableRulesetRequirementImpl
 
 
-class RequireSignedCommits(EnableRulesetRequirementImpl):
-    """Check that the "Require signed commits" rule is disabled."""
+class AllowMainlineForcePushesRule(EnableRulesetRequirementImpl):
+    """Requirement for rule to allow force pushes to the matching branch."""
 
     def __init__(self) -> None:
         super().__init__(
-            name="RequireSignedCommitsRule",
-            enabled_by_default=True,
-            dynamic_arg_name="no",
-            github_ruleset_type="required_signatures",
-            github_ruleset_value="Require signed commits",
+            name="AllowMainlineForcePushesRule",
+            enabled_by_default=False,
+            dynamic_arg_name="yes",
+            github_ruleset_type="non_fast_forward",
+            github_ruleset_value="Block force pushes",
             get_configuration_value_func=self._GetValue,
             rationale=textwrap.dedent(
                 """\
-                The default behavior is to require signed commits. Note that this setting does not work with
-                rebase merging or squash merging.
+                The default behavior is to not allow force pushes to the mainline branch.
 
                 Reasons for this Default
                 ------------------------
-                - Ensure that the author of a commit is who the claim to be.
+                - Force pushes rewrite history, which breaks git lineage for all other clones of the repository.
+                  Merges are possible when this happens, but they are difficult to perform and data loss is
+                  possible.
 
                 Reasons to Override this Default
                 --------------------------------
-                - You have enabled rebase merging or squash merging.
+                <unknown>
                 """,
             ),
         )

@@ -6,6 +6,7 @@
 # -------------------------------------------------------------------------------
 """Contains the EnableRequirementImpl object."""
 
+import textwrap
 from collections.abc import Callable
 from typing import Any, Optional
 
@@ -28,14 +29,24 @@ class EnableRulesetRequirementImpl(EnableRequirementImpl):
         github_ruleset_type: str,
         github_ruleset_value: str,
         get_configuration_value_func: Callable[[dict[str, Any]], Optional[bool]],
-        resolution: str,
         rationale: str,
+        resolution: Optional[str] = None,
         subject: Optional[str] = None,
         *,
         requires_explicit_include: bool = False,
         unset_set_terminology: tuple[str, str] = ("disabled", "enabled"),
         missing_value_is_warning: bool = True,
     ) -> None:
+        if resolution is None:
+            resolution = textwrap.dedent(
+                """\
+                1) Visit '{session.github_url}/settings/rules'.
+                2) Find or create a ruleset on the branch '{branch}'.
+                3) Go to '{__ruleset_value}'.
+                4) {__enabled_str} the rule.
+                """
+            )
+
         super().__init__(
             name=name,
             enabled_by_default=enabled_by_default,
@@ -51,6 +62,17 @@ class EnableRulesetRequirementImpl(EnableRequirementImpl):
         )
 
         self.github_ruleset_type = github_ruleset_type
+
+    # ----------------------------------------------------------------------
+    def _GetValue(
+        self,
+        rule: dict[str, Any],
+    ) -> Optional[bool]:
+        rule_type = rule.get("type")
+        if rule_type is None:
+            return None
+
+        return rule_type == self.github_ruleset_type
 
     # ----------------------------------------------------------------------
     @override
@@ -70,6 +92,8 @@ class EnableRulesetRequirementImpl(EnableRequirementImpl):
 
         query_data["__expected_value"] = expected_rule_enabled
         query_data["__enabled_str"] = "Enable" if expected_rule_enabled else "Disable"
+        # ruleset_value is stored as settings_value
+        query_data["__ruleset_value"] = self.github_settings_value
 
         # Get the rules for the specified branch
         rules = query_data.get("rules", [])

@@ -436,29 +436,155 @@ class TestRulesets:
         assert result.exit_code == -1, result.output
         assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
 
-    def test_RequireStatusChecks(self, pat_args, snapshot):
+    def test_RestrictCreationsRule(self, pat_args, snapshot):
         """Test for requirement `Require status checks to pass` is disabled in the ruleset for the `main` branch."""
-        result = CliRunner().invoke(app, pat_args + ["--GitHub-no-RequireStatusChecksRule"])
+        result = CliRunner().invoke(app, pat_args + ["--GitHub-RestrictCreationsRule"])
 
         # Since the repo ruleset has the requirement enabled,
         # we should get an error.
         assert result.exit_code == -1, result.output
         assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
 
-    def test_RequirePullRequests(self, pat_args, snapshot):
-        """Test for requirement `Require a pull request before merging` is disabled in the ruleset for the `main` branch."""
-        result = CliRunner().invoke(app, pat_args + ["--GitHub-no-RequirePullRequestsRule"])
+    def test_RestrictUpdatesRule(self, pat_args, snapshot):
+        """Test for requirement `Restrict update of the branch` is enabled in the ruleset for the `main` branch."""
+        result = CliRunner().invoke(app, pat_args + ["--GitHub-RestrictUpdatesRule"])
 
         # Since the repo ruleset has the requirement disabled,
         # we should get an error.
         assert result.exit_code == -1, result.output
         assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
 
-    def test_RequireSignedCommits(self, pat_args, snapshot):
+    def test_RestrictDeletionsRule(self, pat_args, snapshot):
+        """Test for requirement `Restrict deletion of the branch` is enabled in the ruleset for the `main` branch."""
+        result = CliRunner().invoke(app, pat_args + ["--GitHub-RestrictDeletionsRule"])
+
+        # Since the repo ruleset has the requirement disabled,
+        # we should get an error.
+        assert result.exit_code == -1, result.output
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
+
+    def test_RequireLinearHistoryRule(self, pat_args, snapshot):
+        """Test for requirement `Prevent merge commits on branch` is enabled in the ruleset for the `main` branch."""
+        result = CliRunner().invoke(app, pat_args + ["--GitHub-RequireLinearHistoryRule"])
+
+        # Since the repo ruleset has the requirement disabled,
+        # we should get an error.
+        assert result.exit_code == -1, result.output
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
+
+    def test_RequireSuccessfulDeploymentsRule(self, pat_args, snapshot):
+        """Test for requirement `Require deployments to succeed` is enabled in the ruleset for the `main` branch."""
+        result = CliRunner().invoke(app, pat_args + ["--GitHub-RequireSuccessfulDeploymentsRule"])
+
+        # Since the repo ruleset has the requirement disabled,
+        # we should get an error.
+        assert result.exit_code == -1, result.output
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
+
+    def test_RequireSignedCommitsRule(self, pat_args, snapshot):
         """Test for requirement `Require signed commits` is disabled in the ruleset for the `main` branch."""
         result = CliRunner().invoke(app, pat_args + ["--GitHub-no-RequireSignedCommitsRule"])
 
+        # Since the repo ruleset has the requirement enabled,
+        # we should get an error.
+        assert result.exit_code == -1, result.output
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
+
+    def test_RequirePullRequestsRule(self, pat_args, snapshot):
+        """Test for requirement `Require a pull request before merging` is disabled in the ruleset for the `main` branch."""
+        result = CliRunner().invoke(app, pat_args + ["--GitHub-no-RequirePullRequestsRule"])
+
+        # Since the repo ruleset has the requirement enabled,
+        # we should get an error.
+        assert result.exit_code == -1, result.output
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
+
+    def test_RequireApprovalsRule(self, pat_args, snapshot):
+        """Test for requirement `Require a pull request before merging -> Required approvals` is disabled in the ruleset for the `main` branch."""
+        result = CliRunner().invoke(app, pat_args + ["--GitHub-no-RequireApprovalsRule"])
+
+        # Since the repo ruleset has the requirement enabled,
+        # we should get an error.
+        assert result.exit_code == -1, result.output
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
+
+    def test_DismissStalePullRequestApprovalsRule(self, pat_args, snapshot):
+        """Test for requirement `Require a pull request before merging -> Dismiss stale pull request approvals when new commits are pushed` is disabled in the ruleset for the `main` branch."""
+        result = CliRunner().invoke(app, pat_args + ["--GitHub-no-DismissStalePullRequestApprovalsRule"])
+
         # Since the repo ruleset has the requirement disabled,
+        # we should get an error.
+        assert result.exit_code == -1, result.output
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
+
+    def test_RequireCodeOwnerReviewRule(self, pat_args, snapshot):
+        """Test for requirement `Require a pull request before merging -> Require review from Code Owners` is enabled in the ruleset for the `main` branch."""
+        result = CliRunner().invoke(app, pat_args + ["--GitHub-RequireCodeOwnerReviewRule"])
+
+        # Since the repo ruleset has the requirement disabled,
+        # we should get an error.
+        assert result.exit_code == -1, result.output
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
+
+    def test_RequireApprovalMostRecentPushRule(self, pat_args, snapshot):
+        """Test for requirement `Require a pull request before merging -> Required approvals` is disabled in the ruleset for the `main` branch."""
+        result = CliRunner().invoke(app, pat_args + ["--GitHub-no-RequireApprovalMostRecentPushRule"])
+
+        # Since the repo ruleset has the requirement enabled,
+        # we should get an error.
+        assert result.exit_code == -1, result.output
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
+
+    def test_RequireConversationResolutionRule(self, pat_args, snapshot):
+        """Test for requirement `Require a pull request before merging -> Required approvals` is disabled in the ruleset for the `main` branch."""
+        result = CliRunner().invoke(app, pat_args + ["--GitHub-no-RequireConversationResolutionRule"])
+
+        # Since the repo ruleset has the requirement enabled,
+        # we should get an error.
+        assert result.exit_code == -1, result.output
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
+
+    def test_RequireStatusChecksToPassRule(self, pat_args, snapshot):
+        """Test for requirement `Require status checks to pass` is disabled in the ruleset for the `main` branch."""
+        result = CliRunner().invoke(app, pat_args + ["--GitHub-no-RequireStatusChecksToPassRule"])
+
+        # Since the repo ruleset has the requirement enabled,
+        # we should get an error.
+        assert result.exit_code == -1, result.output
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
+
+    def test_RequireUpToDateBranchesRule(self, pat_args, snapshot):
+        """Test for requirement `Require status checks to pass -> Require branches to be up to date before merging` is disabled in the ruleset for the `main` branch."""
+        result = CliRunner().invoke(app, pat_args + ["--GitHub-no-RequireUpToDateBranchesRule"])
+
+        # Since the repo ruleset has the requirement enabled,
+        # we should get an error.
+        assert result.exit_code == -1, result.output
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
+
+    def test_EnsureStatusChecksRule(self, pat_args, snapshot):
+        """Test for requirement `Require status checks to pass -> Status checks that are required` is disabled in the ruleset for the `main` branch."""
+        result = CliRunner().invoke(app, pat_args + ["--GitHub-no-EnsureStatusChecksRule"])
+
+        # Since the repo ruleset has the requirement enabled,
+        # we should get an error.
+        assert result.exit_code == -1, result.output
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
+
+    def test_AllowMainlineForcePushesRule(self, pat_args, snapshot):
+        """Test for requirement `Block force pushes to the specified branch` is enabled in the ruleset for the `main` branch."""
+        result = CliRunner().invoke(app, pat_args + ["--GitHub-AllowMainlineForcePushesRule"])
+
+        # Since the repo ruleset has the requirement disabled,
+        # we should get an error.
+        assert result.exit_code == -1, result.output
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
+
+    def test_RequireCodeScanningResultsRule(self, pat_args, snapshot):
+        """Test for requirement `Require code scanning results` is disabled in the ruleset for the `main` branch."""
+        result = CliRunner().invoke(app, pat_args + ["--GitHub-no-RequireCodeScanningResultsRule"])
+
+        # Since the repo ruleset has the requirement enabled,
         # we should get an error.
         assert result.exit_code == -1, result.output
         assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
