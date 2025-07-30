@@ -11,9 +11,20 @@ from typing import Any, Optional
 from dbrownell_Common.Types import override
 
 from RepoAuditor.Impl.ParallelSequentialProcessor import ExecutionStyle
+from RepoAuditor.Plugins.GitHub.RulesetRequirements.BlockForcePushes import BlockForcePushesRule
+from RepoAuditor.Plugins.GitHub.RulesetRequirements.RequireCodeScanningResults import (
+    RequireCodeScanningResultsRule,
+)
+from RepoAuditor.Plugins.GitHub.RulesetRequirements.RequireLinearHistory import RequireLinearHistoryRule
 from RepoAuditor.Plugins.GitHub.RulesetRequirements.RequirePullRequests import RequirePullRequests
 from RepoAuditor.Plugins.GitHub.RulesetRequirements.RequireSignedCommits import RequireSignedCommits
 from RepoAuditor.Plugins.GitHub.RulesetRequirements.RequireStatusChecks import RequireStatusChecks
+from RepoAuditor.Plugins.GitHub.RulesetRequirements.RequireSuccessfulDeployments import (
+    RequireSuccessfulDeploymentsRule,
+)
+from RepoAuditor.Plugins.GitHub.RulesetRequirements.RestrictCreations import RestrictCreationsRule
+from RepoAuditor.Plugins.GitHub.RulesetRequirements.RestrictDeletions import RestrictDeletionsRule
+from RepoAuditor.Plugins.GitHub.RulesetRequirements.RestrictUpdates import RestrictUpdatesRule
 from RepoAuditor.Query import Query
 
 
@@ -25,9 +36,16 @@ class RulesetQuery(Query):
             "RulesetQuery",
             ExecutionStyle.Parallel,
             [
+                RestrictCreationsRule(),
+                RestrictUpdatesRule(),
+                RestrictDeletionsRule(),
+                RequireLinearHistoryRule(),
+                RequireSuccessfulDeploymentsRule(),
                 RequireSignedCommits(),
                 RequirePullRequests(),
                 RequireStatusChecks(),
+                BlockForcePushesRule(),
+                RequireCodeScanningResultsRule(),
             ],
         )
 

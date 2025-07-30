@@ -373,3 +373,121 @@ class TestClassic:
 
         assert result.exit_code == -1, result.output
         assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
+
+
+# ----------------------------------------------------------------------
+class TestRulesets:
+    """End-to-end tests for enabled/disabled rules within a ruleset in a GitHub repository."""
+
+    def test_Default(self, pat_args, snapshot, monkeypatch):
+        """Test for default case when no rulesets are present on the branch."""
+
+        from RepoAuditor.Plugins.GitHub.RulesetQuery import RulesetQuery
+
+        def MockGetData(
+            self,
+            module_data,
+        ):
+            """Mock version for GetData for RulesetQuery"""
+            # Specify empty ruleset data as the default
+            module_data["rules"] = []
+
+            return module_data
+
+        monkeypatch.setattr(RulesetQuery, "GetData", MockGetData)
+
+        result = CliRunner().invoke(app, pat_args)
+
+        # Error since no enabled rulesets
+        assert result.exit_code == -1, result.output
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
+
+    def test_RestrictCreationsRule(self, pat_args, snapshot):
+        """Test for requirement `Require status checks to pass` is enabled in the ruleset for the `main` branch."""
+        result = CliRunner().invoke(app, pat_args + ["--GitHub-RestrictCreationsRule"])
+
+        # Since the repo ruleset has the requirement enabled,
+        # we should get an error.
+        assert result.exit_code == -1, result.output
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
+
+    def test_RestrictUpdatesRule(self, pat_args, snapshot):
+        """Test for requirement `Restrict creation of the branch` is enabled in the ruleset for the `main` branch."""
+        result = CliRunner().invoke(app, pat_args + ["--GitHub-RestrictUpdatesRule"])
+
+        # Since the repo ruleset has the requirement enabled,
+        # we should get an error.
+        assert result.exit_code == -1, result.output
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
+
+    def test_RestrictDeletionsRule(self, pat_args, snapshot):
+        """Test for requirement `Restrict deletion of the branch` is enabled in the ruleset for the `main` branch."""
+        result = CliRunner().invoke(app, pat_args + ["--GitHub-RestrictDeletionsRule"])
+
+        # Since the repo ruleset has the requirement enabled,
+        # we should get an error.
+        assert result.exit_code == -1, result.output
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
+
+    def test_RequireLinearHistoryRule(self, pat_args, snapshot):
+        """Test for requirement `Prevent merge commits on branch` is enabled in the ruleset for the `main` branch."""
+        result = CliRunner().invoke(app, pat_args + ["--GitHub-RequireLinearHistoryRule"])
+
+        # Since the repo ruleset has the requirement enabled,
+        # we should get an error.
+        assert result.exit_code == -1, result.output
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
+
+    def test_RequireSuccessfulDeploymentsRule(self, pat_args, snapshot):
+        """Test for requirement `Require deployments to succeed` is enabled in the ruleset for the `main` branch."""
+        result = CliRunner().invoke(app, pat_args + ["--GitHub-RequireSuccessfulDeploymentsRule"])
+
+        # Since the repo ruleset has the requirement enabled,
+        # we should get an error.
+        assert result.exit_code == -1, result.output
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
+
+    def test_RequireStatusChecks(self, pat_args, snapshot):
+        """Test for requirement `Require status checks to pass` is disabled in the ruleset for the `main` branch."""
+        result = CliRunner().invoke(app, pat_args + ["--GitHub-no-RequireStatusChecksRule"])
+
+        # Since the repo ruleset has the requirement enabled,
+        # we should get an error.
+        assert result.exit_code == -1, result.output
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
+
+    def test_RequirePullRequests(self, pat_args, snapshot):
+        """Test for requirement `Require a pull request before merging` is disabled in the ruleset for the `main` branch."""
+        result = CliRunner().invoke(app, pat_args + ["--GitHub-no-RequirePullRequestsRule"])
+
+        # Since the repo ruleset has the requirement disabled,
+        # we should get an error.
+        assert result.exit_code == -1, result.output
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
+
+    def test_RequireSignedCommits(self, pat_args, snapshot):
+        """Test for requirement `Require signed commits` is disabled in the ruleset for the `main` branch."""
+        result = CliRunner().invoke(app, pat_args + ["--GitHub-no-RequireSignedCommitsRule"])
+
+        # Since the repo ruleset has the requirement disabled,
+        # we should get an error.
+        assert result.exit_code == -1, result.output
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
+
+    def test_BlockForcePushesRule(self, pat_args, snapshot):
+        """Test for requirement `Block force pushes to the specified branch` is enabled in the ruleset for the `main` branch."""
+        result = CliRunner().invoke(app, pat_args + ["--GitHub-BlockForcePushesRule"])
+
+        # Since the repo ruleset has the requirement enabled,
+        # we should get an error.
+        assert result.exit_code == -1, result.output
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
+
+    def test_RequireCodeScanningResultsRule(self, pat_args, snapshot):
+        """Test for requirement `Require code scanning results` is enabled in the ruleset for the `main` branch."""
+        result = CliRunner().invoke(app, pat_args + ["--GitHub-RequireCodeScanningResultsRule"])
+
+        # Since the repo ruleset has the requirement enabled,
+        # we should get an error.
+        assert result.exit_code == -1, result.output
+        assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
