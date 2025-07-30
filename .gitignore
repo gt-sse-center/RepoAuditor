@@ -22,3 +22,6 @@ tests/Plugins/github_pat.txt
 tests/Plugins/github_gatech_pat.txt
 .DS_Store
 post_generation_instructions.html
+
+# Ignore Personal Access Token (PAT) files
+**/*PAT.txt
