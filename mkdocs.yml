@@ -1,0 +1,8 @@
+site_name: RepoAuditor
+nav:
+  - Home: index.md
+  - PAT: PAT.md
+  - Usage: usage.md
+  - Config File: config_file.md
+  - Development: development.md
+theme: mkdocs
