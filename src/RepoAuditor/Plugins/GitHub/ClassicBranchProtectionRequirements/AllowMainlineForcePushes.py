@@ -22,7 +22,7 @@ class AllowMainlineForcePushes(ClassicEnableRequirementImpl):
         super().__init__(
             "AllowMainlineForcePushes",
             False,
-            "enabled",
+            "yes",
             "Rules applied to everyone including administrators",
             "Allow force pushes",
             lambda data: data["branch_protection_data"]["allow_force_pushes"]["enabled"],

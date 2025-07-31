@@ -23,7 +23,7 @@ class DependabotSecurityUpdates(StandardEnableRequirementImpl):
         super().__init__(
             "DependabotSecurityUpdates",
             True,
-            "disabled",
+            "no",
             "settings/security_analysis",
             "Dependabot",
             "Dependabot security updates",

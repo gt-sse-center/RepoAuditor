@@ -65,8 +65,8 @@ class TestDescription:
 
     def test_SuccessfulGetDynamicArgDefinitions(self, requirement, query_data):
         """Test using GetDynamicArgDefinitions"""
-        requirement_args = {}
-        for key, value in requirement.GetDynamicArgDefinitions().items():
+        requirement_args = {"allow-empty": True}
+        for key, value in requirement.GetDynamicArgDefinitions("-").items():
             requirement_args[key] = value[1].default
         result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.Success

@@ -74,7 +74,7 @@ class TestRequireCodeOwnerReview:
         query_data["branch_protection_data"]["required_pull_request_reviews"][
             "require_code_owner_reviews"
         ] = False
-        requirement_args = {"enabled": True}
+        requirement_args = {"yes": True}
         result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.Error
         assert (
@@ -87,6 +87,6 @@ class TestRequireCodeOwnerReview:
         query_data["branch_protection_data"]["required_pull_request_reviews"][
             "require_code_owner_reviews"
         ] = True
-        requirement_args = {"enabled": True}
+        requirement_args = {"yes": True}
         result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.Success

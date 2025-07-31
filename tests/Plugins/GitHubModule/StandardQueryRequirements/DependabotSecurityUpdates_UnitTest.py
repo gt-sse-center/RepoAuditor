@@ -33,6 +33,11 @@ def requirement_fixture():
     return DependabotSecurityUpdates()
 
 
+@pytest.fixture(name="requirement_args")
+def requirement_args_fixture():
+    return {"no": False}
+
+
 class TestDependabotSecurityUpdates:
     """Tests for the DependabotSecurityUpdates requirement class."""
 
@@ -71,7 +76,7 @@ class TestDependabotSecurityUpdates:
     def test_Incorrect(self, requirement, query_data):
         """Result doesn't match expected value"""
         query_data["standard"]["security_and_analysis"]["dependabot_security_updates"]["status"] = True
-        requirement_args = {"disabled": False}
+        requirement_args = {"no": False}
         result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.Error
         assert (
@@ -82,6 +87,6 @@ class TestDependabotSecurityUpdates:
     def test_Successful(self, requirement, query_data):
         """Successful"""
         query_data["standard"]["security_and_analysis"]["dependabot_security_updates"]["status"] = True
-        requirement_args = {"disabled": True}
+        requirement_args = {"no": True}
         result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.Success

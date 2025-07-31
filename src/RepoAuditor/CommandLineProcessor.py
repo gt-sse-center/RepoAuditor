@@ -144,31 +144,50 @@ class CommandLineProcessor:
             # Requirement-level args
             for query in module.queries:
                 for requirement in query.requirements:
-                    for key, value in requirement.GetDynamicArgDefinitions().items():
-                        dynamic_arg_definitions[
-                            f"{module.name}{argument_separator}{requirement.name}{argument_separator}{key}"
-                        ] = value
+                    for key, value in requirement.GetDynamicArgDefinitions(argument_separator).items():
+                        dynamic_arg_definitions[f"{module.name}{argument_separator}{key}"] = value
 
         # Now we process the definitions to get the dynamic arguments
         dynamic_args: dict[str, dict[str, Any]] = {}
 
-        num_acceptable_dynamic_args_parts = 2
-
         for key, value in get_dynamic_args_func(dynamic_arg_definitions).items():
-            parts = key.split(argument_separator)
-            assert len(parts) >= num_acceptable_dynamic_args_parts
+            import re
 
-            if parts[0] not in module_map:
-                msg = f"'{parts[0]}' is not a recognized module name."
+            pattern = rf"(?P<module>[A-Za-z]+){argument_separator}(?P<has_no>no{argument_separator})?(?P<requirement_or_arg>[A-Za-z0-9]+)(?P<value>{argument_separator}[\S]+)?"
+            groups = re.match(
+                pattern,
+                key,
+            ).groupdict()
+
+            # Assert that module and requirement/arg are specified
+            assert groups["module"]
+            assert groups["requirement_or_arg"]
+
+            module_name = groups["module"]
+            requirement_or_arg = groups["requirement_or_arg"]
+            has_no = groups["has_no"]
+
+            if module_name not in module_map:
+                msg = f"'{module_name}' is not a recognized module name."
                 raise ValueError(msg)
 
-            if len(parts) == num_acceptable_dynamic_args_parts:
-                dynamic_args.setdefault(parts[0], {})[parts[1]] = value
+            # The following if-elif block works as follows:
+            # First we check if `requirement_or_arg` is all lower case. If it is, then it is a module arg, else it is a requirement.
+            # If the flag has a requirement, we first check for a value (e.g. GitHub-License-value), in which case, we assign the value.
+            # Else, we check if the flag has a `no` in it, in which case it is a boolean flag with `no`, else (finally) a `yes`.
+            if requirement_or_arg.islower():
+                dynamic_args.setdefault(module_name, {})[requirement_or_arg] = value
             else:
-                dynamic_args.setdefault(parts[0], {}).setdefault(None, {}).setdefault(  # type: ignore[call-overload]
-                    parts[1],
-                    {},
-                )[argument_separator.join(parts[2:])] = value
+                if groups["value"]:
+                    value_key = groups["value"][1:]
+                elif has_no:
+                    value_key = "no"
+                else:
+                    value_key = "yes"
+
+                dynamic_args.setdefault(module_name, {}).setdefault(None, {}).setdefault(
+                    requirement_or_arg, {}
+                )[value_key] = value
 
         return dynamic_args
 

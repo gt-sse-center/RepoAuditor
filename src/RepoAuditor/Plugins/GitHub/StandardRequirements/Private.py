@@ -52,10 +52,10 @@ class Private(Requirement):
 
     # ----------------------------------------------------------------------
     @override
-    def GetDynamicArgDefinitions(self) -> dict[str, TypeDefinitionItemType]:
+    def GetDynamicArgDefinitions(self, _: str) -> dict[str, TypeDefinitionItemType]:
         """Get the definitions for the arguments to this requirement."""
         return {
-            "enabled": (
+            f"{self.name}": (
                 bool,
                 typer.Option(
                     default=False,
@@ -71,7 +71,7 @@ class Private(Requirement):
         query_data: dict[str, Any],
         requirement_args: dict[str, Any],
     ) -> Requirement.EvaluateImplResult:
-        expect_private = requirement_args.get("enabled", False)
+        expect_private = requirement_args.get("yes", False)
         query_data["__expected_visibility"] = "private" if expect_private else "public"
 
         result = query_data["standard"].get("private", None)

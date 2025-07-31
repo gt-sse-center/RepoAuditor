@@ -22,7 +22,7 @@ class SupportProjects(StandardEnableRequirementImpl):
         super().__init__(
             "SupportProjects",
             True,
-            "disabled",
+            "no",
             "settings",
             "Features",
             "Projects",

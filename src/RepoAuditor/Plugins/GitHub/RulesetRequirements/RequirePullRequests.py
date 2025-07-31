@@ -16,7 +16,7 @@ class RequirePullRequests(EnableRulesetRequirementImpl):
         super().__init__(
             name="RequirePullRequestsRule",
             enabled_by_default=True,
-            dynamic_arg_name="disabled",
+            dynamic_arg_name="no",
             github_ruleset_type="pull_request",
             github_ruleset_value="Require a pull request before merging",
             get_configuration_value_func=lambda rule: rule.get("type", "") == "pull_request",

@@ -23,7 +23,7 @@ class RequireApprovalMostRecentPush(ClassicEnableRequirementImpl):
         super().__init__(
             "RequireApprovalMostRecentPush",
             True,
-            "disabled",
+            "no",
             "Protect matching branches",
             "Require a pull request before merging -> Require approval of the most recent reviewable push",
             _GetValue,

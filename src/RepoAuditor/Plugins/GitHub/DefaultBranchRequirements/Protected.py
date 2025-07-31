@@ -53,10 +53,10 @@ class Protected(Requirement):
 
     # ----------------------------------------------------------------------
     @override
-    def GetDynamicArgDefinitions(self) -> dict[str, TypeDefinitionItemType]:
+    def GetDynamicArgDefinitions(self, argument_separator: str) -> dict[str, TypeDefinitionItemType]:
         """Get the definitions for the arguments to this requirement."""
         return {
-            "disabled": (
+            f"no{argument_separator}{self.name}": (
                 bool,
                 typer.Option(
                     default=False,
@@ -78,7 +78,7 @@ class Protected(Requirement):
         if is_protected is None:
             return CreateIncompleteDataResult()
 
-        if requirement_args["disabled"]:
+        if requirement_args["no"]:
             expected_value = False
             provide_rationale = False
         else:

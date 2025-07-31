@@ -22,7 +22,7 @@ class DeleteHeadBranches(StandardEnableRequirementImpl):
         super().__init__(
             "DeleteHeadBranches",
             True,
-            "disabled",
+            "no",
             "settings",
             "Pull Requests",
             "Automatically delete head branches",

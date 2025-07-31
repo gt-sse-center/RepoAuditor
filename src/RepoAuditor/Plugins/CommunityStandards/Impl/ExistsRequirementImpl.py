@@ -61,10 +61,10 @@ class ExistsRequirementImpl(Requirement):
 
     # ----------------------------------------------------------------------
     @override
-    def GetDynamicArgDefinitions(self) -> dict[str, TypeDefinitionItemType]:
+    def GetDynamicArgDefinitions(self, argument_separator: str) -> dict[str, TypeDefinitionItemType]:
         """Get the definitions for the arguments to this requirement."""
         return {
-            self.dynamic_arg_name: (
+            f"{self.name}{argument_separator}{self.dynamic_arg_name}": (
                 bool,
                 typer.Option(
                     False,

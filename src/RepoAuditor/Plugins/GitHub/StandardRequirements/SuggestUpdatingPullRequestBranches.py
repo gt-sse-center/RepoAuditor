@@ -22,7 +22,7 @@ class SuggestUpdatingPullRequestBranches(StandardEnableRequirementImpl):
         super().__init__(
             "SuggestUpdatingPullRequestBranches",
             False,
-            "enabled",
+            "yes",
             "settings",
             "Pull Requests",
             "Always suggest updating pull request branches",
