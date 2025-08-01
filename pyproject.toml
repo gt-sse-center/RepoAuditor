@@ -7,7 +7,7 @@ authors = [
 ]
 requires-python = ">= 3.10"
 dependencies = [
-    "dbrownell-common>=0.14.10",
+    "dbrownell-common>=0.16.0",
     "gitpython>=3.1.44",
     "pluggy>=1.5.0",
     "requests>=2.32.3",
@@ -36,7 +36,7 @@ Repository = "https://github.com/gt-sse-center/RepoAuditor"
 
 [project.scripts]
 RepoAuditor = "RepoAuditor:EntryPoint.app"
-repo_auditor = "RepoAuditor:EntryPoint.app"
+repoauditor = "RepoAuditor:EntryPoint.app"
 
 [project.entry-points.RepoAuditor]
 GitHubPlugin = "RepoAuditor.Plugins.GitHubPlugin"
@@ -61,7 +61,7 @@ dev = [
 path = "src/RepoAuditor/__init__.py"
 
 [tool.pytest.ini_options]
-addopts = "--verbose -vv --capture=no --cov=RepoAuditor --cov-fail-under=95.0"
+addopts = "--verbose -vv --capture=no --cov=RepoAuditor --cov-fail-under=95.0 --cov-report html --cov-report term --cov-report xml:coverage.xml"
 python_files = [
     "**/*Test.py",
 ]

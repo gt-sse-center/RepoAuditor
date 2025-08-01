@@ -121,6 +121,7 @@ uvx RepoAuditor --include GitHub \
 
 The configuration (or config) file can make usage easier by recording preferences as well as facilitating sharing of enforced requirements within an organization.
 We have provided a sample configuration file called [default_config.yaml](https://github.com/gt-sse-center/RepoAuditor/blob/main/default_config.yaml), which can be used as:
+
 ```shell
 uvx run RepoAuditor --config default_config.yaml
 ```

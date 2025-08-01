@@ -25,3 +25,6 @@ post_generation_instructions.html
 
 # Ignore Personal Access Token (PAT) files
 **/*PAT.txt
+
+# Test coverage report
+**/coverage.xml
