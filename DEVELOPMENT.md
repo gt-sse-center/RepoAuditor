@@ -77,6 +77,7 @@ Please follow the steps below to complete the configuration.
   - Click `Add classic branch protection rule`.
   - Under `Branch name pattern`, type in `main`.
   - Check `Require a pull request before merging`.
+  - Check `Require a pull request before merging -> Require approvals`.
   - Check `Require a pull request before merging -> Dismiss stale pull request approvals when new commits are pushed`.
   - Check `Require a pull request before merging -> Require approval of the most recent reviewable push`.
   - Under `Protect matching branches`
@@ -101,7 +102,7 @@ Please follow the steps below to complete the configuration.
   - Enable `Require signed commits`
   - Enable `Require a pull request before merging` with 1 required approval.
   - Enable `Require status checks to pass` with the `CI+CD Workflow / Validate (ubuntu-latest, 3.12)` or an equivalent check.
-  - Enable `Block force pushes`.
+  - Disable `Block force pushes`.
   - Be sure to hit `Save changes` at the end.
 
 ### Development Activities
