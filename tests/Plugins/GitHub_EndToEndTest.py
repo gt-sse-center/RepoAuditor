@@ -7,14 +7,11 @@
 """End-to-end tests for the GitHub plugin"""
 
 import os
-from pathlib import Path
 
 import pytest
-from dbrownell_Common.TestHelpers.StreamTestHelpers import (
-    InitializeStreamCapabilities,
-)
+from dbrownell_Common.TestHelpers.StreamTestHelpers import InitializeStreamCapabilities
 from typer.testing import CliRunner
-from utilities import CheckPATFileExists, GetGithubUrl, ScrubDurationGithuburlAndSpaces
+from utilities import ScrubDurationGithuburlAndSpaces
 
 from RepoAuditor.EntryPoint import app
 
@@ -588,26 +585,3 @@ class TestRulesets:
         # we should get an error.
         assert result.exit_code == -1, result.output
         assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
-
-
-# ----------------------------------------------------------------------
-# ----------------------------------------------------------------------
-# ----------------------------------------------------------------------
-@pytest.fixture(name="args")
-def args_fixture() -> list[str]:
-    """Common arguments for GitHub plugin and corresponding URL."""
-    return [
-        "--include",
-        "GitHub",
-        "--GitHub-url",
-        GetGithubUrl(),
-    ]
-
-
-# ----------------------------------------------------------------------
-@pytest.fixture(name="pat_args")
-def pat_args_fixture(args) -> list[str]:
-    github_pat_filename = (Path(__file__).parent / "github_pat.txt").resolve()
-    CheckPATFileExists(github_pat_filename)
-
-    return args + ["--GitHub-pat", str(github_pat_filename)]
