@@ -14,7 +14,7 @@ from dataclasses import dataclass
 def session():
     """Create a dummy GitHub API session object."""
 
-    @dataclass(frozen=True)
+    @dataclass
     class _GithubSession_:
         github_url: str
         pat: str

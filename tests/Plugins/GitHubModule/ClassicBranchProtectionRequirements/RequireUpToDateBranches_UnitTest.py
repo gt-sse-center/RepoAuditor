@@ -86,3 +86,11 @@ class TestRequireUpToDateBranches:
         requirement_args = {"no": True}
         result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.Success
+
+    def test_DoesNotApply_Enterprise(self, requirement, query_data):
+        """Test DoesNotApply scenario on enterprise version."""
+        query_data["session"].is_enterprise = True
+        query_data["branch_protection_data"]["required_status_checks"] = None
+        requirement_args = {"false": True}
+        result = requirement.Evaluate(query_data, requirement_args)
+        assert result.result == EvaluateResult.DoesNotApply
