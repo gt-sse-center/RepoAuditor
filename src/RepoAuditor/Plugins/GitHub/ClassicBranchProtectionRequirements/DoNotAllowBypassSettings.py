@@ -4,7 +4,7 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the AllowBypassSettings object."""
+"""Contains the DoNotAllowBypassSettings object."""
 
 import textwrap
 

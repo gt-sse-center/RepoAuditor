@@ -4,36 +4,35 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the RequireSignedCommits object."""
+"""Contains the RestrictUpdatesRule requirement."""
 
 import textwrap
 
 from RepoAuditor.Plugins.GitHub.Impl.EnableRulesetRequirementImpl import EnableRulesetRequirementImpl
 
 
-class RequireSignedCommits(EnableRulesetRequirementImpl):
-    """Check that the "Require signed commits" rule is disabled."""
+class RestrictUpdatesRule(EnableRulesetRequirementImpl):
+    """Restrict updates of branches or tags which match specified patterns."""
 
     def __init__(self) -> None:
         super().__init__(
-            name="RequireSignedCommitsRule",
-            enabled_by_default=True,
-            dynamic_arg_name="no",
-            github_ruleset_type="required_signatures",
-            github_ruleset_value="Require signed commits",
+            name="RestrictUpdatesRule",
+            enabled_by_default=False,
+            dynamic_arg_name="yes",
+            github_ruleset_type="update",
+            github_ruleset_value="Restrict updates",
             get_configuration_value_func=self._GetValue,
             rationale=textwrap.dedent(
                 """\
-                The default behavior is to require signed commits. Note that this setting does not work with
-                rebase merging or squash merging.
+                The default behavior is to disable unauthorized updates to the primary branch.
 
                 Reasons for this Default
                 ------------------------
-                - Ensure that the author of a commit is who the claim to be.
+                - Disables accidental updates of matching refs/branches, which can help prevent code divergence.
 
                 Reasons to Override this Default
                 --------------------------------
-                - You have enabled rebase merging or squash merging.
+                - A user with git expertise wants to update a matching branch for a specific reason.
                 """,
             ),
         )

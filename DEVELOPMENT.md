@@ -101,7 +101,12 @@ Please follow the steps below to complete the configuration.
   - Enable `Restrict deletions`
   - Enable `Require signed commits`
   - Enable `Require a pull request before merging` with 1 required approval.
-  - Enable `Require status checks to pass` with the `CI+CD Workflow / Validate (ubuntu-latest, 3.12)` or an equivalent check.
+    - Enable `Dismiss stale pull request approvals when new commits are pushed`.
+    - Enable `Require approval of the most recent reviewable push`.
+    - Enable `Require conversation resolution before merging`.
+  - Enable `Require status checks to pass`.
+    - Enable `Require branches to be up to date before merging`.
+    - Set the `CI+CD Workflow / Validate (ubuntu-latest, 3.12)` or an equivalent check.
   - Disable `Block force pushes`.
   - Be sure to hit `Save changes` at the end.
 

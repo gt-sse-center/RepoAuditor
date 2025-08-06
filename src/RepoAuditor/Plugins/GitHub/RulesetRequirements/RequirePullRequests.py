@@ -6,6 +6,8 @@
 # -------------------------------------------------------------------------------
 """Contains the RequirePullRequests object."""
 
+import textwrap
+
 from RepoAuditor.Plugins.GitHub.Impl.EnableRulesetRequirementImpl import EnableRulesetRequirementImpl
 
 
@@ -19,7 +21,21 @@ class RequirePullRequests(EnableRulesetRequirementImpl):
             dynamic_arg_name="no",
             github_ruleset_type="pull_request",
             github_ruleset_value="Require a pull request before merging",
-            get_configuration_value_func=lambda rule: rule.get("type", "") == "pull_request",
-            resolution="{__enabled_str} pull request rule in repository rulesets",
-            rationale="Pull request reviews help maintain code quality and collaboration",
+            get_configuration_value_func=self._GetValue,
+            rationale=textwrap.dedent(
+                """\
+                The default behavior is to require pull requests before merging.
+                This is because pull request reviews help maintain code quality.
+
+                Reasons for this Default
+                ------------------------
+                - Pull requests are an important part of the development process and
+                prevent unwanted changes from making it into the mainline branch.
+
+                Reasons to Override this Default
+                --------------------------------
+                If this is a single contributor project and the developer is aware of
+                the pros and cons of pushing directly to the primary development branch.
+                """,
+            ),
         )
