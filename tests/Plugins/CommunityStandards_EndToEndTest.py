@@ -324,7 +324,7 @@ class TestCommunityStandards:
 @pytest.fixture(name="args")
 def args_fixture() -> list[str]:
     return [
-        "--include",
+        "--includes",
         "CommunityStandards",
         "--CommunityStandards-url",
         GetGithubUrl(),

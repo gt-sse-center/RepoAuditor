@@ -597,7 +597,7 @@ class TestRulesets:
 def args_fixture() -> list[str]:
     """Common arguments for GitHub plugin and corresponding URL."""
     return [
-        "--include",
+        "--includes",
         "GitHub",
         "--GitHub-url",
         GetGithubUrl(),

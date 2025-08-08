@@ -166,7 +166,7 @@ def _HelpEpilog() -> str:
 
         Command Line Examples
         =====================
-        RepoAuditor --include GitHub --GitHub-url https://github.com/gt-sse-center/RepoAuditor --GitHub-pat <PAT or path to file containing PAT>
+        RepoAuditor --includes GitHub --GitHub-url https://github.com/gt-sse-center/RepoAuditor --GitHub-pat <PAT or path to file containing PAT>
 
         """,
         )
@@ -207,14 +207,14 @@ def EntryPoint(  # noqa: PLR0913  # pragma: no cover
     includes: Annotated[
         Optional[list[str]],
         typer.Option(
-            "--include",
+            "--includes",
             help=f"Module or requirement names to explicitly include in the execution; like other command line arguments, requirement names must include the module name as a prefix (e.g. 'ModuleName{ARGUMENT_SEPARATOR}RequirementName'). This value can be provided multiple times.",
         ),
     ] = None,
     excludes: Annotated[
         Optional[list[str]],
         typer.Option(
-            "--exclude",
+            "--excludes",
             help=f"Module or requirement names to exclude from execution; like other command line arguments, requirement names must include the module name as a prefix (e.g. 'ModuleName{ARGUMENT_SEPARATOR}RequirementName'). This value can be provided multiple times.",
         ),
     ] = None,

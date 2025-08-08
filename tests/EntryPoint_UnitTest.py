@@ -43,7 +43,7 @@ def test_GitHub() -> None:
     result = CliRunner().invoke(
         app,
         [
-            "--include",
+            "--includes",
             "GitHub",
             "--GitHub-url",
             GetGithubUrl(),
