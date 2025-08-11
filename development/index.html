@@ -11,10 +11,6 @@
       
       
       
-        <link rel="prev" href="../config_file/">
-      
-      
-        <link rel="next" href="../CONTRIBUTING/">
       
       
       <link rel="icon" href="../assets/images/favicon.png">
@@ -22,7 +18,7 @@
     
     
       
-        <title>Development - RepoAuditor</title>
+        <title>Development Guide - RepoAuditor</title>
       
     
     
@@ -100,7 +96,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Development
+              Development Guide
             
           </span>
         </div>
@@ -281,32 +277,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    Development
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../DEVELOPMENT.md" class="md-nav__link">
         
   
   
@@ -317,128 +291,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#fork-setup" class="md-nav__link">
-    <span class="md-ellipsis">
-      Fork setup
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#local-development" class="md-nav__link">
-    <span class="md-ellipsis">
-      Local Development
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Local Development">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#enlistment" class="md-nav__link">
-    <span class="md-ellipsis">
-      Enlistment
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#setup" class="md-nav__link">
-    <span class="md-ellipsis">
-      Setup
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Setup">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#basic-setup" class="md-nav__link">
-    <span class="md-ellipsis">
-      Basic Setup
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#local-testing" class="md-nav__link">
-    <span class="md-ellipsis">
-      Local Testing
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#end-to-end-testing" class="md-nav__link">
-    <span class="md-ellipsis">
-      End-To-End Testing
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#development-activities" class="md-nav__link">
-    <span class="md-ellipsis">
-      Development Activities
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#contributing-changes" class="md-nav__link">
-    <span class="md-ellipsis">
-      Contributing Changes
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#verifying-signed-artifacts" class="md-nav__link">
-    <span class="md-ellipsis">
-      Verifying Signed Artifacts
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -605,6 +457,15 @@
   <a href="#verifying-signed-artifacts" class="md-nav__link">
     <span class="md-ellipsis">
       Verifying Signed Artifacts
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generating-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Generating Documentation
     </span>
   </a>
   
@@ -879,6 +740,15 @@
 <p>Artifacts are signed and validated using <a href="https://github.com/x13a/py-minisign">py-minisign</a> and the public key in the file <code>./minisign_key.pub</code>.</p>
 <p>To verify that an artifact is valid, visit <a href="https://github.com/gt-sse-center/RepoAuditor/releases/latest">the latest release</a> and download the <code>.minisign</code> signature file that corresponds to the artifact, then run the following command, replacing <code>&lt;filename&gt;</code> with the name of the artifact to be verified:</p>
 <pre><code class="language-sh">uv run --with py-minisign python -c &quot;import minisign; minisign.PublicKey.from_file('minisign_key.pub').verify_file('&lt;filename&gt;')&quot;
+</code></pre>
+<h3 id="generating-documentation">Generating Documentation</h3>
+<p>We use <a href="https://www.mkdocs.org/">MkDocs</a> to generate the documentation website.
+To generate the docs, please run</p>
+<pre><code class="language-sh">uv run mkdocs --serve
+</code></pre>
+<p>and go to the specified URL.</p>
+<p>To publish the website using <a href="https://docs.github.com/en/pages">GitHub pages</a>, you can simply run</p>
+<pre><code class="language-sh">mkdocs gh-deploy
 </code></pre>
 
 

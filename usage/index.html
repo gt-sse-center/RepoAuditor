@@ -362,7 +362,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../DEVELOPMENT/" class="md-nav__link">
+      <a href="../DEVELOPMENT.md" class="md-nav__link">
         
   
   
@@ -502,12 +502,12 @@
 <h1 id="usage">Usage</h1>
 <h2 id="basic-use">Basic Use</h2>
 <p>With a generated PAT file, you can now run <code>RepoAuditor</code> on your GitHub repository.</p>
-<pre><code class="language-sh">uvx repoauditor --includes GitHub \
+<pre><code class="language-sh">uvx repoauditor --include GitHub \
   --GitHub-url &lt;url-to-repo&gt; \
   --GitHub-pat ~/PAT.txt
 </code></pre>
 <p>If your repository is on an enterprise server, you can similarly generate a PAT (and save it <code>enterprise_PAT.txt</code>) and point <code>RepoAuditor</code> to the corresponding repo:</p>
-<pre><code class="language-sh">uvx repoauditor --includes GitHub \
+<pre><code class="language-sh">uvx repoauditor --include GitHub \
   --GitHub-url &lt;url-to-enterprise-repo&gt; \
   --GitHub-pat ~/enterprise_PAT.txt
 </code></pre>
@@ -516,7 +516,7 @@
 <p><strong>NOTE</strong> You need to fork the repository since your default PAT only has access to repos under your account.</p>
 </blockquote>
 <p>To run <code>RepoAuditor</code>, we can enter the following in the command-line:</p>
-<pre><code class="language-sh">uvx repoauditor --includes GitHub \
+<pre><code class="language-sh">uvx repoauditor --include GitHub \
   --GitHub-url https://github.com/&lt;username&gt;/python-helloworld \
   --GitHub-pat ~/PAT.txt
 </code></pre>
@@ -534,7 +534,7 @@ You can override the default settings by specifying the appropriate flag.</p>
 <p>Please run <code>uvx repoauditor --help</code> to get the list of all flags available.</p>
 <p><br/></p>
 <h2 id="examples">Examples</h2>
-<p>In this section, we will look at various exampls of using <code>RepoAuditor</code>. For the sake of brevity, we will omit the <code>--includes</code> and <code>--GitHub-url</code> flags, leaving the inclusion to the user.</p>
+<p>In this section, we will look at various exampls of using <code>RepoAuditor</code>. For the sake of brevity, we will omit the <code>--include</code> and <code>--GitHub-url</code> flags, leaving the inclusion to the user.</p>
 <p><code>RepoAuditor</code> is designed to have sensible defaults which represent industry best practices.
 For example, <code>RepoAuditor</code> by default checks that the setting <code>Allow rebase merging</code> is off. However, if you wish to check that this setting is turned on, you can run:</p>
 <pre><code class="language-sh">uvx repoauditor --GitHub-RebaseMergeCommit
@@ -551,13 +551,13 @@ For example, <code>RepoAuditor</code> by default checks that the setting <code>A
 <p>There is often the case you might wish to exclude a module or a specific requirement.
 <code>RepoAuditor</code> has built-in support for this as well, by using the <code>--excludes</code> flag.</p>
 <p>To exclude a requirement, you can run specify the requirement as <code>Module-Requirement</code></p>
-<pre><code class="language-sh">uvx repoauditor --includes GitHub --excludes GitHub-RequireSignedCommitsRule
+<pre><code class="language-sh">uvx repoauditor --include GitHub --excludes GitHub-RequireSignedCommitsRule
 </code></pre>
 <p>The above command includes all of the requirements in the <code>GitHub</code> module except for the <code>RequireSignedCommitsRule</code> requirement.</p>
 <p>You can similarly exclude a whole module:</p>
-<pre><code class="language-sh">uvx repoauditor --includes GitHub --excludes CommunityStandards
+<pre><code class="language-sh">uvx repoauditor --include GitHub --excludes CommunityStandards
 </code></pre>
-<p>NOTE: This way of excluding a module is redundant since any module not added via <code>--includes</code> is automatically excluded.</p>
+<p>NOTE: This way of excluding a module is redundant since any module not added via <code>--include</code> is automatically excluded.</p>
 
 
 
