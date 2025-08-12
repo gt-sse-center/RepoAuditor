@@ -1,4 +1,5 @@
-includes: ["GitHub", "CommunityStandards"]
+includes: ["GitHub", "CommunityStandards"]  # Note that `includes` is plural compared to the CLI, since is accepts a list
+excludes: []  # Similarly, `excludes` is plural.
 GitHub-url: "https://github.com/gt-sse-center/RepoAuditor"
 CommunityStandards-url: "https://github.com/gt-sse-center/RepoAuditor"
 # GitHub-pat: "PAT"
