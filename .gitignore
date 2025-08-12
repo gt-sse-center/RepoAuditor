@@ -28,3 +28,6 @@ post_generation_instructions.html
 
 # Test coverage report
 **/coverage.xml
+
+# Documentation site
+site/
