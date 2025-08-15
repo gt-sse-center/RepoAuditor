@@ -549,13 +549,13 @@ For example, <code>RepoAuditor</code> by default checks that the setting <code>A
 <p><br/></p>
 <h2 id="excluding-requirements">Excluding Requirements</h2>
 <p>There is often the case you might wish to exclude a module or a specific requirement.
-<code>RepoAuditor</code> has built-in support for this as well, by using the <code>--excludes</code> flag.</p>
+<code>RepoAuditor</code> has built-in support for this as well, by using the <code>--exclude</code> flag.</p>
 <p>To exclude a requirement, you can run specify the requirement as <code>Module-Requirement</code></p>
-<pre><code class="language-sh">uvx repoauditor --include GitHub --excludes GitHub-RequireSignedCommitsRule
+<pre><code class="language-sh">uvx repoauditor --include GitHub --exclude GitHub-RequireSignedCommitsRule
 </code></pre>
 <p>The above command includes all of the requirements in the <code>GitHub</code> module except for the <code>RequireSignedCommitsRule</code> requirement.</p>
 <p>You can similarly exclude a whole module:</p>
-<pre><code class="language-sh">uvx repoauditor --include GitHub --excludes CommunityStandards
+<pre><code class="language-sh">uvx repoauditor --include GitHub --exclude CommunityStandards
 </code></pre>
 <p>NOTE: This way of excluding a module is redundant since any module not added via <code>--include</code> is automatically excluded.</p>
 

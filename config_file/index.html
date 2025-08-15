@@ -271,6 +271,19 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Config File
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -282,6 +295,58 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#key-differences" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Differences
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Key Differences">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#multiple-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multiple Values
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boolean-flags" class="md-nav__link">
+    <span class="md-ellipsis">
+      Boolean Flags
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -373,6 +438,47 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#key-differences" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Differences
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Key Differences">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#multiple-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multiple Values
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boolean-flags" class="md-nav__link">
+    <span class="md-ellipsis">
+      Boolean Flags
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -391,7 +497,32 @@
 <p><code>RepoAuditor</code> accepts both a set of flags as well as a configuration YAML file.</p>
 <p>The configuration (or config) file can make usage easier by recording preferences as well as facilitating sharing of enforced requirements within an organization.
 We have provided a sample configuration file called <a href="https://github.com/gt-sse-center/RepoAuditor/blob/main/default_config.yaml">default_config.yaml</a>, which can be used as:</p>
-<pre><code class="language-sh">uvx run RepoAuditor --config default_config.yaml
+<pre><code class="language-sh">uvx RepoAuditor --config default_config.yaml
+</code></pre>
+<h2 id="key-differences">Key Differences</h2>
+<p>There are some differences between the flags used in the CLI and the options provided in the config file.</p>
+<h3 id="multiple-values">Multiple Values</h3>
+<p>For example, to include multiple module on the CLI, the user would use the <code>--include</code> multiple times.</p>
+<pre><code class="language-sh">uvx RepoAuditor --include CommunityStandards --include GitHub
+</code></pre>
+<p>However, since the config file accepts a list of values, the corresponding option is <code>includes</code> (which is plural).</p>
+<pre><code class="language-yaml">includes: [&quot;GitHub&quot;, &quot;CommunityStandards&quot;]
+</code></pre>
+<p>This is similarly the case for <code>--exclude</code> on the CLI and <code>excludes</code> in the config file.</p>
+<h3 id="boolean-flags">Boolean Flags</h3>
+<p>On the CLI, the existence of a boolean flag, e.g. <code>--GitHub-Description-allow-empty</code> is sufficient to indicate that we want this setting to be enabled.</p>
+<p>However since YAML files expect key-value pairs, in the config file, you will have to specify the same flag as:</p>
+<pre><code class="language-yaml">GitHub-Description-allow-empty: true
+</code></pre>
+<p>Similarly for the case where we wish to check a setting is turned off, we specify e.g. <code>--GitHub-no-MergeCommit</code> on the CLI, but in the config file, it would be</p>
+<pre><code class="language-yaml">GitHub-no-MergeCommit: true
+</code></pre>
+<p>If we specify a falsy value, e.g.</p>
+<pre><code class="language-yaml">GitHub-no-MergeCommit: false
+</code></pre>
+<p>this is the same as not specifying the CLI flag, which would be the default behavior.</p>
+<p>Remember, to deactive a check, we have to add the <code>Module-Requirement</code> to the <code>excludes</code> list,</p>
+<pre><code class="language-yaml">excludes: [&quot;GitHub-MergeCommit&quot;]
 </code></pre>
 
 
