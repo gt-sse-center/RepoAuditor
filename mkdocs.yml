@@ -10,6 +10,11 @@ nav:
   - Troubleshooting: troubleshooting.md
 theme:
   name: material
+  palette:
+    scheme: slate
+    primary: teal
+    accent: lime
+
 
 # Extensions to render emojis
 markdown_extensions:
