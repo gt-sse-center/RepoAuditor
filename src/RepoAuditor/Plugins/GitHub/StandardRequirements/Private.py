@@ -77,7 +77,7 @@ class Private(Requirement):
         result = query_data["standard"].get("private", None)
 
         if result is None:
-            return CreateIncompleteDataResult()
+            return CreateIncompleteDataResult(query_data["pat"] is not None)
 
         if result != expect_private:
             return Requirement.EvaluateImplResult(

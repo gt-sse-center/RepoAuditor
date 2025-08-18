@@ -14,20 +14,6 @@ from RepoAuditor.Plugins.GitHub.ClassicBranchProtectionRequirements.RequireUpToD
 from RepoAuditor.Requirement import EvaluateResult
 
 
-@pytest.fixture(name="query_data")
-def query_data_fixture(session):
-    """Sample query data fixture."""
-    return {
-        "session": session,
-        "branch": "main",
-        "branch_protection_data": {
-            "required_status_checks": {
-                "strict": False,
-            },
-        },
-    }
-
-
 @pytest.fixture(name="requirement")
 def requirement_fixture():
     """RequireUpToDateBranches requirement fixture."""

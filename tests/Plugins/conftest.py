@@ -11,8 +11,8 @@ from pathlib import Path
 
 import pytest
 
-# `session` included here so it is available for all tests
-from GitHubModule.fixtures import session  # noqa: F401
+# Fixtures included here so it is available for all tests
+from GitHubModule.fixtures import session_fixture, query_data_fixture  # noqa: F401
 from utilities import CheckPATFileExists, GetGithubUrl
 
 from RepoAuditor.Plugins.GitHubBase.Module import _GitHubSession

@@ -14,19 +14,6 @@ from RepoAuditor.Plugins.GitHub.ClassicBranchProtectionRequirements.DismissStale
 from RepoAuditor.Requirement import EvaluateResult
 
 
-@pytest.fixture(name="query_data")
-def query_data_fixture(session):
-    return {
-        "session": session,
-        "branch": "main",
-        "branch_protection_data": {
-            "required_pull_request_reviews": {
-                "dismiss_stale_reviews": True,
-            },
-        },
-    }
-
-
 @pytest.fixture(name="requirement")
 def requirement_fixture():
     return DismissStalePullRequestApprovals()

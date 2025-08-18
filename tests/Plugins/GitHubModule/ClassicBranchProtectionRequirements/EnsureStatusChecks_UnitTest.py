@@ -14,19 +14,6 @@ from RepoAuditor.Plugins.GitHub.ClassicBranchProtectionRequirements.EnsureStatus
 from RepoAuditor.Requirement import EvaluateResult
 
 
-@pytest.fixture(name="query_data")
-def query_data_fixture(session):
-    return {
-        "session": session,
-        "branch": "main",
-        "branch_protection_data": {
-            "required_status_checks": {
-                "checks": ["check1", "check2"],
-            },
-        },
-    }
-
-
 @pytest.fixture(name="requirement")
 def requirement_fixture():
     return EnsureStatusChecks()

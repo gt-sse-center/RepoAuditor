@@ -14,17 +14,6 @@ from RepoAuditor.Plugins.GitHub.StandardRequirements.SquashMergeCommitMessage im
 from RepoAuditor.Requirement import EvaluateResult
 
 
-@pytest.fixture(name="query_data")
-def query_data_fixture(session):
-    return {
-        "session": session,
-        "standard": {
-            "allow_squash_merge": True,
-            "squash_merge_commit_message": "COMMIT_MESSAGES",
-        },
-    }
-
-
 @pytest.fixture(name="requirement")
 def requirement_fixture():
     return SquashMergeCommitMessage()

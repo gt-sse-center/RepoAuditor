@@ -14,19 +14,6 @@ from RepoAuditor.Plugins.GitHub.ClassicBranchProtectionRequirements.RequireCodeO
 from RepoAuditor.Requirement import EvaluateResult
 
 
-@pytest.fixture(name="query_data")
-def query_data_fixture(session):
-    return {
-        "session": session,
-        "branch": "main",
-        "branch_protection_data": {
-            "required_pull_request_reviews": {
-                "require_code_owner_reviews": False,
-            },
-        },
-    }
-
-
 @pytest.fixture(name="requirement")
 def requirement_fixture():
     return RequireCodeOwnerReview()
