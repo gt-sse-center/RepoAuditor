@@ -103,7 +103,7 @@ class EnableRequirementImpl(Requirement):
                 )
 
             if self.missing_value_is_warning:
-                return CreateIncompleteDataResult()
+                return CreateIncompleteDataResult(query_data["pat"] is not None)
 
             return Requirement.EvaluateImplResult(EvaluateResult.DoesNotApply, None)
 

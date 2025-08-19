@@ -12,16 +12,6 @@ from RepoAuditor.Plugins.GitHub.DefaultBranchRequirements.Protected import Prote
 from RepoAuditor.Requirement import EvaluateResult
 
 
-@pytest.fixture(name="query_data")
-def query_data_fixture(session):
-    return {
-        "session": session,
-        "default_branch_data": {
-            "protected": True,
-        },
-    }
-
-
 @pytest.fixture(name="requirement")
 def requirement_fixture():
     return Protected()

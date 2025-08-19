@@ -12,16 +12,6 @@ from RepoAuditor.Plugins.GitHub.StandardRequirements.Private import Private
 from RepoAuditor.Requirement import EvaluateResult
 
 
-@pytest.fixture(name="query_data")
-def query_data_fixture(session):
-    return {
-        "session": session,
-        "standard": {
-            "private": True,
-        },
-    }
-
-
 @pytest.fixture(name="requirement")
 def requirement_fixture():
     return Private()

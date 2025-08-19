@@ -41,7 +41,7 @@ class TestValueRequirementImpl:
 
     def test_ResultIsNone(self, requirement):
         """Test pathway where result value is None."""
-        query_data = {"result": None}
+        query_data = {"result": None, "pat": "github_pat_example"}
         requirement_args = {"value": 0}
         result = requirement.Evaluate(query_data, requirement_args)
         assert result.result == EvaluateResult.Warning

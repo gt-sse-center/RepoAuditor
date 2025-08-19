@@ -14,20 +14,6 @@ from RepoAuditor.Plugins.GitHub.StandardRequirements.SecretScanningPushProtectio
 from RepoAuditor.Requirement import EvaluateResult
 
 
-@pytest.fixture(name="query_data")
-def query_data_fixture(session):
-    return {
-        "session": session,
-        "standard": {
-            "security_and_analysis": {
-                "secret_scanning_push_protection": {
-                    "status": True,
-                },
-            },
-        },
-    }
-
-
 @pytest.fixture(name="requirement")
 def requirement_fixture():
     return SecretScanningPushProtection()

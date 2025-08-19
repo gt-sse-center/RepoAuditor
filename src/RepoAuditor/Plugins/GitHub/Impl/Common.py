@@ -10,9 +10,25 @@ from RepoAuditor.Requirement import EvaluateResult, Requirement
 
 
 # ----------------------------------------------------------------------
-def CreateIncompleteDataResult() -> Requirement.EvaluateImplResult:
-    """Create an incomplete data result."""
+def CreateIncompleteDataResult(pat_value_exists: bool) -> Requirement.EvaluateImplResult:  # noqa: FBT001
+    """Create an incomplete data result.
+
+    Checks if the PAT value is `None` to generate additional message info.
+
+    Args:
+        pat_value_exists (bool): The value of the Personal Access Token.
+
+    Returns:
+        Requirement.EvaluateImplResult: A warning result notifying the user of an incomplete result.
+
+    """
+    error_message = "Incomplete data was encountered."
+    if pat_value_exists:
+        error_message += "\nPlease update the permissions of the GitHub PAT."
+    else:
+        error_message += "\nGitHub PAT was not provided. Please provide the PAT."
+
     return Requirement.EvaluateImplResult(
         EvaluateResult.Warning,
-        "Incomplete data was encountered; please provide the GitHub PAT or update the PAT's permissions if one was provided.",
+        error_message,
     )

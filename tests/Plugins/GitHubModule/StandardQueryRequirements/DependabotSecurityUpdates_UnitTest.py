@@ -14,20 +14,6 @@ from RepoAuditor.Plugins.GitHub.StandardRequirements.DependabotSecurityUpdates i
 from RepoAuditor.Requirement import EvaluateResult
 
 
-@pytest.fixture(name="query_data")
-def query_data_fixture(session):
-    return {
-        "session": session,
-        "standard": {
-            "security_and_analysis": {
-                "dependabot_security_updates": {
-                    "status": True,
-                },
-            },
-        },
-    }
-
-
 @pytest.fixture(name="requirement")
 def requirement_fixture():
     return DependabotSecurityUpdates()

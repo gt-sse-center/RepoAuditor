@@ -76,7 +76,7 @@ class Protected(Requirement):
     ) -> Requirement.EvaluateImplResult:
         is_protected = query_data["default_branch_data"].get("protected", None)
         if is_protected is None:
-            return CreateIncompleteDataResult()
+            return CreateIncompleteDataResult(query_data["pat"] is not None)
 
         if requirement_args["no"]:
             expected_value = False

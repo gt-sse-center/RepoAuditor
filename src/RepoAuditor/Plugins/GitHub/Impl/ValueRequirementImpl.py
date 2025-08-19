@@ -90,7 +90,7 @@ class ValueRequirementImpl(Requirement):
         result = self.get_configuration_value_func(query_data)
         if result is None:
             if self.missing_value_is_warning:
-                return CreateIncompleteDataResult()
+                return CreateIncompleteDataResult(query_data["pat"] is not None)
 
             return Requirement.EvaluateImplResult(EvaluateResult.DoesNotApply, None)
 
