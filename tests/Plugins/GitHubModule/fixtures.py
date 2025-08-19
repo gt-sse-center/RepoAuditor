@@ -73,5 +73,6 @@ def query_data_fixture(session):
                 "name": "MIT License",
             },
         },
+        "rules": [],
         "pat": "github_pat_abcdefgh",
     }
