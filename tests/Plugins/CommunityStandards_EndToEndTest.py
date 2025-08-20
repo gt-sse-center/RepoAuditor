@@ -165,7 +165,7 @@ class TestCommunityStandards:
     @patch.object(
         CommunityStandardsQuery,
         "GetData",
-        GetDataFunctional("CONTRIBUTING.md"),
+        GetDataFunctional("docs/CONTRIBUTING.md"),
     )
     def test_NoContributing(self, pat_args, snapshot):
         """Test if a CONTRIBUTING file does not exist in the repository."""
