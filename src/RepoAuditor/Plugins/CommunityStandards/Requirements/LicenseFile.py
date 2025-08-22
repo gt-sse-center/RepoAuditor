@@ -14,7 +14,7 @@ from RepoAuditor.Plugins.CommunityStandards.Impl.ExistsRequirementImpl import (
 
 
 class LicenseFile(ExistsRequirementImpl):
-    """Validates that a CODE_OF_CONDUCT file is configured."""
+    """Validates that a file with licensing information is present."""
 
     def __init__(self) -> None:
         super().__init__(

@@ -4,7 +4,7 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Unit tests for the GitHub Community Standards Plugin"""
+"""Unit tests for the Community Standards Plugin"""
 
 import sys
 from pathlib import Path
