@@ -24,11 +24,11 @@ class TestScientificSoftware:
     """End-to-end tests for files in a GitHub repository which implements scientific software."""
 
     # ----------------------------------------------------------------------
-    def test_NoCitation(self, pat_args, snapshot):
+    def test_NoCitation(self, args, snapshot):
         """Test if no CITATION file exists in the repository."""
         result = CliRunner().invoke(
             app,
-            pat_args,
+            args,
         )
 
         assert result.exit_code == -1, result.output

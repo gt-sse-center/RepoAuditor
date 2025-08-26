@@ -30,6 +30,7 @@ class ExistsRequirementImpl(Requirement):
         resolution: str,
         rationale: str,
         *,
+        enabled_by_default: bool = True,
         dynamic_arg_name: str = "unrequired",
         requires_explicit_include: bool = False,
     ) -> None:
@@ -41,7 +42,8 @@ class ExistsRequirementImpl(Requirement):
             possible_locations (Sequence[str]): List of potential paths in the repo to check if `filename` exists.
             resolution (str): Message on how to resolve the requirement in case of an error.
             rationale (str): Rationale message on why this requirement is needed.
-            dynamic_arg_name (str, optional): Name of the runtime argument (e.g. from command line) to this requirement.Defaults to "unrequired", which if enabled causes the requirement to be skipped.
+            enabled_by_default (bool): Flag which indicates if the required file should be present in the repository by default. Defaults to True.
+            dynamic_arg_name (str, optional): Name of the runtime argument (e.g. from command line) to this requirement. Defaults to "unrequired", which if enabled causes the requirement to check if file is not present.
             requires_explicit_include (bool, optional): Flag checking if this requirement needs to be explicitly included in the invocation. Defaults to False.
 
         """
@@ -56,8 +58,8 @@ class ExistsRequirementImpl(Requirement):
 
         self.dynamic_arg_name = dynamic_arg_name
         self.filename = filename
-
         self.possible_locations = possible_locations
+        self.enabled_by_default = enabled_by_default
 
     # ----------------------------------------------------------------------
     @override
@@ -68,7 +70,7 @@ class ExistsRequirementImpl(Requirement):
                 bool,
                 typer.Option(
                     False,
-                    help=f"Disable requirement that the file {self.filename} exists.",
+                    help=f"{'Disable' if self.enabled_by_default else 'Enable'} requirement that the file {self.filename} exists.{' Needs to be explicitly included.' if self.requires_explicit_include else ''}",
                 ),
             ),
         }
@@ -80,8 +82,14 @@ class ExistsRequirementImpl(Requirement):
         query_data: dict[str, Any],
         requirement_args: dict[str, Any],
     ) -> Requirement.EvaluateImplResult:
-        # Check if dynamic argument is `not unrequired`.
-        if not requirement_args.get(self.dynamic_arg_name, False):
+        # Flag to check if required file exists
+        check_exists: bool = self.enabled_by_default
+
+        # Check if the dynamic argument is provided, which toggles the check flag
+        if requirement_args.get(self.dynamic_arg_name, False):
+            check_exists = not check_exists
+
+        if check_exists:
             for location in self.possible_locations:
                 # Get full file path in temporary repo directory and check if it exists
                 # This checks both upper case and lower case variants
@@ -107,5 +115,5 @@ class ExistsRequirementImpl(Requirement):
                 provide_rationale=True,
             )
 
-        # Requirement flag not set so DoesNotApply
+        # Requirement not enabled, so DoesNotApply
         return Requirement.EvaluateImplResult(EvaluateResult.DoesNotApply, None)

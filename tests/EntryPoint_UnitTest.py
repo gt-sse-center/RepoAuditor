@@ -8,13 +8,12 @@
 
 import pytest
 import typer
-
 from dbrownell_Common.TestHelpers.StreamTestHelpers import InitializeStreamCapabilities
 from dbrownell_Common.TyperEx import TypeDefinitionItem  # type: ignore [import-untyped]
 from typer.testing import CliRunner
 
 from RepoAuditor import __version__
-from RepoAuditor.EntryPoint import app, TypeInfoToString
+from RepoAuditor.EntryPoint import TypeInfoToString, app
 
 from .Plugins.utilities import GetGithubUrl
 
