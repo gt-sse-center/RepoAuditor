@@ -28,7 +28,10 @@ class TestScientificSoftware:
         """Test if no CITATION file exists in the repository."""
         result = CliRunner().invoke(
             app,
-            pat_args,
+            pat_args
+            + [
+                "--ScientificSoftware-Citation-required",
+            ],
         )
 
         assert result.exit_code == -1, result.output

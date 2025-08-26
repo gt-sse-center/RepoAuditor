@@ -9,22 +9,19 @@
 import sys
 import textwrap
 import time
-
 from typing import cast
 
 import pytest
-
-from dbrownell_Common.Types import override
 from dbrownell_Common.TestHelpers.StreamTestHelpers import (
     GenerateDoneManagerAndContent,
     InitializeStreamCapabilities,
 )
+from dbrownell_Common.Types import override
 
 from RepoAuditor.Display import *
 from RepoAuditor.ExecuteModules import *
 from RepoAuditor.Module import *
 from RepoAuditor.Requirement import *
-
 
 # ----------------------------------------------------------------------
 pytest.fixture(InitializeStreamCapabilities(), scope="session", autouse=True)
