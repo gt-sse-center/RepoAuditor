@@ -4,22 +4,22 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Unit tests for AllowMainlineForcePushesRule.py"""
+"""Unit tests for BlockMainlineForcePushesRule.py"""
 
-from RepoAuditor.Plugins.GitHub.RulesetRequirements.AllowMainlineForcePushes import (
-    AllowMainlineForcePushesRule,
+from RepoAuditor.Plugins.GitHub.RulesetRequirements.BlockMainlineForcePushes import (
+    BlockMainlineForcePushesRule,
 )
 from RepoAuditor.Requirement import EvaluateResult
 
 from . import create_rule
 
 
-class TestAllowMainlineForcePushesRule:
-    """Unit tests for the AllowMainlineForcePushesRule requirement."""
+class TestBlockMainlineForcePushesRule:
+    """Unit tests for the BlockMainlineForcePushesRule requirement."""
 
     def test_Enabled(self, query_data):
         """Test if the rule is enabled on the main branch."""
-        requirement = AllowMainlineForcePushesRule()
+        requirement = BlockMainlineForcePushesRule()
 
         query_data["rules"].append(
             create_rule(
@@ -36,7 +36,7 @@ class TestAllowMainlineForcePushesRule:
 
     def test_Disabled(self, query_data):
         """Test if the rule is disabled by not providing the appropriate rule within the ruleset."""
-        requirement = AllowMainlineForcePushesRule()
+        requirement = BlockMainlineForcePushesRule()
 
         query_data["rules"].append(
             create_rule(

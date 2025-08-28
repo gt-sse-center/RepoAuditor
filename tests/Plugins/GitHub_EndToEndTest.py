@@ -568,9 +568,9 @@ class TestRulesets:
         assert result.exit_code == -1, result.output
         assert ScrubDurationGithuburlAndSpaces(result.stdout) == snapshot
 
-    def test_AllowMainlineForcePushesRule(self, pat_args, snapshot):
-        """Test for requirement `Block force pushes to the specified branch` is enabled in the ruleset for the `main` branch."""
-        result = CliRunner().invoke(app, pat_args + ["--GitHub-AllowMainlineForcePushesRule"])
+    def test_NoBlockMainlineForcePushesRule(self, pat_args, snapshot):
+        """Test for requirement `Block force pushes to the specified branch` is disabled in the ruleset for the `main` branch."""
+        result = CliRunner().invoke(app, pat_args + ["--GitHub-no-BlockMainlineForcePushesRule"])
 
         # Since the repo ruleset has the requirement disabled,
         # we should get an error.
