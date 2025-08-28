@@ -8,6 +8,7 @@
 
 import threading
 from abc import ABC, abstractmethod
+from collections.abc import Sequence
 from dataclasses import dataclass
 from typing import Any, Optional, Protocol
 
@@ -53,7 +54,7 @@ class Query(ABC):
         self,
         name: str,
         style: ExecutionStyle,
-        requirements: list[Requirement],
+        requirements: Sequence[Requirement],
     ) -> None:
         self.name = name
         self.style = style
@@ -75,7 +76,7 @@ class Query(ABC):
         status_func: OnStatusFunc,
         *,
         max_num_threads: Optional[int] = None,
-    ) -> list["Query.EvaluateInfo"]:
+    ) -> Sequence["Query.EvaluateInfo"]:
         """Evaluate the Query given the query data and the data from the requirements."""
         status_info = StatusInfo()
         status_info_lock = threading.Lock()

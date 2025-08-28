@@ -23,24 +23,8 @@ from RepoAuditor.Plugins.CommunityStandards.Requirements.SecurityPolicy import S
 from RepoAuditor.Query import ExecutionStyle, Query
 
 
-class CommunityStandardsQuery(Query):
-    """Query with requirements that check for repository Community Standards files."""
-
-    def __init__(self) -> None:
-        super().__init__(
-            "CommunityStandardsQuery",
-            ExecutionStyle.Parallel,
-            [
-                ReadMe(),
-                CodeOfConduct(),
-                Contributing(),
-                LicenseFile(),
-                SecurityPolicy(),
-                IssueTemplates(),
-                PullRequestTemplate(),
-                CodeOwners(),
-            ],
-        )
+class CloneRepositoryMixin:
+    """A mixin class to clone a repository to a temporary directory."""
 
     # ----------------------------------------------------------------------
     @override
@@ -84,9 +68,30 @@ class CommunityStandardsQuery(Query):
 
         return module_data
 
+    # ----------------------------------------------------------------------
     @override
     def Cleanup(self, module_data: dict[str, Any]) -> None:
         """Clean up the cloned repository."""
         repo_dir = module_data["repo_dir"]
         repo_dir.cleanup()
         del module_data
+
+
+class CommunityStandardsQuery(CloneRepositoryMixin, Query):
+    """Query with requirements that check for repository Community Standards files."""
+
+    def __init__(self) -> None:
+        super().__init__(
+            "CommunityStandardsQuery",
+            ExecutionStyle.Parallel,
+            [
+                ReadMe(),
+                CodeOfConduct(),
+                Contributing(),
+                LicenseFile(),
+                SecurityPolicy(),
+                IssueTemplates(),
+                PullRequestTemplate(),
+                CodeOwners(),
+            ],
+        )
