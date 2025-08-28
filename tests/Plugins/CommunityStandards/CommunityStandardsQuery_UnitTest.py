@@ -36,6 +36,8 @@ def patch_temp_directory(monkeypatch):
 class TestCommunityStandardsQuery:
     """Tests for CommunityStandardsQuery class."""
 
+    query = CommunityStandardsQuery()
+
     def test_GetData(self, module_data, monkeypatch):
         """Test the GetData method."""
         monkeypatch.setattr(
@@ -53,8 +55,7 @@ class TestCommunityStandardsQuery:
             mock_clone_from,
         )
 
-        query = CommunityStandardsQuery()
-        query_data = query.GetData(module_data)
+        query_data = self.query.GetData(module_data)
 
         assert query_data["repo_dir"].name == "test_temp_directory"
 
@@ -77,8 +78,7 @@ class TestCommunityStandardsQuery:
 
         monkeypatch.setattr(Repo, "clone_from", mock_clone_from)
 
-        query = CommunityStandardsQuery()
-        _ = query.GetData(module_data)
+        _ = self.query.GetData(module_data)
 
     def test_GetData_does_not_add_pat(self, module_data, monkeypatch):
         """Test the GetData method preserves the URL when no PAT is provided"""
@@ -97,8 +97,7 @@ class TestCommunityStandardsQuery:
 
         monkeypatch.setattr(Repo, "clone_from", mock_clone_from)
 
-        query = CommunityStandardsQuery()
-        _ = query.GetData(module_data)
+        _ = self.query.GetData(module_data)
 
     def test_GetData_handles_gitpython_errors(self, module_data, monkeypatch):
         """Test the GetData method handles errors raised by the gitpyhon module"""
@@ -115,15 +114,13 @@ class TestCommunityStandardsQuery:
 
         monkeypatch.setattr(Repo, "clone_from", mock_clone_from)
 
-        query = CommunityStandardsQuery()
         with pytest.raises(RuntimeError) as e_info:
-            _ = query.GetData(module_data)
+            _ = self.query.GetData(module_data)
         assert gitpython_error_msg in str(e_info)
 
     def test_Cleanup(self, module_data):
         """Test the Cleanup method."""
-        query = CommunityStandardsQuery()
         module_data["repo_dir"] = MockTemporaryDirectory()
-        result = query.Cleanup(module_data)
+        result = self.query.Cleanup(module_data)
 
         assert result is None

@@ -14,7 +14,7 @@ from RepoAuditor.Plugins.GitHub.Module import GitHubModule
 
 
 # ----------------------------------------------------------------------
-@pluggy.HookimplMarker(APP_NAME)
+@pluggy.HookimplMarker(APP_NAME)(tryfirst=True)
 def GetModule() -> Module:
     """Return GitHub Module."""
     return GitHubModule()
