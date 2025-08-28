@@ -744,7 +744,7 @@
   │ [31m│[0m ----------                                                                                                       [31m│[0m │
   │ [31m│[0m   1) Visit '<scrubbed-github-url>'.                                                                              [31m│[0m │
   │ [31m│[0m   2) Find or create a ruleset on the branch 'main'.                                                              [31m│[0m │
-  │ [31m│[0m   3) Go to ''Block force pushes''.                                                                               [31m│[0m │
+  │ [31m│[0m   3) Go to 'Block force pushes'.                                                                                 [31m│[0m │
   │ [31m│[0m   4) Enable the rule.                                                                                            [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯[0m │
@@ -810,14 +810,14 @@
   │ [31m│[0m are pushed' is set to False.                                                                                     [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m ERROR: 'Require a pull request before merging -> Dismiss stale pull request approvals when new commits are       [31m│[0m │
-  │ [31m│[0m pushed' rule active in ruleset 'main'. It should be set to False                                                 [31m│[0m │
+  │ [31m│[0m pushed' rule active in ruleset 'main'. It should be set to False.                                                [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m Resolution                                                                                                       [31m│[0m │
   │ [31m│[0m ----------                                                                                                       [31m│[0m │
   │ [31m│[0m   1) Visit '<scrubbed-github-url>'.                                                                              [31m│[0m │
   │ [31m│[0m   2) Find or create a ruleset on the branch 'main'.                                                              [31m│[0m │
-  │ [31m│[0m   3) Go to ''Require a pull request before merging -> Dismiss stale pull request approvals when new commits are  [31m│[0m │
-  │ [31m│[0m pushed''.                                                                                                        [31m│[0m │
+  │ [31m│[0m   3) Go to 'Require a pull request before merging -> Dismiss stale pull request approvals when new commits are   [31m│[0m │
+  │ [31m│[0m pushed'.                                                                                                         [31m│[0m │
   │ [31m│[0m   4) Disable the rule.                                                                                           [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯[0m │
@@ -865,7 +865,7 @@
   │ [31m│[0m Validates that 'Require status checks to pass -> Status checks that are required' is set to False.               [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m ERROR: 'Require status checks to pass -> Status checks that are required' rule active in ruleset 'main'. It      [31m│[0m │
-  │ [31m│[0m should be set to False                                                                                           [31m│[0m │
+  │ [31m│[0m should be set to False.                                                                                          [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m Resolution                                                                                                       [31m│[0m │
   │ [31m│[0m ----------                                                                                                       [31m│[0m │
@@ -922,13 +922,13 @@
   │ [31m│[0m set to False.                                                                                                    [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m ERROR: 'Require a pull request before merging -> Require approval of the most recent reviewable push' rule       [31m│[0m │
-  │ [31m│[0m active in ruleset 'main'. It should be set to False                                                              [31m│[0m │
+  │ [31m│[0m active in ruleset 'main'. It should be set to False.                                                             [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m Resolution                                                                                                       [31m│[0m │
   │ [31m│[0m ----------                                                                                                       [31m│[0m │
   │ [31m│[0m   1) Visit '<scrubbed-github-url>'.                                                                              [31m│[0m │
   │ [31m│[0m   2) Find or create a ruleset on the branch 'main'.                                                              [31m│[0m │
-  │ [31m│[0m   3) Go to ''Require a pull request before merging -> Require approval of the most recent reviewable push''.     [31m│[0m │
+  │ [31m│[0m   3) Go to 'Require a pull request before merging -> Require approval of the most recent reviewable push'.       [31m│[0m │
   │ [31m│[0m   4) Disable the rule.                                                                                           [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯[0m │
@@ -976,7 +976,7 @@
   │ [31m│[0m Validates that 'Require a pull request before merging -> Required approvals' is set to False.                    [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m ERROR: 'Require a pull request before merging -> Required approvals' rule active in ruleset 'main'. It should be [31m│[0m │
-  │ [31m│[0m set to False                                                                                                     [31m│[0m │
+  │ [31m│[0m set to False.                                                                                                    [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m Resolution                                                                                                       [31m│[0m │
   │ [31m│[0m ----------                                                                                                       [31m│[0m │
@@ -1036,7 +1036,7 @@
   │ [31m│[0m ----------                                                                                                       [31m│[0m │
   │ [31m│[0m   1) Visit '<scrubbed-github-url>'.                                                                              [31m│[0m │
   │ [31m│[0m   2) Find or create a ruleset on the branch 'main'.                                                              [31m│[0m │
-  │ [31m│[0m   3) Go to ''Require a pull request before merging -> Require review from Code Owners''.                         [31m│[0m │
+  │ [31m│[0m   3) Go to 'Require a pull request before merging -> Require review from Code Owners'.                           [31m│[0m │
   │ [31m│[0m   4) Enable the rule.                                                                                            [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯[0m │
@@ -1083,13 +1083,13 @@
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m Validates that 'Require code scanning results' is set to False.                                                  [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
-  │ [31m│[0m ERROR: 'Require code scanning results' rule active in ruleset 'main'. It should be set to False                  [31m│[0m │
+  │ [31m│[0m ERROR: 'Require code scanning results' rule active in ruleset 'main'. It should be set to False.                 [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m Resolution                                                                                                       [31m│[0m │
   │ [31m│[0m ----------                                                                                                       [31m│[0m │
   │ [31m│[0m   1) Visit '<scrubbed-github-url>'.                                                                              [31m│[0m │
   │ [31m│[0m   2) Find or create a ruleset on the branch 'main'.                                                              [31m│[0m │
-  │ [31m│[0m   3) Go to ''Require code scanning results''.                                                                    [31m│[0m │
+  │ [31m│[0m   3) Go to 'Require code scanning results'.                                                                      [31m│[0m │
   │ [31m│[0m   4) Disable the rule.                                                                                           [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯[0m │
@@ -1138,13 +1138,13 @@
   │ [31m│[0m to False.                                                                                                        [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m ERROR: 'Require a pull request before merging -> Require conversation resolution before merging' rule active in  [31m│[0m │
-  │ [31m│[0m ruleset 'main'. It should be set to False                                                                        [31m│[0m │
+  │ [31m│[0m ruleset 'main'. It should be set to False.                                                                       [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m Resolution                                                                                                       [31m│[0m │
   │ [31m│[0m ----------                                                                                                       [31m│[0m │
   │ [31m│[0m   1) Visit '<scrubbed-github-url>'.                                                                              [31m│[0m │
   │ [31m│[0m   2) Find or create a ruleset on the branch 'main'.                                                              [31m│[0m │
-  │ [31m│[0m   3) Go to ''Require a pull request before merging -> Require conversation resolution before merging''.          [31m│[0m │
+  │ [31m│[0m   3) Go to 'Require a pull request before merging -> Require conversation resolution before merging'.            [31m│[0m │
   │ [31m│[0m   4) Disable the rule.                                                                                           [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯[0m │
@@ -1197,7 +1197,7 @@
   │ [31m│[0m ----------                                                                                                       [31m│[0m │
   │ [31m│[0m   1) Visit '<scrubbed-github-url>'.                                                                              [31m│[0m │
   │ [31m│[0m   2) Find or create a ruleset on the branch 'main'.                                                              [31m│[0m │
-  │ [31m│[0m   3) Go to ''Require linear history''.                                                                           [31m│[0m │
+  │ [31m│[0m   3) Go to 'Require linear history'.                                                                             [31m│[0m │
   │ [31m│[0m   4) Enable the rule.                                                                                            [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯[0m │
@@ -1244,13 +1244,13 @@
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m Validates that 'Require a pull request before merging' is set to False.                                          [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
-  │ [31m│[0m ERROR: 'Require a pull request before merging' rule active in ruleset 'main'. It should be set to False          [31m│[0m │
+  │ [31m│[0m ERROR: 'Require a pull request before merging' rule active in ruleset 'main'. It should be set to False.         [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m Resolution                                                                                                       [31m│[0m │
   │ [31m│[0m ----------                                                                                                       [31m│[0m │
   │ [31m│[0m   1) Visit '<scrubbed-github-url>'.                                                                              [31m│[0m │
   │ [31m│[0m   2) Find or create a ruleset on the branch 'main'.                                                              [31m│[0m │
-  │ [31m│[0m   3) Go to ''Require a pull request before merging''.                                                            [31m│[0m │
+  │ [31m│[0m   3) Go to 'Require a pull request before merging'.                                                              [31m│[0m │
   │ [31m│[0m   4) Disable the rule.                                                                                           [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯[0m │
@@ -1297,13 +1297,13 @@
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m Validates that 'Require signed commits' is set to False.                                                         [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
-  │ [31m│[0m ERROR: 'Require signed commits' rule active in ruleset 'main'. It should be set to False                         [31m│[0m │
+  │ [31m│[0m ERROR: 'Require signed commits' rule active in ruleset 'main'. It should be set to False.                        [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m Resolution                                                                                                       [31m│[0m │
   │ [31m│[0m ----------                                                                                                       [31m│[0m │
   │ [31m│[0m   1) Visit '<scrubbed-github-url>'.                                                                              [31m│[0m │
   │ [31m│[0m   2) Find or create a ruleset on the branch 'main'.                                                              [31m│[0m │
-  │ [31m│[0m   3) Go to ''Require signed commits''.                                                                           [31m│[0m │
+  │ [31m│[0m   3) Go to 'Require signed commits'.                                                                             [31m│[0m │
   │ [31m│[0m   4) Disable the rule.                                                                                           [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯[0m │
@@ -1350,13 +1350,13 @@
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m Validates that 'Require status checks to pass' is set to False.                                                  [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
-  │ [31m│[0m ERROR: 'Require status checks to pass' rule active in ruleset 'main'. It should be set to False                  [31m│[0m │
+  │ [31m│[0m ERROR: 'Require status checks to pass' rule active in ruleset 'main'. It should be set to False.                 [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m Resolution                                                                                                       [31m│[0m │
   │ [31m│[0m ----------                                                                                                       [31m│[0m │
   │ [31m│[0m   1) Visit '<scrubbed-github-url>'.                                                                              [31m│[0m │
   │ [31m│[0m   2) Find or create a ruleset on the branch 'main'.                                                              [31m│[0m │
-  │ [31m│[0m   3) Go to ''Require status checks to pass''.                                                                    [31m│[0m │
+  │ [31m│[0m   3) Go to 'Require status checks to pass'.                                                                      [31m│[0m │
   │ [31m│[0m   4) Disable the rule.                                                                                           [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯[0m │
@@ -1409,7 +1409,7 @@
   │ [31m│[0m ----------                                                                                                       [31m│[0m │
   │ [31m│[0m   1) Visit '<scrubbed-github-url>'.                                                                              [31m│[0m │
   │ [31m│[0m   2) Find or create a ruleset on the branch 'main'.                                                              [31m│[0m │
-  │ [31m│[0m   3) Go to ''Require deployments to succeed''.                                                                   [31m│[0m │
+  │ [31m│[0m   3) Go to 'Require deployments to succeed'.                                                                     [31m│[0m │
   │ [31m│[0m   4) Enable the rule.                                                                                            [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯[0m │
@@ -1458,13 +1458,13 @@
   │ [31m│[0m False.                                                                                                           [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m ERROR: 'Require status checks to pass -> Require branches to be up to date before merging' rule active in        [31m│[0m │
-  │ [31m│[0m ruleset 'main'. It should be set to False                                                                        [31m│[0m │
+  │ [31m│[0m ruleset 'main'. It should be set to False.                                                                       [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m│[0m Resolution                                                                                                       [31m│[0m │
   │ [31m│[0m ----------                                                                                                       [31m│[0m │
   │ [31m│[0m   1) Visit '<scrubbed-github-url>'.                                                                              [31m│[0m │
   │ [31m│[0m   2) Find or create a ruleset on the branch 'main'.                                                              [31m│[0m │
-  │ [31m│[0m   3) Go to ''Require status checks to pass -> Require branches to be up to date before merging''.                [31m│[0m │
+  │ [31m│[0m   3) Go to 'Require status checks to pass -> Require branches to be up to date before merging'.                  [31m│[0m │
   │ [31m│[0m   4) Disable the rule.                                                                                           [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯[0m │
@@ -1517,7 +1517,7 @@
   │ [31m│[0m ----------                                                                                                       [31m│[0m │
   │ [31m│[0m   1) Visit '<scrubbed-github-url>'.                                                                              [31m│[0m │
   │ [31m│[0m   2) Find or create a ruleset on the branch 'main'.                                                              [31m│[0m │
-  │ [31m│[0m   3) Go to ''Restrict creations''.                                                                               [31m│[0m │
+  │ [31m│[0m   3) Go to 'Restrict creations'.                                                                                 [31m│[0m │
   │ [31m│[0m   4) Enable the rule.                                                                                            [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯[0m │
@@ -1570,7 +1570,7 @@
   │ [31m│[0m ----------                                                                                                       [31m│[0m │
   │ [31m│[0m   1) Visit '<scrubbed-github-url>'.                                                                              [31m│[0m │
   │ [31m│[0m   2) Find or create a ruleset on the branch 'main'.                                                              [31m│[0m │
-  │ [31m│[0m   3) Go to ''Restrict deletions''.                                                                               [31m│[0m │
+  │ [31m│[0m   3) Go to 'Restrict deletions'.                                                                                 [31m│[0m │
   │ [31m│[0m   4) Enable the rule.                                                                                            [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯[0m │
@@ -1623,7 +1623,7 @@
   │ [31m│[0m ----------                                                                                                       [31m│[0m │
   │ [31m│[0m   1) Visit '<scrubbed-github-url>'.                                                                              [31m│[0m │
   │ [31m│[0m   2) Find or create a ruleset on the branch 'main'.                                                              [31m│[0m │
-  │ [31m│[0m   3) Go to ''Restrict updates''.                                                                                 [31m│[0m │
+  │ [31m│[0m   3) Go to 'Restrict updates'.                                                                                   [31m│[0m │
   │ [31m│[0m   4) Enable the rule.                                                                                            [31m│[0m │
   │ [31m│[0m                                                                                                                  [31m│[0m │
   │ [31m╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯[0m │

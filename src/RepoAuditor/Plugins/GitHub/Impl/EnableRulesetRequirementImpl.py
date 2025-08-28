@@ -42,7 +42,7 @@ class EnableRulesetRequirementImpl(EnableRequirementImpl):
                 """\
                 1) Visit '{session.github_url}/settings/rules'.
                 2) Find or create a ruleset on the branch '{branch}'.
-                3) Go to '{__ruleset_value}'.
+                3) Go to {__ruleset_value}.
                 4) {__enabled_str} the rule.
                 """
             )
@@ -129,7 +129,7 @@ class EnableRulesetRequirementImpl(EnableRequirementImpl):
 
             return self.EvaluateImplResult(
                 EvaluateResult.Error,
-                f"{self.github_settings_value} rule active in ruleset '{ruleset['name']}'. It should be set to {expected_rule_enabled}",
+                f"{self.github_settings_value} rule active in ruleset '{ruleset['name']}'. It should be set to {expected_rule_enabled}.",
                 provide_resolution=True,
                 provide_rationale=provide_rationale,
             )
