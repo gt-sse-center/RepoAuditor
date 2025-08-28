@@ -11,8 +11,8 @@ from typing import Any, Optional
 from dbrownell_Common.Types import override
 
 from RepoAuditor.Impl.ParallelSequentialProcessor import ExecutionStyle
-from RepoAuditor.Plugins.GitHub.RulesetRequirements.AllowMainlineForcePushes import (
-    AllowMainlineForcePushesRule,
+from RepoAuditor.Plugins.GitHub.RulesetRequirements.BlockMainlineForcePushes import (
+    BlockMainlineForcePushesRule,
 )
 from RepoAuditor.Plugins.GitHub.RulesetRequirements.DismissStalePullRequestApprovals import (
     DismissStalePullRequestApprovalsRule,
@@ -68,7 +68,7 @@ class RulesetQuery(Query):
                 RequireStatusChecksToPassRule(),
                 RequireUpToDateBranchesRule(),
                 EnsureStatusChecksRule(),
-                AllowMainlineForcePushesRule(),
+                BlockMainlineForcePushesRule(),
                 RequireCodeScanningResultsRule(),
             ],
         )

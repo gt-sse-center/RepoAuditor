@@ -4,7 +4,7 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Unit tests for AllowMainlineForcePushesRule.py"""
+"""Unit tests for RequireUpToDateBranchesRule.py"""
 
 from RepoAuditor.Plugins.GitHub.RulesetRequirements.RequireUpToDateBranches import (
     RequireUpToDateBranchesRule,
