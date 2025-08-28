@@ -59,5 +59,6 @@ class Citation(ExistsRequirementImpl):
                 https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-citation-files
                 """
             ),
-            dynamic_arg_name="unrequired",
+            enabled_by_default=False,  # Don't require citation file to be present.
+            dynamic_arg_name="required",
         )

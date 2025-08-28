@@ -9,7 +9,6 @@
 from unittest.mock import Mock
 
 import pytest
-
 from dbrownell_Common.Types import override
 
 from RepoAuditor.Requirement import *
