@@ -4,21 +4,21 @@
 # |  Distributed under the MIT License.
 # |
 # -------------------------------------------------------------------------------
-"""Contains the AllowMainlineForcePushesRule requirement."""
+"""Contains the BlockMainlineForcePushesRule requirement."""
 
 import textwrap
 
 from RepoAuditor.Plugins.GitHub.Impl.EnableRulesetRequirementImpl import EnableRulesetRequirementImpl
 
 
-class AllowMainlineForcePushesRule(EnableRulesetRequirementImpl):
-    """Requirement for rule to allow force pushes to the matching branch."""
+class BlockMainlineForcePushesRule(EnableRulesetRequirementImpl):
+    """Requirement for rule to block force pushes to the mainline branch."""
 
     def __init__(self) -> None:
         super().__init__(
-            name="AllowMainlineForcePushesRule",
-            enabled_by_default=False,
-            dynamic_arg_name="yes",
+            name="BlockMainlineForcePushesRule",
+            enabled_by_default=True,
+            dynamic_arg_name="no",
             github_ruleset_type="non_fast_forward",
             github_ruleset_value="Block force pushes",
             get_configuration_value_func=self._GetValue,
@@ -34,7 +34,7 @@ class AllowMainlineForcePushesRule(EnableRulesetRequirementImpl):
 
                 Reasons to Override this Default
                 --------------------------------
-                <unknown>
+                - If the repository only has a single developer or if is private.
                 """,
             ),
         )

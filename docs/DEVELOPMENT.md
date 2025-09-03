@@ -107,7 +107,7 @@ Please follow the steps below to complete the configuration.
   - Enable `Require status checks to pass`.
     - Enable `Require branches to be up to date before merging`.
     - Set the `CI+CD Workflow / Validate (ubuntu-latest, 3.12)` or an equivalent check.
-  - Disable `Block force pushes`.
+  - Enable `Block force pushes`.
   - Be sure to hit `Save changes` at the end.
 
 ### Development Activities
