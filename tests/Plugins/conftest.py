@@ -6,13 +6,13 @@
 # -------------------------------------------------------------------------------
 """Common test fixtures for Plugins."""
 
-from typing import Any
 from pathlib import Path
+from typing import Any
 
 import pytest
 
 # Fixtures included here so it is available for all tests
-from GitHubModule.fixtures import session_fixture, query_data_fixture  # noqa: F401
+from GitHubModule.fixtures import query_data_fixture, session_fixture  # noqa: F401
 from utilities import CheckPATFileExists, GetGithubUrl
 
 from RepoAuditor.Plugins.GitHubBase.Module import _GitHubSession

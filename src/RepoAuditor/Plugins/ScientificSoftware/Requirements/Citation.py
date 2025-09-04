@@ -37,7 +37,7 @@ class Citation(ExistsRequirementImpl):
                 "citations.bib",
                 "citation.md",
                 "citations.md",
-                # R packages are located in the `inst` directory
+                # Citations for R packages are located in the `inst` directory
                 "inst/CITATION",
             ],
             resolution=textwrap.dedent(
@@ -59,5 +59,4 @@ class Citation(ExistsRequirementImpl):
                 https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-citation-files
                 """
             ),
-            dynamic_arg_name="unrequired",
         )
