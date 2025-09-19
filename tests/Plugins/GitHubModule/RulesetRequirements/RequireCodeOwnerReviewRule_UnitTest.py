@@ -6,6 +6,8 @@
 # -------------------------------------------------------------------------------
 """Unit tests for RequireCodeOwnerReviewRule.py"""
 
+import pytest
+
 from RepoAuditor.Plugins.GitHub.RulesetRequirements.RequireCodeOwnerReview import (
     RequireCodeOwnerReviewRule,
 )
@@ -14,12 +16,16 @@ from RepoAuditor.Requirement import EvaluateResult
 from . import create_rule
 
 
+@pytest.fixture(name="requirement")
+def requirement_fixture():
+    return RequireCodeOwnerReviewRule()
+
+
 class TestRequireCodeOwnerReviewRule:
     """Unit tests for the RequireCodeOwnerReviewRule requirement."""
 
-    def test_Enabled(self, query_data):
+    def test_Enabled(self, requirement, query_data):
         """Test if the rule is enabled on the main branch."""
-        requirement = RequireCodeOwnerReviewRule()
 
         query_data["rules"].append(
             create_rule(
@@ -34,11 +40,10 @@ class TestRequireCodeOwnerReviewRule:
         assert result.result == EvaluateResult.Success
         assert f"{requirement.github_settings_value} is enabled" in result.context
 
-    def test_Disabled(self, query_data):
+    def test_Disabled(self, requirement, query_data):
         """Test if the required rule is disabled on the main branch
         by providing the value as false.
         """
-        requirement = RequireCodeOwnerReviewRule()
 
         query_data["rules"].append(
             create_rule(
@@ -53,11 +58,10 @@ class TestRequireCodeOwnerReviewRule:
         result = requirement.Evaluate(query_data, {"yes": True})
         assert result.result == EvaluateResult.Error
 
-    def test_WrongRuleType(self, query_data):
+    def test_WrongRuleType(self, requirement, query_data):
         """Test if the required rule is disabled on the main branch
         by providing the wrong rule type.
         """
-        requirement = RequireCodeOwnerReviewRule()
 
         query_data["rules"].append(
             create_rule(
@@ -65,6 +69,22 @@ class TestRequireCodeOwnerReviewRule:
                 # Wrong rule type
                 rule_type="push_request",
                 ruleset_name="Ruleset Main",
+                parameters={},
+            )
+        )
+
+        result = requirement.Evaluate(query_data, {"yes": True})
+        assert result.result == EvaluateResult.Error
+
+    def test_NoneRuleType(self, requirement, query_data):
+        """Test behavior when the rule type provided is None."""
+
+        query_data["rules"].append(
+            create_rule(
+                name="Inactive PR Rules",
+                # None rule type
+                rule_type=None,
+                ruleset_name="main",
                 parameters={},
             )
         )
