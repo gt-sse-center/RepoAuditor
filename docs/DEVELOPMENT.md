@@ -146,7 +146,7 @@ We use [MkDocs](https://www.mkdocs.org/) to generate the documentation website.
 To generate the docs, please run
 
 ```sh
-uv run mkdocs --serve
+uv run mkdocs serve
 ```
 
 and go to the specified URL.

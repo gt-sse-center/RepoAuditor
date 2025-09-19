@@ -4,6 +4,10 @@
 
 It helps maintain high-quality and consistent open-source repositories even if you are new to maintaining open-source software.
 
+## Compatibility
+
+We only support Python 3.10 and above. Please make sure you have a suitable python version.
+
 ## Contents
 
 - [Installation](#installation)
@@ -16,10 +20,13 @@ It helps maintain high-quality and consistent open-source repositories even if y
 ## Installation
 
 We recommend using [uv](https://docs.astral.sh/uv/#uv) since it can install `RepoAuditor` as a tool via `uvx` into a sandbox environment for quick use.
-This lets you directly run `RepoAuditor`.
 
+This lets you directly run `RepoAuditor` without the need to clone the repository or install the package.
+
+<!-- termynal -->
 ```sh
-uvx RepoAuditor
+> uvx RepoAuditor --version
+RepoAuditor v0.4.2
 ```
 
 Alternatively, you can install `RepoAuditor` via `uv` or `pip`.
