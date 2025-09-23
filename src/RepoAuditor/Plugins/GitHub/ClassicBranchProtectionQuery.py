@@ -162,6 +162,12 @@ class ClassicBranchProtectionQuery(Query):
         if not module_data["branch_data"].get("protected", False):
             return None
 
+        # Classic branch protection information is only accessible when a pat is provided.
+        # Exit gracefully if there isn't a PAT, as the ClassicBranchProtectionQuery
+        # will print a warning if the PAT wasn't provided.
+        if module_data["session"].github_pat is None:
+            return None
+
         # Note that once here, we know that the branch is protected, but we don't know the
         # protection scheme used (rule sets or classic). Attempt to get the classic information
         # and then see if rule sets are in use if the classic information is not found.
@@ -176,12 +182,6 @@ class ClassicBranchProtectionQuery(Query):
 
             # If there is data, assume that the branch is protected by rule sets
             if ruleset_response:
-                return None
-
-            # Classic branch protection information is only accessible when a pat is provided. Exit
-            # gracefully if there isn't a PAT, as the DefaultBranchQuery will print a warning if
-            # the PAT wasn't provided.
-            if module_data["session"].github_pat is None:
                 return None
 
             # If here, let the error result in an exception in the code that follows.
