@@ -14,6 +14,7 @@ import traceback
 from pathlib import Path
 from typing import Annotated, Optional
 
+import click
 import pluggy
 import typer
 from click.exceptions import UsageError
@@ -39,7 +40,10 @@ class NaturalOrderGrouper(TyperGroup):
     """Group commands in natural order."""
 
     # ----------------------------------------------------------------------
-    def list_commands(self, *args, **kwargs) -> list[str]:  # noqa: ARG002  # pragma: no cover
+    def list_commands(
+        self,
+        ctx: click.Context,  # noqa: ARG002
+    ) -> list[str]:  # pragma: no cover
         """Return a list of all the commands, to be sorted in a natural ordering."""
         return list(self.commands.keys())
 
@@ -233,14 +237,18 @@ def EntryPoint(  # noqa: PLR0913  # pragma: no cover
         ),
     ] = None,
     all_warnings_as_error: Annotated[  # noqa: FBT002
-        bool, typer.Option("--all-warnings-as-error", help="Treat all warnings as errors.")
+        bool,
+        typer.Option("--all-warnings-as-error", help="Treat all warnings as errors."),
     ] = False,
     ignore_all_warnings: Annotated[  # noqa: FBT002
         bool, typer.Option("--ignore-all-warnings", help="Ignore all warnings.")
     ] = False,
     single_threaded: Annotated[  # noqa: FBT002
         bool,
-        typer.Option("--single-threaded", help="Do not use multiple threads when evaluating requirements."),
+        typer.Option(
+            "--single-threaded",
+            help="Do not use multiple threads when evaluating requirements.",
+        ),
     ] = False,
     no_resolution: Annotated[  # noqa: FBT002
         bool,
@@ -327,8 +335,8 @@ def EntryPoint(  # noqa: PLR0913  # pragma: no cover
 
             # Since `output` can be None, we use the nullcontext manager to represent None
             with (
-                Path(output).open(mode="w+", encoding="UTF-8") if output else contextlib.nullcontext() as file
-            ):
+                Path(output).open(mode="w+", encoding="UTF-8") if output else contextlib.nullcontext()
+            ) as file:
                 DisplayResults(
                     dm,
                     all_results,

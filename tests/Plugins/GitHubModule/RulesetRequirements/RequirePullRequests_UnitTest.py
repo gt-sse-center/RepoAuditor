@@ -8,8 +8,7 @@
 
 from RepoAuditor.Plugins.GitHub.RulesetRequirements.RequirePullRequests import RequirePullRequests
 from RepoAuditor.Requirement import EvaluateResult
-
-from . import create_rule
+from tests.Plugins.GitHubModule.RulesetRequirements import create_rule
 
 
 class TestRequirePullRequests:
