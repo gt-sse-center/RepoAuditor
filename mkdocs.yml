@@ -2,9 +2,10 @@ site_name: RepoAuditor
 site_description: Audits repositories for best practices.
 nav:
   - Home: index.md
-  - PAT: PAT.md
+  - Personal Access Token: PAT.md
   - Usage: usage.md
   - Config File: config_file.md
+  - Writing a Custom Plugin: custom_plugin.md
   - Development: DEVELOPMENT.md
   - Contributing: CONTRIBUTING.md
   - Troubleshooting: troubleshooting.md
@@ -18,8 +19,17 @@ theme:
 plugins:
   - termynal
 
-# Extensions to render emojis
+# Extensions
 markdown_extensions:
-  - pymdownx.emoji:
+  - pymdownx.highlight:
+      use_pygments: true
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+      # auto_title: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.emoji:  # render emojis
       emoji_index: !!python/name:material.extensions.emoji.twemoji
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
