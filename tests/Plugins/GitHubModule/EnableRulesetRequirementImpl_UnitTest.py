@@ -134,3 +134,25 @@ class TestEnableRulesetRequirementImpl:
         result = requirement.Evaluate(query_data, requirement_args)
 
         assert result.result == EvaluateResult.Success
+
+    def test_NoneRuleType(self, query_data):
+        """Test behavior when the rule type provided is None."""
+        requirement = EnableRulesetRequirementImpl(
+            name="Test Name",
+            enabled_by_default=False,
+            dynamic_arg_name="yes",
+            github_ruleset_type="Test Ruleset",
+            github_ruleset_value="test_ruleset",
+            get_configuration_value_func=lambda x: x,
+            resolution="Test Resolution",
+            rationale="Test rationale",
+        )
+
+        # Set correct get_configuration_value_func
+        requirement.get_configuration_value_func = requirement._GetValue
+
+        query_data = {"rules": [{"type": None}]}
+        requirement_args = {"yes": True}
+        result = requirement.Evaluate(query_data, requirement_args)
+
+        assert result.result == EvaluateResult.Error
