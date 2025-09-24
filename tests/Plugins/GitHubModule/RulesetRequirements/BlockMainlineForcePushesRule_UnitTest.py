@@ -10,8 +10,7 @@ from RepoAuditor.Plugins.GitHub.RulesetRequirements.BlockMainlineForcePushes imp
     BlockMainlineForcePushesRule,
 )
 from RepoAuditor.Requirement import EvaluateResult
-
-from . import create_rule
+from tests.Plugins.GitHubModule.RulesetRequirements import create_rule
 
 
 class TestBlockMainlineForcePushesRule:
