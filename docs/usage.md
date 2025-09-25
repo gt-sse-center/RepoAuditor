@@ -31,7 +31,6 @@ uvx repoauditor --include GitHub \
 ```
 
 `RepoAuditor` will generate a series of messages describing all the issues in the repository, along with the rationale behind them and the steps for resolution.
-
 <br/>
 
 ## Custom Settings

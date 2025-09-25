@@ -15,6 +15,7 @@ We only support Python 3.10 and above. Please make sure you have a suitable pyth
 - [Personal Access Token](PAT.md)
 - [Example Usage](usage.md)
 - [Config File](config_file.md)
+- [Writing a Custom Plugin](custom_plugin.md)
 - [Development](development)
 
 ## Installation
