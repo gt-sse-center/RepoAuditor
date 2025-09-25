@@ -106,3 +106,13 @@ max-complexity = 15
 max-args = 10
 max-branches = 20
 max-returns = 20
+
+[tool.tox]
+requires = ["tox>=4.26.0"]
+env_list = ["3.13", "3.12", "3.11", "3.10"]
+
+[tool.tox.env_run_base]
+description = "Run test under {base_python}"
+commands = [["pytest"]]
+allowlist_externals =  ["pytest"]
+runner = "uv-venv-lock-runner"
